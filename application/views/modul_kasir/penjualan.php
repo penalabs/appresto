@@ -211,8 +211,8 @@ function pajak(pajak,hargaAwal){
 	function save(){
 		var bayar=$('#bayar').val();
     var kembali=$('#kembali_value').val();
-    var id_user_kasir=<?php echo $this->session->userdata('id'); ?>
-		alert(idd_pesan)
+    var id_user_kasir=<?php echo $this->session->userdata('id'); ?>;
+		alert(idd_pesan);
 			$.ajax({
                 type  : 'POST',
                 url   : '<?php echo base_url(). 'kasir/action_pembayaran'; ?>',

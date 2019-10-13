@@ -3,11 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
-<<<<<<< HEAD
--- Generation Time: Oct 12, 2019 at 10:46 PM
-=======
--- Generation Time: Oct 10, 2019 at 12:12 AM
->>>>>>> 4c77bc07fbeb99c9c53e982b89438da17bc7c334
+-- Generation Time: Oct 13, 2019 at 01:31 PM
 -- Server version: 10.3.18-MariaDB-1:10.3.18+maria~bionic
 -- PHP Version: 7.2.19-0ubuntu0.18.04.2
 
@@ -52,7 +48,6 @@ INSERT INTO `bahan_mentah` (`id`, `id_resto`, `id_logistik`, `nama_bahan`, `satu
 -- --------------------------------------------------------
 
 --
-<<<<<<< HEAD
 -- Table structure for table `bahan_mentah_masakan`
 --
 
@@ -73,8 +68,6 @@ INSERT INTO `bahan_mentah_masakan` (`id`, `id_produksi_masakan`, `id_bahan_menta
 -- --------------------------------------------------------
 
 --
-=======
->>>>>>> 4c77bc07fbeb99c9c53e982b89438da17bc7c334
 -- Table structure for table `bahan_olahan`
 --
 
@@ -98,7 +91,6 @@ INSERT INTO `bahan_olahan` (`id`, `id_logistik`, `nama_bahan`, `satuan_kecil`, `
 -- --------------------------------------------------------
 
 --
-<<<<<<< HEAD
 -- Table structure for table `bahan_olahan_masakan`
 --
 
@@ -119,8 +111,6 @@ INSERT INTO `bahan_olahan_masakan` (`id`, `id_produksi_masakan`, `id_bahan_olaha
 -- --------------------------------------------------------
 
 --
-=======
->>>>>>> 4c77bc07fbeb99c9c53e982b89438da17bc7c334
 -- Table structure for table `biaya_lain`
 --
 
@@ -164,17 +154,10 @@ INSERT INTO `daftar_masakan` (`id`, `id_bahan_oalahan`, `id_menu`, `jenis`, `jum
 -- --------------------------------------------------------
 
 --
-<<<<<<< HEAD
 -- Table structure for table `detail_paket`
 --
 
 CREATE TABLE `detail_paket` (
-=======
--- Table structure for table `detil_paket`
---
-
-CREATE TABLE `detil_paket` (
->>>>>>> 4c77bc07fbeb99c9c53e982b89438da17bc7c334
   `id` int(11) NOT NULL,
   `id_paket` int(11) NOT NULL,
   `id_menu` int(11) NOT NULL,
@@ -184,17 +167,10 @@ CREATE TABLE `detil_paket` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
-<<<<<<< HEAD
 -- Dumping data for table `detail_paket`
 --
 
 INSERT INTO `detail_paket` (`id`, `id_paket`, `id_menu`, `jumlah`, `total_harga`, `diskon`) VALUES
-=======
--- Dumping data for table `detil_paket`
---
-
-INSERT INTO `detil_paket` (`id`, `id_paket`, `id_menu`, `jumlah`, `total_harga`, `diskon`) VALUES
->>>>>>> 4c77bc07fbeb99c9c53e982b89438da17bc7c334
 (8, 1, 2, 1, '80000', '');
 
 -- --------------------------------------------------------
@@ -378,20 +354,12 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`id`, `id_resto`, `menu`, `foto`, `harga`, `status`, `stok`, `mode`) VALUES
-<<<<<<< HEAD
 (1, 1, 'Ayam Geprek', 'nasibebek.jpg', 10000, 'tersedia', 10, 'insert'),
 (2, 1, 'Jamur Kripsi', '124789-mint-background-2560x1600-for-ios.jpg', 10000, 'tersedia', 10, 'insert'),
 (3, 1, 'Es Teh Anget', '124789-mint-background-2560x1600-for-ios4.jpg', 10000, 'tersedia', 10, 'insert'),
 (4, 1, 'Kopi Susu', '', 3000, 'tersedia', 6, 'insert'),
 (5, 1, 'Nasi Goreng', '', 6000, 'habis', 5, 'insert'),
 (6, 1, 'Tahu Kripsi', 'wp2754931.jpg', 6000, 'tersedia', 1, 'insert');
-=======
-(1, 1, 'Ayam Geprek', 'nasibebek.jpg', 10000, 'tersedia', -1, 'insert'),
-(2, 1, 'Jamur Kripsi', 'gepreksai.jpg', 8000, 'tersedia', -1, 'insert'),
-(3, 1, 'Es Teh Anget', '', 2000, 'tersedia', -1, 'insert'),
-(4, 1, 'Kopi Susu', '', 3000, 'tersedia', 6, 'insert'),
-(5, 1, 'Nasi Goreng', '', 6000, 'habis', 5, 'insert');
->>>>>>> 4c77bc07fbeb99c9c53e982b89438da17bc7c334
 
 -- --------------------------------------------------------
 
@@ -602,12 +570,7 @@ CREATE TABLE `pemesanan` (
 INSERT INTO `pemesanan` (`id`, `nama_pemesan`, `no_meja`, `keterangantambahan`, `tanggal`, `total_harga`, `id_user_resto`, `status`) VALUES
 (1, 'irhas', 4, 'sambel banyak tapi sedikit', '2019-10-02 10:34:01', 196000, 2, 'kredit'),
 (2, 'fauzin', 3, 'bumbu sedikit', '2019-09-29 11:09:54', 52000, 2, 'produksi'),
-<<<<<<< HEAD
 (3, 'wahyu', 6, 'gelas besar', '2019-09-29 11:10:37', 3000, 2, 'selsai');
-=======
-(3, 'wahyu', 6, 'gelas besar', '2019-09-29 11:10:37', 3000, 2, 'selsai'),
-(4, 'debi', 7, '', '2019-09-29 11:12:09', 20000, 2, 'selsai');
->>>>>>> 4c77bc07fbeb99c9c53e982b89438da17bc7c334
 
 -- --------------------------------------------------------
 
@@ -811,10 +774,6 @@ INSERT INTO `permintaan_bahan` (`id_permintaan`, `id_user_resto_produksi_adminre
 (109, '3', '3', 'permintaan 5', '2019-08-03 23:19:44', '2019-08-03 23:21:43', '2019-08-03 23:22:11', 'diterima'),
 (111, '3', '3', 'permintaan 11', '2019-08-08 22:14:38', '2019-08-08 22:15:05', '2019-08-08 22:19:26', 'diterima'),
 (121, '3', '3', 'permintaan 22', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'draft'),
-<<<<<<< HEAD
-=======
-(122, '3', '3', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'draft'),
->>>>>>> 4c77bc07fbeb99c9c53e982b89438da17bc7c334
 (123, '3', '3', 'permintaan 25', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'draft'),
 (125, '4', '3', 'permintaan1', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'draft'),
 (126, '3', '3', 'permintaan 2', '2019-09-29 12:27:46', '2019-09-29 12:28:11', '2019-09-29 12:28:31', 'diterima');
@@ -916,7 +875,6 @@ INSERT INTO `produksi_bahan_olahan` (`id`, `id_bahan_mentah`, `id_bahan_olahan`,
 -- --------------------------------------------------------
 
 --
-<<<<<<< HEAD
 -- Table structure for table `produksi_masakan`
 --
 
@@ -937,8 +895,6 @@ INSERT INTO `produksi_masakan` (`id`, `id_menu`, `tanggal`, `jumlah_masakan`) VA
 -- --------------------------------------------------------
 
 --
-=======
->>>>>>> 4c77bc07fbeb99c9c53e982b89438da17bc7c334
 -- Table structure for table `resto`
 --
 
@@ -960,7 +916,6 @@ INSERT INTO `resto` (`id`, `id_kanwil`, `nama_resto`, `alamat`, `no_telp`) VALUE
 -- --------------------------------------------------------
 
 --
-<<<<<<< HEAD
 -- Table structure for table `stok_bahan_mentah_produksi`
 --
 
@@ -1001,8 +956,6 @@ INSERT INTO `stok_bahan_olahan_produksi` (`id`, `id_bahan_olahan`, `stok`) VALUE
 -- --------------------------------------------------------
 
 --
-=======
->>>>>>> 4c77bc07fbeb99c9c53e982b89438da17bc7c334
 -- Table structure for table `superadmin`
 --
 
@@ -1114,30 +1067,24 @@ ALTER TABLE `bahan_mentah`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
-<<<<<<< HEAD
 -- Indexes for table `bahan_mentah_masakan`
 --
 ALTER TABLE `bahan_mentah_masakan`
   ADD PRIMARY KEY (`id`);
 
 --
-=======
->>>>>>> 4c77bc07fbeb99c9c53e982b89438da17bc7c334
 -- Indexes for table `bahan_olahan`
 --
 ALTER TABLE `bahan_olahan`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
-<<<<<<< HEAD
 -- Indexes for table `bahan_olahan_masakan`
 --
 ALTER TABLE `bahan_olahan_masakan`
   ADD PRIMARY KEY (`id`);
 
 --
-=======
->>>>>>> 4c77bc07fbeb99c9c53e982b89438da17bc7c334
 -- Indexes for table `biaya_lain`
 --
 ALTER TABLE `biaya_lain`
@@ -1150,15 +1097,9 @@ ALTER TABLE `daftar_masakan`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
-<<<<<<< HEAD
 -- Indexes for table `detail_paket`
 --
 ALTER TABLE `detail_paket`
-=======
--- Indexes for table `detil_paket`
---
-ALTER TABLE `detil_paket`
->>>>>>> 4c77bc07fbeb99c9c53e982b89438da17bc7c334
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
@@ -1342,22 +1283,18 @@ ALTER TABLE `produksi_bahan_olahan`
   ADD PRIMARY KEY (`id`);
 
 --
-<<<<<<< HEAD
 -- Indexes for table `produksi_masakan`
 --
 ALTER TABLE `produksi_masakan`
   ADD PRIMARY KEY (`id`);
 
 --
-=======
->>>>>>> 4c77bc07fbeb99c9c53e982b89438da17bc7c334
 -- Indexes for table `resto`
 --
 ALTER TABLE `resto`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
-<<<<<<< HEAD
 -- Indexes for table `stok_bahan_mentah_produksi`
 --
 ALTER TABLE `stok_bahan_mentah_produksi`
@@ -1370,8 +1307,6 @@ ALTER TABLE `stok_bahan_olahan_produksi`
   ADD PRIMARY KEY (`id`);
 
 --
-=======
->>>>>>> 4c77bc07fbeb99c9c53e982b89438da17bc7c334
 -- Indexes for table `superadmin`
 --
 ALTER TABLE `superadmin`
@@ -1405,27 +1340,21 @@ ALTER TABLE `user_resto`
 ALTER TABLE `bahan_mentah`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
-<<<<<<< HEAD
 -- AUTO_INCREMENT for table `bahan_mentah_masakan`
 --
 ALTER TABLE `bahan_mentah_masakan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
-=======
->>>>>>> 4c77bc07fbeb99c9c53e982b89438da17bc7c334
 -- AUTO_INCREMENT for table `bahan_olahan`
 --
 ALTER TABLE `bahan_olahan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
-<<<<<<< HEAD
 -- AUTO_INCREMENT for table `bahan_olahan_masakan`
 --
 ALTER TABLE `bahan_olahan_masakan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
-=======
->>>>>>> 4c77bc07fbeb99c9c53e982b89438da17bc7c334
 -- AUTO_INCREMENT for table `biaya_lain`
 --
 ALTER TABLE `biaya_lain`
@@ -1436,15 +1365,9 @@ ALTER TABLE `biaya_lain`
 ALTER TABLE `daftar_masakan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
-<<<<<<< HEAD
 -- AUTO_INCREMENT for table `detail_paket`
 --
 ALTER TABLE `detail_paket`
-=======
--- AUTO_INCREMENT for table `detil_paket`
---
-ALTER TABLE `detil_paket`
->>>>>>> 4c77bc07fbeb99c9c53e982b89438da17bc7c334
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `insentif`
@@ -1485,11 +1408,7 @@ ALTER TABLE `meja`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-<<<<<<< HEAD
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-=======
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
->>>>>>> 4c77bc07fbeb99c9c53e982b89438da17bc7c334
 --
 -- AUTO_INCREMENT for table `omset_investasi`
 --
@@ -1596,20 +1515,16 @@ ALTER TABLE `produksi`
 ALTER TABLE `produksi_bahan_olahan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
-<<<<<<< HEAD
 -- AUTO_INCREMENT for table `produksi_masakan`
 --
 ALTER TABLE `produksi_masakan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
-=======
->>>>>>> 4c77bc07fbeb99c9c53e982b89438da17bc7c334
 -- AUTO_INCREMENT for table `resto`
 --
 ALTER TABLE `resto`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
-<<<<<<< HEAD
 -- AUTO_INCREMENT for table `stok_bahan_mentah_produksi`
 --
 ALTER TABLE `stok_bahan_mentah_produksi`
@@ -1620,8 +1535,6 @@ ALTER TABLE `stok_bahan_mentah_produksi`
 ALTER TABLE `stok_bahan_olahan_produksi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
-=======
->>>>>>> 4c77bc07fbeb99c9c53e982b89438da17bc7c334
 -- AUTO_INCREMENT for table `superadmin`
 --
 ALTER TABLE `superadmin`
