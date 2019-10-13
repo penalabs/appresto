@@ -1,0 +1,30 @@
+KASIR
+
+fix TAMPILAN AWAL PEMBAYARAN
+fix DETAIL PESAN
+
+PRODUKSI
+GANTI STATUS SIAP SAJI
+
+
+LOGISTIK
+pengadaan bahan mentah
+membuat fitur entry bahan mentah
+
+* modul pengadaan peralatan dibuat sama saja kayak pengadaan bahan mentah
+
+
+KALAU ADA PERUBAHAN DATABASE 
+SILAHKAN ISI DISINI
+
+* perubahan database tanggal ada perubahan database silahkan import database yang tidak ada tanggalnya
+untuk restore database bisa diambil sesuai tanggal
+
+perubahan tabel bahan olahan bahan jadi dan daftar masakan
+
+
+import database db_siresto
+pembenahan produksi master menu
+menambah fitur produksi masakan
+mengambil stok table bahan mentah dan bahan olahan
+permintaan bahan mentah dan olahan di SUM, masing masing jumlah permintaan stoknya di tambahkan ke table stok bahan mentah produksi dan stok bahan olahan produksi
