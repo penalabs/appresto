@@ -411,15 +411,134 @@ class modul_produksi extends CI_Controller {
 
 	public function produksi_masakan()
 	{
+		$this->session->set_userdata("");
 		$sql = "SELECT * FROM produksi_masakan join menu on menu.id=produksi_masakan.id_menu";
 		$data['data']=$this->db->query($sql)->result();
 		$this->load->view('modul_produksi/produksi_masakan',$data);
 	}
-	public function get_stok_bahan_mentah(){
-		
+	public function aksi_tambah_bahan_mentah_produksi(){
+
+			$id_produksi_masakan = $this->input->post('id_produksi_masakan');
+			$id_bahan_mentah = $this->input->post('id_bahan_mentah');
+			$jumlah = $this->input->post('jumlah_bahan');
+			$menu = $this->input->post('menu');
+
+			$data = array(
+				'id_produksi_masakan' => $id_produksi_masakan,
+				'id_bahan_mentah' => $id_bahan_mentah,
+				'jumlah' => $jumlah
+				);
+			$sql = "SELECT stok FROM stok_bahan_mentah_produksi where id_bahan_mentah='$id_bahan_mentah'";
+			$stok_bahan_mentah=$this->db->query($sql)->row();
+			$cek_stok=$this->db->query($sql)->num_rows();
+			if($cek_stok==0){
+					$data_session = array(
+						'pesan' => 'stok bahan mentah kosong',
+					);
+					$this->session->set_userdata($data_session);
+			}else{
+			$hasil_akhir_stok_bahan_mentah=(int)$stok_bahan_mentah->stok-(int)$jumlah;
+
+			$this->m_modul_produksi->input_data($data,'bahan_mentah_masakan');
+
+			$data4 = array(
+				'stok' => $hasil_akhir_stok_bahan_mentah,
+			);
+
+			$where4 = array(
+				'id_bahan_mentah' => $id_bahan_mentah
+			);
+
+			$this->m_modul_produksi->update_data($where4,$data4,'stok_bahan_mentah_produksi');
+
+			$data_session = array(
+				'pesan' => 'berhasil manmbah data',
+			);
+
+			$this->session->set_userdata($data_session);
+			}
+			redirect('modul_produksi/produksi_masakan/?id='.$id_produksi_masakan.'&&menu='.$menu,$data);
+
 	}
 
+		function aksi_tambah_produksi(){
+			$id_menu = $this->input->post('nama_menu');
+			$jumlah_produksi = $this->input->post('jumlah_produksi');
+
+			$tanggal=date('Y-m-d');
+			$data = array(
+				'id_menu' => $id_menu,
+				'jumlah_masakan' => $jumlah_produksi,
+				'tanggal' => $tanggal,
+				);
+			$this->m_modul_produksi->input_data($data,'produksi_masakan');
+
+			$sql = "SELECT stok FROM menu where id='$id_menu'";
+			$stok_menu=$this->db->query($sql)->row();
+			$cek_stok=$this->db->query($sql)->num_rows();
 
 
+				$hasil_akhir_stok_menu=(int)$stok_menu->stok+(int)$jumlah_produksi;
+
+
+				$data4 = array(
+					'stok' => $hasil_akhir_stok_menu,
+				);
+
+				$where4 = array(
+					'id' => $id_menu
+				);
+
+				$this->m_modul_produksi->update_data($where4,$data4,'menu');
+
+
+			redirect('modul_produksi/produksi_masakan/');
+		}
+
+		public function aksi_tambah_bahan_olahan_produksi(){
+
+				$id_produksi_masakan = $this->input->post('id_produksi_masakan');
+				$id_bahan_olahan = $this->input->post('id_bahan_olahan');
+				$jumlah = $this->input->post('jumlah_bahan');
+				$menu = $this->input->post('menu');
+
+				$data = array(
+					'id_produksi_masakan' => $id_produksi_masakan,
+					'id_bahan_olahan' => $id_bahan_olahan,
+					'jumlah' => $jumlah
+					);
+				$sql = "SELECT stok FROM stok_bahan_olahan_produksi where id_bahan_olahan='$id_bahan_olahan'";
+				$stok_bahan_olahan=$this->db->query($sql)->row();
+				$cek_stok=$this->db->query($sql)->num_rows();
+
+				if($cek_stok==0){
+						$data_session = array(
+							'pesan' => 'stok bahan olahan kosong',
+						);
+
+						$this->session->set_userdata($data_session);
+				}else{
+				$hasil_akhir_stok_bahan_olahan=(int)$stok_bahan_olahan->stok-(int)$jumlah;
+
+				$this->m_modul_produksi->input_data($data,'bahan_olahan_masakan');
+
+				$data4 = array(
+					'stok' => $hasil_akhir_stok_bahan_olahan,
+				);
+
+				$where4 = array(
+					'id_bahan_olahan' => $id_bahan_olahan
+				);
+
+				$this->m_modul_produksi->update_data($where4,$data4,'stok_bahan_olahan_produksi');
+				$data_session = array(
+					'pesan' => 'berhasil manmbah data',
+				);
+
+				$this->session->set_userdata($data_session);
+			 }
+				redirect('modul_produksi/produksi_masakan/?id='.$id_produksi_masakan.'&&menu='.$menu,$data);
+
+		}
 
 }

@@ -479,6 +479,7 @@ class Modul_resto extends CI_Controller {
 			'id' => $id_paket
 		);
 		$data['paket'] = $this->m_modul_resto->tampil_data_where('paket',$where)->result();
+		$data['menu'] = $this->m_modul_resto->tampil_data('menu')->result();
 
 		$where2 = array(
 			'id_paket' => $id_paket

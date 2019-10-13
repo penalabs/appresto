@@ -36,6 +36,15 @@
     <!-- Main content -->
     <section class="content">
   	<div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-success alert-dismissible">
+               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+               <h4><i class="icon fa fa-check"></i> Alert!</h4>
+               <?php echo $user_data = $this->session->userdata('pesan'); ?>
+       </div>
+
+
+     </div>
       <div class="col-md-4">
             <!-- Horizontal Form -->
             <div class="box box-info">
@@ -111,7 +120,7 @@
                         <td><?=$u->menu;?></td>
                         <td><?=$u->tanggal;?></td>
                         <td><?=$u->jumlah_masakan;?></td>
-                        <td><a href="<?php echo base_url('modul_produksi/produksi_masakan/?');?>id=<?php echo $u->id ?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Lihat bahan</a></td>
+                        <td><a href="<?php echo base_url('modul_produksi/produksi_masakan/?');?>id=<?php echo $u->id ?>&&menu=<?=$u->menu;?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Lihat bahan</a></td>
                     </tr>
                     <?php
                       $no++;
@@ -128,6 +137,7 @@
 
           <?php
           if(isset($_GET['id'])){
+            $id_produksi_masakan=$_GET['id'];
            ?>
           <div class="col-md-6">
                 <!-- Horizontal Form -->
@@ -137,40 +147,40 @@
                   </div>
                   <!-- /.box-header -->
                   <!-- form start -->
-                  <form action="<?php echo base_url(). 'modul_logistik/aksi_update_stok_bahan_mentah'; ?>" method="post" class="form-horizontal">
+                  <form action="<?php echo base_url(). 'modul_produksi/aksi_tambah_bahan_mentah_produksi'; ?>" method="post" class="form-horizontal">
                     <div class="box-body">
 
-
+                        <input type="hidden" name="menu" class="form-control" id="inputEmail3" value="<?=$_GET['menu'];?>" >
                       <input type="hidden" name="id_produksi_masakan" class="form-control" id="inputEmail3" value="<?=$_GET['id'];?>" >
 
-                    <div class="form-group">
-                              <label for="inputPassword3" class="col-sm-3 control-label">Bahan Mentah</label>
-                              <div class="col-sm-9">
-                                 <select class="form-control" name="id_bahan_mentah">
-                                 <?php
-                                 //$sql = "SELECT * FROM bahan_mentah join permintaan_bahan_detail on permintaan_bahan_detail.id_bahan_mentah=bahan_mentah.id";
-                                 $sql = "SELECT * FROM bahan_mentah";
-                                 $data2=$this->db->query($sql)->result();
-                                            foreach($data2 as $u2){
-                                            ?>
-                                            <option value="<?=$u2->id; ?>"><?=$u2->nama_bahan; ?></option>
-                                            <?php
-                                            }
-                                            ?>
-                                 </select>
-                              </div>
+                      <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label">Bahan Mentah</label>
+                                <div class="col-sm-9">
+                                   <select class="form-control" name="id_bahan_mentah">
+                                   <?php
+                                   //$sql = "SELECT * FROM bahan_mentah join permintaan_bahan_detail on permintaan_bahan_detail.id_bahan_mentah=bahan_mentah.id";
+                                   $sql = "SELECT * FROM bahan_mentah";
+                                   $data2=$this->db->query($sql)->result();
+                                              foreach($data2 as $u2){
+                                              ?>
+                                              <option value="<?=$u2->id; ?>"><?=$u2->nama_bahan; ?></option>
+                                              <?php
+                                              }
+                                              ?>
+                                   </select>
+                                </div>
+                        </div>
+
+
+                      <div class="form-group">
+                               <label for="inputEmail3" class="col-sm-3 control-label">Jumlah bahan</label>
+                               <div class="col-sm-9">
+                                 <input type="text" name="jumlah_bahan" class="form-control" id="inputEmail3" >
+                               </div>
                       </div>
 
 
-                    <div class="form-group">
-                             <label for="inputEmail3" class="col-sm-3 control-label">Jumlah bahan</label>
-                             <div class="col-sm-9">
-                               <input type="text" name="jumlah_bahan" class="form-control" id="inputEmail3" >
-                             </div>
-                    </div>
-
-
-                    </div>
+                      </div>
 
                     <!-- /.box-body -->
                     <div class="box-footer">
@@ -190,13 +200,14 @@
                   </div>
                   <!-- /.box-header -->
                   <!-- form start -->
-                  <form action="<?php echo base_url(). 'modul_logistik/aksi_update_stok_bahan_mentah'; ?>" method="post" class="form-horizontal">
+                  <form action="<?php echo base_url(). 'modul_produksi/aksi_tambah_bahan_olahan_produksi'; ?>" method="post" class="form-horizontal">
                     <div class="box-body">
-
+                    <input type="hidden" name="menu" class="form-control" id="inputEmail3" value="<?=$_GET['menu'];?>" >
+                    <input type="hidden" name="id_produksi_masakan" class="form-control" id="inputEmail3" value="<?=$_GET['id'];?>" >
             				<div class="form-group">
                               <label for="inputPassword3" class="col-sm-3 control-label">Bahan Olahan</label>
                               <div class="col-sm-9">
-                                 <select class="form-control" name="id_bahan_mentah">
+                                 <select class="form-control" name="id_bahan_olahan">
                                  <?php
                       					 //$sql = "SELECT * FROM bahan_mentah join permintaan_bahan_detail on permintaan_bahan_detail.id_bahan_mentah=bahan_mentah.id";
                       					 $sql = "SELECT * FROM bahan_olahan";
@@ -230,8 +241,11 @@
                   </form>
                 </div>
       		</div>
-
+          <div class="col-md-12">
+            <h3 class="box-title"><?php echo $_GET['menu'];?> MEMBUTUHKAN BAHAN <i class="fa  fa-hand-lizard-o" ></i></h3>
+          </div>
           <div class="col-md-6">
+
             <div class="box">
               <div class="box-header">
                 <h3 class="box-title">Bahan mentah</h3>
@@ -242,18 +256,30 @@
                   <thead>
                   <tr>
                     <th>No</th>
-        				    <th>paket</th>
-                    <th>jumlah pesan</th>
+        				    <th>Bahan mentah</th>
+                    <th>Jumlah bahan mentah</th>
+                    <th>Satuan</th>
                     <th>Aksi</th>
                   </tr>
                   </thead>
                   <tbody>
+                    <?php
+                    $no=1;
+                    $sql = "SELECT * FROM bahan_mentah_masakan join bahan_mentah on bahan_mentah.id=bahan_mentah_masakan.id_bahan_mentah where bahan_mentah_masakan.id_produksi_masakan='$id_produksi_masakan'";
+                		$data2=$this->db->query($sql)->result();
+                    foreach($data2 as $u){
+                    ?>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td><?= $no;?></td>
+                        <td><?= $u->nama_bahan;?></td>
+                        <td><?= $u->jumlah;?></td>
+                        <td><?= $u->satuan_besar;?></td>
                         <td></td>
                     </tr>
+                    <?php
+                    $no++;
+                    }
+                   ?>
                   </tbody>
                 </table>
               </div>
@@ -274,18 +300,30 @@
                     <thead>
                     <tr>
                       <th>No</th>
-          				    <th>paket</th>
-                      <th>jumlah pesan</th>
+          				    <th>Bahan olahan</th>
+                      <th>Jumlah Bahan Olahan</th>
+                      <th>Satuan kecil</th>
                       <th>Aksi</th>
                     </tr>
                     </thead>
                     <tbody>
+                      <?php
+                      $no=1;
+                      $sql3 = "SELECT * FROM bahan_olahan_masakan join bahan_olahan on bahan_olahan.id=bahan_olahan_masakan.id_bahan_olahan where bahan_olahan_masakan.id_produksi_masakan='$id_produksi_masakan'";
+                      $data3=$this->db->query($sql3)->result();
+                      foreach($data3 as $u){
+                      ?>
                       <tr>
-                          <td></td>
-                          <td></td>
-                          <td></td>
+                          <td><?= $no;?></td>
+                          <td><?= $u->nama_bahan;?></td>
+                          <td><?= $u->jumlah;?></td>
+                          <td><?= $u->satuan_kecil;?></td>
                           <td></td>
                       </tr>
+                      <?php
+                      $no++;
+                      }
+                     ?>
                     </tbody>
                   </table>
                 </div>

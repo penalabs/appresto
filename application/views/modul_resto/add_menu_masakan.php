@@ -29,7 +29,7 @@
     <!-- Main content -->
     <section class="content">
 	<div class="row">
-		
+
 
 		<div class="col-md-4">
           <!-- Horizontal Form -->
@@ -49,7 +49,7 @@
                   </div>
                 </div>
 				<div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">Porsi</label>
+                  <label for="inputEmail3" class="col-sm-2 control-label">Stok</label>
                   <div class="col-sm-10">
                     <input type="number" class="form-control"  name="porsi">
                   </div>
