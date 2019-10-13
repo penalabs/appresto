@@ -28,3 +28,6 @@ pembenahan produksi master menu
 menambah fitur produksi masakan
 mengambil stok table bahan mentah dan bahan olahan
 permintaan bahan mentah dan olahan di SUM, masing masing jumlah permintaan stoknya di tambahkan ke table stok bahan mentah produksi dan stok bahan olahan produksi
+
+
+CLONE BARU REPOSITORY
