@@ -274,7 +274,7 @@
                         <td><?= $u->nama_bahan;?></td>
                         <td><?= $u->jumlah;?></td>
                         <td><?= $u->satuan_besar;?></td>
-                        <td></td>
+                      <td><a href="<?php echo base_url('modul_produksi/hapus_produksi_masakan_bahan_mentah/?');?>id=<?php echo $u->id ?>&&menu=<?=$_GET['menu'];?>&&jumlah=<?=$u->jumlah;?>&&id_produksi_masakan=<?=$id_produksi_masakan;?>&&id_bahan_mentah=<?=$u->id_bahan_mentah;?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Hapus bahan</a></td>
                     </tr>
                     <?php
                     $no++;
@@ -318,7 +318,7 @@
                           <td><?= $u->nama_bahan;?></td>
                           <td><?= $u->jumlah;?></td>
                           <td><?= $u->satuan_kecil;?></td>
-                          <td></td>
+                          <td><a href="<?php echo base_url('modul_produksi/hapus_produksi_masakan_bahan_olahan/?');?>id=<?php echo $u->id ?>&&menu=<?=$_GET['menu'];?>&&jumlah=<?=$u->jumlah;?>&&id_produksi_masakan=<?=$id_produksi_masakan;?>&&id_bahan_olahan=<?=$u->id_bahan_olahan;?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Hapus bahan</a></td>
                       </tr>
                       <?php
                       $no++;
@@ -349,7 +349,7 @@
                 <h4 class="modal-title">EDIT</h4>
               </div>
               <div class="modal-body">
-                <p>One fine body&hellip;</p>
+
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>

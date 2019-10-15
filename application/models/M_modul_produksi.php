@@ -153,7 +153,7 @@ class M_modul_produksi extends CI_Model{
 
 	//---- menu permintaan_bahan
 
-	function tampil_data_pemesanan_menu(){
+	function tampil_data_pemesanan_menu($id_pemesan){
 
 		$hasil=$this->db->query("SELECT data1.* FROM(SELECT pemesanan_menu.`id` , pemesanan_menu.`id_menu` , menu.`menu` , SUM(`pemesanan_menu`.`jumlah_pesan`) AS jumlahPesan, pemesanan_menu.`status`
 		FROM `pemesanan_menu`
@@ -208,6 +208,9 @@ class M_modul_produksi extends CI_Model{
 		$this->db->where($where);
 		$this->db->update($table,$data);
 	}
-
+	function hapus_data($where,$table){
+		$this->db->where($where);
+		$this->db->delete($table);
+	}
 
 }

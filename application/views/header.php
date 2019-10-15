@@ -1,13 +1,13 @@
-<header class="main-header">
+<header class="main-header ">
     <!-- Logo -->
-    <a href="<?php echo base_url();?>" class="logo">
+    <a href="<?php echo base_url();?>" class="logo bg-purple">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>SR</b></span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>SIM RESTO</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
+    <nav class="navbar bg-purple navbar-static-top">
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
@@ -19,8 +19,8 @@
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
-          
-         
+
+
 
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
@@ -50,7 +50,7 @@
               </li>
             </ul>
           </li>
-         
+
         </ul>
       </div>
     </nav>

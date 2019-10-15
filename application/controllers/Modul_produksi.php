@@ -290,11 +290,17 @@ class modul_produksi extends CI_Controller {
 
 	public function index_produksi_pesanan()
 	{
-		$this->load->view('modul_produksi/menu_produksi_pesanan/produksi_pesanan');
+		$sql = "SELECT * FROM pemesanan_menu join pemesanan on pemesanan.id=pemesanan_menu.id_pemesanan";
+		$data['data']=$this->db->query($sql)->result();
+		$this->load->view('modul_produksi/menu_produksi_pesanan/produksi_pesanan', $data);
 	}
 	public function data_pemesanan_menu()
 	{
-		$data_pemesanan_menu = $this->m_modul_produksi->tampil_data_pemesanan_menu()->result();
+
+		$id_pemesan=$this->input->get('id_pemesan');
+
+		$sql = "SELECT * FROM pemesanan_menu join menu on menu.id=pemesanan_menu.id_menu where id_pemesanan='$id_pemesan'";
+		$data_pemesanan_menu=$this->db->query($sql)->result();
 		echo json_encode($data_pemesanan_menu);
 	}
 	public function update_status_siap_saji_data_pemesanan_menu()
@@ -345,7 +351,10 @@ class modul_produksi extends CI_Controller {
 	}
 	public function data_pemesanan_paket()
 	{
-		$data_pemesanan_paket = $this->m_modul_produksi->tampil_data_pemesanan_paket()->result();
+
+		$id_pemesan=$this->input->get('id_pemesan');
+		$sql = "SELECT * FROM pemesanan_paket join paket on paket.id=pemesanan_paket.id_paket where id_pemesanan='$id_pemesan'";
+		$data_pemesanan_paket=$this->db->query($sql)->result();
 		echo json_encode($data_pemesanan_paket);
 	}
 	public function update_status_siap_saji_data_pemesanan_paket()
@@ -539,6 +548,168 @@ class modul_produksi extends CI_Controller {
 			 }
 				redirect('modul_produksi/produksi_masakan/?id='.$id_produksi_masakan.'&&menu='.$menu,$data);
 
+		}
+		public function set_produksi_pesanan(){
+
+				$id = $this->input->post('id');
+				$jumlah = $this->input->post('jumlah');
+
+				$sql = "SELECT stok FROM menu where id='$id'";
+				$stok_menu=$this->db->query($sql)->row();
+				$hasil_stok_menu=$stok_menu->stok;
+
+				if($jumlah>$hasil_stok_menu){
+					$data_session = array(
+						'pesan' => 'stok menu kurang dari pesanan silahkan produksi masakan terlebih dahulu',
+					);
+					$this->session->set_userdata($data_session);
+				}else{
+
+				$stok_akhir_jumlah_pesan=$hasil_stok_menu-$jumlah;
+
+				$data4 = array(
+					'stok' => $stok_akhir_jumlah_pesan,
+				);
+
+				$where4 = array(
+					'id' => $id
+				);
+
+				$this->m_modul_produksi->update_data($where4,$data4,'menu');
+				$data_session = array(
+					'pesan' => 'berhasil manmbah data',
+				);
+
+				$this->session->set_userdata($data_session);
+				}
+				redirect('modul_produksi/index_produksi_pesanan/');
+
+		}
+		public function set_produksi_pesanan_paket(){
+
+				$id = $this->input->post('id_paket');
+				$jumlah = $this->input->post('jumlah');
+
+				$sql = "SELECT jumlah FROM paket where id='$id'";
+				$stok_paket=$this->db->query($sql)->row();
+				$hasil_stok_paket=$stok_paket->jumlah;
+
+				if($jumlah>$hasil_stok_paket){
+					$data_session = array(
+						'pesan' => 'stok paket kurang dari pesanan silahkan masukan stok paket',
+					);
+					$this->session->set_userdata($data_session);
+				}else{
+
+				$stok_akhir_jumlah_pesan=$hasil_stok_paket-$jumlah;
+
+				$data4 = array(
+					'jumlah' => $stok_akhir_jumlah_pesan,
+				);
+
+				$where4 = array(
+					'id' => $id
+				);
+
+				$this->m_modul_produksi->update_data($where4,$data4,'paket');
+				$data_session = array(
+					'pesan' => 'berhasil manmbah data',
+				);
+
+				$this->session->set_userdata($data_session);
+				}
+				redirect('modul_produksi/index_produksi_pesanan/');
+
+		}
+
+		function hapus_produksi_masakan_bahan_olahan(){
+			$id_bahan_olahan_masakan = $this->input->get('id');
+			$id_bahan_olahan = $this->input->get('id_bahan_olahan');
+			$id_produksi_masakan = $this->input->get('id_produksi_masakan');
+			$menu = $this->input->get('menu');
+			$jumlah = $this->input->get('jumlah');
+
+			$where = array('id' => $id_produksi_masakan);
+
+			$this->m_modul_produksi->hapus_data($where,'bahan_olahan_masakan');
+
+
+			$sql = "SELECT stok FROM stok_bahan_olahan_produksi where id_bahan_olahan='$id_bahan_olahan'";
+			$jumlah_bahan_olahan_masakan=$this->db->query($sql)->row();
+
+			$stok_bahan_olahan_produksi=$jumlah_bahan_olahan_masakan->stok+$jumlah;
+
+			$data4 = array(
+				'stok' => $stok_bahan_olahan_produksi,
+			);
+
+			$where4 = array(
+				'id_bahan_olahan' => $id_bahan_olahan
+			);
+
+			$this->m_modul_produksi->update_data($where4,$data4,'stok_bahan_olahan_produksi');
+			$data_session = array(
+				'pesan' => 'berhasil hapus data',
+			);
+
+			$this->session->set_userdata($data_session);
+			redirect('modul_produksi/produksi_masakan/?id='.$id_produksi_masakan.'&&menu='.$menu);
+		}
+		function hapus_produksi_masakan_bahan_mentah(){
+		  $id_bahan_mentah_masakan = $this->input->get('id');
+		  $id_bahan_mentah = $this->input->get('id_bahan_mentah');
+		  $id_produksi_masakan = $this->input->get('id_produksi_masakan');
+		  $menu = $this->input->get('menu');
+		  $jumlah = $this->input->get('jumlah');
+
+		  $where = array('id' => $id_produksi_masakan);
+
+		  $this->m_modul_produksi->hapus_data($where,'bahan_mentah_masakan');
+
+
+		  $sql = "SELECT stok FROM stok_bahan_mentah_produksi where id_bahan_mentah='$id_bahan_mentah'";
+		  $jumlah_bahan_mentah_masakan=$this->db->query($sql)->row();
+
+		  $stok_bahan_mentah_produksi=$jumlah_bahan_mentah_masakan->stok+$jumlah;
+
+		  $data4 = array(
+		    'stok' => $stok_bahan_mentah_produksi,
+		  );
+
+		  $where4 = array(
+		    'id_bahan_mentah' => $id_bahan_mentah
+		  );
+
+		  $this->m_modul_produksi->update_data($where4,$data4,'stok_bahan_mentah_produksi');
+		  $data_session = array(
+		    'pesan' => 'berhasil hapus data',
+		  );
+
+		  $this->session->set_userdata($data_session);
+		  redirect('modul_produksi/produksi_masakan/?id='.$id_produksi_masakan.'&&menu='.$menu);
+		}
+
+		function konfirm_siap_saji(){
+		  $id_pemesanan = $this->input->get('id_pemesanan');
+
+
+		  $where = array('id' => $id_pemesanan);
+
+
+
+		  $data = array(
+		    'status' => 'siapsaji',
+		  );
+
+
+
+		  $this->m_modul_produksi->update_data($where,$data,'pemesanan');
+		  $data_session = array(
+		    'pesan' => 'berhasil hapus data',
+		  );
+
+		  $this->session->set_userdata($data_session);
+		  redirect('modul_produksi/index_produksi_pesanan');
 		}
 
 }

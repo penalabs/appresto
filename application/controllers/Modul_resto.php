@@ -452,7 +452,8 @@ class Modul_resto extends CI_Controller {
 		$where = array(
 			'id' => $id_menu
 		);
-		$cek_jum_menu=$this->m_modul_resto->tampil_data_where('menu',$where)->row();
+		$sql = "SELECT stok as jumlah FROM menu where id='$id_menu'";
+		$cek_jum_menu=$this->db->query($sql)->row();
 		$jum=$cek_jum_menu->jumlah;
 
 

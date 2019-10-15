@@ -35,8 +35,65 @@
 
     <!-- Main content -->
     <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="alert alert-success alert-dismissible">
+                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                 <h4><i class="icon fa fa-check"></i> Alert!</h4>
+                 <?php echo $user_data = $this->session->userdata('pesan'); ?>
+         </div>
+
+
+       </div>
+      <div class="col-md-8">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">Daftar Produksi Menu Masakan</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <table id="example3" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                      <th>No</th>
+    				          <th>Nama Pemesan</th>
+                      <th>No Meja</th>
+                      <th>Keterangan Tambahan</th>
+                      <th>Status</th>
+                      <th>Aksi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+              					$no = 1;
+                       $sql = "SELECT * FROM pemesanan";
+                       $data=$this->db->query($sql)->result();
+              					foreach($data as $u){
+              				?>
+                      <tr>
+                          <td><?=$no;?></td>
+                          <td><?=$u->nama_pemesan;?></td>
+                          <td><?=$u->no_meja;?></td>
+                          <td><?=$u->keterangantambahan;?></td>
+                          <td><?=$u->status;?></td>
+                          <td><a class="btn btn-success btn-xs" href="<?php echo base_url('modul_produksi/konfirm_siap_saji/?id_pemesanan=');?><?=$u->id;?>">Konfirm siap saji</a>  <a onClick="selesai(<?=$u->id;?>)" href="#" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Lihat Pesanan</a></td>
+                      </tr>
+                      <?php
+                        $no++;
+                        }
+                      ?>
+
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.box-body -->
+              </div>
+              <!-- /.box -->
+            </div>
+         </div>
   	<div class="row">
-  	<div class="col-md-6">
+
+  	        <div class="col-md-6">
             <div class="box">
               <div class="box-header">
                 <h3 class="box-title">Data pesanan menu</h3>
@@ -73,7 +130,7 @@
               </div>
                     <!-- /.box-header -->
               <div class="box-body">
-                <table id="example1" class="table table-bordered table-striped">
+                <table id="example2" class="table table-bordered table-striped">
                   <thead>
                   <tr>
                     <th>No</th>
@@ -103,21 +160,79 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">EDIT</h4>
+                <h4 class="modal-title">Masukkan Jumlah Masakan</h4>
               </div>
               <div class="modal-body">
-                <p>One fine body&hellip;</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
+                <form class="form-horizontal" action="<?php echo base_url(). 'modul_produksi/set_produksi_pesanan'; ?>" method="post" role="form" enctype="multipart/form-data">
+                   <input type="hidden" value="" name="id" class="form-control" id="id" >
+                  <div class="box-body">
+
+
+                    <div class="form-group">
+                      <label for="inputEmail3" class="col-sm-4 control-label">Ambil jumlah masakan</label>
+                      <div class="col-sm-8">
+                        <input type="number" class="form-control" value="" min="1" name="jumlah">
+                      </div>
+                    </div>
+
+                  </div>
+                  <!-- /.box-body -->
+
+
+                  <!-- /.box-footer -->
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                </form>
             </div>
             <!-- /.modal-content -->
           </div>
           <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
+
+        <div class="modal fade" id="modal-default2">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Masukkan Jumlah Masakan</h4>
+                  </div>
+                  <div class="modal-body">
+                    <form class="form-horizontal" action="<?php echo base_url(). 'modul_produksi/set_produksi_pesanan_paket'; ?>" method="post" role="form" enctype="multipart/form-data">
+                       <input type="hidden" value="" name="id_paket" class="form-control" id="id_paket" >
+                      <div class="box-body">
+
+
+                        <div class="form-group">
+                          <label for="inputEmail3" class="col-sm-4 control-label">Ambil jumlah masakan</label>
+                          <div class="col-sm-8">
+                            <input type="number" class="form-control" value="" min="1" name="jumlah">
+                          </div>
+                        </div>
+
+                      </div>
+                      <!-- /.box-body -->
+
+
+                      <!-- /.box-footer -->
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                    </form>
+                </div>
+                <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
 
 
 
@@ -138,37 +253,31 @@
 </script>
 <script>
   $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
+    $('#example1').DataTable();
+    $('#example2').DataTable();
+    $('#example3').DataTable();
   })
 </script>
 
 
 <script type="text/javascript">
   $(document).ready(function() {
-      selesai();
+      // selesai(id_pemesan);
   });
 
-  function selesai() {
+  function selesai(id_pemesan) {
     setTimeout(function() {
-      SelectDataPemesananMenu();
-      SelectDataPemesananPaket();
-      selesai();
+      SelectDataPemesananMenu(id_pemesan);
+      SelectDataPemesananPaket(id_pemesan);
+      selesai(id_pemesan);
     }, 700);
   }
 
-  SelectDataPemesananMenu();
-  function SelectDataPemesananMenu(){
+  // SelectDataPemesananMenu();
+  function SelectDataPemesananMenu(id_pemesan){
     $.ajax({
       type:'POST',
-      url:'<?php echo base_url().'modul_produksi/data_pemesanan_menu' ?>',
+      url:'<?php echo base_url().'modul_produksi/data_pemesanan_menu?id_pemesan=' ?>'+id_pemesan,
       dataType:'json',
       success: function(data){
         var no = 0;
@@ -179,8 +288,8 @@
                 '<tr>'+
                     '<td> '+ no +' </td>' +
                     '<td> '+ data[i].menu +' </td>' +
-                    '<td> '+ data[i].jumlahPesan +' </td>' +
-                    '<td> '+'<a href="#myModalEdit" onclick="edit('+data[i].id+')" class="btn btn-success btn-xs" data-toggle="modal" > <i class="fa  fa-edit" ></i></a>'+
+                    '<td> '+ data[i].jumlah_pesan +' </td>' +
+                    '<td> '+'<a href="#" onclick="edit('+data[i].id_menu+')" class="btn btn-success btn-xs" data-toggle="modal" > <i class="fa  fa-edit" ></i></a>'+
                     '</td>'
                 +'<tr>';
         }
@@ -191,15 +300,22 @@
 
 
 
+  function edit(id){
+     $('#modal-default').modal('show');
+     $('#id').val(id);
+  }
+  function editpaket(id){
+     $('#modal-default2').modal('show');
+     $('#id_paket').val(id);
+  }
 
 
 
-
-  SelectDataPemesananPaket();
-  function SelectDataPemesananPaket(){
+  // SelectDataPemesananPaket();
+  function SelectDataPemesananPaket(id_pemesan){
     $.ajax({
       type:'POST',
-      url:'<?php echo base_url().'modul_produksi/data_pemesanan_paket' ?>',
+      url:'<?php echo base_url().'modul_produksi/data_pemesanan_paket?id_pemesan=' ?>'+id_pemesan,
       dataType:'json',
       success: function(data){
         var no = 0;
@@ -210,8 +326,8 @@
                 '<tr>'+
                     '<td> '+ no +' </td>' +
                     '<td> '+ data[i].nama_paket +' </td>' +
-                    '<td> '+ data[i].jumlahPesanPaket +' </td>' +
-                    '<td> '+'<a href="#myModalEdit" onclick="edit('+data[i].id+')" class="btn btn-success btn-xs" data-toggle="modal" > <i class="fa  fa-edit" ></i></a>'+
+                    '<td> '+ data[i].jumlah_pesan +' </td>' +
+                    '<td> '+'<a href="#" onclick="editpaket('+data[i].id_paket+')" class="btn btn-success btn-xs" data-toggle="modal" > <i class="fa  fa-edit" ></i></a>'+
                     '</td>'
                 +'<tr>';
         }

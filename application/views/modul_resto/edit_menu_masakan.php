@@ -43,7 +43,7 @@
             <!-- form start -->
 
             <form class="form-horizontal" action="<?php echo base_url(). 'modul_resto/action_edit_menu'; ?>" method="post" role="form" enctype="multipart/form-data">
-               <input type="hidden" value="<?php echo $id_menu+1;?>" name="id_menu" class="form-control" id="inputEmail3" >
+               <input type="hidden" value="<?php echo $id_menu;?>" name="id_menu" class="form-control" id="inputEmail3" >
               <div class="box-body">
                 <?php
                 foreach($menu_masakan as $u2){
