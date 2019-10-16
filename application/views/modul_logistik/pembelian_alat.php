@@ -20,7 +20,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Pembelian Bahan Mentah
+        Pembelian Peralatan
 
       </h1>
 
@@ -28,7 +28,7 @@
 
     <!-- Main content -->
     <section class="content">
-    <form action="<?php echo base_url(). 'modul_logistik/aksi_update_stok_bahan_mentah'; ?>" method="post" class="form-horizontal">
+    <form action="<?php echo base_url(). 'modul_logistik/aksi_update_stok_alat'; ?>" method="post" class="form-horizontal">
 	  <div class="row">
 
 
@@ -85,7 +85,7 @@
                          <label for="inputEmail3" class="col-sm-4 control-label">Nama Bahan</label>
                          <div class="col-sm-8">
                            <div class="input-group input-group-md">
-                             <input type="hidden" name="id_bahan_mentah" class="form-control" value="" id="id_bahan_mentah" >
+                             <input type="hidden" name="id_alat" class="form-control" value="" id="id_alat" >
                               <input type="text" class="form-control" name="nama_bahan" value="" id="nama_bahan">
                                   <span class="input-group-btn">
                                     <button type="button" onclick="select_bahan();" class="btn btn-info btn-flat"><li class="fa fa-search"></li></button>
@@ -131,7 +131,7 @@
 
                         <?php
                           $no = 1;
-                          $sql = "SELECT max(no_transaksi) as no_transaksi FROM pembelian_bahan_mentah where id_logistik='$id_logistik' and status='selesai'";
+                          $sql = "SELECT max(no_transaksi) as no_transaksi FROM pembelian_alat where id_logistik='$id_logistik' and status='selesai'";
                           $data2=$this->db->query($sql)->row();
                           $no_transaksi=$data2->no_transaksi+1;
                         ?>
@@ -157,7 +157,7 @@
           <!-- /.box -->
 		  <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">DAFTAR Bahan Mentah </h3>
+              <h3 class="box-title">DAFTAR Peralatan</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -165,8 +165,8 @@
                 <thead>
                 <tr>
                   <th style="width: 10px">#</th>
-                  <th>Nama Bahan</th>
-        				  <th>Satuan Besar</th>
+                  <th>Nama Alat</th>
+        				  <th>Satuan</th>
 
                   <th>Harga Beli</th>
                   <th>Qty</th>
@@ -298,17 +298,17 @@
                   <?php
                     $no = 1;
 
-                    $sql = "SELECT * FROM bahan_mentah where id_logistik='$id_logistik'";
+                    $sql = "SELECT * FROM peralatan";
                     $data=$this->db->query($sql)->result();
                     foreach($data as $u){
                   ?>
 
                   <tr>
                      <td><?php echo $no++ ?>.</td>
-                    <td><?php echo $u->nama_bahan; ?>
+                    <td><?php echo $u->nama_peralatan; ?>
                     </td>
                     <td>
-                    <a href="#" class="btn btn-primary btn-xs" onclick="add_bahan('<?php echo $u->id; ?>','<?php echo $u->nama_bahan; ?>');"><i class="fa   fa-edit" ></i></a>
+                    <a href="#" class="btn btn-primary btn-xs" onclick="add_bahan('<?php echo $u->id; ?>','<?php echo $u->nama_peralatan; ?>');"><i class="fa   fa-edit" ></i></a>
 
                     </td>
                   </tr>
@@ -352,7 +352,7 @@
   function add_bahan(id,nama_bahan){
 
        $('#modal-default').modal('hide');
-       $('#id_bahan_mentah').val(id);
+       $('#id_alat').val(id);
        $('#nama_bahan').val(nama_bahan);
        //$('#id').val(id);
 
@@ -362,7 +362,7 @@
     var id_transaksi=$('#no_transaksi').val();
     $.ajax({
       type:'POST',
-      url:'<?php echo base_url().'modul_logistik/data_bahan/'?>',
+      url:'<?php echo base_url().'modul_logistik/data_alat/'?>',
       data:{id_transaksi:id_transaksi},
       dataType:'json',
       success: function(data){
@@ -374,12 +374,12 @@
           baris +=
                 '<tr>'+
                     '<td> '+ no +' </td>' +
-                    '<td> '+ data[i].nama_bahan +' </td>' +
+                    '<td> '+ data[i].nama_peralatan +' </td>' +
                     '<td> '+ data[i].satuan_besar +' </td>' +
                     '<td> '+ data[i].harga_beli +' </td>' +
                     '<td> '+ data[i].jumlah +' </td>' +
                     '<td> '+ data[i].jumlah*data[i].harga_beli +' </td>' +
-                    '<td> '+'<a href="#" onclick="hapus_cart('+data[i].id_detail_pembelian_bahan_mentah+')" class="btn btn-success btn-xs" data-toggle="modal" > <i class="fa  fa-edit" ></i></a>'+
+                    '<td> '+'<a href="#" onclick="hapus_cart('+data[i].id_detail_pembelian_alat+')" class="btn btn-success btn-xs" data-toggle="modal" > <i class="fa  fa-edit" ></i></a>'+
                     '</td>'
                 +'<tr>';
           total_pembelian+=data[i].jumlah*data[i].harga_beli;
@@ -392,14 +392,14 @@
   }
   function add_cart(){
     var no_transaksi=$('#no_transaksi').val();
-    var id_bahan_mentah=$('#id_bahan_mentah').val();
+    var id_alat=$('#id_alat').val();
     var qty=$('#qty').val();
     var harga_beli=$('#harga_beli').val();
     alert(no_transaksi);
     $.ajax({
       type:'POST',
-      url:'<?php echo base_url().'modul_logistik/add_cart_data_bahan/'?>',
-      data:{no_transaksi:no_transaksi,id_bahan_mentah:id_bahan_mentah,qty:qty,harga_beli:harga_beli},
+      url:'<?php echo base_url().'modul_logistik/add_cart_data_alat/'?>',
+      data:{no_transaksi:no_transaksi,id_alat:id_alat,qty:qty,harga_beli:harga_beli},
       dataType:'html',
       success: function(data){
         alert(data);
@@ -424,14 +424,14 @@
     alert(no_transaksi);
     $.ajax({
       type:'POST',
-      url:'<?php echo base_url().'modul_logistik/konfirmasi_pembelian/'?>',
+      url:'<?php echo base_url().'modul_logistik/konfirmasi_pembelian_alat/'?>',
       data:{no_transaksi:no_transaksi,id_logistik:id_logistik,tanggal:tanggal,nama_supplier:nama_supplier,total_pembelian:total_pembelian,nama_supplier:nama_supplier,dibayar:dibayar,catatan:catatan},
       dataType:'html',
       success: function(data){
         alert(data);
         if(data=="TRUE"){
             alert(data);
-            window.location.href="<?php echo base_url(); ?>modul_logistik/pembelian_bahan_mentah";
+            window.location.href="<?php echo base_url(); ?>modul_logistik/pembelian_alat";
 
         }else{
           alert(data);

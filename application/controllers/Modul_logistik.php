@@ -250,11 +250,62 @@ class modul_logistik extends CI_Controller {
 		$dibayar= $this->input->post('dibayar');
 		$catatan= $this->input->post('catatan');
 		$sql = "INSERT INTO pembelian_bahan_mentah  VALUES ('', '$id_logistik','$no_transaksi', '$tanggal', '$total_pembelian', '$dibayar', 'selesai', '$catatan');";
+
 		if (!$this->db->query($sql)) {
 			echo "FALSE";
 		}
 		else {
 				echo "TRUE";
 		}
+	}
+
+	public function pembelian_alat(){
+
+	  $this->load->view('modul_logistik/pembelian_alat');
+	}
+	public function data_alat(){
+	  $id_logistik=$this->session->userdata('id');
+	  $id_transaksi = $this->input->post('id_transaksi');
+	  $sql = "SELECT detail_pembelian_alat.id as id_detail_pembelian_alat,peralatan.nama_peralatan,peralatan.satuan_besar,detail_pembelian_alat.harga_beli,detail_pembelian_alat.jumlah FROM peralatan join detail_pembelian_alat on detail_pembelian_alat.id_alat=peralatan.id where id_logistik='$id_logistik' and id_transaksi='$id_transaksi'";
+	  $data=$this->db->query($sql)->result();
+	  echo json_encode($data);
+	}
+	public function add_cart_data_alat(){
+	  $id_logistik=$this->session->userdata('id');
+	  $no_transaksi = $this->input->post('no_transaksi');
+	  $id_alat = $this->input->post('id_alat');
+	  $qty = $this->input->post('qty');
+	  $harga_beli = $this->input->post('harga_beli');
+	  $sql = "INSERT INTO detail_pembelian_alat  VALUES ('', '$no_transaksi', '$id_alat', '$qty', '$harga_beli');";
+
+		$sql2 = "SELECT jumlah_stok FROM peralatan WHERE id='$id_alat'";
+		$data2=$this->db->query($sql2)->row();
+		$jumlah_stok=(int)$data2->jumlah_stok+(int)$qty;
+
+		$sql3 = "UPDATE peralatan SET jumlah_stok='$jumlah_stok' WHERE id='$id_alat'";
+		$this->db->query($sql3);
+
+	  if (!$this->db->query($sql)) {
+	    echo "FALSE";
+	  }
+	  else {
+	      echo "TRUE";
+	  }
+	}
+	public function konfirmasi_pembelian_alat(){
+	  $id_logistik=$this->session->userdata('id');
+	  $no_transaksi = $this->input->post('no_transaksi');
+	  $nama_supplier = $this->input->post('nama_supplier');
+	  $total_pembelian = $this->input->post('total_pembelian');
+	  $tanggal= $this->input->post('tanggal');
+	  $dibayar= $this->input->post('dibayar');
+	  $catatan= $this->input->post('catatan');
+	  $sql = "INSERT INTO pembelian_alat  VALUES ('', '$id_logistik','$no_transaksi', '$tanggal', '$total_pembelian', '$dibayar', 'selesai', '$catatan');";
+	  if (!$this->db->query($sql)) {
+	    echo "FALSE";
+	  }
+	  else {
+	      echo "TRUE";
+	  }
 	}
 }
