@@ -216,6 +216,45 @@ class modul_logistik extends CI_Controller {
 		redirect('modul_logistik/produksi_bahan_olahan');
 	}
 
+	public function pembelian_bahan_mentah(){
 
+		$this->load->view('modul_logistik/pembelian_bahan_mentah');
+	}
+	public function data_bahan(){
+		$id_logistik=$this->session->userdata('id');
+		$id_transaksi = $this->input->post('id_transaksi');
+		$sql = "SELECT detail_pembelian_bahan_mentah.id as id_detail_pembelian_bahan_mentah,bahan_mentah.nama_bahan,bahan_mentah.satuan_besar,detail_pembelian_bahan_mentah.harga_beli,detail_pembelian_bahan_mentah.jumlah FROM bahan_mentah join detail_pembelian_bahan_mentah on detail_pembelian_bahan_mentah.id_bahan_mentah=bahan_mentah.id where id_logistik='$id_logistik' and id_transaksi='$id_transaksi'";
+		$data=$this->db->query($sql)->result();
+		echo json_encode($data);
+	}
+	public function add_cart_data_bahan(){
+		$id_logistik=$this->session->userdata('id');
+		$no_transaksi = $this->input->post('no_transaksi');
+		$id_bahan_mentah = $this->input->post('id_bahan_mentah');
+		$qty = $this->input->post('qty');
+		$harga_beli = $this->input->post('harga_beli');
+		$sql = "INSERT INTO detail_pembelian_bahan_mentah  VALUES ('', '$no_transaksi', '$id_bahan_mentah', '$qty', '$harga_beli');";
+		if (!$this->db->query($sql)) {
+	    echo "FALSE";
+		}
+		else {
+		    echo "TRUE";
+		}
+	}
+	public function konfirmasi_pembelian(){
+		$id_logistik=$this->session->userdata('id');
+		$no_transaksi = $this->input->post('no_transaksi');
+		$nama_supplier = $this->input->post('nama_supplier');
+		$total_pembelian = $this->input->post('total_pembelian');
+		$tanggal= $this->input->post('tanggal');
+		$dibayar= $this->input->post('dibayar');
+		$catatan= $this->input->post('catatan');
+		$sql = "INSERT INTO pembelian_bahan_mentah  VALUES ('', '$id_logistik','$no_transaksi', '$tanggal', '$total_pembelian', '$dibayar', 'selesai', '$catatan');";
+		if (!$this->db->query($sql)) {
+			echo "FALSE";
+		}
+		else {
+				echo "TRUE";
+		}
+	}
 }
-

@@ -33,7 +33,7 @@
           </a>
           <ul class="treeview-menu">
 			<li><a href="<?php echo base_url('');?>"><i class="fa fa-circle-o"></i> Pengadaan Peralatan</a></li>
-			<li><a href="<?php echo base_url('');?>"><i class="fa fa-circle-o"></i> Pengadaan Bahan mentah</a></li>
+			<li><a href="<?php echo base_url('/modul_logistik/pembelian_bahan_mentah');?>"><i class="fa fa-circle-o"></i> Pengadaan Bahan mentah</a></li>
 			<li><a href="<?php echo base_url('/modul_logistik/produksi_bahan_olahan');?>"><i class="fa fa-circle-o"></i> Entri Bahan olahan</a></li>
 			<li><a href="<?php echo base_url('#');?>"><i class="fa fa-circle-o"></i> Laporan Permintaan barang</a></li>
 			<li><a href="<?php echo base_url('/modul_logistik/index_pengadaan_bahan_mentah');?>"><i class="fa fa-circle-o"></i> Pengiriman barang</a></li>
