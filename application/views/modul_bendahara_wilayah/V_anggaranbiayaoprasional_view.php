@@ -25,7 +25,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-      Pengajuan Anggaran Biaya Oprasional
+      Pemberian Anggaran Biaya Oprasional
       </h1>
 
     </section>

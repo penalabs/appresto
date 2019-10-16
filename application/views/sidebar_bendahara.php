@@ -33,9 +33,10 @@
           <ul class="treeview-menu">
 			<li><a href="<?php echo base_url('/modul_bendahara/bendahara_pengeluaran_investasi');?>"><i class="fa fa-circle-o"></i> Pengeluaran inves Cabang</a></li>
 			<li><a href="<?php echo base_url('modul_bendahara_wilayah/data_pengeluaran_kanwil');?>"><i class="fa fa-circle-o"></i> Pengeluaran Kanwil</a></li>
-			<li><a href="<?php echo base_url('/modul_bendahara_wilayah/data_biaya_operasional_cabang');?>"><i class="fa fa-circle-o"></i> Biaya Operasional Cabang</a></li>
-      <li><a href="<?php echo base_url('modul_bendahara_wilayah/data_kas_masuk_cabang');?>"><i class="fa fa-circle-o"></i> Kas Masuk Cabang</a></li>
-      <li><a href="<?php echo base_url('modul_bendahara_wilayah/data_kas_keluar_cabang');?>"><i class="fa fa-circle-o"></i> Kas Keluar Cabang</a></li>
+      <li><a href="<?php echo base_url('/modul_bendahara_wilayah/anggaranbiayaoprasional_view');?>"><i class="fa fa-circle-o"></i> Pemberian Biaya OP. Cabang</a></li>
+
+
+      <li><a href="<?php echo base_url('modul_bendahara_wilayah/data_kas_keluar_cabang');?>"><i class="fa fa-circle-o"></i> Laporan Kas Cabang</a></li>
 			<li><a href="<?php echo base_url('modul_labarugi/');?>"><i class="fa fa-circle-o"></i> Laporan Laba Rugi</a></li>
 			<li><a href="<?php echo base_url('/modul_bendahara/setoran_kasir');?>"><i class="fa fa-circle-o"></i> Setoran Kasir</a></li>
 			<li><a href="<?php echo base_url('/modul_bendahara/laporan_investasi_cabang');?>"><i class="fa fa-circle-o"></i> Laporan inves cabang</a></li>

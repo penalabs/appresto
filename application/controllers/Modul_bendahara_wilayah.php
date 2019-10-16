@@ -295,7 +295,57 @@ class modul_bendahara_wilayah extends CI_Controller {
 
 
 
+	//menu anggaran biaya oprasioanl
+	public function anggaranbiayaoprasional_view(){
+		$data['anggaranbiayaoprasional'] = $this->m_modul_bendahara_wilayah->tampil_data_anggaranbiayaoprasional()->result();
+		$this->load->view('modul_bendahara_wilayah/V_anggaranbiayaoprasional_view', $data);
+	}
 
+	public function anggaranbiayaoprasional_tambah(){
+		$data['data_cabang_resto'] = $this->m_modul_bendahara_wilayah->tampil_data('resto')->result();
+		$this->load->view('modul_bendahara_wilayah/V_anggaranbiayaoprasional_tambah', $data);
+	}
+
+	public function anggaranbiayaoprasional_tambahaksi(){
+		$date 				= date('Y-m-d H:i:s');
+		$nama_cabang		= $this->input->post('nama_cabang');
+		$nominal_kas_keluar				= $this->input->post('nominal_kas_keluar');
+		$datainput = array(
+			'id_bendahara'			=> "2",
+			'id_resto'				=> $nama_cabang,
+			'tanggal'				=> $date,
+			'nominal_kas_keluar'	=> $nominal_kas_keluar,
+			'status'				=> "Pengajuan"
+		);
+		$this->m_modul_bendahara_wilayah->input_data($datainput, 'pemberian_kaskeluar');
+		redirect('modul_bendahara_wilayah/anggaranbiayaoprasional_view');
+	}
+
+	public function anggaranbiayaoprasional_edit($id){
+		$data['data_cabang_resto'] = $this->m_modul_bendahara_wilayah->tampil_data('resto')->result();
+		$data['anggaranbiayaoprasional_edit'] = $this->m_modul_bendahara_wilayah->tampil_anggaran_biaya_oprasional_where($id)->result();
+		$this->load->view('modul_bendahara_wilayah/V_anggaranbiayaoprasional_edit', $data);
+	}
+
+	public function anggaranbiayaoprasional_updateaksi(){
+		$id					= $this->input->post('id');
+		$nama_cabang		= $this->input->post('nama_cabang');
+		$nominal_kas_keluar	= $this->input->post('nominal_kas_keluar');
+		$where = array('id_pengeluaran' => $id);
+		$datainput = array(
+			'id_resto'				=> $nama_cabang,
+			'nominal_kas_keluar'	=> $nominal_kas_keluar
+		);
+		$this->m_modul_bendahara_wilayah->update_data($where, $datainput, 'pemberian_kaskeluar');
+		redirect('modul_bendahara_wilayah/anggaranbiayaoprasional_view');
+	}
+
+	public function anggaranbiayaoprasional_hapus($id)
+	{
+		$where = array('id_pengeluaran' => $id);
+		$this->m_modul_bendahara_wilayah->hapus_data($where, 'pemberian_kaskeluar');
+		redirect('modul_bendahara_wilayah/anggaranbiayaoprasional_view');
+	}
 
 
 }

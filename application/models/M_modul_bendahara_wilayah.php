@@ -228,4 +228,23 @@ class M_modul_bendahara_wilayah extends CI_Model{
 
 
 
+	function tampil_data_anggaranbiayaoprasional(){
+		$query = $this->db->query("
+		SELECT pemberian_kaskeluar.*,resto.*,user_kanwil.*
+		FROM pemberian_kaskeluar
+		JOIN resto ON resto.id = pemberian_kaskeluar.id_resto
+		JOIN user_kanwil ON user_kanwil.id = pemberian_kaskeluar.`id_bendahara`
+		WHERE pemberian_kaskeluar.`status` = 'pemberian'
+		ORDER BY pemberian_kaskeluar.`id_pengeluaran` DESC");
+		return $query;
+	}
+	function tampil_anggaran_biaya_oprasional_where($where){
+		$query = $this->db->query("
+		SELECT pemberian_kaskeluar.*,resto.*,user_kanwil.*,resto.`id` AS id_restojoin
+		FROM pemberian_kaskeluar
+		JOIN resto ON resto.id = pemberian_kaskeluar.id_resto
+		JOIN user_kanwil ON user_kanwil.id = pemberian_kaskeluar.`id_bendahara`
+		WHERE pemberian_kaskeluar.`id_pengeluaran` = '$where'");
+		return $query;
+	}
 }
