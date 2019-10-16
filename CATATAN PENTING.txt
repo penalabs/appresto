@@ -31,3 +31,5 @@ permintaan bahan mentah dan olahan di SUM, masing masing jumlah permintaan stokn
 
 
 CLONE BARU REPOSITORY
+
+gunakan database db_siresto2.sql
