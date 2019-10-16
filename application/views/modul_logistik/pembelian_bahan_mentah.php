@@ -131,7 +131,7 @@
 
                         <?php
                           $no = 1;
-                          $sql = "SELECT max(no_transaksi) as no_transaksi FROM pembelian_bahan_mentah where id_logistik='$id_logistik' and status='selesai'";
+                          $sql = "SELECT max(id) as no_transaksi FROM pembelian_bahan_mentah where id_logistik='$id_logistik' and status='selesai'";
                           $data2=$this->db->query($sql)->row();
                           $no_transaksi=$data2->no_transaksi+1;
                         ?>

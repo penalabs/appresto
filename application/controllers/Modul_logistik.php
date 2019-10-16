@@ -249,7 +249,7 @@ class modul_logistik extends CI_Controller {
 		$tanggal= $this->input->post('tanggal');
 		$dibayar= $this->input->post('dibayar');
 		$catatan= $this->input->post('catatan');
-		$sql = "INSERT INTO pembelian_bahan_mentah  VALUES ('', '$id_logistik','$no_transaksi', '$tanggal', '$total_pembelian', '$dibayar', 'selesai', '$catatan');";
+		$sql = "INSERT INTO pembelian_bahan_mentah  VALUES ('', '$id_logistik','$no_transaksi', '$nama_supplier', '$tanggal', '$total_pembelian', '$dibayar', 'selesai', '$catatan');";
 
 		if (!$this->db->query($sql)) {
 			echo "FALSE";
@@ -300,7 +300,7 @@ class modul_logistik extends CI_Controller {
 	  $tanggal= $this->input->post('tanggal');
 	  $dibayar= $this->input->post('dibayar');
 	  $catatan= $this->input->post('catatan');
-	  $sql = "INSERT INTO pembelian_alat  VALUES ('', '$id_logistik','$no_transaksi', '$tanggal', '$total_pembelian', '$dibayar', 'selesai', '$catatan');";
+	  $sql = "INSERT INTO pembelian_alat  VALUES ('', '$id_logistik','$no_transaksi', '$nama_supplier','$tanggal', '$total_pembelian', '$dibayar', 'selesai', '$catatan');";
 	  if (!$this->db->query($sql)) {
 	    echo "FALSE";
 	  }

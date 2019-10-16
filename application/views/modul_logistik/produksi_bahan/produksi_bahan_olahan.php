@@ -143,7 +143,7 @@
                                 </div>
                         </div> -->
 
-                
+
     				       <div class="form-group">
                       <label for="inputEmail3" class="col-sm-3 control-label">Hasil produksi Jumlah Bahan Olahan</label>
                       <div class="col-sm-9">
@@ -287,9 +287,6 @@
         </div>
 
 		</div>
-	</div>
-
-
 
 
 
