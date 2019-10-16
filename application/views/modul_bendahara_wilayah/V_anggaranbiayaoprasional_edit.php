@@ -12,7 +12,7 @@
 <!-- Site wrapper -->
 <div class="wrapper">
 
-  
+
 	<?php include(APPPATH.'views/header.php');?>
   <!-- =============================================== -->
 
@@ -27,7 +27,7 @@
       <h1>
         Anggaran Biaya Oprasional Edit
       </h1>
-      
+
     </section>
 
      <section class="content">
@@ -38,7 +38,7 @@
             <!-- /.box-header -->
             <!-- form start -->
             <?php foreach ($anggaranbiayaoprasional_edit as $dataedit) { ?>
-            <form action="<?php echo base_url(). 'C_modul_admin_resto/anggaranbiayaoprasional_updateaksi'; ?>" method="post" class="form-horizontal">
+            <form action="<?php echo base_url(). 'modul_bendahara_wilayah/anggaranbiayaoprasional_updateaksi'; ?>" method="post" class="form-horizontal">
             <input type="hidden" name="id" class="form-control" value="<?php echo $dataedit->id_pengeluaran; ?>" >
               <div class="box-body">
                 <div class="form-group">
@@ -59,7 +59,7 @@
                   </div>
                 </div>
               </div>
-        
+
               <!-- /.box-body -->
               <div class="box-footer">
                 <button type="submit" class="btn btn-info pull-right">Simpan</button>
@@ -72,7 +72,7 @@
   </div>
 </section>
 
-   
+
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

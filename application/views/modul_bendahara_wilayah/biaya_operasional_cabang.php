@@ -10,12 +10,12 @@
               <div class="modal-body">
                 <form class="form-horizontal" action="<?php echo base_url(). 'modul_bendahara_wilayah/tambah_data_biaya_operasional_cabang'; ?>" method="post" role="form">
                   <div class="box-body">
-				  
+
 				  <div class="form-group">
                   <label class="col-sm-2 control-label">Saldo Kas KANWIL</label>
                   <div class="col-sm-10">
-                    
-                         <?php 
+
+                         <?php
 						  echo $id_bendahara=$this->session->userdata('id');
 						  $sql = "SELECT sum(nominal_kas_keluar) as saldo FROM pemberian_kaskeluar where id_bendahara='$id_bendahara'";
 						  $data_kas=$this->db->query($sql)->row();
@@ -27,17 +27,17 @@
 						  $id_kanwil=$this->session->userdata('id_kanwil');
 						  $sql3 = "select sum(satuan_harga_per_satuan_bahan) as harga from permintaan_bahan_detail join bahan_mentah on bahan_mentah.id=permintaan_bahan_detail.id_bahan_mentah JOIN permintaan_bahan on permintaan_bahan.id_permintaan=permintaan_bahan_detail.id_permintaan join user_kanwil on user_kanwil.id=permintaan_bahan.id_user_kanwil_logistik where permintaan_bahan.status='diterima' and user_kanwil.id_kanwil='$id_kanwil'";
 						  $data_pengeluaran_cabang3=$this->db->query($sql3)->row();
-						  
+
 						  $id_kanwil=$this->session->userdata('id_kanwil');
 						  $sql4 = "SELECT sum(nominal) as nominal_pengeluaran_cabang_operasional FROM pengeluaran_cabang_operasional where id_kanwil='$id_kanwil'";
 						  $data_pengeluaran_cabang4=$this->db->query($sql4)->row();
-						  
+
 						  $saldo_akhir=(int)$data_kas->saldo-((int)$data_pengeluaran_cabang2->nominal_pengeluaran_cabang_alat+(int)$data_pengeluaran_cabang4->nominal_pengeluaran_cabang_operasional+(int)$data_pengeluaran_cabang3->harga);
 						  ?>
-                      
-                      
+
+
                         <input type="number" name="saldokas" value="<?php echo $saldo_akhir; ?>" class="form-control" disabled>
-                    
+
                     </select>
                   </div>
                 </div>
@@ -107,8 +107,8 @@
 				  <div class="form-group">
                   <label class="col-sm-2 control-label">Saldo Kas KANWIL</label>
                   <div class="col-sm-10">
-                    
-                         <?php 
+
+                         <?php
 						  echo $id_bendahara=$this->session->userdata('id');
 						  $sql = "SELECT sum(nominal_kas_keluar) as saldo FROM pemberian_kaskeluar where id_bendahara='$id_bendahara'";
 						  $data_kas=$this->db->query($sql)->row();
@@ -120,17 +120,17 @@
 						  $id_kanwil=$this->session->userdata('id_kanwil');
 						  $sql3 = "select sum(satuan_harga_per_satuan_bahan) as harga from permintaan_bahan_detail join bahan_mentah on bahan_mentah.id=permintaan_bahan_detail.id_bahan_mentah JOIN permintaan_bahan on permintaan_bahan.id_permintaan=permintaan_bahan_detail.id_permintaan join user_kanwil on user_kanwil.id=permintaan_bahan.id_user_kanwil_logistik where permintaan_bahan.status='diterima' and user_kanwil.id_kanwil='$id_kanwil'";
 						  $data_pengeluaran_cabang3=$this->db->query($sql3)->row();
-						  
+
 						  $id_kanwil=$this->session->userdata('id_kanwil');
 						  $sql4 = "SELECT sum(nominal) as nominal_pengeluaran_cabang_operasional FROM pengeluaran_cabang_operasional where id_kanwil='$id_kanwil'";
 						  $data_pengeluaran_cabang4=$this->db->query($sql4)->row();
-						  
+
 						  $saldo_akhir=(int)$data_kas->saldo-((int)$data_pengeluaran_cabang2->nominal_pengeluaran_cabang_alat+(int)$data_pengeluaran_cabang4->nominal_pengeluaran_cabang_operasional+(int)$data_pengeluaran_cabang3->harga);
 						  ?>
-                      
-                      
+
+
                         <input type="number" name="saldokas" value="<?php echo $saldo_akhir; ?>" class="form-control" disabled>
-                    
+
                     </select>
                   </div>
                 </div>
@@ -254,9 +254,9 @@
                 <tr id="<?php echo $data->id;?>">
                       <td><?php echo $no;?></td>
 				              <td><?php echo $data->nama_pengeluaran;?></td>
-				              <td><?php echo $data->lama_sewa;?></td>
+				              <td><?php echo $data->masa_sewa;?></td>
                       <td><?php
-                       echo $hasil_rupiah = "Rp " . number_format($data->harga_sewa,2,',','.');
+                       echo $hasil_rupiah = "Rp " . number_format($data->nominal,2,',','.');
                        ?></td>
 				              <td>
                         <button type="submit" class="btn btn-success btn-xs edit" data-toggle="modal" data-target="#myModalEdit" data-toggle="tooltip" title="Detail"> <i class="fa  fa-edit" ></i></button>

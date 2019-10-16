@@ -12,7 +12,7 @@
 <!-- Site wrapper -->
 <div class="wrapper">
 
-  
+
 	<?php include(APPPATH.'views/header.php');?>
   <!-- =============================================== -->
 
@@ -27,7 +27,7 @@
       <h1>
         Anggaran Biaya Oprasional Tambah
       </h1>
-      
+
     </section>
 
      <section class="content">
@@ -37,7 +37,7 @@
           <div class="box box-info">
             <!-- /.box-header -->
             <!-- form start -->
-            <form action="<?php echo base_url(). 'C_modul_admin_resto/anggaranbiayaoprasional_tambahaksi'; ?>" method="post" class="form-horizontal">
+            <form action="<?php echo base_url(). 'modul_bendahara_wilayah/anggaranbiayaoprasional_tambahaksi'; ?>" method="post" class="form-horizontal">
               <div class="box-body">
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Nama Cabang</label>
@@ -57,7 +57,7 @@
                   </div>
                 </div>
               </div>
-        
+
               <!-- /.box-body -->
               <div class="box-footer">
                 <button type="submit" class="btn btn-info pull-right">Simpan</button>
@@ -69,7 +69,7 @@
   </div>
 </section>
 
-   
+
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

@@ -109,7 +109,7 @@ class M_modul_bendahara_wilayah extends CI_Model{
 
 	//---- biaya operasional cabang
 	function tampil_data_biaya_operasional_cabang(){
-		$hasil=$this->db->query("SELECT * FROM operasional");
+		$hasil=$this->db->query("SELECT * FROM pengeluaran_cabang_operasional join operasional on operasional.id=pengeluaran_cabang_operasional.id_operasional");
 		return $hasil;
 	}
 	function tambah_data_biaya_operasional_cabang($pengeluaran,$lama_sewa,$harga_sewa){
@@ -185,7 +185,7 @@ class M_modul_bendahara_wilayah extends CI_Model{
 	//---- kas keluar cabang
 	function tampil_data_kas_keluar_cabang(){
 		$hasil=$this->db->query("SELECT * FROM pemberian_kaskeluar
-			JOIN resto ON resto.`id` = `pemberian_kaskeluar`.`id_resto`");
+			JOIN resto ON resto.`id` = `pemberian_kaskeluar`.`id_resto` join user_kanwil on user_kanwil.id=pemberian_kaskeluar.id_bendahara");
 		return $hasil;
 	}
 	function tambah_data_kas_keluar_cabang($resto,$tanggal,$nominal){
@@ -247,4 +247,31 @@ class M_modul_bendahara_wilayah extends CI_Model{
 		WHERE pemberian_kaskeluar.`id_pengeluaran` = '$where'");
 		return $query;
 	}
+
+
+	// tambahan fauzin
+	//query dinamis
+	function tampil_data($tabel){
+	return $this->db->get($tabel);
+	}
+
+	function tampil_data_where($tabel,$where){
+	$this->db->where($where);
+	return $this->db->get($tabel);
+	}
+
+	function input_data($data,$table){
+		$this->db->insert($table,$data);
+		}
+
+	function update_data($where,$data,$table){
+		$this->db->where($where);
+		$this->db->update($table,$data);
+	}
+
+	function hapus_data($where,$table){
+		$this->db->where($where);
+		$this->db->delete($table);
+	}
+
 }

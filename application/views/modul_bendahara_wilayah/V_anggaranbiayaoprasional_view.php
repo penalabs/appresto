@@ -37,7 +37,7 @@
           <div class="box box-info">
             <div class="box-header with-border">
               <div class="box-tools pull-right">
-                <a href="<?php echo base_url('C_modul_admin_resto/anggaranbiayaoprasional_tambah'); ?>" class="btn btn-success"><i class="fa fa-plus-square-o"></i> Entry</a>
+                <a href="<?php echo base_url('modul_bendahara_wilayah/anggaranbiayaoprasional_tambah'); ?>" class="btn btn-success"><i class="fa fa-plus-square-o"></i> Entry</a>
               </div>
             </div>
             <!-- /.box-header -->
@@ -50,7 +50,7 @@
                   <th>Nama Bendahara</th>
                   <th>Nama Resto</th>
                   <th>Tanggal</th>
-                  <th>Nominal Pengajuan</th>
+                  <th>Nominal Pemberian</th>
                   <th>Aksi</th>
                 </tr>
                 </thead>
@@ -66,8 +66,8 @@
                   <td><?php echo $u->tanggal ?></td>
                   <td><?php echo "Rp. ".number_format($u->nominal_kas_keluar).",-"; ?></td>
           <td>
-          <a href="<?php echo base_url('C_modul_admin_resto/anggaranbiayaoprasional_edit/'.$u->id_pengeluaran); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
-          <a href="<?php echo base_url('C_modul_admin_resto/anggaranbiayaoprasional_hapus/'.$u->id_pengeluaran); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
+          <a href="<?php echo base_url('modul_bendahara_wilayah/anggaranbiayaoprasional_edit/'.$u->id_pengeluaran); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
+          <a href="<?php echo base_url('modul_bendahara_wilayah/anggaranbiayaoprasional_hapus/'.$u->id_pengeluaran); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
                 </tr>
         <?php } ?>
 
