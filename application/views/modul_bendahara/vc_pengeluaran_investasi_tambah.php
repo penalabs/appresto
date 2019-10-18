@@ -60,29 +60,30 @@
 
                         <?php
 						  $id_bendahara=$this->session->userdata('id');
+              $id_kanwil=$this->session->userdata('id_kanwil');
               $sql = "SELECT sum(nominal_kas_keluar) as saldo FROM pemberian_kaskeluar where id_bendahara='$id_bendahara'";
               $data_kas=$this->db->query($sql)->row();
 
 						  // $sql = "SELECT sum(nominal_kas_keluar) as saldo FROM pemberian_kaskeluar where id_bendahara='$id_bendahara'";
 						  // $data_kas=$this->db->query($sql)->row();
 
-						  $id_kanwil=$this->session->userdata('id_kanwil');
-						  $sql2 = "SELECT sum(nominal) as nominal_pengeluaran_cabang_alat FROM pengeluaran_cabang_alat where id_kanwil='$id_kanwil'";
-						  $nominal_pengeluaran_cabang_alat=$this->db->query($sql2)->row();
 
-						  $id_kanwil=$this->session->userdata('id_kanwil');
-						  $sql3 = "select sum(dibayar) as pengeluaran_bahan_mentah from pembelian_bahan_mentah where id_bendahara='$id_bendahara'";
+						  $sql2 = "select sum(dibayar) as pengeluaran_alat from pembelian_alat join user_kanwil on user_kanwil.id=pembelian_alat.id_logistik where id_kanwil='$id_kanwil'";
+						  $pengeluaran_alat=$this->db->query($sql2)->row();
+
+
+						  $sql3 = "select sum(dibayar) as pengeluaran_bahan_mentah from pembelian_bahan_mentah join user_kanwil on user_kanwil.id=pembelian_bahan_mentah.id_logistik where id_kanwil='$id_kanwil'";
 						  $pengeluaran_bahan_mentah=$this->db->query($sql3)->row();
 
-						  $id_kanwil=$this->session->userdata('id_kanwil');
+
 						  $sql4 = "SELECT sum(nominal) as nominal_pengeluaran_kanwil_operasional FROM pengeluaran_kanwil_operasional where id_kanwil='$id_kanwil'";
 						  $nominal_pengeluaran_kanwil_operasional=$this->db->query($sql4)->row();
 
-              $id_kanwil=$this->session->userdata('id_kanwil');
+
 						  $sql4 = "SELECT (nominal_investasi) as nominal_investasi_kanwil FROM investasi_kanwil where id_kanwil='$id_kanwil'";
 						  $nominal_investasi_kanwil=$this->db->query($sql4)->row();
 
-						  $saldo_akhir=(int)$nominal_investasi_kanwil->nominal_investasi_kanwil-(int)$data_kas->saldo+((int)$nominal_pengeluaran_cabang_alat->nominal_pengeluaran_cabang_alat+(int)$pengeluaran_bahan_mentah->pengeluaran_bahan_mentah+(int)$nominal_pengeluaran_kanwil_operasional->nominal_pengeluaran_kanwil_operasional);
+						  $saldo_akhir=(int)$nominal_investasi_kanwil->nominal_investasi_kanwil-(int)$data_kas->saldo+((int)$pengeluaran_alat->pengeluaran_alat+(int)$pengeluaran_bahan_mentah->pengeluaran_bahan_mentah+(int)$nominal_pengeluaran_kanwil_operasional->nominal_pengeluaran_kanwil_operasional);
 						  ?>
 
                         <input type="number" name="saldokas" value="<?php echo $saldo_akhir; ?>" class="form-control" disabled>
