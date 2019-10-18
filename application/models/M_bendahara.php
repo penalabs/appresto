@@ -1,12 +1,8 @@
 <?php
 class M_bendahara extends CI_Model{
 
-	function data_pengeluaran_cabang_alat(){
-		$query = $this->db->query("
-		SELECT pengeluaran_cabang_alat.*,resto.*,peralatan.*
-		FROM pengeluaran_cabang_alat
-		JOIN resto ON resto.id = pengeluaran_cabang_alat.id_resto
-		JOIN peralatan ON peralatan.id = pengeluaran_cabang_alat.id_alat");
+	function data_pengeluaran_invest_cabang($id_bendahara){
+		$query = $this->db->query("select * from investasi_cabang join resto on resto.id=investasi_cabang.id_resto where id_user_bendahara='$id_bendahara'");
 		return $query;
 	}
 

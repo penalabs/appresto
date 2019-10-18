@@ -33,3 +33,12 @@ permintaan bahan mentah dan olahan di SUM, masing masing jumlah permintaan stokn
 CLONE BARU REPOSITORY
 
 gunakan database db_siresto2.sql
+
+
+LOGIN kasir user dan password debi
+LOGIN WAITERS user dan password wahyu
+LOGIN PRODUKSI user dan password fauzin
+LOGIN LOGISTIK user dan password wiwin
+LOGIN BENDAHRA user dan password tria 
+
+SUPER ADMIN OWNER SAM GENERAL MANAGER

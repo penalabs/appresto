@@ -12,7 +12,7 @@
 <!-- Site wrapper -->
 <div class="wrapper">
 
-  
+
 	<?php include(APPPATH.'views/header.php');?>
   <!-- =============================================== -->
 
@@ -26,9 +26,9 @@
     <section class="content-header">
       <h1>
         Bendahara
-       
+
       </h1>
-      
+
     </section>
 
      <section class="content">
@@ -57,83 +57,67 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Saldo Kas KANWIL</label>
                   <div class="col-sm-10">
-                    
-                        <?php 
-						  echo $id_bendahara=$this->session->userdata('id');
-						  $sql = "SELECT sum(nominal_kas_keluar) as saldo FROM pemberian_kaskeluar where id_bendahara='$id_bendahara'";
-						  $data_kas=$this->db->query($sql)->row();
+
+                        <?php
+						  $id_bendahara=$this->session->userdata('id');
+              $sql = "SELECT sum(nominal_kas_keluar) as saldo FROM pemberian_kaskeluar where id_bendahara='$id_bendahara'";
+              $data_kas=$this->db->query($sql)->row();
+
+						  // $sql = "SELECT sum(nominal_kas_keluar) as saldo FROM pemberian_kaskeluar where id_bendahara='$id_bendahara'";
+						  // $data_kas=$this->db->query($sql)->row();
 
 						  $id_kanwil=$this->session->userdata('id_kanwil');
 						  $sql2 = "SELECT sum(nominal) as nominal_pengeluaran_cabang_alat FROM pengeluaran_cabang_alat where id_kanwil='$id_kanwil'";
-						  $data_pengeluaran_cabang2=$this->db->query($sql2)->row();
+						  $nominal_pengeluaran_cabang_alat=$this->db->query($sql2)->row();
 
 						  $id_kanwil=$this->session->userdata('id_kanwil');
-						  $sql3 = "select sum(satuan_harga_per_satuan_bahan) as harga from permintaan_bahan_detail join bahan_mentah on bahan_mentah.id=permintaan_bahan_detail.id_bahan_mentah JOIN permintaan_bahan on permintaan_bahan.id_permintaan=permintaan_bahan_detail.id_permintaan join user_kanwil on user_kanwil.id=permintaan_bahan.id_user_kanwil_logistik where permintaan_bahan.status='diterima' and user_kanwil.id_kanwil='$id_kanwil'";
-						  $data_pengeluaran_cabang3=$this->db->query($sql3)->row();
-						  
+						  $sql3 = "select sum(dibayar) as pengeluaran_bahan_mentah from pembelian_bahan_mentah where id_bendahara='$id_bendahara'";
+						  $pengeluaran_bahan_mentah=$this->db->query($sql3)->row();
+
 						  $id_kanwil=$this->session->userdata('id_kanwil');
-						  $sql4 = "SELECT sum(nominal) as nominal_pengeluaran_cabang_operasional FROM pengeluaran_cabang_operasional where id_kanwil='$id_kanwil'";
-						  $data_pengeluaran_cabang4=$this->db->query($sql4)->row();
-						  
-						  $saldo_akhir=(int)$data_kas->saldo-((int)$data_pengeluaran_cabang2->nominal_pengeluaran_cabang_alat+(int)$data_pengeluaran_cabang4->nominal_pengeluaran_cabang_operasional+(int)$data_pengeluaran_cabang3->harga);
+						  $sql4 = "SELECT sum(nominal) as nominal_pengeluaran_kanwil_operasional FROM pengeluaran_kanwil_operasional where id_kanwil='$id_kanwil'";
+						  $nominal_pengeluaran_kanwil_operasional=$this->db->query($sql4)->row();
+
+              $id_kanwil=$this->session->userdata('id_kanwil');
+						  $sql4 = "SELECT (nominal_investasi) as nominal_investasi_kanwil FROM investasi_kanwil where id_kanwil='$id_kanwil'";
+						  $nominal_investasi_kanwil=$this->db->query($sql4)->row();
+
+						  $saldo_akhir=(int)$nominal_investasi_kanwil->nominal_investasi_kanwil-(int)$data_kas->saldo+((int)$nominal_pengeluaran_cabang_alat->nominal_pengeluaran_cabang_alat+(int)$pengeluaran_bahan_mentah->pengeluaran_bahan_mentah+(int)$nominal_pengeluaran_kanwil_operasional->nominal_pengeluaran_kanwil_operasional);
 						  ?>
-                      
+
                         <input type="number" name="saldokas" value="<?php echo $saldo_akhir; ?>" class="form-control" disabled>
-                    
+
                     </select>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label">Alat</label>
+                  <label for="inputEmail3" class="col-sm-2 control-label">Nama Investasi</label>
                   <div class="col-sm-10">
-                    <select name="alat" class="form-control">
-                      <option value="">-- Pilihan --</option>
-                      <?php foreach ($data_peralatan as $dataperalatan) { ?>
-                        <option value="<?php echo $dataperalatan->id; ?>"><?php echo $dataperalatan->nama_peralatan; ?></option>
-                      <?php } ?>
-                    </select>
+                    <input type="number" name="nama_investasi" class="form-control" >
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">Jumlah</label>
+                  <label class="col-sm-2 control-label">Tanggal Mulai</label>
                   <div class="col-sm-10">
-                    <input type="number" name="jumlah" class="form-control" >
+                    <input type="text" name="tanggal_mulai" class="form-control" >
                   </div>
                 </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Masa Pemanfaatan</label>
-                  <div class="col-sm-10">
-                    <select name="masapemanfaatan" class="form-control">
-                      <option value="">-- Pilihan --</option>
-                      <option value="1 bulan">1 bulan</option>
-                      <option value="2 bulan">2 bulan</option>
-                      <option value="3 bulan">3 bulan</option>
-                      <option value="4 bulan">4 bulan</option>
-                      <option value="5 bulan">5 bulan</option>
-                      <option value="6 bulan">6 bulan</option>
-                      <option value="7 bulan">7 bulan</option>
-                      <option value="8 bulan">8 bulan</option>
-                      <option value="9 bulan">9 bulan</option>
-                      <option value="10 bulan">10 bulan</option>
-                      <option value="11 bulan">11 bulan</option>
-                      <option value="12 bulan">12 bulan</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Nominal</label>
-                  <div class="col-sm-10">
-                    <input type="number" name="nominal" class="form-control" >
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Penyusutan</label>
-                  <div class="col-sm-10">
-                    <input type="number" name="penyusutan" class="form-control" >
-                  </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Tanggal Selesai</label>
+                <div class="col-sm-10">
+                  <input type="text" name="tanggal_selesai" class="form-control" >
                 </div>
               </div>
-        
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">Jumlah Pengeluaran</label>
+                  <div class="col-sm-10">
+                    <input type="number" name="jumlah_pengeluaran" class="form-control" >
+                  </div>
+                </div>
+
+
+
               <!-- /.box-body -->
               <div class="box-footer">
                 <button type="submit" class="btn btn-info pull-right">Simpan</button>
@@ -145,7 +129,7 @@
   </div>
 </section>
 
-   
+
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

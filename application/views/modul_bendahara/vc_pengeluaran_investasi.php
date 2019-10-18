@@ -12,7 +12,7 @@
 <!-- Site wrapper -->
 <div class="wrapper">
 
-  
+
 	<?php include(APPPATH.'views/header.php');?>
   <!-- =============================================== -->
 
@@ -26,9 +26,9 @@
     <section class="content-header">
       <h1>
         Pengeluaran Investasi percabang
-       
+
       </h1>
-      
+
     </section>
 
      <section class="content">
@@ -49,35 +49,38 @@
                 <tr>
                   <th>#</th>
                   <th>Cabang</th>
-                  <th>Nama Alat</th>
-                  <th>Jumlah</th>
-                  <th>Masa Pemanfaatan</th>
-                  <th>Nominal</th>
-                  <th>Penyusutan %</th>
+                  <th>Nama Investasi</th>
+                  <th>Tanggal Mulai</th>
+                  <th>Tanggal Selesai</th>
+
+                  <th>Jumlah Pengeluaran</th>
+
                   <th>Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
-        <?php 
+        <?php
           $no = 1;
-          foreach($data_pengeluaran_cabang_alat as $u){
+          echo 	$id_bendahara=$this->session->userdata('id');
+          foreach($data_pengeluaran_investasi_cabang as $u){
         ?>
                 <tr>
                   <td><?php echo $no++ ?>.</td>
                   <td><?php echo $u->nama_resto ?></td>
-                  <td><?php echo $u->nama_peralatan ?></td>
-                  <td><?php echo $u->jumlah ?></td>
-                  <td><?php echo $u->masa_pemanfatan ?></td>
-                  <td><?php echo $u->nominal ?></td>
-                  <td><?php echo $u->nominal_penyusutan ?> %</td>
+                  <td><?php echo $u->nama_investasi ?></td>
+                  <td><?php echo $u->tanggal_mulai ?></td>
+                  <td><?php echo $u->tanggal_selesai ?></td>
+                  <td><?php echo $u->jumlah_pengeluaran ?></td>
+
+
           <td>
-          <a href="<?php echo base_url('modul_bendahara/edit_bendahara_pengeluaran_investasi/'.$u->id_pengeluaran_cabang); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
-          <a href="<?php echo base_url('modul_bendahara/hapus_bendahara_pengeluaran_investasi/'.$u->id_pengeluaran_cabang); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
+          <a href="<?php echo base_url('modul_bendahara/edit_bendahara_pengeluaran_investasi/'.$u->id); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
+          <a href="<?php echo base_url('modul_bendahara/hapus_bendahara_pengeluaran_investasi/'.$u->id); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
                 </tr>
         <?php } ?>
-        
+
                 </tbody>
-               
+
               </table>
             </div>
           </div>
@@ -85,7 +88,7 @@
   </div>
 </section>
 
-   
+
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

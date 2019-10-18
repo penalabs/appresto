@@ -10,10 +10,11 @@ class Modul_bendahara extends CI_Controller {
 			redirect(base_url("login"));
 		}
 	}
-	
+
 	public function bendahara_pengeluaran_investasi()
 	{
-		$data['data_pengeluaran_cabang_alat']=$this->M_bendahara->data_pengeluaran_cabang_alat()->result();
+		$id_bendahara=$this->session->userdata('id');
+		$data['data_pengeluaran_investasi_cabang']=$this->M_bendahara->data_pengeluaran_invest_cabang($id_bendahara)->result();
 		$this->load->view('modul_bendahara/vc_pengeluaran_investasi',$data);
 	}
 
