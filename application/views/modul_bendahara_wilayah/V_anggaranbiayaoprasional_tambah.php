@@ -37,6 +37,7 @@
           <div class="box box-info">
             <!-- /.box-header -->
             <!-- form start -->
+            <?=$id_bendahara=$this->session->userdata('id');?>
             <form action="<?php echo base_url(). 'modul_bendahara_wilayah/anggaranbiayaoprasional_tambahaksi'; ?>" method="post" class="form-horizontal">
               <div class="box-body">
                 <div class="form-group">

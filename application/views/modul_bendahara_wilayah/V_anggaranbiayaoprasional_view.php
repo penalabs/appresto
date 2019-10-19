@@ -51,6 +51,7 @@
                   <th>Nama Resto</th>
                   <th>Tanggal</th>
                   <th>Nominal Pemberian</th>
+                  <th>Status</th>
                   <th>Aksi</th>
                 </tr>
                 </thead>
@@ -65,6 +66,7 @@
                   <td><?php echo $u->nama_resto ?></td>
                   <td><?php echo $u->tanggal ?></td>
                   <td><?php echo "Rp. ".number_format($u->nominal_kas_keluar).",-"; ?></td>
+                  <td><?php echo $u->status ?></td>
           <td>
           <a href="<?php echo base_url('modul_bendahara_wilayah/anggaranbiayaoprasional_edit/'.$u->id_pengeluaran); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
           <a href="<?php echo base_url('modul_bendahara_wilayah/anggaranbiayaoprasional_hapus/'.$u->id_pengeluaran); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>

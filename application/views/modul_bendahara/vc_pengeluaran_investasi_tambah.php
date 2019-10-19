@@ -116,6 +116,12 @@
                     <input type="number" name="jumlah_pengeluaran" class="form-control" >
                   </div>
                 </div>
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">Persentase Penyusutan</label>
+                  <div class="col-sm-10">
+                    <input type="number" name="persen_susut" class="form-control" >
+                  </div>
+                </div>
 
 
 

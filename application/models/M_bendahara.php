@@ -2,14 +2,16 @@
 class M_bendahara extends CI_Model{
 
 	function data_pengeluaran_invest_cabang($id_bendahara){
-		$query = $this->db->query("select * from investasi_cabang join resto on resto.id=investasi_cabang.id_resto where id_user_bendahara='$id_bendahara'");
+		$query = $this->db->query("select resto.id as id_resto,resto.nama_resto,investasi_cabang.id,investasi_cabang.nama_investasi
+		,investasi_cabang.tanggal_mulai,investasi_cabang.tanggal_selesai
+		,investasi_cabang.jumlah_pengeluaran,investasi_cabang.persen_penyusutan from investasi_cabang join resto on resto.id=investasi_cabang.id_resto where id_user_bendahara='$id_bendahara'");
 		return $query;
 	}
 
 	function data_pengeluaran_invest_cabang_edit($where){
 		$query = $this->db->query("select resto.id as id_resto,resto.nama_resto,investasi_cabang.id,investasi_cabang.nama_investasi
 		,investasi_cabang.tanggal_mulai,investasi_cabang.tanggal_selesai
-		,investasi_cabang.jumlah_pengeluaran from investasi_cabang
+		,investasi_cabang.jumlah_pengeluaran,investasi_cabang.persen_penyusutan from investasi_cabang
 		join resto on resto.id=investasi_cabang.id_resto
 		WHERE investasi_cabang.id = '$where'");
 		return $query;
@@ -63,15 +65,19 @@ class M_bendahara extends CI_Model{
 		return $query;
 	}*/
 
-	function data_laporan_pengeluran_alat($where){
-		$query = $this->db->query("
-		SELECT pengeluaran_cabang_alat.*,resto.*
-		FROM pengeluaran_cabang_alat
-		JOIN resto ON resto.id = pengeluaran_cabang_alat.id_resto
-		WHERE pengeluaran_cabang_alat.id_resto = '$where'");
+	function data_laporan_investasi_cabang($where){
+		$query = $this->db->query("SELECT * FROM investasi_cabang join resto on resto.id=investasi_cabang.id_resto
+		WHERE investasi_cabang.id_resto = '$where'");
 		return $query;
 	}
-
+	function data_laporan_pengeluran_alat($where){
+			$query = $this->db->query("
+			SELECT pengeluaran_cabang_alat.*,resto.*
+			FROM pengeluaran_cabang_alat
+			JOIN resto ON resto.id = pengeluaran_cabang_alat.id_resto
+			WHERE pengeluaran_cabang_alat.id_resto = '$where'");
+			return $query;
+		}
 	function data_jum_storan($where){
 		$query = $this->db->query("SELECT SUM(jumlah_setoran) AS jum FROM pendapatan_kas_masuk WHERE id_user_kasir='$where'");
 		return $query;

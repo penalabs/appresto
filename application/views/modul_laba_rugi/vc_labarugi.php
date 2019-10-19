@@ -85,6 +85,7 @@
                 <?php
                   $no = 1;
 				          $laba=0;
+                  $laba=0;
                   foreach($data_cabang_resto as $u){ ?>
                 <tr>
                   <td><?php echo $no++ ?>.</td>
@@ -92,28 +93,28 @@
                   <td>
 				  <?php
 				   $id_resto=$u->id;
-				   $tanggal1=$_POST['tanggal1'];
-				   $tanggal2=$_POST['tanggal2'];
-				  $id_bendahara=$this->session->userdata('id');
-				  $sql = "SELECT sum(jumlah_setoran) as pendapatan FROM pendapatan_kas_masuk where id_user_bendahara='$id_bendahara' and tanggal>'$tanggal1' and tanggal<'$tanggal2'";
-				  $data1=$this->db->query($sql)->row();
-				  echo 'pendapatan : '.$pendapatan=$data1->pendapatan;
-				  echo '<br>';
-						  $id_kanwil=$this->session->userdata('id_kanwil');
-						  $sql2 = "SELECT sum(nominal_penyusutan) as nominal_penyusutan_cabang_alat,sum(nominal) as nominalnya FROM pengeluaran_cabang_alat where id_resto='$id_resto' and tanggal>'$tanggal1' and tanggal<'$tanggal2'";
-						  $data_pengeluaran_cabang2=$this->db->query($sql2)->row();
-						  $nominal=(int)$data_pengeluaran_cabang2->nominalnya;
-				  echo 'penyusutan alat cabang: '.$penyusutan=((int)$data_pengeluaran_cabang2->nominal_penyusutan_cabang_alat/100)*(int)$nominal;
-				  echo '<br>';
+           $id_bendahara=$this->session->userdata('id');
+				   echo $tanggal1=$_POST['tanggal1'];
+				   echo $tanggal2=$_POST['tanggal2'];
+           $sql2 = "select sum(jumlah_setoran) as pendapatan from pendapatan_kas_masuk join user_resto on user_resto.id=pendapatan_kas_masuk.id_user_kasir where user_resto.id='$id_resto'";
+           $pendapatan=$this->db->query($sql2)->row();
 
-						  $id_kanwil=$this->session->userdata('id_kanwil');
-						  $sql4 = "SELECT sum(nominal) as nominal_pengeluaran_cabang_operasional FROM pengeluaran_cabang_operasional where id_resto='$id_resto' and tanggal>'$tanggal1' and tanggal<'$tanggal2'";
-						  $data_pengeluaran_cabang4=$this->db->query($sql4)->row();
-				  echo 'biaya operasional cabang : '.$biaya_operasional_cabang=$data_pengeluaran_cabang4->nominal_pengeluaran_cabang_operasional;
-				  echo '<br>';
-				  echo '<h3>Laba Bersih : Rp. '.$laba_bersih=(int)$pendapatan-((int)$biaya_operasional_cabang+(int)$penyusutan).'</h3>';
-				  (int)$laba=+(int)$laba_bersih;
-				  ?>
+           $sql3 = "select sum(nominal) as nominal_pengeluaran_cabang_operasional from pengeluaran_cabang_operasional where id_resto='$id_resto'";
+           $nominal_pengeluaran_cabang_operasional=$this->db->query($sql3)->row();
+
+           $batas_tanggal_penyusutan=date('Y-m-d');
+           $sql4 = "select sum(nominal_penyusutan) as jumlah_penyusutan from penyusutan_investasi_cabang join investasi_cabang on investasi_cabang.id=penyusutan_investasi_cabang.id_investasi_cabang where tanggal>'$tanggal1' and tanggal<'$tanggal2' and investasi_cabang.id_resto='$id_resto'";
+           $jumlah_penyusutan=$this->db->query($sql4)->row();
+           ?>
+
+           <?php echo $pengeluaran=$nominal_pengeluaran_cabang_operasional->nominal_pengeluaran_cabang_operasional + $jumlah_penyusutan->jumlah_penyusutan; ?>
+           </td>
+           <td>
+           <?php
+           echo $lababersih = $pendapatan->pendapatan-( $nominal_pengeluaran_cabang_operasional->nominal_pengeluaran_cabang_operasional + $jumlah_penyusutan->jumlah_penyusutan);
+           $laba+=$lababersih;
+           ?>
+           </td>
                     <!-- nilai investasi – (laba bersih + penyusutan) / nilai investasi x 100% -->
                   </td>
 
@@ -128,14 +129,14 @@
               </table>
 			  <tr>
 				<?php
-				$id_kanwil=$this->session->userdata('id_kanwil');
+			        $id_kanwil=$this->session->userdata('id_kanwil');
 						  $sql3 = "SELECT sum(nominal) as nominal_pengeluaran_kanwil_operasional FROM pengeluaran_kanwil_operasional where id_kanwil='$id_kanwil' and tanggal>'$tanggal1' and tanggal<'$tanggal2'";
 						  $data_pengeluaran_kanwil3=$this->db->query($sql3)->row();
-				$biaya_operasional_kanwil=$data_pengeluaran_kanwil3->nominal_pengeluaran_kanwil_operasional;
-				$laba_nya=(int)$laba-(int)$biaya_operasional_kanwil;
-				  echo '<h4>- biaya operasional kanwil : '.$biaya_operasional_kanwil.'</h4>';
-				  echo '<h3>HASIL AKHIR LABA RUGI : '.$laba_nya.'</h3>';
-				  echo '<br>';
+      				$biaya_operasional_kanwil=$data_pengeluaran_kanwil3->nominal_pengeluaran_kanwil_operasional;
+      				$laba_nya=(int)$lababersih-(int)$biaya_operasional_kanwil;
+    				  echo '<h4>- biaya operasional kanwil : '.$biaya_operasional_kanwil.'</h4>';
+    				  echo '<h3>HASIL AKHIR LABA RUGI : '.$laba_nya.'</h3>';
+    				  echo '<br>';
 				?>
 				</tr>
 			<?php

@@ -35,6 +35,7 @@ class Modul_bendahara extends CI_Controller {
 		$tanggal_mulai				= $this->input->post('tanggal_mulai');
 		$tanggal_selesai 	= $this->input->post('tanggal_selesai');
 		$jumlah_pengeluaran			= $this->input->post('jumlah_pengeluaran');
+		$persen_susut		= $this->input->post('persen_susut');
 
 		$datainput = array(
 			'id_resto'				=> $nama_cabang,
@@ -44,6 +45,7 @@ class Modul_bendahara extends CI_Controller {
 			'tanggal_mulai'				=> $tanggal_mulai,
 			'tanggal_selesai'		=> $tanggal_selesai,
 			'jumlah_pengeluaran'				=> $jumlah_pengeluaran,
+			'persen_penyusutan'				=> $persen_susut,
 
 		);
 		$this->M_bendahara->input_data($datainput,'investasi_cabang');
@@ -70,7 +72,7 @@ class Modul_bendahara extends CI_Controller {
 		$tanggal_mulai				= $this->input->post('tanggal_mulai');
 		$tanggal_selesai 	= $this->input->post('tanggal_selesai');
 		$jumlah_pengeluaran			= $this->input->post('jumlah_pengeluaran');
-
+		$persen_susut		= $this->input->post('persen_susut');
 		$datainput = array(
 			'id_resto'				=> $id_resto,
 			//'id_pemberian_kas_keluar'=> $id_pemberian_kas_keluar,
@@ -79,7 +81,7 @@ class Modul_bendahara extends CI_Controller {
 			'tanggal_mulai'				=> $tanggal_mulai,
 			'tanggal_selesai'		=> $tanggal_selesai,
 			'jumlah_pengeluaran'				=> $jumlah_pengeluaran,
-
+			'persen_penyusutan'				=> $persen_susut,
 		);
 		$where = array('id' => $id);
 		$this->M_bendahara->update_data($where,$datainput,'investasi_cabang');
@@ -102,9 +104,9 @@ class Modul_bendahara extends CI_Controller {
 		$cabang = $this->input->post('cabang_resto');
 		$data['cabang'] = $this->input->post('cabang_resto');
 		$data['data_cabang_resto']=$this->M_bendahara->data_cabang_resto()->result();
-		$data['data_lp_cabang']=$this->M_bendahara->data_laporan_pengeluran_alat($cabang)->result();
+		$data['data_lp_cabang']=$this->M_bendahara->data_laporan_investasi_cabang($cabang)->result();
 		//$data['data_jum_storan']=$this->M_bendahara->data_jum_storan($cabang)->row();
-		$data['data_lp_ic']=$this->M_bendahara->data_lp_ic($cabang)->result();
+		//$data['data_lp_ic']=$this->M_bendahara->data_lp_ic($cabang)->result();
 		$this->load->view('modul_bendahara/vc_investasi_cabang',$data);
 	}
 }

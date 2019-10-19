@@ -12,7 +12,7 @@
 <!-- Site wrapper -->
 <div class="wrapper">
 
-  
+
 	<?php include(APPPATH.'views/header.php');?>
   <!-- =============================================== -->
 
@@ -26,9 +26,9 @@
     <section class="content-header">
       <h1>
         LAPORAN
-       
+
       </h1>
-      
+
     </section>
 
      <section class="content">
@@ -63,57 +63,68 @@
             <!-- /.box-header -->
             <!-- form start -->
                   <div class="box-body">
-                    <h1>Investasi Alat</h1>
+                    <h1>Investasi Cabang</h1>
               <table id="example1" class="table table-bordered table-striped">
                  <thead>
                 <tr>
                   <th>#</th>
-                  <th>Cabang</th>
-                  <th>Investasi</th>
-                  <th>Penyusutan %</th>
-                  <th>Penyusutan Rp.</th>
-                  <th>Laba Bersih</th>
-                  <th>Pengembalian</th>
+                  <th>Nama Investasi</th>
+                  <th>Tanggal Mulai</th>
+                  <th>Tanggal Selesai</th>
+                  <th>Jumlah Pengeluaran</th>
+                  <th>Persen Penyusutan</th>
+
+
                 </tr>
                         </thead>
                         <tbody>
-                <?php 
+                <?php
                   $no = 1;
+                  $id_bendahara=$this->session->userdata('id');
                   foreach($data_lp_cabang as $u){ ?>
                 <tr>
                   <td><?php echo $no++ ?>.</td>
                   <td><?php echo $u->nama_resto ?></td>
-                  <td><?php echo "Rp. ".number_format($u->nominal).",-"; ?></td>
-                  <td><?php echo $u->nominal_penyusutan ?> %</td>
-                  <td>
-                    <?php
-                      $persenpenyusutan=$u->nominal_penyusutan.'<br>';
-                      $nominalinves=$u->nominal.'<br>';
-                      $hasilpenyusutan=((int)$persenpenyusutan/100)*(int)$nominalinves;
-                      echo "Rp. ".number_format($hasilpenyusutan).",-";
-                    ?>
-                  </td>
-                  <td>
-                    <?php
-                    echo "Rp. ".number_format(200000).",-";
-                    ?>
-                  </td>
-                  <td>
-                    <!-- nilai investasi – (laba bersih + penyusutan) / nilai investasi x 100% -->
-                    <?php
-                    $hasillababersih=(int)$nominalinves-(2000000+(int)$hasilpenyusutan)/(int)$nominalinves*(int)$persenpenyusutan;
-                    echo "Rp. ".number_format($hasillababersih).",-";
-                    ?>
-                  </td>
+                  <td><?php echo $u->tanggal_mulai ?></td>
+                  <td><?php echo $u->tanggal_selesai ?></td>
+                  <td><?php echo "Rp. ".number_format($u->jumlah_pengeluaran).",-"; ?></td>
+                  <td><?php echo $u->persen_penyusutan ?> %</td>
+
+
+
                 </tr>
                 <?php } ?>
                 </tbody>
+
+
+
+
               </table>
+              <?php
+              if(isset($jumlah_pengeluaran)){
+              $sql2 = "select sum(jumlah_setoran) as pendapatan from pendapatan_kas_masuk where id_user_bendahara='$id_bendahara'";
+              $pendapatan=$this->db->query($sql2)->row();
+
+              $sql3 = "select sum(nominal) as nominal_pengeluaran_cabang_operasional from pengeluaran_cabang_operasional";
+              $nominal_pengeluaran_cabang_operasional=$this->db->query($sql3)->row();
+
+              $batas_tanggal_penyusutan=date('Y-m-d');
+              $sql4 = "select sum(nominal_penyusutan) as jumlah_penyusutan from penyusutan_investasi_cabang where tanggal<$batas_tanggal_penyusutan";
+              $jumlah_penyusutan=$this->db->query($sql4)->row();
+
+              $lababersih = $pendapatan->pendapatan-( $nominal_pengeluaran_cabang_operasional->nominal_pengeluaran_cabang_operasional + $jumlah_penyusutan->jumlah_penyusutan);
+
+              $pengembalian_invest=(int)$u->jumlah_pengeluaran-((int)$lababersih+(int)$jumlah_penyusutan->jumlah_penyusutan)/(int)$u->jumlah_pengeluaran*100;
+
+              ?>
+              <h1>Pengembalian Dana  Rp. <?php echo number_format($pengembalian_invest).",-" ?></h1>
+
+              <?php
+              }
+              ?>
             </div>
           </div>
-          <div class="box box-info">
-            <!-- /.box-header -->
-            <!-- form start -->
+          <!-- <div class="box box-info">
                   <div class="box-body">
                     <h1>Investasi Uang</h1>
               <table id="example2" class="table table-bordered table-striped">
@@ -126,7 +137,7 @@
                 </tr>
                         </thead>
                         <tbody>
-                <?php 
+                <?php
                   $no = 1;
                   foreach($data_lp_ic as $datavalue){ ?>
                 <tr>
@@ -139,12 +150,12 @@
                 </tbody>
               </table>
             </div>
-          </div>
+          </div> -->
     </div>
   </div>
 </section>
 
-   
+
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

@@ -307,15 +307,16 @@ class modul_bendahara_wilayah extends CI_Controller {
 	}
 
 	public function anggaranbiayaoprasional_tambahaksi(){
-		$date 				= date('Y-m-d H:i:s');
+		$date 				= date('Y-m-d');
 		$nama_cabang		= $this->input->post('nama_cabang');
 		$nominal_kas_keluar				= $this->input->post('nominal_kas_keluar');
+		$id_bendahara=$this->session->userdata('id');
 		$datainput = array(
-			'id_bendahara'			=> "2",
+			'id_bendahara'			=> $id_bendahara,
 			'id_resto'				=> $nama_cabang,
 			'tanggal'				=> $date,
 			'nominal_kas_keluar'	=> $nominal_kas_keluar,
-			'status'				=> "Pengajuan"
+			'status'				=> "pengajuan"
 		);
 		$this->m_modul_bendahara_wilayah->input_data($datainput, 'pemberian_kaskeluar');
 		redirect('modul_bendahara_wilayah/anggaranbiayaoprasional_view');

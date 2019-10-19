@@ -54,6 +54,7 @@
                   <th>Tanggal Selesai</th>
 
                   <th>Jumlah Pengeluaran</th>
+                  <th>Persen Penyusutan</th>
 
                   <th>Aksi</th>
                 </tr>
@@ -71,6 +72,7 @@
                   <td><?php echo $u->tanggal_mulai ?></td>
                   <td><?php echo $u->tanggal_selesai ?></td>
                   <td><?php echo $u->jumlah_pengeluaran ?></td>
+                  <td><?php echo $u->persen_penyusutan ?>%</td>
 
 
           <td>
