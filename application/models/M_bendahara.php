@@ -6,13 +6,12 @@ class M_bendahara extends CI_Model{
 		return $query;
 	}
 
-	function data_pengeluaran_cabang_alat_edit($where){
-		$query = $this->db->query("
-		SELECT pengeluaran_cabang_alat.*,resto.*,peralatan.*
-		FROM pengeluaran_cabang_alat
-		JOIN resto ON resto.id = pengeluaran_cabang_alat.id_resto
-		JOIN peralatan ON peralatan.id = pengeluaran_cabang_alat.id_alat
-		WHERE id_pengeluaran_cabang = '$where'");
+	function data_pengeluaran_invest_cabang_edit($where){
+		$query = $this->db->query("select resto.id as id_resto,resto.nama_resto,investasi_cabang.id,investasi_cabang.nama_investasi
+		,investasi_cabang.tanggal_mulai,investasi_cabang.tanggal_selesai
+		,investasi_cabang.jumlah_pengeluaran from investasi_cabang
+		join resto on resto.id=investasi_cabang.id_resto
+		WHERE investasi_cabang.id = '$where'");
 		return $query;
 	}
 

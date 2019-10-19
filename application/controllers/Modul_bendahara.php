@@ -22,68 +22,75 @@ class Modul_bendahara extends CI_Controller {
 	{
 		$data['data_cabang_resto']=$this->M_bendahara->data_cabang_resto()->result();
 		//$data['data_investasi_cabang']=$this->M_bendahara->data_investasi_cabang()->result();
-		$data['data_peralatan']=$this->M_bendahara->data_peralatan()->result();
+		//$data['data_peralatan']=$this->M_bendahara->data_peralatan()->result();
 		$this->load->view('modul_bendahara/vc_pengeluaran_investasi_tambah',$data);
 	}
 
 	public function bendahara_pengeluaran_investasi_tambahaksi()
 	{
-		$id_kanwil=$this->session->userdata('id_kanwil');
+		$id_bendahara=$this->session->userdata('id');
 		$nama_cabang	= $this->input->post('nama_cabang');
 		//$id_pemberian_kas_keluar	= $this->input->post('id_pemberian_kas_keluar');
-		$alat				= $this->input->post('alat');
-		$jumlah				= $this->input->post('jumlah');
-		$masapemanfaatan 	= $this->input->post('masapemanfaatan');
-		$nominal			= $this->input->post('nominal');
-		$penyusutan			= $this->input->post('penyusutan');
+		$nama_investasi				= $this->input->post('nama_investasi');
+		$tanggal_mulai				= $this->input->post('tanggal_mulai');
+		$tanggal_selesai 	= $this->input->post('tanggal_selesai');
+		$jumlah_pengeluaran			= $this->input->post('jumlah_pengeluaran');
+
 		$datainput = array(
 			'id_resto'				=> $nama_cabang,
 			//'id_pemberian_kas_keluar'=> $id_pemberian_kas_keluar,
-			'id_kanwil'				=> $id_kanwil,
-			'id_alat'				=> $alat,
-			'jumlah'				=> $jumlah,
-			'masa_pemanfatan'		=> $masapemanfaatan,
-			'nominal'				=> $nominal,
-			'nominal_penyusutan'	=> $penyusutan
+			'id_user_bendahara'				=> $id_bendahara,
+			'nama_investasi'				=> $nama_investasi,
+			'tanggal_mulai'				=> $tanggal_mulai,
+			'tanggal_selesai'		=> $tanggal_selesai,
+			'jumlah_pengeluaran'				=> $jumlah_pengeluaran,
+
 		);
-		$this->M_bendahara->input_data($datainput,'pengeluaran_cabang_alat');
+		$this->M_bendahara->input_data($datainput,'investasi_cabang');
 		redirect('modul_bendahara/bendahara_pengeluaran_investasi');
 	}
 
-	public function edit_bendahara_pengeluaran_investasi($id_pengeluaran_cabang)
+	public function edit_bendahara_pengeluaran_investasi($id)
 	{
-		$data['data_cabang_resto']=$this->M_bendahara->data_cabang_resto()->result();
+		//$data['data_cabang_resto']=$this->M_bendahara->data_cabang_resto()->result();
 		//$data['data_investasi_cabang']=$this->M_bendahara->data_investasi_cabang()->result();
-		$data['data_peralatan']=$this->M_bendahara->data_peralatan()->result();
-		$data['data_pengeluaran_cabang_alat']=$this->M_bendahara->data_pengeluaran_cabang_alat_edit($id_pengeluaran_cabang)->result();
+		//$data['data_peralatan']=$this->M_bendahara->data_peralatan()->result();
+		$data['data_pengeluaran_invest_cabang']=$this->M_bendahara->data_pengeluaran_invest_cabang_edit($id)->result();
 		$this->load->view('modul_bendahara/vc_pengeluaran_investasi_edit',$data);
 	}
 
 	public function bendahara_pengeluaran_investasi_editaksi()
 	{
-		$id					= $this->input->post('id');
-		$nama_cabang		= $this->input->post('nama_cabang');
-		$jumlah				= $this->input->post('jumlah');
-		$masapemanfaatan 	= $this->input->post('masapemanfaatan');
-		$nominal			= $this->input->post('nominal');
-		$penyusutan			= $this->input->post('penyusutan');
-		$where = array('id_pengeluaran_cabang' => $id);
+
+		$id_bendahara=$this->session->userdata('id');
+		$id	= $this->input->post('id');
+		$id_resto	= $this->input->post('id_resto');
+		//$id_pemberian_kas_keluar	= $this->input->post('id_pemberian_kas_keluar');
+		$nama_investasi				= $this->input->post('nama_investasi');
+		$tanggal_mulai				= $this->input->post('tanggal_mulai');
+		$tanggal_selesai 	= $this->input->post('tanggal_selesai');
+		$jumlah_pengeluaran			= $this->input->post('jumlah_pengeluaran');
+
 		$datainput = array(
-			'id_resto'				=> $nama_cabang,
-			'jumlah'				=> $jumlah,
-			'masa_pemanfatan'		=> $masapemanfaatan,
-			'nominal'				=> $nominal,
-			'nominal_penyusutan'	=> $penyusutan
+			'id_resto'				=> $id_resto,
+			//'id_pemberian_kas_keluar'=> $id_pemberian_kas_keluar,
+			'id_user_bendahara'				=> $id_bendahara,
+			'nama_investasi'				=> $nama_investasi,
+			'tanggal_mulai'				=> $tanggal_mulai,
+			'tanggal_selesai'		=> $tanggal_selesai,
+			'jumlah_pengeluaran'				=> $jumlah_pengeluaran,
+
 		);
-		$this->M_bendahara->update_data($where,$datainput,'pengeluaran_cabang_alat');
+		$where = array('id' => $id);
+		$this->M_bendahara->update_data($where,$datainput,'investasi_cabang');
 		redirect('modul_bendahara/bendahara_pengeluaran_investasi');
 	}
 
-	public function hapus_bendahara_pengeluaran_investasi($id_pengeluaran_cabang)
+	public function hapus_bendahara_pengeluaran_investasi($id)
 	{
-		$where = array('id_pengeluaran_cabang' => $id_pengeluaran_cabang);
-		$this->M_bendahara->hapus_data($where,'pengeluaran_cabang_alat');
-		redirect('bendahara_pengeluaran_investasi');
+		$where = array('id' => $id);
+		$this->M_bendahara->hapus_data($where,'investasi_cabang');
+		redirect('modul_bendahara/pengeluaran_investasi');
 	}
 
 	public function setoran_kasir(){

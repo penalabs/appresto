@@ -94,7 +94,7 @@
                 <div class="form-group">
                   <label for="inputEmail3" class="col-sm-2 control-label">Nama Investasi</label>
                   <div class="col-sm-10">
-                    <input type="number" name="nama_investasi" class="form-control" >
+                    <input type="text" name="nama_investasi" class="form-control" >
                   </div>
                 </div>
                 <div class="form-group">

@@ -41,24 +41,22 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <?php foreach ($data_pengeluaran_cabang_alat as $dataedit) { ?>
+            <?php foreach ($data_pengeluaran_invest_cabang as $dataedit) { ?>
 
             <form action="<?php echo base_url(). 'modul_bendahara/bendahara_pengeluaran_investasi_editaksi'; ?>" method="post" class="form-horizontal">
 
+<<<<<<< Updated upstream
 			           <input type="hidden" name="id" class="form-control" value="<?php echo $dataedit->id_pengeluaran_cabang; ?>" >
+=======
+			        <input type="hidden" name="id" class="form-control" value="<?php echo $dataedit->id; ?>" >
+              <input type="hidden" name="id_resto" class="form-control" value="<?php echo $dataedit->id_resto; ?>" >
+>>>>>>> Stashed changes
               <div class="box-body">
                 <div class="form-group">
-                  <label class="col-sm-2 control-label">Nama Cabang</label>
+                  <label for="inputEmail3" class="col-sm-2 control-label">Nama Cabang</label>
                   <div class="col-sm-10">
-                    <select name="nama_cabang" class="form-control">
-                      <option value="<?php echo $dataedit->id; ?>"><?php echo $dataedit->nama_resto; ?></option>
-                      <?php foreach ($data_cabang_resto as $datacabangresto) { ?>
-                        <option value="<?php echo $datacabangresto->id; ?>"><?php echo $datacabangresto->nama_resto; ?></option>
-                      <?php } ?>
-                    </select>
+                    <input type="text" name="nama_cabang" value="<?=$dataedit->nama_resto;?>" class="form-control" >
                   </div>
-                </div>
-
                 </div>
 				        <div class="form-group">
                   <label class="col-sm-2 control-label">Saldo Kas KANWIL</label>
@@ -70,6 +68,7 @@
                     $sql = "SELECT sum(nominal_kas_keluar) as saldo FROM pemberian_kaskeluar where id_bendahara='$id_bendahara'";
                     $data_kas=$this->db->query($sql)->row();
 
+<<<<<<< Updated upstream
                    // $sql = "SELECT sum(nominal_kas_keluar) as saldo FROM pemberian_kaskeluar where id_bendahara='$id_bendahara'";
                    // $data_kas=$this->db->query($sql)->row();
 
@@ -92,6 +91,31 @@
                      $saldo_akhir=(int)$nominal_investasi_kanwil->nominal_investasi_kanwil-(int)$data_kas->saldo+((int)$pengeluaran_alat->pengeluaran_alat+(int)$pengeluaran_bahan_mentah->pengeluaran_bahan_mentah+(int)$nominal_pengeluaran_kanwil_operasional->nominal_pengeluaran_kanwil_operasional);
                      ?>
                         <input type="number" name="saldokas" value="<?php echo $saldo_akhir; ?>" class="form-control" disabled>
+=======
+                    // $sql = "SELECT sum(nominal_kas_keluar) as saldo FROM pemberian_kaskeluar where id_bendahara='$id_bendahara'";
+                    // $data_kas=$this->db->query($sql)->row();
+
+
+                    $sql2 = "select sum(dibayar) as pengeluaran_alat from pembelian_alat join user_kanwil on user_kanwil.id=pembelian_alat.id_logistik where id_kanwil='$id_kanwil'";
+                    $pengeluaran_alat=$this->db->query($sql2)->row();
+
+
+                    $sql3 = "select sum(dibayar) as pengeluaran_bahan_mentah from pembelian_bahan_mentah join user_kanwil on user_kanwil.id=pembelian_bahan_mentah.id_logistik where id_kanwil='$id_kanwil'";
+                    $pengeluaran_bahan_mentah=$this->db->query($sql3)->row();
+
+
+                    $sql4 = "SELECT sum(nominal) as nominal_pengeluaran_kanwil_operasional FROM pengeluaran_kanwil_operasional where id_kanwil='$id_kanwil'";
+                    $nominal_pengeluaran_kanwil_operasional=$this->db->query($sql4)->row();
+
+
+                    $sql4 = "SELECT (nominal_investasi) as nominal_investasi_kanwil FROM investasi_kanwil where id_kanwil='$id_kanwil'";
+                    $nominal_investasi_kanwil=$this->db->query($sql4)->row();
+
+                    $saldo_akhir=(int)$nominal_investasi_kanwil->nominal_investasi_kanwil-(int)$data_kas->saldo+((int)$pengeluaran_alat->pengeluaran_alat+(int)$pengeluaran_bahan_mentah->pengeluaran_bahan_mentah+(int)$nominal_pengeluaran_kanwil_operasional->nominal_pengeluaran_kanwil_operasional);
+                    ?>
+
+                    <input type="number" name="saldokas" value="<?php echo $saldo_akhir; ?>" class="form-control" disabled>
+>>>>>>> Stashed changes
 
                     </select>
                   </div>
@@ -99,26 +123,26 @@
                 <div class="form-group">
                   <label for="inputEmail3" class="col-sm-2 control-label">Nama Investasi</label>
                   <div class="col-sm-10">
-                    <input type="number" name="nama_investasi" class="form-control" >
+                    <input type="text" name="nama_investasi" value="<?=$dataedit->nama_investasi;?>" class="form-control" >
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Tanggal Mulai</label>
                   <div class="col-sm-10">
-                    <input type="text" name="tanggal_mulai" class="form-control" >
+                    <input type="text" name="tanggal_mulai" value="<?=$dataedit->tanggal_mulai;?>" class="form-control" >
                   </div>
                 </div>
 
               <div class="form-group">
                 <label class="col-sm-2 control-label">Tanggal Selesai</label>
                 <div class="col-sm-10">
-                  <input type="text" name="tanggal_selesai" class="form-control" >
+                  <input type="text" name="tanggal_selesai"  value="<?=$dataedit->tanggal_selesai;?>" class="form-control" >
                 </div>
               </div>
                 <div class="form-group">
                   <label for="inputEmail3" class="col-sm-2 control-label">Jumlah Pengeluaran</label>
                   <div class="col-sm-10">
-                    <input type="number" name="jumlah_pengeluaran" class="form-control" >
+                    <input type="number" name="jumlah_pengeluaran"  value="<?=$dataedit->jumlah_pengeluaran;?>" class="form-control" >
                   </div>
                 </div>
 

@@ -61,7 +61,7 @@
                 <tbody>
         <?php
           $no = 1;
-          echo 	$id_bendahara=$this->session->userdata('id');
+          $id_bendahara=$this->session->userdata('id');
           foreach($data_pengeluaran_investasi_cabang as $u){
         ?>
                 <tr>
