@@ -109,7 +109,7 @@ class M_modul_bendahara_wilayah extends CI_Model{
 
 	//---- biaya operasional cabang
 	function tampil_data_biaya_operasional_cabang(){
-		$hasil=$this->db->query("SELECT * FROM pengeluaran_cabang_operasional join operasional on operasional.id=pengeluaran_cabang_operasional.id_operasional");
+		$hasil=$this->db->query("SELECT * FROM operasional");
 		return $hasil;
 	}
 	function tambah_data_biaya_operasional_cabang($pengeluaran,$lama_sewa,$harga_sewa){

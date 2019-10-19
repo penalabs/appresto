@@ -128,7 +128,7 @@ class modul_bendahara_wilayah extends CI_Controller {
 
 	public function delete_data_pengeluaran_kanwil()
 	{
-		$id_pengeluaran_kanwil = $this->uri->segment('3');
+		$id_pengeluaran_kanwil = $this->input->get('id');
 
 		$this->m_modul_bendahara_wilayah->delete_data_pengeluaran_kanwil($id_pengeluaran_kanwil);
 		redirect('modul_bendahara_wilayah/data_pengeluaran_kanwil');
