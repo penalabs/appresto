@@ -38,22 +38,22 @@ class M_modul_admin_resto extends CI_Model{
     //query statik
     function tampil_data_permintaan_peralatan(){
         $query = $this->db->query("
-		SELECT pengeluaran_cabang_alat.*,resto.*,peralatan.*,kanwil.*
-		FROM pengeluaran_cabang_alat
-		JOIN resto ON resto.id = pengeluaran_cabang_alat.id_resto
-		JOIN peralatan ON peralatan.id = pengeluaran_cabang_alat.id_alat
-		JOIN kanwil ON kanwil.`id_kanwil` = pengeluaran_cabang_alat.`id_kanwil`
-		ORDER BY pengeluaran_cabang_alat.`id_pengeluaran_cabang` DESC");
+		SELECT permintaan_alat.*,resto.*,peralatan.*,kanwil.*
+		FROM permintaan_alat
+		JOIN resto ON resto.id = permintaan_alat.id_resto
+		JOIN peralatan ON peralatan.id = permintaan_alat.id_alat
+		JOIN kanwil ON kanwil.`id_kanwil` = permintaan_alat.`id_kanwil`
+		ORDER BY permintaan_alat.`id_permintaan_alat` DESC");
 		return $query;
 	}
 
 	function tampil_data_permintaan_peralatan_where($where){
 		$query = $this->db->query("
-		SELECT pengeluaran_cabang_alat.*,resto.*,peralatan.*
-		FROM pengeluaran_cabang_alat
-		JOIN resto ON resto.id = pengeluaran_cabang_alat.id_resto
-		JOIN peralatan ON peralatan.id = pengeluaran_cabang_alat.id_alat
-		WHERE id_pengeluaran_cabang = '$where'");
+		SELECT permintaan_alat.*,resto.*,peralatan.*
+		FROM permintaan_alat
+		JOIN resto ON resto.id = permintaan_alat.id_resto
+		JOIN peralatan ON peralatan.id = permintaan_alat.id_alat
+		WHERE id_permintaan_alat = '$where'");
 		return $query;
 	}
 
@@ -148,4 +148,3 @@ class M_modul_admin_resto extends CI_Model{
 		return $query;
 	}
 }
-

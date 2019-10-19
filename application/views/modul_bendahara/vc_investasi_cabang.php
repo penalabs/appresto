@@ -101,7 +101,7 @@
 
               </table>
               <?php
-              if(isset($jumlah_pengeluaran)){
+              if(isset($_POST['cabang_resto'])){
               $sql2 = "select sum(jumlah_setoran) as pendapatan from pendapatan_kas_masuk where id_user_bendahara='$id_bendahara'";
               $pendapatan=$this->db->query($sql2)->row();
 

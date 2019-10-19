@@ -26,8 +26,8 @@
       <li><a href="<?php echo base_url('/modul_bendahara_wilayah/data_biaya_operasional_cabang');?>"><i class="fa fa-circle-o"></i> Pengeluaran Biaya Operasional</a></li>
 			<li><a href="<?php echo base_url('C_modul_admin_resto/laporanbiayaoprasional_view');?>"><i class="fa fa-circle-o"></i> Laporan biaya Operasional</a></li>
 			<li><a href="<?php echo base_url('C_modul_admin_resto/laporanpenjualan_view');?>"><i class="fa fa-circle-o"></i> Laporan Penjualan</a></li>
-			<li><a href="<?php echo base_url('#');?>"><i class="fa fa-circle-o"></i> Laporan Kinerja karyawan</a></li>
-			<li><a href="<?php echo base_url('#');?>"><i class="fa fa-circle-o"></i> Laporan Transaksi</a></li>
+			<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Kinerja karyawan</a></li>
+			<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Transaksi</a></li>
       <li><a href="<?php echo base_url('modul_resto/index_permintaan_bahan');?>"><i class="fa fa-circle-o"></i> Permintaan Bahan Manual</a></li>
           </ul>
         </li>

@@ -12,7 +12,7 @@
 <!-- Site wrapper -->
 <div class="wrapper">
 
-  
+
 	<?php include(APPPATH.'views/header.php');?>
   <!-- =============================================== -->
 
@@ -26,9 +26,9 @@
     <section class="content-header">
       <h1>
         Entry Permintaan Peralatan
-       
+
       </h1>
-      
+
     </section>
 
      <section class="content">
@@ -88,7 +88,7 @@
                     </select>
                   </div>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <label class="col-sm-2 control-label">Nominal</label>
                   <div class="col-sm-10">
                     <input type="number" name="nominal" class="form-control" >
@@ -99,9 +99,9 @@
                   <div class="col-sm-10">
                     <input type="number" name="penyusutan" class="form-control" >
                   </div>
-                </div>
+                </div> -->
               </div>
-        
+
               <!-- /.box-body -->
               <div class="box-footer">
                 <button type="submit" class="btn btn-info pull-right">Simpan</button>
@@ -113,7 +113,7 @@
   </div>
 </section>
 
-   
+
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

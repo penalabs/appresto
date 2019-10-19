@@ -45,15 +45,15 @@ class C_modul_admin_resto extends CI_Controller
 		$alat				= $this->input->post('alat');
 		$jumlah				= $this->input->post('jumlah');
 		$masapemanfaatan 	= $this->input->post('masapemanfaatan');
-		$nominal			= $this->input->post('nominal');
-		$penyusutan			= $this->input->post('penyusutan');
+		// $nominal			= $this->input->post('nominal');
+		// $penyusutan			= $this->input->post('penyusutan');
 		$datainput = array(
 			'id_resto'				=> $nama_cabang,
 			'id_alat'				=> $alat,
 			'jumlah'				=> $jumlah,
 			'masa_pemanfatan'		=> $masapemanfaatan,
-			'nominal'				=> $nominal,
-			'nominal_penyusutan'	=> $penyusutan
+			// 'nominal'				=> $nominal,
+			// 'nominal_penyusutan'	=> $penyusutan
 		);
 		$this->m_modul_admin_resto->input_data($datainput, 'pengeluaran_cabang_alat');
 		redirect('C_modul_admin_resto/permintaanperalatan_view');
@@ -74,16 +74,16 @@ class C_modul_admin_resto extends CI_Controller
 		$alat				= $this->input->post('alat');
 		$jumlah				= $this->input->post('jumlah');
 		$masapemanfaatan 	= $this->input->post('masapemanfaatan');
-		$nominal			= $this->input->post('nominal');
-		$penyusutan			= $this->input->post('penyusutan');
+		// $nominal			= $this->input->post('nominal');
+		// $penyusutan			= $this->input->post('penyusutan');
 		$where = array('id_pengeluaran_cabang' => $id);
 		$datainput = array(
 			'id_resto'				=> $nama_cabang,
 			'id_alat'				=> $alat,
 			'jumlah'				=> $jumlah,
 			'masa_pemanfatan'		=> $masapemanfaatan,
-			'nominal'				=> $nominal,
-			'nominal_penyusutan'	=> $penyusutan
+			// 'nominal'				=> $nominal,
+			// 'nominal_penyusutan'	=> $penyusutan
 		);
 		$this->m_modul_admin_resto->update_data($where, $datainput, 'pengeluaran_cabang_alat');
 		redirect('C_modul_admin_resto/permintaanperalatan_view');

@@ -251,6 +251,10 @@
                       <td><i><?php echo $data->status_penerimaan; ?> </i></td>
                       <td>
                         <?php
+                        $btn_update = "";
+                        $btn_delete = "";
+                        $btn_update_sesuai = "";
+                        $btn_update_tidak_sesuai = "";
                           if($data->status == 'draft'){
                             $btn_update = "";
                             $btn_delete = "";

@@ -165,7 +165,7 @@
                 <input type="hidden" name="service_charge_rate" value="" autocomplete="off">
                 <input type="hidden" name="vat_charge_rate" value="13" autocomplete="off">
                 <button type="button" class="btn btn-primary" onclick="save()">Create / Simpan</button>
-                <a href="<?php echo base_url('kasir/transaksi');?>" class="btn btn-warning">KEMBALI KE TRANSAKSI</a>
+                <a href="<?php echo base_url('kasir/pemesanan');?>" class="btn btn-warning">KEMBALI KE TRANSAKSI</a>
               </div>
             </form>
           <!-- /.box-body -->

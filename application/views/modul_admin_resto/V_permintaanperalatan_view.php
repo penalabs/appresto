@@ -12,7 +12,7 @@
 <!-- Site wrapper -->
 <div class="wrapper">
 
-  
+
 	<?php include(APPPATH.'views/header.php');?>
   <!-- =============================================== -->
 
@@ -27,7 +27,7 @@
       <h1>
        Permintaan Peralatan
       </h1>
-      
+
     </section>
 
      <section class="content">
@@ -51,13 +51,13 @@
                   <th>Nama Alat</th>
                   <th>Jumlah</th>
                   <th>Masa Pemanfaatan</th>
-                  <th>Nominal</th>
-                  <th>Penyusutan %</th>
+                  <!-- <th>Nominal</th>
+                  <th>Penyusutan %</th> -->
                   <th>Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
-        <?php 
+        <?php
           $no = 1;
           foreach($permintaanperalatan as $u){
         ?>
@@ -67,16 +67,16 @@
                   <td><?php echo $u->nama_peralatan ?></td>
                   <td><?php echo $u->jumlah ?></td>
                   <td><?php echo $u->masa_pemanfatan ?></td>
-                  <td><?php echo "Rp. ".number_format($u->nominal).",-"; ?></td>
-                  <td><?php echo $u->nominal_penyusutan ?> %</td>
+                  <!-- <td><?php echo "Rp. ".number_format($u->nominal).",-"; ?></td>
+                  <td><?php echo $u->nominal_penyusutan ?> %</td> -->
           <td>
-          <a href="<?php echo base_url('C_modul_admin_resto/permintaanperalatan_edit/'.$u->id_pengeluaran_cabang); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
-          <a href="<?php echo base_url('C_modul_admin_resto/permintaanperalatan_hapus/'.$u->id_pengeluaran_cabang); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
+          <a href="<?php echo base_url('C_modul_admin_resto/permintaanperalatan_edit/'.$u->id_permintaan_alat); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
+          <a href="<?php echo base_url('C_modul_admin_resto/permintaanperalatan_hapus/'.$u->id_permintaan_alat); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
                 </tr>
         <?php } ?>
-        
+
                 </tbody>
-               
+
               </table>
             </div>
           </div>
@@ -84,7 +84,7 @@
   </div>
 </section>
 
-   
+
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
