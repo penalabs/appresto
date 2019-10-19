@@ -11,7 +11,7 @@
  Target Server Version : 100131
  File Encoding         : 65001
 
- Date: 20/10/2019 04:30:35
+ Date: 19/10/2019 23:43:11
 */
 
 SET NAMES utf8mb4;
@@ -411,16 +411,13 @@ CREATE TABLE `operasional`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nama_pengeluaran` varchar(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of operasional
 -- ----------------------------
 INSERT INTO `operasional` VALUES (1, 'listrik');
 INSERT INTO `operasional` VALUES (2, 'internet');
-INSERT INTO `operasional` VALUES (3, 'komunikasi');
-INSERT INTO `operasional` VALUES (4, 'promosi');
-INSERT INTO `operasional` VALUES (5, 'transportas');
 
 -- ----------------------------
 -- Table structure for owner
@@ -651,22 +648,21 @@ INSERT INTO `pendapatan_kas_masuk` VALUES (4, 2, 1, '9000000', '2019-08-22', '00
 DROP TABLE IF EXISTS `pengeluaran_cabang_operasional`;
 CREATE TABLE `pengeluaran_cabang_operasional`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_admin_resto` int(255) NULL DEFAULT NULL,
   `id_resto` int(11) NOT NULL,
   `id_kanwil` int(11) NOT NULL,
+  `id_kas` int(255) NULL DEFAULT NULL,
   `tanggal` date NOT NULL,
   `id_operasional` int(11) NOT NULL,
   `masa_sewa` varchar(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `nominal` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of pengeluaran_cabang_operasional
 -- ----------------------------
-INSERT INTO `pengeluaran_cabang_operasional` VALUES (1, 4, 1, 1, '2019-10-02', 1, '1 bulan', '5000');
-INSERT INTO `pengeluaran_cabang_operasional` VALUES (2, 4, 1, 1, '2019-10-03', 1, '2 bulan', '90');
-INSERT INTO `pengeluaran_cabang_operasional` VALUES (3, 4, 1, 1, '2019-10-19', 0, '2 hari', '10000');
+INSERT INTO `pengeluaran_cabang_operasional` VALUES (1, 1, 1, 1, '2019-10-02', 1, '1 bulan', '5000');
+INSERT INTO `pengeluaran_cabang_operasional` VALUES (2, 1, 1, 1, '2019-10-03', 1, '2 bulan', '90');
 
 -- ----------------------------
 -- Table structure for pengeluaran_kanwil_operasional

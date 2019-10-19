@@ -42,39 +42,63 @@
 							<?php foreach ($pengeluaranbiayaoprasional_edit as $dataedit) { ?>
 							<form action="<?php echo base_url(). 'C_modul_admin_resto/pengeluaranbiayaoprasional_updateaksi'; ?>"
 								method="post" class="form-horizontal">
-								<input type="hidden" name="id" class="form-control"
-									value="<?php echo $dataedit->id_pengeluaran_kebutuhan; ?>">
-								<div class="box-body">
-									<div class="form-group">
-										<label class="col-sm-2 control-label">Nama</label>
-										<div class="col-sm-10">
-											<select name="pengeluaran" class="form-control">
-												<option value="<?php echo $dataedit->nama; ?>"><?php echo $dataedit->nama; ?></option>
-												<option value="Komunikasi">Komunikasi</option>
-                        <option value="Promosi">Promosi</option>
-                        <option value="Transportasi">Transportasi</option>
-                        <option value="Listrik">Listrik</option>
-                        <option value="Bahan Bakar Masak">Bahan Bakar Masak</option>
-                        <option value="Maintenance">Maintenance</option>
-                        <option value="Lain Lain">Lain Lain</option>
-											</select>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-2 control-label">Nominal</label>
-										<div class="col-sm-10">
-											<input type="number" name="nominal_pengeluaran_kebutuhan" class="form-control"
-												value="<?php echo $dataedit->nominal_pengeluaran_kebutuhan; ?>">
-										</div>
-									</div>
-								</div>
 
-								<!-- /.box-body -->
-								<div class="box-footer">
-									<button type="submit" class="btn btn-info pull-right">Update</button>
-								</div>
-								<!-- /.box-footer -->
-							</form>
+		              <?php
+		              $id_admin_resto=$this->session->userdata('id');
+		              $sql2 = "SELECT * FROM user_resto where id='$id_admin_resto'";
+		              $idnya=$this->db->query($sql2)->row();
+		              $id_kanwil=$idnya->id_kanwil;
+		              $id_resto=$idnya->id_resto;
+
+		              ?>
+
+		              <input type="hidden" name="id_admin_resto"  value="<?=$id_admin_resto;?>" class="form-control" >
+		              <input type="hidden" name="id_kanwil"  value="<?=$id_kanwil;?>" class="form-control" >
+		              <input type="hidden" name="id_resto"  value="<?=$id_resto;?>" class="form-control" >
+									<input type="hidden" name="id"  value="<?php echo $_GET['id'];?>" class="form-control" >
+
+		              <div class="box-body">
+										<div class="form-group">
+										 <label class="col-sm-2 control-label">Operasional</label>
+										 <div class="col-sm-10">
+											 <input type="text" name="id_operasional" value="<?php echo $dataedit->nama_pengeluaran;?>" class="form-control" disabled>
+										 </div>
+									 </div>
+		                <?php
+		                $sql3 = "SELECT sum(nominal_kas_keluar) as saldo_kas FROM pemberian_kaskeluar where id_resto='$id_resto'";
+		                $saldo_kas=$this->db->query($sql3)->row();
+
+		                $sql4 = "SELECT sum(nominal) as jumlah_pengeluaran FROM pengeluaran_cabang_operasional where id_resto='$id_resto'";
+		                $jumlah_pengeluaran=$this->db->query($sql4)->row();
+
+		                $saldo_akhir_kas=(int)$saldo_kas->saldo_kas-(int)$jumlah_pengeluaran->jumlah_pengeluaran;
+		                ?>
+		                <div class="form-group">
+		                  <label class="col-sm-2 control-label">SALDO KAS</label>
+		                  <div class="col-sm-10">
+		                    <input type="number" name="saldo_kas"  value="<?php echo $saldo_akhir_kas;?>" class="form-control" disabled>
+		                  </div>
+		                </div>
+		                <div class="form-group">
+		                  <label class="col-sm-2 control-label">Nominal</label>
+		                  <div class="col-sm-10">
+		                    <input type="number" name="nominal" value="<?php echo $dataedit->nominal;?>" class="form-control" >
+		                  </div>
+		                </div>
+		                <div class="form-group">
+		                  <label class="col-sm-2 control-label">Masa Pemakaian</label>
+		                  <div class="col-sm-10">
+		                    <input type="text" name="masa_sewa" value="<?php echo $dataedit->masa_sewa;?>" class="form-control" >
+		                  </div>
+		                </div>
+		              </div>
+
+		              <!-- /.box-body -->
+		              <div class="box-footer">
+		                <button type="submit" class="btn btn-info pull-right">Simpan</button>
+		              </div>
+		              <!-- /.box-footer -->
+		            </form>
 							<?php } ?>
 						</div>
 					</div>

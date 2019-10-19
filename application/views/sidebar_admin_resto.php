@@ -20,10 +20,10 @@
           </a>
           <ul class="treeview-menu">
 			<li><a href="<?php echo base_url('C_modul_admin_resto/permintaanperalatan_view');?>"><i class="fa fa-circle-o"></i> Permintaan Peralatan</a></li>
-      <li><a href="<?php echo base_url('C_modul_admin_resto/anggaranbiayaoprasional_view');?>"><i class="fa fa-circle-o"></i> P. Anggaran Biaya Operasional</a></li>
+      <li><a href="<?php echo base_url('C_modul_admin_resto/anggaranbiayaoprasional_view');?>"><i class="fa fa-circle-o"></i> Pengajuan Biaya Operasional</a></li>
       <li><a href="<?php echo base_url('C_modul_admin_resto/penerimaanbiayaoprasional_view');?>"><i class="fa fa-circle-o"></i> Penerimaan Biaya Operasional</a></li>
 
-      <li><a href="<?php echo base_url('/modul_bendahara_wilayah/data_biaya_operasional_cabang');?>"><i class="fa fa-circle-o"></i> Pengeluaran Biaya Operasional</a></li>
+      <li><a href="<?php echo base_url('/C_modul_admin_resto/pengeluaranbiayaoprasional_view');?>"><i class="fa fa-circle-o"></i> Pengeluaran Operasional</a></li>
 			<li><a href="<?php echo base_url('C_modul_admin_resto/laporanbiayaoprasional_view');?>"><i class="fa fa-circle-o"></i> Laporan biaya Operasional</a></li>
 			<li><a href="<?php echo base_url('C_modul_admin_resto/laporanpenjualan_view');?>"><i class="fa fa-circle-o"></i> Laporan Penjualan</a></li>
 			<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Kinerja karyawan</a></li>

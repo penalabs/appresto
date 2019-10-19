@@ -17,7 +17,11 @@ class C_modul_admin_resto extends CI_Controller
 /* CATATAN
 	1. Alter table pemberian_kaskeluar -> menambahkan fild status
 	2. Create table tbl_pengeluaran_kebutuhan */
-
+	public function pengeluaran_operasional()
+	{
+		$data['permintaanperalatan'] = $this->m_modul_admin_resto->data_pengeluaran_operasional_cabang()->result();
+		$this->load->view('modul_admin_resto/V_pengeluaranbiayaoprasional_view', $data);
+	}
 
 
 
@@ -193,7 +197,10 @@ class C_modul_admin_resto extends CI_Controller
 
 	//Pengeluaran Biaya Oprasional
 	public function pengeluaranbiayaoprasional_view(){
-		$data['pengeluaranbiayaoprasional'] = $this->m_modul_admin_resto->tampil_data('tbl_pengeluaran_kebutuhan')->result();
+		//$data['pengeluaranbiayaoprasional'] = $this->m_modul_admin_resto->tampil_data('pengeluaran_cabang_operasional')->result();
+		$id_admin_resto=$this->session->userdata('id');
+		$sql = "SELECT pengeluaran_cabang_operasional.tanggal,pengeluaran_cabang_operasional.masa_sewa,pengeluaran_cabang_operasional.nominal,operasional.nama_pengeluaran,pengeluaran_cabang_operasional.id as id_operasional FROM pengeluaran_cabang_operasional join operasional on operasional.id=pengeluaran_cabang_operasional.id_operasional where id_admin_resto='$id_admin_resto'";
+		$data['pengeluaranbiayaoprasional']=$this->db->query($sql)->result();
 		$this->load->view('modul_admin_resto/V_pengeluaranbiayaoprasional_view', $data);
 	}
 
@@ -202,33 +209,54 @@ class C_modul_admin_resto extends CI_Controller
 	}
 
 	public function pengeluaranbiayaoprasional_tambahaksi(){
-		$nama		= $this->input->post('pengeluaran');
-		$nominal_pengeluaran_kebutuhan	= $this->input->post('nominal_pengeluaran_kebutuhan');
+		$id_operasional		= $this->input->post('id_operasional');
+		$id_resto		= $this->input->post('id_resto');
+		$id_kanwil		= $this->input->post('id_kanwil');
+		$id_admin_resto		= $this->input->post('id_admin_resto');
+		$nominal	= $this->input->post('nominal');
+		$tanggal	= date('Y-m-d');
+		$masa_sewa	= $this->input->post('masa_sewa');
 		$datainput = array(
-			'nama'				=> $nama,
-			'nominal_pengeluaran_kebutuhan'	=> $nominal_pengeluaran_kebutuhan
+			'id_operasional'				=> $id_operasional,
+			'nominal'	=> $nominal,
+			'tanggal'	=> $tanggal,
+			'masa_sewa'	=> $masa_sewa,
+			'id_kanwil'	=> $id_kanwil,
+			'id_admin_resto'	=> $id_admin_resto,
+			'id_resto'	=> $id_resto
 		);
-		$this->m_modul_admin_resto->input_data($datainput, 'tbl_pengeluaran_kebutuhan');
+		$this->m_modul_admin_resto->input_data($datainput, 'pengeluaran_cabang_operasional');
 		redirect('C_modul_admin_resto/pengeluaranbiayaoprasional_view');
 	}
 
-	public function pengeluaranbiayaoprasional_edit($id){
-		$where = array('id_pengeluaran_kebutuhan' => $id);
-		$data['pengeluaranbiayaoprasional'] = $this->m_modul_admin_resto->tampil_data('tbl_pengeluaran_kebutuhan')->result();
-		$data['pengeluaranbiayaoprasional_edit'] = $this->m_modul_admin_resto->tampil_data_where('tbl_pengeluaran_kebutuhan',$where)->result();
+	public function pengeluaranbiayaoprasional_edit(){
+		//$where = array('id_pengeluaran_kebutuhan' => $id);
+		$id		= $this->input->get('id');
+		$sql = "SELECT pengeluaran_cabang_operasional.tanggal,pengeluaran_cabang_operasional.masa_sewa,pengeluaran_cabang_operasional.nominal,operasional.nama_pengeluaran,pengeluaran_cabang_operasional.id as id_operasional FROM pengeluaran_cabang_operasional join operasional on operasional.id=pengeluaran_cabang_operasional.id_operasional where pengeluaran_cabang_operasional.id='$id'";
+		$data['pengeluaranbiayaoprasional_edit']=$this->db->query($sql)->result();
 		$this->load->view('modul_admin_resto/V_pengeluaranbiayaoprasional_edit', $data);
 	}
 
 	public function pengeluaranbiayaoprasional_updateaksi(){
-		$id								= $this->input->post('id');
-		$nama							= $this->input->post('pengeluaran');
-		$nominal_pengeluaran_kebutuhan	= $this->input->post('nominal_pengeluaran_kebutuhan');
+		$id		= $this->input->post('id');
+		$id_operasional		= $this->input->post('id_operasional');
+		$id_resto		= $this->input->post('id_resto');
+		$id_kanwil		= $this->input->post('id_kanwil');
+		$id_admin_resto		= $this->input->post('id_admin_resto');
+		$nominal	= $this->input->post('nominal');
+		$tanggal	= date('Y-m-d');
+		$masa_sewa	= $this->input->post('masa_sewa');
 		$datainput = array(
-			'nama'				=> $nama,
-			'nominal_pengeluaran_kebutuhan'	=> $nominal_pengeluaran_kebutuhan
+			'id_operasional'				=> $id_operasional,
+			'nominal'	=> $nominal,
+			'tanggal'	=> $tanggal,
+			'masa_sewa'	=> $masa_sewa,
+			'id_kanwil'	=> $id_kanwil,
+			'id_admin_resto'	=> $id_admin_resto,
+			'id_resto'	=> $id_resto
 		);
-		$where = array('id_pengeluaran_kebutuhan' => $id);
-		$this->m_modul_admin_resto->update_data($where,$datainput, 'tbl_pengeluaran_kebutuhan');
+		$where = array('id' => $id);
+		$this->m_modul_admin_resto->update_data($where,$datainput, 'pengeluaran_cabang_operasional');
 		redirect('C_modul_admin_resto/pengeluaranbiayaoprasional_view');
 	}
 

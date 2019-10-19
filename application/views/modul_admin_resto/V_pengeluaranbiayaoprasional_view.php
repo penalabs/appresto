@@ -12,7 +12,7 @@
 <!-- Site wrapper -->
 <div class="wrapper">
 
-  
+
 	<?php include(APPPATH.'views/header.php');?>
   <!-- =============================================== -->
 
@@ -27,7 +27,7 @@
       <h1>
        Pengeluran Biaya Oprasional
       </h1>
-      
+
     </section>
 
      <section class="content">
@@ -48,28 +48,32 @@
                 <tr>
                   <th>#</th>
                   <th>Nama Pengeluaran</th>
+                  <th>Tanggal</th>
                   <th>Nominal</th>
+                  <th>Masa Pemakaian</th>
                   <th>Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
-        <?php 
+        <?php
           $no = 1;
           foreach($pengeluaranbiayaoprasional as $u){
         ?>
                 <tr>
                   <td><?php echo $no++ ?>.</td>
-                  <td><?php echo $u->nama ?></td>
-                  <td><?php echo "Rp. ".number_format($u->nominal_pengeluaran_kebutuhan).",-"; ?></td>
+                  <td><?php echo $u->nama_pengeluaran ?></td>
+                  <td><?php echo $u->tanggal ?></td>
+                  <td><?php echo "Rp. ".number_format($u->nominal).",-"; ?></td>
+                  <td><?php echo $u->masa_sewa ?></td>
           <td>
-          <a href="<?php echo base_url('C_modul_admin_resto/pengeluaranbiayaoprasional_edit/'.$u->id_pengeluaran_kebutuhan); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
-          <a href="<?php echo base_url('C_modul_admin_resto/pengeluaranbiayaoprasional_hapus/'.$u->id_pengeluaran_kebutuhan); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
+          <a href="<?php echo base_url('C_modul_admin_resto/pengeluaranbiayaoprasional_edit/?id='.$u->id_operasional); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
+          <a href="<?php echo base_url('C_modul_admin_resto/pengeluaranbiayaoprasional_hapus/'.$u->id_operasional); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
           </td>
                 </tr>
         <?php } ?>
-        
+
                 </tbody>
-               
+
               </table>
             </div>
           </div>
@@ -77,7 +81,7 @@
   </div>
 </section>
 
-   
+
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

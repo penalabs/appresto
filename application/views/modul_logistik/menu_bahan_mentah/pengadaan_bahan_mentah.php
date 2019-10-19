@@ -152,7 +152,7 @@
 	<div class="col-md-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Pengadaan Bahan Mentah</h3>
+              <h3 class="box-title">Pengiriman Bahan Mentah</h3>
               <br>
               <br>
               <!-- <button type="button" data-toggle="modal" data-target="#myModal" data-toggle="tooltip" title="Detail" class="btn btn-default pass_id"><i class="fa fa-plus"> Tambah</i></a> -->
