@@ -52,7 +52,24 @@ class modul_logistik extends CI_Controller {
 		$id_permintaan = $this->uri->segment('3');
 		// $nama_permintaan = $this->input->post('nama_permintaan');
 		// echo $nama_permintaan;
+		// $sql = "SELECT id_bahan_mentah,jumlah_permintaan FROM permintaan_bahan_detail where id_permintaan='$id_permintaan'";
+		// $data1=$this->db->query($sql)->result();
+
+
 		$this->m_modul_logistik->update_proses_pengiriman($id_permintaan);
+		// foreach ($data1 as $d) {
+		// 	 $id_bahan_mentah = $d->id_bahan_mentah;
+		// 	 $jumlah_permintaan= $d->jumlah_permintaan;
+		//
+		// 	 $sql = "SELECT stok FROM stok_bahan_mentah_produksi where id_bahan_mentah='$id_bahan_mentah'";
+		// 	 $stok=$this->db->query($sql)->row();
+		//
+		// 	 $stok_akhir=(int)$stok->stok+(int)$d->jumlah_permintaan;
+		//
+		// 	 $sql2 = "UPDATE stok_bahan_mentah_produksi set stok='$stok_akhir' where id_bahan_mentah='$id_bahan_mentah'";
+		// 	 $this->db->query($sql2);
+		// }
+
 		redirect('modul_logistik/index_pengadaan_bahan_mentah');
 	}
 
@@ -307,5 +324,132 @@ class modul_logistik extends CI_Controller {
 	  else {
 	      echo "TRUE";
 	  }
+	}
+
+
+
+
+	//menu permintaan peralatan
+	public function permintaanperalatan_view()
+	{
+	  $data['permintaanperalatan'] = $this->m_modul_logistik->tampil_data_permintaan_peralatan()->result();
+	  $this->load->view('modul_logistik/V_permintaanperalatan_view', $data);
+	}
+
+	public function permintaanperalatan_tambah()
+	{
+	  $data['data_cabang_resto'] = $this->m_modul_logistik->tampil_data('resto')->result();
+	  $data['data_peralatan'] = $this->m_modul_logistik->tampil_data('peralatan')->result();
+	  $this->load->view('modul_logistik/V_permintaanperalatan_tambah', $data);
+	}
+
+	public function permintaanperalatan_tambahaksi()
+	{
+	  $nama_cabang		= $this->input->post('nama_cabang');
+	  $alat				= $this->input->post('alat');
+	  $jumlah				= $this->input->post('jumlah');
+	  $masapemanfaatan 	= $this->input->post('masapemanfaatan');
+	  $id_kanwil		= $this->input->post('id_kanwil');
+	  // $nominal			= $this->input->post('nominal');
+	  // $penyusutan			= $this->input->post('penyusutan');
+	  $datainput = array(
+	    'id_resto'				=> $nama_cabang,
+	    'id_kanwil'				=> $id_kanwil,
+	    'id_alat'				=> $alat,
+	    'jumlah'				=> $jumlah,
+	    'masa_pemanfatan'		=> $masapemanfaatan,
+	    'status_permintaan'		=> 'permintaan',
+	    // 'nominal'				=> $nominal,
+	    // 'nominal_penyusutan'	=> $penyusutan
+	  );
+	  $this->m_modul_logistik->input_data($datainput, 'permintaan_alat');
+
+	  $sql2 = "SELECT jumlah_stok FROM peralatan where id='$alat'";
+	  $jumlah_stok_alat=$this->db->query($sql2)->row();
+
+	  $stok_akhir=$jumlah_stok_alat->jumlah_stok-$jumlah;
+
+	  $sql3 = "UPDATE peralatan set jumlah_stok='$stok_akhir' where id='$alat'";
+	  $this->db->query($sql3);
+
+
+	  redirect('modul_logistik/permintaanperalatan_view');
+	}
+
+	public function permintaanperalatan_edit($id_pengeluaran_cabang)
+	{
+	  $data['data_cabang_resto'] = $this->m_modul_logistik->tampil_data('resto')->result();
+	  $data['data_peralatan'] = $this->m_modul_logistik->tampil_data('peralatan')->result();
+	  $data['permintaanperalatan'] = $this->m_modul_logistik->tampil_data_permintaan_peralatan_where($id_pengeluaran_cabang)->result();
+	  $this->load->view('modul_admin_resto/V_permintaanperalatan_edit', $data);
+	}
+
+	public function permintaanperalatan_editaksi()
+	{
+	  $id					= $this->input->post('id');
+	  $nama_cabang		= $this->input->post('nama_cabang');
+	  $alat				= $this->input->post('alat');
+	  $jumlah				= $this->input->post('jumlah');
+	  $masapemanfaatan 	= $this->input->post('masapemanfaatan');
+	  $id_kanwil		= $this->input->post('id_kanwil');
+	  // $nominal			= $this->input->post('nominal');
+	  // $penyusutan			= $this->input->post('penyusutan');
+
+	  $sql2 = "SELECT jumlah_stok FROM peralatan where id='$alat'";
+	  $jumlah_stok_alat=$this->db->query($sql2)->row();
+
+	  $sql3 = "SELECT jumlah FROM permintaan_alat where id_permintaan_alat='$id'";
+	  $stok_permintaan=$this->db->query($sql3)->row();
+	  (int)$stok_permintaan->jumlah;
+
+	  if((int)$stok_permintaan->jumlah<(int)$jumlah){
+	    echo 1;
+	    echo 	$stok_akhir=(int)$jumlah_stok_alat->jumlah_stok+((int)$stok_permintaan->jumlah-(int)$jumlah);
+	  }else if((int)$stok_permintaan->jumlah>(int)$jumlah){
+
+	    echo 	$stok_akhir=(int)$jumlah_stok_alat->jumlah_stok- ((int)$jumlah-(int)$stok_permintaan->jumlah);
+	  }
+
+
+
+	  $sql4 = "UPDATE peralatan set jumlah_stok='$stok_akhir' where id='$alat'";
+	  $this->db->query($sql4);
+
+	  $where = array('id_permintaan_alat' => $id);
+	  $datainput = array(
+	    'id_resto'				=> $nama_cabang,
+	    'id_kanwil'				=> $id_kanwil,
+	    'id_alat'				=> $alat,
+	    'jumlah'				=> $jumlah,
+	    'masa_pemanfatan'		=> $masapemanfaatan,
+	    'status_permintaan'		=> 'permintaan',
+	    // 'nominal'				=> $nominal,
+	    // 'nominal_penyusutan'	=> $penyusutan
+	  );
+	  $this->m_modul_logistik->update_data($where, $datainput, 'permintaan_alat');
+
+	  redirect('modul_logistik/permintaanperalatan_view');
+	}
+
+	public function permintaanperalatan_hapus()
+	{
+	  echo $id_alat=$this->input->get('id_alat');
+	  echo $id_permintaan_alat=$this->input->get('id');
+	  echo $jumlah=$this->input->get('jumlah');
+
+
+
+	  $sql2 = "SELECT jumlah_stok FROM peralatan where id='$id_alat'";
+	  $jumlah_stok_alat=$this->db->query($sql2)->row();
+
+	  $stok_akhir=$jumlah_stok_alat->jumlah_stok+$jumlah;
+
+	  $sql3 = "UPDATE peralatan set jumlah_stok='$stok_akhir' where id='$id_alat'";
+	  $this->db->query($sql3);
+
+	  $where = array('id_permintaan_alat' => $id_permintaan_alat);
+	  $this->m_modul_logistik->hapus_data($where, 'permintaan_alat');
+
+	  redirect('modul_logistik/permintaanperalatan_view');
 	}
 }

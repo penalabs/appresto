@@ -81,13 +81,52 @@ class M_modul_logistik extends CI_Model{
 		return $hasil;
 	}
 	//---------------------
+
+
+	//query dinamis
+	function tampil_data($tabel){
+	return $this->db->get($tabel);
+	}
+
+		function tampil_data_where($tabel,$where){
+		$this->db->where($where);
+		return $this->db->get($tabel);
+	}
+
+	function input_data($data,$table){
+		$this->db->insert($table,$data);
+		}
+
 	function update_data($where,$data,$table){
 		$this->db->where($where);
 		$this->db->update($table,$data);
 	}
-	function input_data($data,$table){
-		$this->db->insert($table,$data);
+
+	function hapus_data($where,$table){
+		$this->db->where($where);
+		$this->db->delete($table);
 	}
 
+	//query statik
+	function tampil_data_permintaan_peralatan(){
+			$query = $this->db->query("
+	SELECT permintaan_alat.*,resto.*,peralatan.*,kanwil.*
+	FROM permintaan_alat
+	JOIN resto ON resto.id = permintaan_alat.id_resto
+	JOIN peralatan ON peralatan.id = permintaan_alat.id_alat
+	JOIN kanwil ON kanwil.`id_kanwil` = permintaan_alat.`id_kanwil`
+	ORDER BY permintaan_alat.`id_permintaan_alat` DESC");
+	return $query;
 }
 
+function tampil_data_permintaan_peralatan_where($where){
+	$query = $this->db->query("
+	SELECT permintaan_alat.*,resto.*,peralatan.*
+	FROM permintaan_alat
+	JOIN resto ON resto.id = permintaan_alat.id_resto
+	JOIN peralatan ON peralatan.id = permintaan_alat.id_alat
+	WHERE id_permintaan_alat = '$where'");
+	return $query;
+}
+
+}

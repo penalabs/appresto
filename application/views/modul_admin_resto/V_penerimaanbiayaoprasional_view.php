@@ -45,7 +45,7 @@
                   <th>Nama Bendahara</th>
                   <th>Nama Resto</th>
                   <th>Tanggal</th>
-                  <th>Nominal Kas Keluar</th>
+                  <th>Nominal KAS</th>
                   <th>Konfrimasi</th>
                 </tr>
                 </thead>
@@ -109,4 +109,3 @@
 </script>
 </body>
 </html>
-

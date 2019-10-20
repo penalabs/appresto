@@ -11,6 +11,23 @@ class Modul_bendahara extends CI_Controller {
 		}
 	}
 
+	public function penyusutan_tambah()
+	{
+		$id_invest_cabang	= $this->input->get('id_invest_cabang');
+		$sql = "SELECT jumlah_pengeluaran,persen_penyusutan  FROM investasi_cabang where id='$id_invest_cabang'";
+		$penyusutan=$this->db->query($sql)->row();
+
+		$tanggal=date('Y-m-d');
+		echo $penyusutan->persen_penyusutan;
+		echo $penyusutan->jumlah_pengeluaran;
+		$jumlah_penyusutan=(int)$penyusutan->persen_penyusutan/100*(int)$penyusutan->jumlah_pengeluaran;
+
+		$sql2 = "INSERT INTO penyusutan_investasi_cabang (id_investasi_cabang,  tanggal, nominal_penyusutan) VALUES ('$id_invest_cabang', '$tanggal', '$jumlah_penyusutan')";
+		$this->db->query($sql2);
+
+		redirect('modul_bendahara/bendahara_pengeluaran_investasi/?id_invest_cabang='.$id_invest_cabang);
+	}
+
 	public function bendahara_pengeluaran_investasi()
 	{
 		$id_bendahara=$this->session->userdata('id');

@@ -77,7 +77,9 @@
 
           <td>
           <a href="<?php echo base_url('modul_bendahara/edit_bendahara_pengeluaran_investasi/'.$u->id); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
-          <a href="<?php echo base_url('modul_bendahara/hapus_bendahara_pengeluaran_investasi/'.$u->id); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
+          <a href="<?php echo base_url('modul_bendahara/hapus_bendahara_pengeluaran_investasi/'.$u->id); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a>
+          <a href="<?php echo base_url('modul_bendahara/bendahara_pengeluaran_investasi/?id_invest_cabang='.$u->id); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a></td>
+
                 </tr>
         <?php } ?>
 
@@ -87,6 +89,66 @@
             </div>
           </div>
     </div>
+    <?php
+    if(isset($_GET['id_invest_cabang'])){
+    $id_invest_cabang=$this->input->get('id_invest_cabang');
+
+    $sql = "SELECT sum(nominal_penyusutan) as jumlah_penyusutan FROM penyusutan_investasi_cabang where id_investasi_cabang='$id_invest_cabang'";
+    $jumlah_penyusutan=$this->db->query($sql)->row();
+
+    $sql2 = "SELECT jumlah_pengeluaran FROM investasi_cabang where id='$id_invest_cabang'";
+    $jumlah_pengeluaran=$this->db->query($sql2)->row();
+     ?>
+    <div class="col-md-12">
+          <!-- Horizontal Form -->
+          <div class="box box-info">
+            <div class="box-header with-border">
+              <div class="box-tools pull-right">
+
+                <?php
+                if((int)$jumlah_penyusutan->jumlah_penyusutan<(int)$jumlah_pengeluaran->jumlah_pengeluaran){
+                 ?>
+                <a href="<?php echo base_url('modul_bendahara/penyusutan_tambah/'); ?>?id_invest_cabang=<?=$id_invest_cabang;?>" class="btn btn-success"><i class="fa fa-plus-square-o"></i> Tambah Penyusustan</a>
+                <?php
+                }
+               ?>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Tanggal</th>
+                  <th>Nominal Penyusutan</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                  $no = 1;
+                  $id_invest_cabang=$this->input->get('id_invest_cabang');
+                  $sql = "SELECT *  FROM penyusutan_investasi_cabang where id_investasi_cabang='$id_invest_cabang'";
+                  $penyusutan=$this->db->query($sql)->result();
+                  foreach($penyusutan as $u){
+                ?>
+                        <tr>
+                          <td><?php echo $no++ ?>.</td>
+                          <td><?php echo $u->tanggal ?></td>
+                          <td><?php echo $u->nominal_penyusutan ?></td>
+                        </tr>
+                <?php } ?>
+
+                </tbody>
+
+              </table>
+            </div>
+          </div>
+    </div>
+    <?php
+    }
+   ?>
   </div>
 </section>
 

@@ -6,7 +6,7 @@
                               <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                   <span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title">edit pengadaan bahan mentah</h4>
+                                <h4 class="modal-title">Edit permintaan bahan mentah</h4>
                               </div>
                               <div class="modal-body">
                                 <form class="form-horizontal" action="<?php echo base_url(). 'modul_logistik/update_pengadaan_bahan_mentah_detail'; ?>" method="post" role="form">
@@ -28,12 +28,7 @@
                                         <input type="text" class="form-control" name="satuan_besar_edit" id="satuan_besar_edit" placeholder="jumlah permintaan" disabled>
                                       </div>
                                     </div>
-                                    <div class="form-group">
-                                      <label for="inputPassword3" class="col-sm-2 control-label">harga</label>
-                                      <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="harga_satuan_edit" id="harga_satuan_edit" placeholder="Password">
-                                      </div>
-                                    </div>
+
 
                               <!-- /.box-body -->
                                 <div class="box-footer">
@@ -87,7 +82,7 @@
 	<div class="col-md-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Pengadaan Bahan Mentah Detail</h3>
+              <h3 class="box-title">Permintaan Bahan Mentah Detail</h3>
               <br>
               <br>
               <!-- <button type="button" data-toggle="modal" data-target="#myModal" data-toggle="tooltip" title="Detail" class="btn btn-default pass_id"><i class="fa fa-plus"> Tambah</i></a> -->
@@ -112,7 +107,7 @@
                   <th>id bahan mentah</th>
                   <th>jumlah permintaan</th>
 				          <th>satuan besar</th>
-                  <th>harga satuan</th>
+
                   <th>status penerimaan</th>
                   <th>Aksi</th>
                 </tr>
@@ -142,7 +137,7 @@
                       <td><?php echo $data->nama_bahan;?></td>
 				              <td><?php echo $data->jumlah_permintaan;?></td>
                       <td><?php echo $data->satuan_besar;?></td>
-                      <td><?php echo $data->satuan_harga_per_satuan_bahan;?></td>
+
                       <td><i><?php echo $data->status_penerimaan; ?> </i></td>
                       <td>
                         <button <?php echo $button_edit_harga_bahan; ?> type="submit" class="btn btn-warning btn-xs" onclick="edit('<?php echo $data->id_detail_permintaan;?>')" data-toggle="modal" data-target="#myModalEdit" data-toggle="tooltip" title="harga"> <i class="fa  fa-money" ></i></button>
@@ -183,7 +178,7 @@
                   <th>jumlah terkirim</th>
                   <th>selisih bahan</th>
 				          <th>satuan besar</th>
-                  <th>harga satuan</th>
+
                   <th>status penerimaan</th>
                   <th>Aksi</th>
                 </tr>
@@ -194,6 +189,9 @@
                   $no++;
                 	?>
                   <?php
+                    $button_edit_harga_bahan = "";
+                    $button_edit_harga_bahan = "";
+                    $button_edit_harga_bahan = "";
                     if($data->status == 'proses permintaan'){
                       $button_edit_harga_bahan = "";
                     }else if($data->status == 'proses pengiriman'){
@@ -210,7 +208,7 @@
                       <td><?php echo $data->jumlah_bahan_terkirim;?></td>
                       <td><?php echo $data->selisih_bahan;?></td>
                       <td><?php echo $data->satuan_besar;?></td>
-                      <td><?php echo $data->satuan_harga_per_satuan_bahan;?></td>
+
                       <td><i><?php echo $data->status_penerimaan; ?> </i></td>
                       <td>
                         <button <?php echo $button_edit_harga_bahan; ?> type="submit" class="btn btn-warning btn-xs" onclick="edit('<?php echo $data->id_detail_permintaan;?>')" data-toggle="modal" data-target="#myModalEdit" data-toggle="tooltip" title="harga"> <i class="fa  fa-money" ></i></button>

@@ -37,7 +37,7 @@
           <div class="box box-info">
             <div class="box-header with-border">
               <div class="box-tools pull-right">
-                <a href="<?php echo base_url('C_modul_admin_resto/permintaanperalatan_tambah'); ?>" class="btn btn-success"><i class="fa fa-plus-square-o"></i> Entry</a>
+                <!-- <a href="<?php echo base_url('C_modul_admin_resto/permintaanperalatan_tambah'); ?>" class="btn btn-success"><i class="fa fa-plus-square-o"></i> Entry</a> -->
               </div>
             </div>
             <!-- /.box-header -->
@@ -73,16 +73,19 @@
                   <td><?php echo $u->nominal_penyusutan ?> %</td> -->
           <td>
 
-          <a href="<?php echo base_url('C_modul_admin_resto/konfirmasi_alat/'.$u->id_permintaan_alat); ?>" class="btn btn-primary btn-xs"><i class="fa  fa-check" ></i></a>
-          <a href="<?php echo base_url('C_modul_admin_resto/permintaanperalatan_edit/'.$u->id_permintaan_alat); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
-          <?php if($u->status_permintaan=="permintaan"){
 
 
+        <?php if($u->status_permintaan=="permintaan"){
           ?>
-          <a href="<?php echo base_url('C_modul_admin_resto/permintaanperalatan_hapus/?id='.$u->id_permintaan_alat.'&&jumlah='.$u->jumlah.'&&id_alat='.$u->id); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
+          <a href="<?php echo base_url('C_modul_admin_resto/permintaanperalatan_edit/'.$u->id_permintaan_alat); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
+
           <?php
-          }
+        }else if($u->status_permintaan!="diterima"){
          ?>
+         <a href="<?php echo base_url('C_modul_admin_resto/permintaanperalatan_hapus/?id='.$u->id_permintaan_alat.'&&jumlah='.$u->jumlah.'&&id_alat='.$u->id); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
+          <a href="<?php echo base_url('C_modul_admin_resto/konfirmasi_alat/'.$u->id_permintaan_alat); ?>" class="btn btn-primary btn-xs"><i class="fa  fa-check" ></i></a>
+         <?php
+       } ?>
                 </tr>
         <?php } ?>
 

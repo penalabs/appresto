@@ -11,7 +11,7 @@
  Target Server Version : 100131
  File Encoding         : 65001
 
- Date: 20/10/2019 16:18:36
+ Date: 20/10/2019 04:30:35
 */
 
 SET NAMES utf8mb4;
@@ -35,8 +35,8 @@ CREATE TABLE `bahan_mentah`  (
 -- ----------------------------
 -- Records of bahan_mentah
 -- ----------------------------
-INSERT INTO `bahan_mentah` VALUES (1, '1', 3, 'ayam kampung', 'ekor', 28, 1);
-INSERT INTO `bahan_mentah` VALUES (2, '1', 3, 'tomat', 'kg', 9, 1);
+INSERT INTO `bahan_mentah` VALUES (1, '1', 3, 'ayam kampung', 'ekor', 8, 1);
+INSERT INTO `bahan_mentah` VALUES (2, '1', 3, 'tomat', 'kg', 8, 1);
 INSERT INTO `bahan_mentah` VALUES (3, '1', 3, 'tepung', 'kg', 10, 0);
 
 -- ----------------------------
@@ -547,14 +547,13 @@ CREATE TABLE `pemberian_kaskeluar`  (
   `nominal_kas_keluar` int(100) NOT NULL,
   `status` enum('pengajuan','pemberian') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id_pengeluaran`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of pemberian_kaskeluar
 -- ----------------------------
 INSERT INTO `pemberian_kaskeluar` VALUES (1, 2, 1, '2019-06-26', 400000, 'pemberian');
-INSERT INTO `pemberian_kaskeluar` VALUES (6, 2, 1, '2019-10-19', 60000, 'pemberian');
-INSERT INTO `pemberian_kaskeluar` VALUES (7, 2, 1, '2019-10-20', 60000, 'pemberian');
+INSERT INTO `pemberian_kaskeluar` VALUES (6, 2, 1, '2019-10-19', 60000, 'pengajuan');
 
 -- ----------------------------
 -- Table structure for pemesanan
@@ -660,7 +659,7 @@ CREATE TABLE `pengeluaran_cabang_operasional`  (
   `masa_sewa` varchar(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `nominal` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of pengeluaran_cabang_operasional
@@ -681,7 +680,7 @@ CREATE TABLE `pengeluaran_kanwil_operasional`  (
   `masa_sewa` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `nominal` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of pengeluaran_kanwil_operasional
@@ -700,26 +699,12 @@ CREATE TABLE `penyusutan_investasi_cabang`  (
   `tanggal` date NULL DEFAULT NULL,
   `nominal_penyusutan` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id_penyusutan`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of penyusutan_investasi_cabang
 -- ----------------------------
-INSERT INTO `penyusutan_investasi_cabang` VALUES (4, 6, '2019-10-20', '100000');
-INSERT INTO `penyusutan_investasi_cabang` VALUES (5, 6, '2019-10-20', '100000');
-INSERT INTO `penyusutan_investasi_cabang` VALUES (6, 6, '2019-10-20', '100000');
-INSERT INTO `penyusutan_investasi_cabang` VALUES (7, 6, '2019-10-20', '100000');
-INSERT INTO `penyusutan_investasi_cabang` VALUES (8, 6, '2019-10-20', '100000');
-INSERT INTO `penyusutan_investasi_cabang` VALUES (9, 4, '2019-10-20', '2000');
-INSERT INTO `penyusutan_investasi_cabang` VALUES (10, 4, '2019-10-20', '2000');
-INSERT INTO `penyusutan_investasi_cabang` VALUES (11, 4, '2019-10-20', '2000');
-INSERT INTO `penyusutan_investasi_cabang` VALUES (12, 4, '2019-10-20', '2000');
-INSERT INTO `penyusutan_investasi_cabang` VALUES (13, 4, '2019-10-20', '2000');
-INSERT INTO `penyusutan_investasi_cabang` VALUES (14, 4, '2019-10-20', '2000');
-INSERT INTO `penyusutan_investasi_cabang` VALUES (15, 4, '2019-10-20', '2000');
-INSERT INTO `penyusutan_investasi_cabang` VALUES (16, 4, '2019-10-20', '2000');
-INSERT INTO `penyusutan_investasi_cabang` VALUES (17, 4, '2019-10-20', '2000');
-INSERT INTO `penyusutan_investasi_cabang` VALUES (18, 4, '2019-10-20', '2000');
+INSERT INTO `penyusutan_investasi_cabang` VALUES (1, 2, '2019-10-19', '20000');
 
 -- ----------------------------
 -- Table structure for peralatan
@@ -739,7 +724,7 @@ CREATE TABLE `peralatan`  (
 -- ----------------------------
 -- Records of peralatan
 -- ----------------------------
-INSERT INTO `peralatan` VALUES (1, 3, 1, 'sendok', 'pcs', 14, 1);
+INSERT INTO `peralatan` VALUES (1, 3, 1, 'sendok', 'pcs', 29, 1);
 
 -- ----------------------------
 -- Table structure for permintaan_alat
@@ -753,14 +738,14 @@ CREATE TABLE `permintaan_alat`  (
   `tanggal` date NOT NULL,
   `jumlah` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `masa_pemanfatan` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `status_permintaan` enum('permintaan','proses pengiriman','diterima') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `status_permintaan` enum('proses pengiriman','diterima') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id_permintaan_alat`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of permintaan_alat
 -- ----------------------------
-INSERT INTO `permintaan_alat` VALUES (8, 1, 1, 1, '0000-00-00', '1', '2 bulan', 'diterima');
+INSERT INTO `permintaan_alat` VALUES (1, 1, 1, 1, '2019-08-22', '2', '2 bulan', 'diterima');
 
 -- ----------------------------
 -- Table structure for permintaan_bahan
@@ -781,11 +766,11 @@ CREATE TABLE `permintaan_bahan`  (
 -- ----------------------------
 -- Records of permintaan_bahan
 -- ----------------------------
-INSERT INTO `permintaan_bahan` VALUES (105, '3', '3', 'permintaan 1', '2019-07-31 04:05:39', '2019-07-31 04:06:20', '2019-07-31 04:08:19', 'proses permintaan');
+INSERT INTO `permintaan_bahan` VALUES (105, '3', '3', 'permintaan 1', '2019-07-31 04:05:39', '2019-07-31 04:06:20', '2019-07-31 04:08:19', 'diterima');
 INSERT INTO `permintaan_bahan` VALUES (106, '3', '3', 'permintaan 10', '2019-07-31 19:52:43', '2019-07-31 19:53:23', '2019-07-31 20:36:02', 'diterima');
 INSERT INTO `permintaan_bahan` VALUES (107, '3', '3', 'permintaan 2', '2019-07-31 23:54:40', '2019-07-31 23:55:19', '0000-00-00 00:00:00', 'proses pengiriman');
 INSERT INTO `permintaan_bahan` VALUES (108, '3', '3', 'permintaan 6', '2019-08-03 21:09:10', '2019-08-03 21:10:02', '2019-08-03 21:10:59', 'diterima');
-INSERT INTO `permintaan_bahan` VALUES (109, '3', '3', 'permintaan 5', '2019-08-03 23:19:44', '2019-10-20 14:21:02', '2019-10-20 14:31:24', 'diterima');
+INSERT INTO `permintaan_bahan` VALUES (109, '3', '3', 'permintaan 5', '2019-08-03 23:19:44', '2019-08-03 23:21:43', '2019-08-03 23:22:11', 'diterima');
 INSERT INTO `permintaan_bahan` VALUES (111, '3', '3', 'permintaan 11', '2019-08-08 22:14:38', '2019-08-08 22:15:05', '2019-08-08 22:19:26', 'diterima');
 INSERT INTO `permintaan_bahan` VALUES (121, '3', '3', 'permintaan 22', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'draft');
 INSERT INTO `permintaan_bahan` VALUES (123, '3', '3', 'permintaan 25', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'draft');
@@ -801,6 +786,7 @@ CREATE TABLE `permintaan_bahan_detail`  (
   `id_permintaan` varchar(15) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `id_bahan_mentah` varchar(15) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `jumlah_permintaan` varchar(15) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `satuan_harga_per_satuan_bahan` varchar(15) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `status_penerimaan` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id_detail_permintaan`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 44 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
@@ -808,95 +794,17 @@ CREATE TABLE `permintaan_bahan_detail`  (
 -- ----------------------------
 -- Records of permintaan_bahan_detail
 -- ----------------------------
-INSERT INTO `permintaan_bahan_detail` VALUES (33, '105', '2', '80', 'tidak sesuai');
-INSERT INTO `permintaan_bahan_detail` VALUES (34, '106', '1', '90', 'tidak sesuai');
-INSERT INTO `permintaan_bahan_detail` VALUES (35, '106', '2', '70', 'sesuai');
-INSERT INTO `permintaan_bahan_detail` VALUES (36, '107', '1', '80', 'tidak sesuai');
-INSERT INTO `permintaan_bahan_detail` VALUES (38, '107', '2', '20', 'sesuai');
-INSERT INTO `permintaan_bahan_detail` VALUES (39, '108', '1', '90', 'sesuai');
-INSERT INTO `permintaan_bahan_detail` VALUES (40, '108', '2', '20', 'tidak sesuai');
-INSERT INTO `permintaan_bahan_detail` VALUES (41, '109', '1', '20', 'sesuai');
-INSERT INTO `permintaan_bahan_detail` VALUES (42, '109', '2', '50', 'tidak sesuai');
-INSERT INTO `permintaan_bahan_detail` VALUES (43, '126', '2', '2', 'tidak sesuai');
-
--- ----------------------------
--- Table structure for permintaan_bahan_olahan
--- ----------------------------
-DROP TABLE IF EXISTS `permintaan_bahan_olahan`;
-CREATE TABLE `permintaan_bahan_olahan`  (
-  `id_permintaan` int(11) NOT NULL AUTO_INCREMENT,
-  `id_user_resto_produksi_adminresto` varchar(30) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `id_user_kanwil_logistik` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `nama_permintaan` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `tanggal_permintaan` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `tanggal_pengiriman` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `tanggal_penerimaan` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `status` varchar(25) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  PRIMARY KEY (`id_permintaan`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 127 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of permintaan_bahan_olahan
--- ----------------------------
-INSERT INTO `permintaan_bahan_olahan` VALUES (105, '3', '3', 'permintaan 1', '2019-07-31 04:05:39', '2019-07-31 04:06:20', '2019-07-31 04:08:19', 'proses permintaan');
-INSERT INTO `permintaan_bahan_olahan` VALUES (106, '3', '3', 'permintaan 10', '2019-07-31 19:52:43', '2019-07-31 19:53:23', '2019-07-31 20:36:02', 'diterima');
-INSERT INTO `permintaan_bahan_olahan` VALUES (107, '3', '3', 'permintaan 2', '2019-07-31 23:54:40', '2019-07-31 23:55:19', '0000-00-00 00:00:00', 'proses pengiriman');
-INSERT INTO `permintaan_bahan_olahan` VALUES (108, '3', '3', 'permintaan 6', '2019-08-03 21:09:10', '2019-08-03 21:10:02', '2019-08-03 21:10:59', 'diterima');
-INSERT INTO `permintaan_bahan_olahan` VALUES (109, '3', '3', 'permintaan 5', '2019-08-03 23:19:44', '2019-10-20 14:21:02', '2019-10-20 14:31:24', 'diterima');
-INSERT INTO `permintaan_bahan_olahan` VALUES (111, '3', '3', 'permintaan 11', '2019-08-08 22:14:38', '2019-08-08 22:15:05', '2019-08-08 22:19:26', 'diterima');
-INSERT INTO `permintaan_bahan_olahan` VALUES (121, '3', '3', 'permintaan 22', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'draft');
-INSERT INTO `permintaan_bahan_olahan` VALUES (123, '3', '3', 'permintaan 25', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'draft');
-INSERT INTO `permintaan_bahan_olahan` VALUES (125, '4', '3', 'permintaan1', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'draft');
-INSERT INTO `permintaan_bahan_olahan` VALUES (126, '3', '3', 'permintaan 2', '2019-09-29 12:27:46', '2019-09-29 12:28:11', '2019-09-29 12:28:31', 'diterima');
-
--- ----------------------------
--- Table structure for permintaan_bahan_olahan_detail
--- ----------------------------
-DROP TABLE IF EXISTS `permintaan_bahan_olahan_detail`;
-CREATE TABLE `permintaan_bahan_olahan_detail`  (
-  `id_detail_permintaan` int(15) NOT NULL AUTO_INCREMENT,
-  `id_permintaan` varchar(15) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `id_bahan_olahan` varchar(15) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `jumlah_permintaan` varchar(15) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `status_penerimaan` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  PRIMARY KEY (`id_detail_permintaan`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 44 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of permintaan_bahan_olahan_detail
--- ----------------------------
-INSERT INTO `permintaan_bahan_olahan_detail` VALUES (33, '105', '2', '80', 'tidak sesuai');
-INSERT INTO `permintaan_bahan_olahan_detail` VALUES (34, '106', '1', '90', 'tidak sesuai');
-INSERT INTO `permintaan_bahan_olahan_detail` VALUES (35, '106', '2', '70', 'sesuai');
-INSERT INTO `permintaan_bahan_olahan_detail` VALUES (36, '107', '1', '80', 'tidak sesuai');
-INSERT INTO `permintaan_bahan_olahan_detail` VALUES (38, '107', '2', '20', 'sesuai');
-INSERT INTO `permintaan_bahan_olahan_detail` VALUES (39, '108', '1', '90', 'sesuai');
-INSERT INTO `permintaan_bahan_olahan_detail` VALUES (40, '108', '2', '20', 'tidak sesuai');
-INSERT INTO `permintaan_bahan_olahan_detail` VALUES (41, '109', '1', '20', 'sesuai');
-INSERT INTO `permintaan_bahan_olahan_detail` VALUES (42, '109', '2', '50', 'tidak sesuai');
-INSERT INTO `permintaan_bahan_olahan_detail` VALUES (43, '126', '2', '2', 'tidak sesuai');
-
--- ----------------------------
--- Table structure for permintaan_bahan_olahan_tidak_sesuai
--- ----------------------------
-DROP TABLE IF EXISTS `permintaan_bahan_olahan_tidak_sesuai`;
-CREATE TABLE `permintaan_bahan_olahan_tidak_sesuai`  (
-  `id_permintaan_bahan_tidak_sesuai` int(50) NOT NULL AUTO_INCREMENT,
-  `id_detail_permintaan` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `jumlah_bahan_terkirim` int(11) NOT NULL,
-  `selisih_bahan` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  PRIMARY KEY (`id_permintaan_bahan_tidak_sesuai`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of permintaan_bahan_olahan_tidak_sesuai
--- ----------------------------
-INSERT INTO `permintaan_bahan_olahan_tidak_sesuai` VALUES (12, '33', 70, '10');
-INSERT INTO `permintaan_bahan_olahan_tidak_sesuai` VALUES (15, '34', 80, '10');
-INSERT INTO `permintaan_bahan_olahan_tidak_sesuai` VALUES (16, '36', 70, '10');
-INSERT INTO `permintaan_bahan_olahan_tidak_sesuai` VALUES (17, '40', 10, '10');
-INSERT INTO `permintaan_bahan_olahan_tidak_sesuai` VALUES (18, '42', 90, '40');
-INSERT INTO `permintaan_bahan_olahan_tidak_sesuai` VALUES (19, '43', 1, '1');
+INSERT INTO `permintaan_bahan_detail` VALUES (32, '105', '1', '19', '20000', 'sesuai');
+INSERT INTO `permintaan_bahan_detail` VALUES (33, '105', '2', '80', '50000', 'tidak sesuai');
+INSERT INTO `permintaan_bahan_detail` VALUES (34, '106', '1', '90', '7000', 'tidak sesuai');
+INSERT INTO `permintaan_bahan_detail` VALUES (35, '106', '2', '70', '20000', 'sesuai');
+INSERT INTO `permintaan_bahan_detail` VALUES (36, '107', '1', '80', '20000', 'tidak sesuai');
+INSERT INTO `permintaan_bahan_detail` VALUES (38, '107', '2', '20', '1000', 'sesuai');
+INSERT INTO `permintaan_bahan_detail` VALUES (39, '108', '1', '90', '200', 'sesuai');
+INSERT INTO `permintaan_bahan_detail` VALUES (40, '108', '2', '20', '10000', 'tidak sesuai');
+INSERT INTO `permintaan_bahan_detail` VALUES (41, '109', '1', '20', '20000', 'sesuai');
+INSERT INTO `permintaan_bahan_detail` VALUES (42, '109', '2', '50', '1000', 'tidak sesuai');
+INSERT INTO `permintaan_bahan_detail` VALUES (43, '126', '2', '2', '9000', 'tidak sesuai');
 
 -- ----------------------------
 -- Table structure for permintaan_bahan_tidak_sesuai
@@ -908,7 +816,7 @@ CREATE TABLE `permintaan_bahan_tidak_sesuai`  (
   `jumlah_bahan_terkirim` int(11) NOT NULL,
   `selisih_bahan` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id_permintaan_bahan_tidak_sesuai`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of permintaan_bahan_tidak_sesuai
@@ -1004,8 +912,8 @@ CREATE TABLE `stok_bahan_mentah_produksi`  (
 -- ----------------------------
 -- Records of stok_bahan_mentah_produksi
 -- ----------------------------
-INSERT INTO `stok_bahan_mentah_produksi` VALUES (1, 1, 21);
-INSERT INTO `stok_bahan_mentah_produksi` VALUES (2, 2, 51);
+INSERT INTO `stok_bahan_mentah_produksi` VALUES (1, 1, 1);
+INSERT INTO `stok_bahan_mentah_produksi` VALUES (2, 2, 1);
 INSERT INTO `stok_bahan_mentah_produksi` VALUES (3, 3, 10);
 
 -- ----------------------------
