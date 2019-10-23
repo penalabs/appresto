@@ -202,7 +202,10 @@
                             <td>
                               <a href="<?php echo base_url('modul_produksi/lihat_bahan_olahan?');?>id_permintaan=<?php echo $u2->id ?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Lihat Bahan</a><br>
                               <a href="<?php echo base_url('modul_produksi/ubah_status_diterima_bahan_olahan/?');?>id_permintaan=<?php echo $u2->id ?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Terima Bahan</a>
+
+
                               <a href="<?php echo base_url('modul_produksi/hapus_permintaan/?');?>id_permintaan=<?php echo $u2->id ?>&&tabel=permintaan_bahan_olahan" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Hapus</a>
+                              
                             </td>
                         </tr>
                         <?php
