@@ -452,4 +452,311 @@ class modul_logistik extends CI_Controller {
 
 	  redirect('modul_logistik/permintaanperalatan_view');
 	}
+
+
+	//permintaan bahan mentah baru
+	public function permintaan_bahan_mentah()
+	{
+	  $sql = "SELECT resto.nama_resto,permintaan_bahan_mentah.id,permintaan_bahan_mentah.nama_permintaan,permintaan_bahan_mentah.tanggal,permintaan_bahan_mentah.status FROM permintaan_bahan_mentah join user_resto on user_resto.id=permintaan_bahan_mentah.id_user_produksi join resto on resto.id=user_resto.id_resto";
+	  $data['data']=$this->db->query($sql)->result();
+	  $sql2 = "SELECT resto.nama_resto,permintaan_bahan_olahan.id,permintaan_bahan_olahan.nama_permintaan,permintaan_bahan_olahan.tanggal,permintaan_bahan_olahan.status FROM permintaan_bahan_olahan join user_resto on user_resto.id=permintaan_bahan_olahan.id_user_produksi join resto on resto.id=user_resto.id_resto";
+	  $data['data2']=$this->db->query($sql2)->result();
+	  $this->load->view('modul_logistik/permintaan_bahan',$data);
+	}
+
+	public function lihat_bahan_mentah()
+	{
+	  $data_session = array(
+	    'pesan' => '',
+	  );
+
+	  $this->session->set_userdata($data_session);
+	  $id_permintaan= $this->input->get('id_permintaan');
+	  $sql = "SELECT * FROM pengiriman_bahan_mentah join bahan_mentah on bahan_mentah.id=pengiriman_bahan_mentah.id_bahan_mentah where id_permintaan='$id_permintaan'";
+	  $data['data2']=$this->db->query($sql)->result();
+
+	  $this->load->view('modul_logistik/lihat_bahan_mentah',$data);
+	}
+	public function lihat_bahan_olahan()
+	{
+	  $data_session = array(
+	    'pesan' => '',
+	  );
+
+	  $this->session->set_userdata($data_session);
+	  $id_permintaan= $this->input->get('id_permintaan');
+	  $sql = "SELECT pengiriman_bahan_olahan.*,bahan_olahan.nama_bahan FROM pengiriman_bahan_olahan join bahan_olahan on bahan_olahan.id=pengiriman_bahan_olahan.id_bahan_olahan where id_permintaan='$id_permintaan'";
+	  $data['data2']=$this->db->query($sql)->result();
+
+	  $this->load->view('modul_logistik/lihat_bahan_olahan',$data);
+	}
+
+	public function aksi_tambah_permintaan_bahan_mentah(){
+	  $id_user_produksi = $this->input->post('id_user_produksi');
+	  $sql = "SELECT * FROM user_resto join resto on resto.id=user_resto.id_resto where user_resto.id='$id_user_produksi'";
+	  $user=$this->db->query($sql)->row();
+
+	  $nama_permintaan = $this->input->post('nama_permintaan');
+	  $tanggal = $this->input->post('tanggal');
+	  $status = 'permintaan';
+	  $id_resto = $user->id;
+	  $sql = "INSERT INTO permintaan_bahan_mentah (id_resto,id_user_produksi,nama_permintaan,tanggal,status) values ('$id_resto','$id_user_produksi','$nama_permintaan','$tanggal','$status')";
+	  if($this->db->query($sql)){
+	    $data_session = array(
+	      'pesan' => 'berhasil tambah data',
+	    );
+
+	    $this->session->set_userdata($data_session);
+	  }
+	  redirect('modul_logistik/permintaan_bahan_mentah');
+
+	}
+	public function aksi_tambah_permintaan_bahan_olahan(){
+	  $id_user_produksi = $this->input->post('id_user_produksi');
+	  $sql = "SELECT * FROM user_resto join resto on resto.id=user_resto.id_resto where user_resto.id='$id_user_produksi'";
+	  $user=$this->db->query($sql)->row();
+
+	  $nama_permintaan = $this->input->post('nama_permintaan');
+	  $tanggal = $this->input->post('tanggal');
+	  $status = 'permintaan';
+	  $id_resto = $user->id;
+	  $sql = "INSERT INTO permintaan_bahan_olahan (id_resto,id_user_produksi,nama_permintaan,tanggal,status) values ('$id_resto','$id_user_produksi','$nama_permintaan','$tanggal','$status')";
+	  if($this->db->query($sql)){
+	    $data_session = array(
+	      'pesan' => 'berhasil tambah data',
+	    );
+
+	    $this->session->set_userdata($data_session);
+	  }
+	  redirect('modul_logistik/permintaan_bahan_mentah');
+
+	}
+	public function hapus_permintaan(){
+	  $id_permintaan = $this->input->get('id_permintaan');
+	  $tabel = $this->input->get('tabel');
+
+	  $sql = "DELETE FROM $tabel where id='$id_permintaan'";
+	  if($this->db->query($sql)){
+	    $data_session = array(
+	      'pesan' => 'berhasil hapus data',
+	    );
+
+	    $this->session->set_userdata($data_session);
+	  }
+	  redirect('modul_logistik/permintaan_bahan_mentah');
+	}
+
+	public function aksi_tambah_list_bahan_olahan(){
+	  $id_user_produksi = $this->session->userdata('id');
+	  $sql = "SELECT * FROM user_resto join resto on resto.id=user_resto.id_resto where user_resto.id='$id_user_produksi'";
+	  $user=$this->db->query($sql)->row();
+
+	  $id_permintaan = $this->input->post('id_permintaan');
+	  $id_bahan_olahan = $this->input->post('id_bahan_olahan');
+	  $tanggal = $this->input->post('tanggal');
+	  $jumlah_permintaan = $this->input->post('jumlah_permintaan');
+	  $jumlah_dikirim = $this->input->post('jumlah_dikirim');
+	  $jumlah_dikembalikan = $this->input->post('jumlah_dikembalikan');
+
+	  $status = "";
+	  if((int)$jumlah_permintaan==(int)$jumlah_dikirim){
+	    $status = 'sesuai';
+	  }else{
+	    $status = 'tidak';
+	  }
+
+	  $id_resto = $user->id;
+
+	  $sql = "INSERT INTO pengiriman_bahan_olahan values ('','$id_permintaan','$id_bahan_olahan','$tanggal','$jumlah_permintaan','$jumlah_dikirim','$jumlah_dikembalikan','$status')";
+	  if($this->db->query($sql)){
+	    $data_session = array(
+	      'pesan' => 'beraksi_tambah_bahan_mentahhasil tambah data',
+	    );
+
+	    $this->session->set_userdata($data_session);
+	  }
+
+	  redirect('modul_logistik/lihat_bahan_olahan/?id_permintaan='.$id_permintaan);
+	}
+	function aksi_kembalikan_bahan_olahan(){
+	  $id_pengiriman = $this->input->post('id');
+	  $jumlah_dikembalikan = $this->input->post('jumlah_dikembalikan');
+	  $jumlah_permintaan = $this->input->post('jumlah_permintaan');
+	  $jumlah_dikirim = $this->input->post('jumlah_dikirim');
+	  $id_permintaan = $this->input->post('id_permintaan');
+	  $batas_kembali=(int)$jumlah_dikirim-(int)$jumlah_permintaan;
+
+	  if((int)$batas_kembali==0){
+	    $data_session = array(
+	      'pesan' => 'jumlah dikembalikan melebihi',
+	    );
+
+	    $this->session->set_userdata($data_session);
+	  }else{
+	    $sql = "UPDATE pengiriman_bahan_olahan SET jumlah_dikembalikan = '$jumlah_dikembalikan' WHERE id='$id_pengiriman'";
+	    if($this->db->query($sql)){
+	      $data_session = array(
+	        'pesan' => 'berhasil update bahan olahan dikembalikan',
+	      );
+
+	      $this->session->set_userdata($data_session);
+	      echo 1;
+	    }
+	  }
+	  redirect('modul_logistik/lihat_bahan_olahan/?id_permintaan='.$id_permintaan);
+	}
+
+	function hapus_list_bahan_olahan(){
+	  $id_permintaan = $this->input->get('id_permintaan');
+	  $id = $this->input->get('id');
+
+
+	  $sql = "DELETE FROM pengiriman_bahan_olahan where id='$id'";
+	  if($this->db->query($sql)){
+	    $data_session = array(
+	      'pesan' => 'berhasil hapus data',
+	    );
+
+	    $this->session->set_userdata($data_session);
+	  }
+	  redirect('modul_logistik/lihat_bahan_olahan/?id_permintaan='.$id_permintaan);
+	}
+	function terima_list_bahan_olahan(){
+	  $id_permintaan = $this->input->get('id_permintaan');
+	  $id_pengiriman= $this->input->get('id');
+	  $id_bahan_olahan = $this->input->get('id_bahan_olahan');
+	  $jumlah_bahan_diterima = $this->input->get('jumlah_bahan_diterima');
+
+	  $sql2 = "SELECT stok,status FROM stok_bahan_olahan_produksi WHERE id_bahan_olahan='$id_bahan_olahan'";
+	  $cek_stok=$this->db->query($sql2)->row();
+
+	  $stok_akhir=(int)$cek_stok->stok+(int)$jumlah_bahan_diterima;
+
+	  if($cek_stok->status=="diterima"){
+	    $data_session = array(
+	      'pesan' => 'barang sudah diterima',
+	    );
+
+	    $this->session->set_userdata($data_session);
+	  }else{
+	    $sql = "UPDATE stok_bahan_olahan_produksi SET stok = '$stok_akhir' WHERE id_bahan_olahan='$id_bahan_olahan'";
+	    if($this->db->query($sql)){
+	      $data_session = array(
+	        'pesan' => 'berhasil konrimasi bahan diterima',
+	      );
+
+	      $this->session->set_userdata($data_session);
+	    }
+	  }
+	  redirect('modul_logistik/lihat_bahan_olahan/?id_permintaan='.$id_permintaan);
+	}
+
+
+
+
+
+	public function aksi_tambah_list_bahan_mentah(){
+	  $id_user_produksi = $this->session->userdata('id');
+	  $sql = "SELECT * FROM user_resto join resto on resto.id=user_resto.id_resto where user_resto.id='$id_user_produksi'";
+	  $user=$this->db->query($sql)->row();
+
+	  $id_permintaan = $this->input->post('id_permintaan');
+	  $id_bahan_mentah = $this->input->post('id_bahan_mentah');
+	  $tanggal = $this->input->post('tanggal');
+	  $jumlah_permintaan = $this->input->post('jumlah_permintaan');
+	  $jumlah_dikirim = $this->input->post('jumlah_dikirim');
+	  $jumlah_dikembalikan = $this->input->post('jumlah_dikembalikan');
+
+	  $status = "";
+	  if((int)$jumlah_permintaan==(int)$jumlah_dikirim){
+	    $status = 'sesuai';
+	  }else{
+	    $status = 'tidak';
+	  }
+
+	  $id_resto = $user->id;
+
+	  $sql = "INSERT INTO pengiriman_bahan_mentah values ('','$id_permintaan','$id_bahan_mentah','$tanggal','$jumlah_permintaan','$jumlah_dikirim','$jumlah_dikembalikan','$status')";
+	  if($this->db->query($sql)){
+	    $data_session = array(
+	      'pesan' => 'beraksi_tambah_bahan_mentahhasil tambah data',
+	    );
+
+	    $this->session->set_userdata($data_session);
+	  }
+
+	  redirect('modul_logistik/lihat_bahan_mentah/?id_permintaan='.$id_permintaan);
+	}
+	function aksi_kembalikan_bahan_mentah(){
+	  $id_pengiriman = $this->input->post('id');
+	  $jumlah_dikembalikan = $this->input->post('jumlah_dikembalikan');
+	  $jumlah_permintaan = $this->input->post('jumlah_permintaan');
+	  $jumlah_dikirim = $this->input->post('jumlah_dikirim');
+	  $id_permintaan = $this->input->post('id_permintaan');
+	  $batas_kembali=(int)$jumlah_dikirim-(int)$jumlah_permintaan;
+
+	  if((int)$batas_kembali==0){
+	    $data_session = array(
+	      'pesan' => 'jumlah dikembalikan melebihi',
+	    );
+
+	    $this->session->set_userdata($data_session);
+	  }else{
+	    $sql = "UPDATE pengiriman_bahan_mentah SET jumlah_dikembalikan = '$jumlah_dikembalikan' WHERE id='$id_pengiriman'";
+	    if($this->db->query($sql)){
+	      $data_session = array(
+	        'pesan' => 'berhasil update bahan olahan dikembalikan',
+	      );
+
+	      $this->session->set_userdata($data_session);
+	      echo 1;
+	    }
+	  }
+	  redirect('modul_logistik/lihat_bahan_mentah/?id_permintaan='.$id_permintaan);
+	}
+
+	function hapus_list_bahan_mentah(){
+	  $id_permintaan = $this->input->get('id_permintaan');
+	  $id = $this->input->get('id');
+
+
+	  $sql = "DELETE FROM pengiriman_bahan_mentah where id='$id'";
+	  if($this->db->query($sql)){
+	    $data_session = array(
+	      'pesan' => 'berhasil hapus data',
+	    );
+
+	    $this->session->set_userdata($data_session);
+	  }
+	  redirect('modul_logistik/lihat_bahan_mentah/?id_permintaan='.$id_permintaan);
+	}
+	function terima_list_bahan_mentah(){
+	  $id_permintaan = $this->input->get('id_permintaan');
+	  $id_pengiriman= $this->input->get('id');
+	  $id_bahan_mentah = $this->input->get('id_bahan_mentah');
+	  $jumlah_bahan_diterima = $this->input->get('jumlah_bahan_diterima');
+
+	  $sql2 = "SELECT stok,status FROM stok_bahan_mentah_produksi WHERE id_bahan_mentah='$id_bahan_mentah'";
+	  $cek_stok=$this->db->query($sql2)->row();
+
+	  $stok_akhir=(int)$cek_stok->stok+(int)$jumlah_bahan_diterima;
+
+	  if($cek_stok->status=="diterima"){
+	    $data_session = array(
+	      'pesan' => 'barang sudah diterima',
+	    );
+
+	    $this->session->set_userdata($data_session);
+	  }else{
+	    $sql = "UPDATE stok_bahan_mentah_produksi SET stok = '$stok_akhir' WHERE id_bahan_mentah='$id_bahan_mentah'";
+	    if($this->db->query($sql)){
+	      $data_session = array(
+	        'pesan' => 'berhasil konrimasi bahan diterima',
+	      );
+
+	      $this->session->set_userdata($data_session);
+	    }
+	  }
+	  redirect('modul_logistik/lihat_bahan_mentah/?id_permintaan='.$id_permintaan);
+	}
 }
