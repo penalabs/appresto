@@ -18,7 +18,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo base_url('/modul_produksi/index_permintaan_bahan');?>"><i class="fa fa-circle-o"></i> Permintaan Bahan</a></li>
+            <li><a href="<?php echo base_url('/modul_produksi/permintaan_bahan_mentah');?>"><i class="fa fa-circle-o"></i> Permintaan Bahan</a></li>
             <li><a href="<?php echo base_url('/modul_produksi/index_produksi_pesanan');?>"><i class="fa fa-circle-o"></i> Produksi pesanan</a></li>
           </ul>
         </li>
