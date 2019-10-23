@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 23, 2019 at 11:03 PM
+-- Generation Time: Oct 23, 2019 at 07:22 AM
 -- Server version: 10.3.18-MariaDB-1:10.3.18+maria~bionic-log
 -- PHP Version: 7.2.19-0ubuntu0.18.04.2
 
@@ -808,7 +808,8 @@ CREATE TABLE `pengiriman_bahan_mentah` (
 --
 
 INSERT INTO `pengiriman_bahan_mentah` (`id`, `id_permintaan`, `id_bahan_mentah`, `tanggal_pengiriman`, `jumlah_permintaan`, `jumlah_dikirim`, `jumlah_dikembalikan`, `status`) VALUES
-(1, 3, 1, '2019-10-22', 2, 4, 2, 'tidak');
+(1, 3, 1, '2019-10-22', 2, 4, 2, 'tidak'),
+(2, 3, 2, '2019-10-22', 4, 4, 0, 'sesuai');
 
 -- --------------------------------------------------------
 
@@ -824,7 +825,7 @@ CREATE TABLE `pengiriman_bahan_olahan` (
   `jumlah_permintaan` int(11) NOT NULL,
   `jumlah_dikirim` int(11) NOT NULL,
   `jumlah_dikembalikan` int(11) NOT NULL,
-  `status` enum('sesuai','tidak','diterima') NOT NULL
+  `status` enum('sesuai','tidak') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -832,8 +833,8 @@ CREATE TABLE `pengiriman_bahan_olahan` (
 --
 
 INSERT INTO `pengiriman_bahan_olahan` (`id`, `id_permintaan`, `id_bahan_olahan`, `tanggal_pengiriman`, `jumlah_permintaan`, `jumlah_dikirim`, `jumlah_dikembalikan`, `status`) VALUES
-(2, 2, 3, '2019-10-22', 4, 4, 0, 'diterima'),
-(4, 1, 3, '0000-00-00', 1, 0, 0, 'tidak');
+(1, 2, 1, '2019-10-22', 2, 4, 2, 'tidak'),
+(2, 2, 2, '2019-10-22', 4, 4, 0, 'sesuai');
 
 -- --------------------------------------------------------
 
@@ -1080,7 +1081,7 @@ CREATE TABLE `stok_bahan_olahan_produksi` (
 
 INSERT INTO `stok_bahan_olahan_produksi` (`id`, `id_bahan_olahan`, `stok`) VALUES
 (1, 1, 2),
-(2, 3, 5);
+(2, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -1626,11 +1627,6 @@ ALTER TABLE `pengeluaran_cabang_operasional`
 -- AUTO_INCREMENT for table `pengeluaran_kanwil_operasional`
 --
 ALTER TABLE `pengeluaran_kanwil_operasional`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT for table `pengiriman_bahan_olahan`
---
-ALTER TABLE `pengiriman_bahan_olahan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `penyusutan_investasi_cabang`
