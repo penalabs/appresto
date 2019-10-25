@@ -41,4 +41,4 @@ LOGIN PRODUKSI user dan password fauzin
 LOGIN LOGISTIK user dan password wiwin
 LOGIN BENDAHRA user dan password tria 
 
-SUPER ADMIN OWNER SAM GENERAL MANAGER
+SELANJUTNYA CEKING SUPER ADMIN OWNER SAM GENERAL MANAGER cetak nota kasir
