@@ -948,7 +948,8 @@ class modul_produksi extends CI_Controller {
 		function aksi_kembalikan_bahan_mentah(){
 		  $id_pengiriman = $this->input->post('id');
 		  $jumlah_dikembalikan = $this->input->post('jumlah_dikembalikan');
-		  $jumlah_permintaan = $this->inputproduksi->post('jumlah_permintaan');
+
+		  $jumlah_permintaan = $this->input->post('jumlah_permintaan');
 		  $jumlah_dikirim = $this->input->post('jumlah_dikirim');
 		  $id_permintaan = $this->input->post('id_permintaan');
 		  $batas_kembali=(int)$jumlah_dikirim-(int)$jumlah_permintaan;
