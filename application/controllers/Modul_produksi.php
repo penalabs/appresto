@@ -730,7 +730,7 @@ class modul_produksi extends CI_Controller {
 
 			$this->session->set_userdata($data_session);
 			$id_permintaan= $this->input->get('id_permintaan');
-			$sql = "SELECT * FROM pengiriman_bahan_mentah join bahan_mentah on bahan_mentah.id=pengiriman_bahan_mentah.id_bahan_mentah where id_permintaan='$id_permintaan'";
+			$sql = "SELECT pengiriman_bahan_mentah.*,bahan_mentah.nama_bahan FROM pengiriman_bahan_mentah join bahan_mentah on bahan_mentah.id=pengiriman_bahan_mentah.id_bahan_mentah where id_permintaan='$id_permintaan'";
 		  $data['data2']=$this->db->query($sql)->result();
 
 			$this->load->view('modul_produksi/lihat_bahan_mentah',$data);
@@ -948,7 +948,7 @@ class modul_produksi extends CI_Controller {
 		function aksi_kembalikan_bahan_mentah(){
 		  $id_pengiriman = $this->input->post('id');
 		  $jumlah_dikembalikan = $this->input->post('jumlah_dikembalikan');
-		  $jumlah_permintaan = $this->input->post('jumlah_permintaan');
+		  $jumlah_permintaan = $this->inputproduksi->post('jumlah_permintaan');
 		  $jumlah_dikirim = $this->input->post('jumlah_dikirim');
 		  $id_permintaan = $this->input->post('id_permintaan');
 		  $batas_kembali=(int)$jumlah_dikirim-(int)$jumlah_permintaan;

@@ -455,6 +455,22 @@ class modul_logistik extends CI_Controller {
 
 
 	//permintaan bahan mentah baru
+	public function laporan_permintaan_barang()
+	{
+	  $sql = "SELECT bahan_mentah.*,resto.nama_resto,pengiriman_bahan_mentah.jumlah_permintaan,permintaan_bahan_mentah.id,permintaan_bahan_mentah.nama_permintaan,permintaan_bahan_mentah.tanggal,permintaan_bahan_mentah.status FROM  pengiriman_bahan_mentah join permintaan_bahan_mentah on pengiriman_bahan_mentah.id_permintaan=permintaan_bahan_mentah.id join user_resto on user_resto.id=permintaan_bahan_mentah.id_user_produksi join resto on resto.id=user_resto.id_resto join bahan_mentah on bahan_mentah.id=pengiriman_bahan_mentah.id_bahan_mentah where permintaan_bahan_mentah.status='permintaan'";
+	  $data['data']=$this->db->query($sql)->result();
+	  $sql2 = "SELECT bahan_olahan.*,pengiriman_bahan_olahan.jumlah_permintaan,pengiriman_bahan_olahan.jumlah_permintaan,resto.nama_resto,permintaan_bahan_olahan.id,permintaan_bahan_olahan.nama_permintaan,permintaan_bahan_olahan.tanggal,permintaan_bahan_olahan.status FROM pengiriman_bahan_olahan join permintaan_bahan_olahan on pengiriman_bahan_olahan.id_permintaan=permintaan_bahan_olahan.id join user_resto on user_resto.id=permintaan_bahan_olahan.id_user_produksi join resto on resto.id=user_resto.id_resto join bahan_olahan on bahan_olahan.id=pengiriman_bahan_olahan.id_bahan_olahan where permintaan_bahan_olahan.status='permintaan'";
+	  $data['data2']=$this->db->query($sql2)->result();
+	  $this->load->view('modul_logistik/laporan_permintaan_bahan',$data);
+	}
+	public function laporan_penerimaan_barang()
+	{
+	  $sql = "SELECT bahan_mentah.*,resto.nama_resto,pengiriman_bahan_mentah.jumlah_permintaan,permintaan_bahan_mentah.id,permintaan_bahan_mentah.nama_permintaan,permintaan_bahan_mentah.tanggal,permintaan_bahan_mentah.status FROM  pengiriman_bahan_mentah join permintaan_bahan_mentah on pengiriman_bahan_mentah.id_permintaan=permintaan_bahan_mentah.id join user_resto on user_resto.id=permintaan_bahan_mentah.id_user_produksi join resto on resto.id=user_resto.id_resto join bahan_mentah on bahan_mentah.id=pengiriman_bahan_mentah.id_bahan_mentah where permintaan_bahan_mentah.status='diterima'";
+	  $data['data']=$this->db->query($sql)->result();
+	  $sql2 = "SELECT bahan_olahan.*,pengiriman_bahan_olahan.jumlah_permintaan,pengiriman_bahan_olahan.jumlah_permintaan,resto.nama_resto,permintaan_bahan_olahan.id,permintaan_bahan_olahan.nama_permintaan,permintaan_bahan_olahan.tanggal,permintaan_bahan_olahan.status FROM pengiriman_bahan_olahan join permintaan_bahan_olahan on pengiriman_bahan_olahan.id_permintaan=permintaan_bahan_olahan.id join user_resto on user_resto.id=permintaan_bahan_olahan.id_user_produksi join resto on resto.id=user_resto.id_resto join bahan_olahan on bahan_olahan.id=pengiriman_bahan_olahan.id_bahan_olahan where permintaan_bahan_olahan.status='diterima'";
+	  $data['data2']=$this->db->query($sql2)->result();
+	  $this->load->view('modul_logistik/laporan_penerimaan_bahan',$data);
+	}
 	public function permintaan_bahan_mentah()
 	{
 	  $sql = "SELECT resto.nama_resto,permintaan_bahan_mentah.id,permintaan_bahan_mentah.nama_permintaan,permintaan_bahan_mentah.tanggal,permintaan_bahan_mentah.status FROM permintaan_bahan_mentah join user_resto on user_resto.id=permintaan_bahan_mentah.id_user_produksi join resto on resto.id=user_resto.id_resto";
@@ -472,7 +488,7 @@ class modul_logistik extends CI_Controller {
 
 	  $this->session->set_userdata($data_session);
 	  $id_permintaan= $this->input->get('id_permintaan');
-	  $sql = "SELECT * FROM pengiriman_bahan_mentah join bahan_mentah on bahan_mentah.id=pengiriman_bahan_mentah.id_bahan_mentah where id_permintaan='$id_permintaan'";
+	  $sql = "SELECT pengiriman_bahan_mentah.*,bahan_mentah.nama_bahan FROM pengiriman_bahan_mentah join bahan_mentah on bahan_mentah.id=pengiriman_bahan_mentah.id_bahan_mentah where id_permintaan='$id_permintaan'";
 	  $data['data2']=$this->db->query($sql)->result();
 
 	  $this->load->view('modul_logistik/lihat_bahan_mentah',$data);
@@ -578,32 +594,41 @@ class modul_logistik extends CI_Controller {
 
 	  redirect('modul_logistik/lihat_bahan_olahan/?id_permintaan='.$id_permintaan);
 	}
-	function aksi_kembalikan_bahan_olahan(){
-	  $id_pengiriman = $this->input->post('id');
-	  $jumlah_dikembalikan = $this->input->post('jumlah_dikembalikan');
-	  $jumlah_permintaan = $this->input->post('jumlah_permintaan');
-	  $jumlah_dikirim = $this->input->post('jumlah_dikirim');
-	  $id_permintaan = $this->input->post('id_permintaan');
-	  $batas_kembali=(int)$jumlah_dikirim-(int)$jumlah_permintaan;
+	function aksi_kirim_bahan_olahan(){
+		$id_pengiriman = $this->input->post('id');
+		$jumlah_dikembalikan = $this->input->post('jumlah_dikembalikan');
+		$jumlah_permintaan = $this->input->post('jumlah_permintaan');
+		$jumlah_dikirim = $this->input->post('jumlah_dikirim');
+		$id_permintaan = $this->input->post('id_permintaan');
+		$batas_kembali=(int)$jumlah_dikirim-(int)$jumlah_permintaan;
 
-	  if((int)$batas_kembali==0){
-	    $data_session = array(
-	      'pesan' => 'jumlah dikembalikan melebihi',
-	    );
+		$tanggal=date('Y-m-d');
 
-	    $this->session->set_userdata($data_session);
-	  }else{
-	    $sql = "UPDATE pengiriman_bahan_olahan SET jumlah_dikembalikan = '$jumlah_dikembalikan' WHERE id='$id_pengiriman'";
-	    if($this->db->query($sql)){
-	      $data_session = array(
-	        'pesan' => 'berhasil update bahan olahan dikembalikan',
-	      );
+		$sql = "UPDATE pengiriman_bahan_olahan SET jumlah_dikirim = '$jumlah_dikirim', status='tidak',tanggal_pengiriman='$tanggal' WHERE id='$id_pengiriman'";
+		$this->db->query($sql);
 
-	      $this->session->set_userdata($data_session);
-	      echo 1;
-	    }
-	  }
-	  redirect('modul_logistik/lihat_bahan_olahan/?id_permintaan='.$id_permintaan);
+		if((int)$jumlah_permintaan!=(int)$jumlah_dikirim){
+		   $sql = "UPDATE pengiriman_bahan_olahan SET jumlah_dikirim = '$jumlah_dikirim', status='tidak',tanggal_pengiriman='$tanggal' WHERE id='$id_pengiriman'";
+		   if($this->db->query($sql)){
+		     $data_session = array(
+		       'pesan' => 'berhasil update jumlah pengiriman bahan mentah !',
+		     );
+
+		     $this->session->set_userdata($data_session);
+		     echo 1;
+		   }
+		}else{
+		  $sql = "UPDATE pengiriman_bahan_olahan SET jumlah_dikirim = '$jumlah_dikirim', status='sesuai',tanggal_pengiriman='$tanggal' WHERE id='$id_pengiriman'";
+		  if($this->db->query($sql)){
+		    $data_session = array(
+		      'pesan' => 'berhasil update jumlah pengiriman bahan mentah !',
+		    );
+
+		    $this->session->set_userdata($data_session);
+		    echo 1;
+		  }
+		}
+		redirect('modul_logistik/lihat_bahan_olahan/?id_permintaan='.$id_permintaan);
 	}
 
 	function hapus_list_bahan_olahan(){
@@ -687,7 +712,7 @@ class modul_logistik extends CI_Controller {
 
 	  redirect('modul_logistik/lihat_bahan_mentah/?id_permintaan='.$id_permintaan);
 	}
-	function aksi_kembalikan_bahan_mentah(){
+	function aksi_kirim_bahan_mentah(){
 	  $id_pengiriman = $this->input->post('id');
 	  $jumlah_dikembalikan = $this->input->post('jumlah_dikembalikan');
 	  $jumlah_permintaan = $this->input->post('jumlah_permintaan');
@@ -695,17 +720,22 @@ class modul_logistik extends CI_Controller {
 	  $id_permintaan = $this->input->post('id_permintaan');
 	  $batas_kembali=(int)$jumlah_dikirim-(int)$jumlah_permintaan;
 
-	  if((int)$batas_kembali==0){
-	    $data_session = array(
-	      'pesan' => 'jumlah dikembalikan melebihi',
-	    );
+		$tanggal=date('Y-m-d');
+	  if((int)$jumlah_permintaan!=(int)$jumlah_dikirim){
+			 $sql = "UPDATE pengiriman_bahan_mentah SET jumlah_dikirim = '$jumlah_dikirim', status='tidak',tanggal_pengiriman='$tanggal' WHERE id='$id_pengiriman'";
+			 if($this->db->query($sql)){
+				 $data_session = array(
+					 'pesan' => 'berhasil update jumlah pengiriman bahan mentah !',
+				 );
 
-	    $this->session->set_userdata($data_session);
+				 $this->session->set_userdata($data_session);
+				 echo 1;
+			 }
 	  }else{
-	    $sql = "UPDATE pengiriman_bahan_mentah SET jumlah_dikembalikan = '$jumlah_dikembalikan' WHERE id='$id_pengiriman'";
+	    $sql = "UPDATE pengiriman_bahan_mentah SET jumlah_dikirim = '$jumlah_dikirim', status='sesuai',tanggal_pengiriman='$tanggal' WHERE id='$id_pengiriman'";
 	    if($this->db->query($sql)){
 	      $data_session = array(
-	        'pesan' => 'berhasil update bahan olahan dikembalikan',
+	        'pesan' => 'berhasil update jumlah pengiriman bahan mentah !',
 	      );
 
 	      $this->session->set_userdata($data_session);
@@ -713,6 +743,53 @@ class modul_logistik extends CI_Controller {
 	    }
 	  }
 	  redirect('modul_logistik/lihat_bahan_mentah/?id_permintaan='.$id_permintaan);
+	}
+	function aksi_kirim_ke_produksi_bahan_mentah(){
+	  $id_bahan_mentah = $this->input->get('id_bahan_mentah');
+	  $jumlah_dikirim = $this->input->get('jumlah_bahan_dikirim');
+		$id_permintaan = $this->input->get('id_permintaan');
+
+		$sql5 = "SELECT stok FROM bahan_mentah WHERE id='$id_bahan_mentah'";
+		$data5=$this->db->query($sql5)->row();
+		$stok_bahan_mentah=$data5->stok;
+
+		$stok_akhir=(int)$stok_bahan_mentah-(int)$jumlah_dikirim;
+
+
+			 $sql = "UPDATE bahan_mentah SET stok = '$stok_akhir' WHERE id='$id_bahan_mentah'";
+			 if($this->db->query($sql)){
+				 $data_session = array(
+					 'pesan' => 'berhasil update stok bahan mentah !',
+				 );
+				 $this->session->set_userdata($data_session);
+				 echo 1;
+			 }
+
+	  redirect('modul_logistik/lihat_bahan_mentah/?id_permintaan='.$id_permintaan);
+	}
+
+	function aksi_kirim_ke_produksi_bahan_olahan(){
+	  $id_bahan_olahan = $this->input->get('id_bahan_olahan');
+	  $jumlah_dikirim = $this->input->get('jumlah_bahan_dikirim');
+		$id_permintaan = $this->input->get('id_permintaan');
+
+		$sql5 = "SELECT stok FROM bahan_olahan WHERE id='$id_bahan_olahan'";
+		$data5=$this->db->query($sql5)->row();
+		$stok_bahan_olahan=$data5->stok;
+
+		$stok_akhir=(int)$stok_bahan_olahan-(int)$jumlah_dikirim;
+
+
+			 $sql = "UPDATE bahan_olahan SET stok = '$stok_akhir' WHERE id='$id_bahan_olahan'";
+			 if($this->db->query($sql)){
+				 $data_session = array(
+					 'pesan' => 'berhasil update stok bahan mentah !',
+				 );
+				 $this->session->set_userdata($data_session);
+				 echo 1;
+			 }
+
+	  redirect('modul_logistik/lihat_bahan_olahan/?id_permintaan='.$id_permintaan);
 	}
 
 	function hapus_list_bahan_mentah(){
@@ -758,5 +835,34 @@ class modul_logistik extends CI_Controller {
 	    }
 	  }
 	  redirect('modul_logistik/lihat_bahan_mentah/?id_permintaan='.$id_permintaan);
+	}
+
+	function ubah_status_dikirim_bahan_mentah(){
+	 // $id_permintaan = $this->input->get('id_permintaan');
+	  $id = $this->input->get('id_permintaan');
+		$sql = "UPDATE permintaan_bahan_mentah SET status = 'pengiriman' WHERE id='$id'";
+		if($this->db->query($sql)){
+	    $data_session = array(
+	      'pesan' => 'barang akan dikirim',
+	    );
+
+	    $this->session->set_userdata($data_session);
+	  }
+
+	  redirect('modul_logistik/permintaan_bahan_mentah');
+	}
+	function ubah_status_dikirim_bahan_olahan(){
+	 // $id_permintaan = $this->input->get('id_permintaan');
+		$id = $this->input->get('id_permintaan');
+		$sql = "UPDATE permintaan_bahan_olahan SET status = 'pengiriman' WHERE id='$id'";
+		if($this->db->query($sql)){
+			$data_session = array(
+				'pesan' => 'barang akan dikirim',
+			);
+
+			$this->session->set_userdata($data_session);
+		}
+
+		redirect('modul_logistik/permintaan_bahan_mentah');
 	}
 }

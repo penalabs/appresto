@@ -27,7 +27,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Produksi
+       Logistik
 
       </h1>
 
@@ -45,7 +45,7 @@
                <?php echo $user_data = $this->session->userdata('pesan'); ?>
        </div>
 
-       <a href="<?php echo base_url('modul_produksi/lihat_bahan_mentah?');?>id_permintaan=<?php echo $_GET['id_permintaan']; ?>" class="btn btn-primary btn"><i class="fa   fa-check" ></i> KEMBALI TAMBAH PERMINTAAN BAHAN OLAHAN</a><br>
+       <!-- <a href="<?php echo base_url('modul_logistik/lihat_bahan_mentah?');?>id_permintaan=<?php echo $_GET['id_permintaan']; ?>" class="btn btn-primary btn"><i class="fa   fa-check" ></i> KEMBALI TAMBAH PERMINTAAN BAHAN OLAHAN</a><br> -->
        <br>
      </div>
 
@@ -68,11 +68,12 @@
               </div>
               <!-- /.box-header -->
               <!-- form start -->
-              <form action="<?php echo base_url(). 'modul_produksi/aksi_kembalikan_bahan_mentah'; ?>" method="post" class="form-horizontal">
+              <form action="<?php echo base_url(). 'modul_logistik/aksi_kirim_bahan_mentah'; ?>" method="post" class="form-horizontal">
                 <div class="box-body">
                 <input type="hidden" value="<?php echo $id; ?>"  name="id" class="form-control" id="inputEmail3" >
                 <input type="hidden" value="<?php echo $id_permintaan; ?>"  name="id_permintaan" class="form-control" id="inputEmail3" >
-
+                <input type="hidden" value="<?php echo $data4->jumlah_permintaan; ?>" name="jumlah_permintaan" class="form-control" id="inputEmail3" >
+                <input type="hidden" value="<?php echo $data4->id_bahan_mentah; ?>" name="id_bahan_mentah" class="form-control" id="inputEmail3" >
                 <!-- <div class="form-group">
                          <label for="inputEmail3" class="col-sm-4 control-label">Jumlah Permintaan</label>
                          <div class="col-sm-8">
@@ -81,9 +82,9 @@
                 </div> -->
 
                 <div class="form-group">
-                         <label for="inputEmail3" class="col-sm-4 control-label">Jumlah Dikembalikan</label>
+                         <label for="inputEmail3" class="col-sm-4 control-label">Jumlah Dikirim</label>
                          <div class="col-sm-8">
-                           <input type="text" value="<?php echo $data4->jumlah_dikembalikan; ?>"  name="jumlah_dikembalikan" class="form-control" id="inputEmail3" >
+                           <input type="text" value="<?php echo $data4->jumlah_dikirim; ?>"  name="jumlah_dikirim" class="form-control" id="inputEmail3" >
                          </div>
                 </div>
 
@@ -101,70 +102,10 @@
   		</div>
       <?php
     }else{ ?>
-      <div class="col-md-4">
-            <!-- Horizontal Form -->
-            <div class="box box-info">
-              <div class="box-header with-border">
-                <h3 class="box-title">Tambah list Bahan Mentah<i class="fa  fa-hand-lizard-o" ></i></h3>
-              </div>
-              <!-- /.box-header -->
-              <!-- form start -->
-              <form action="<?php echo base_url(). 'modul_produksi/aksi_tambah_list_bahan_mentah'; ?>" method="post" class="form-horizontal">
-                <div class="box-body">
-                  <input type="hidden" name="id_permintaan" value="<?php echo $_GET['id_permintaan'];?>" class="form-control" id="inputEmail3" >
-                  <!-- <input type="text" name="id_bahan_mentah" value="<?php echo $_GET['id_bahan_mentah'];?>" class="form-control" id="inputEmail3" > -->
-                  <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-4 control-label">Nama Menu</label>
-                            <div class="col-sm-8">
-                               <select class="form-control" name="id_bahan_mentah">
-                               <?php
-                    					 //$sql = "SELECT * FROM bahan_mentah join permintaan_bahan_detail on permintaan_bahan_detail.id_bahan_mentah=bahan_mentah.id";
-                    					 $sql = "SELECT * FROM bahan_mentah";
-                    					 $data3=$this->db->query($sql)->result();
-                                          foreach($data3 as $u3){
-                                          ?>
-                                          <option value="<?=$u3->id; ?>"><?=$u3->nama_bahan; ?></option>
-                                          <?php
-                                          }
-                                          ?>
-                               </select>
-                            </div>
-                    </div>
 
-                <div class="form-group">
-                         <label for="inputEmail3" class="col-sm-4 control-label">Jumlah Permintaan</label>
-                         <div class="col-sm-8">
-                           <input type="text" name="jumlah_permintaan" class="form-control" id="inputEmail3" >
-                         </div>
-                </div>
-                <div class="form-group">
-                         <label for="inputEmail3" class="col-sm-4 control-label">Jumlah Dikirim</label>
-                         <div class="col-sm-8">
-                           <input type="text" name="jumlah_dikirim" class="form-control" id="inputEmail3" readonly>
-                         </div>
-                </div>
-                <div class="form-group">
-                         <label for="inputEmail3" class="col-sm-4 control-label">Jumlah Dikembalikan</label>
-                         <div class="col-sm-8">
-                           <input type="text" name="jumlah_dikembalikan" class="form-control" id="inputEmail3" readonly>
-                         </div>
-                </div>
-
-
-
-                </div>
-
-                <!-- /.box-body -->
-                <div class="box-footer">
-                  <button type="submit" class="btn btn-info pull-right">Tambahkan</button>
-                </div>
-                <!-- /.box-footer -->
-              </form>
-            </div>
-  		</div>
       <?php
     } ?>
-  	<div class="col-md-8">
+  	<div class="col-md-12">
             <div class="box">
               <div class="box-header">
                 <h3 class="box-title">List Permintaan Bahan Mentah</h3>
@@ -198,15 +139,12 @@
                         <td><?=$u->jumlah_dikembalikan;?></td>
                         <td><?=$u->status;?></td>
                         <td>
-                          <a href="<?php echo base_url('modul_produksi/lihat_bahan_mentah/?');?>id_bahan_mentah=<?php echo $u->id_bahan_mentah ?>&&edit=edit&&id_permintaan=<?=$_GET['id_permintaan'];?>&&id=<?php echo $u->id; ?>&&jumlah_dikirim=<?php echo $u->jumlah_dikirim; ?>&&jumlah_permintaan=<?php echo $u->jumlah_permintaan; ?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Return</a><br>
-                          <a href="<?php echo base_url('modul_produksi/hapus_list_bahan_mentah/?');?>id=<?php echo $u->id ?>&&id_permintaan=<?=$_GET['id_permintaan'];?>" class="btn btn-danger btn-xs"><i class="fa   fa-close" ></i>Hapus</a>
-                          <?php
-                          if($u->status!="diterima"){
-                           ?>
-                          <a href="<?php echo base_url('modul_produksi/terima_list_bahan_mentah/?');?>id=<?php echo $u->id ?>&&id_permintaan=<?=$_GET['id_permintaan'];?>&&id_bahan_mentah=<?=$u->id_bahan_mentah;?>&&jumlah_bahan_diterima=<?=$u->jumlah_dikirim;?>" class="btn btn-success btn-xs"><i class="fa   fa-close" ></i>Terima</a>
-                          <?php
-                            }
-                           ?>
+
+                          <a href="<?php echo base_url('modul_logistik/lihat_bahan_mentah/?');?>id_bahan_mentah=<?php echo $u->id_bahan_mentah ?>&&edit=edit&&id_permintaan=<?=$_GET['id_permintaan'];?>&&id=<?php echo $u->id; ?>&&jumlah_dikirim=<?php echo $u->jumlah_dikirim; ?>&&jumlah_permintaan=<?php echo $u->jumlah_permintaan; ?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Input Jumlah Kirim</a><br>
+                          <!-- <a href="<?php echo base_url('modul_logistik/hapus_list_bahan_mentah/?');?>id=<?php echo $u->id ?>&&id_permintaan=<?=$_GET['id_permintaan'];?>" class="btn btn-danger btn-xs"><i class="fa   fa-close" ></i>Hapus</a> -->
+
+                          <a href="<?php echo base_url('modul_logistik/aksi_kirim_ke_produksi_bahan_mentah/?');?>id=<?php echo $u->id ?>&&id_permintaan=<?=$_GET['id_permintaan'];?>&&id_bahan_mentah=<?=$u->id_bahan_mentah;?>&&jumlah_bahan_dikirim=<?=$u->jumlah_dikirim;?>" class="btn btn-success btn-xs"><i class="fa   fa-edit" ></i>Kurangi Stok Bahan</a>
+
                         </td>
                     </tr>
                     <?php
@@ -306,7 +244,7 @@
   function SelectDataPemesananMenu(){
     $.ajax({
       type:'POST',
-      url:'<?php echo base_url().'modul_produksi/data_pemesanan_menu' ?>',
+      url:'<?php echo base_url().'modul_logistik/data_pemesanan_menu' ?>',
       dataType:'json',
       success: function(data){
         var no = 0;
@@ -337,7 +275,7 @@
   function SelectDataPemesananPaket(){
     $.ajax({
       type:'POST',
-      url:'<?php echo base_url().'modul_produksi/data_pemesanan_paket' ?>',
+      url:'<?php echo base_url().'modul_logistik/data_pemesanan_paket' ?>',
       dataType:'json',
       success: function(data){
         var no = 0;
@@ -363,7 +301,7 @@
   function get_stok_bahan_mentah(id_bahan_mentah)[
     $.ajax({
               type  : 'POST',
-              url   : '<?php echo base_url(). 'modul_produksi/get_stok_bahan_mentah'; ?>',
+              url   : '<?php echo base_url(). 'modul_logistik/get_stok_bahan_mentah'; ?>',
               data: {id_bahan_mentah:id_bahan_mentah} ,
               async : false,
               dataType : 'json',

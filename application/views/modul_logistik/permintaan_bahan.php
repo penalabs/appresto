@@ -27,7 +27,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Produksi
+        Logistik
 
       </h1>
 
@@ -45,44 +45,8 @@
 
 
      </div>
-      <div class="col-md-4">
-            <!-- Horizontal Form -->
-            <div class="box box-info">
-              <div class="box-header with-border">
-                <h3 class="box-title">Tambah permintaan Bahan Mentah<i class="fa  fa-hand-lizard-o" ></i></h3>
-              </div>
-              <!-- /.box-header -->
-              <!-- form start -->
-              <form action="<?php echo base_url(). 'modul_produksi/aksi_tambah_permintaan_bahan_mentah'; ?>" method="post" class="form-horizontal">
 
-                <input type="hidden" name="id_user_produksi" value="<?php echo $this->session->userdata('id');?>" class="form-control" id="inputEmail3" >
-                <div class="box-body">
-                <div class="form-group">
-                         <label for="inputEmail3" class="col-sm-4 control-label">Nama Permintaan</label>
-                         <div class="col-sm-8">
-                           <input type="text" name="nama_permintaan" class="form-control" id="inputEmail3" >
-                         </div>
-                </div>
-                <div class="form-group">
-                         <label for="inputEmail3" class="col-sm-4 control-label">Tanggal</label>
-                         <div class="col-sm-8">
-                           <input type="text" class="form-control pull-right" name="tanggal" id="datepicker">
-                         </div>
-                </div>
-
-
-
-                </div>
-
-                <!-- /.box-body -->
-                <div class="box-footer">
-                  <button type="submit" class="btn btn-info pull-right">Tambah</button>
-                </div>
-                <!-- /.box-footer -->
-              </form>
-            </div>
-  		</div>
-  	<div class="col-md-8">
+  	<div class="col-md-12">
             <div class="box">
               <div class="box-header">
                 <h3 class="box-title">Daftar Permintaan Bahan Mentah</h3>
@@ -112,9 +76,9 @@
                         <td><?=$u->tanggal;?></td>
                         <td><?=$u->status;?></td>
                         <td>
-                          <a href="<?php echo base_url('modul_produksi/lihat_bahan_mentah/?');?>id_permintaan=<?php echo $u->id ?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Lihat Bahan</a><br>
-                          <a href="<?php echo base_url('modul_produksi/ubah_status_diterima_bahan_mentah/?');?>id_permintaan=<?php echo $u->id ?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Terima Bahan</a>
-                          <a href="<?php echo base_url('modul_produksi/hapus_permintaan/?');?>id_permintaan=<?php echo $u->id ?>&&tabel=permintaan_bahan_mentah" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Hapus</a>
+                          <a href="<?php echo base_url('modul_logistik/lihat_bahan_mentah/?');?>id_permintaan=<?php echo $u->id ?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Lihat Bahan</a><br>
+                          <a href="<?php echo base_url('modul_logistik/ubah_status_dikirim_bahan_mentah/?');?>id_permintaan=<?php echo $u->id ?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Kirim</a>
+                          <!-- <a href="<?php echo base_url('modul_logistik/hapus_permintaan/?');?>id_permintaan=<?php echo $u->id ?>&&tabel=permintaan_bahan_mentah" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Hapus</a> -->
 
                         </td>
                     </tr>
@@ -132,45 +96,9 @@
           </div>
 
 
-          <div class="col-md-4">
-                <!-- Horizontal Form -->
-                <div class="box box-info">
-                  <div class="box-header with-border">
-                    <h3 class="box-title">Tambah permintaan Bahan Olahan<i class="fa  fa-hand-lizard-o" ></i></h3>
-                  </div>
-                  <!-- /.box-header -->
-                  <!-- form start -->
-                  <form action="<?php echo base_url(). 'modul_produksi/aksi_tambah_permintaan_bahan_olahan'; ?>" method="post" class="form-horizontal">
-                    <input type="hidden" name="id_user_produksi" value="<?php echo $this->session->userdata('id');?>" class="form-control" id="inputEmail3" >
-                    <div class="box-body">
-                    <div class="form-group">
-                             <label for="inputEmail3" class="col-sm-4 control-label">Nama Permintaan</label>
-                             <div class="col-sm-8">
-                               <input type="text" name="nama_permintaan" class="form-control" id="inputEmail3" >
-                             </div>
-                    </div>
-                    <div class="form-group">
-                             <label for="inputEmail3" class="col-sm-4 control-label">Tanggal</label>
-                             <div class="col-sm-8">
-                               <input type="text" class="form-control pull-right" name="tanggal" id="datepicker2">
-                             </div>
-                    </div>
 
 
-
-                    </div>
-
-                    <!-- /.box-body -->
-                    <div class="box-footer">
-                      <button type="submit" class="btn btn-info pull-right">Tambah</button>
-                    </div>
-                    <!-- /.box-footer -->
-                  </form>
-                </div>
-      		</div>
-
-
-      	<div class="col-md-8">
+      	<div class="col-md-12">
                 <div class="box">
                   <div class="box-header">
                     <h3 class="box-title">Daftar Permintaan Bahan Olahan</h3>
@@ -200,12 +128,12 @@
                             <td><?=$u2->tanggal;?></td>
                             <td><?=$u2->status;?></td>
                             <td>
-                              <a href="<?php echo base_url('modul_produksi/lihat_bahan_olahan?');?>id_permintaan=<?php echo $u2->id ?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Lihat Bahan</a><br>
-                              <a href="<?php echo base_url('modul_produksi/ubah_status_diterima_bahan_olahan/?');?>id_permintaan=<?php echo $u2->id ?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Terima Bahan</a>
+                              <a href="<?php echo base_url('modul_logistik/lihat_bahan_olahan?');?>id_permintaan=<?php echo $u2->id ?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Lihat Bahan</a><br>
+                              <a href="<?php echo base_url('modul_logistik/ubah_status_dikirim_bahan_olahan/?');?>id_permintaan=<?php echo $u2->id ?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Kirim</a>
 
 
-                              <a href="<?php echo base_url('modul_produksi/hapus_permintaan/?');?>id_permintaan=<?php echo $u2->id ?>&&tabel=permintaan_bahan_olahan" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Hapus</a>
-                              
+                              <!-- <a href="<?php echo base_url('modul_logistik/hapus_permintaan/?');?>id_permintaan=<?php echo $u2->id ?>&&tabel=permintaan_bahan_olahan" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Hapus</a> -->
+
                             </td>
                         </tr>
                         <?php
