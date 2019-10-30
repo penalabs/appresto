@@ -51,7 +51,7 @@ crud prmintaan investasi *SUDAH
 - user owner
 owner copy laporan laba rugi yang sudah jadi
 crud bagi hasil
-menampilkan laporan investasi
+menampilkan laporan investasi (sudah)
 
 -user superadmin
 laporan owner
