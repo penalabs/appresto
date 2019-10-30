@@ -36,14 +36,14 @@
                     <option>bendahara</option>
 					<option>logistik</option>
 					<option>kasir</option>
-					<option>waiters</option>
+					
 					<option>produksi</option>
 					<option>admin resto</option>
          </select>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
-       
+
         <div class="col-xs-4">
           <button type="submit" class="btn btn-primary btn-block btn-flat">LOGIN</button>
         </div>
