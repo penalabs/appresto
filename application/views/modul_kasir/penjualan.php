@@ -166,6 +166,10 @@
                 <input type="hidden" name="vat_charge_rate" value="13" autocomplete="off">
                 <button type="button" class="btn btn-primary" onclick="save()">Create / Simpan</button>
                 <a href="<?php echo base_url('kasir/pemesanan');?>" class="btn btn-warning">KEMBALI KE TRANSAKSI</a>
+
+                <a id="cetak" href="" target="_blank" class="btn btn-primary" >CETAK STRUK</a>
+                <a href="<?php echo base_url('kasir/penjualan/');?>" class="btn btn-success">ENTER TRANSAKSI BARU</a>
+
               </div>
             </form>
           <!-- /.box-body -->
@@ -192,14 +196,20 @@
 <!-- ./wrapper -->
   <?php include(APPPATH.'views/js.php');?>
 <script>
-function diskon(diskon,hargaAwal,p){
-  var diskon;
+var total;
+var pajak;
+var diskon;
+var bayar;
+var kembali;
+var no_meja;
+function diskonku(diskon,hargaAwal,p){
+
   diskon = diskon/100*hargaAwal;
   hargaDiskon = diskon;
   return hargaDiskon;
 }
 function pajak(pajak,hargaAwal){
-  var pajak;
+
   pajak = pajak/100*hargaAwal;
   hargaPajak = pajak;
   return hargaPajak;
@@ -209,14 +219,15 @@ function pajak(pajak,hargaAwal){
   var idd_pesan;
 
 	function save(){
-		var bayar=$('#bayar').val();
-    var kembali=$('#kembali_value').val();
+		bayar=$('#bayar').val();
+    kembali=$('#kembali_value').val();
     var id_user_kasir=<?php echo $this->session->userdata('id'); ?>;
+    no_meja=$('#meja').val();
 		alert(idd_pesan);
 			$.ajax({
                 type  : 'POST',
                 url   : '<?php echo base_url(). 'kasir/action_pembayaran'; ?>',
-				        data: {id_pesan:idd_pesan,nominal:bayar,id_user_resto:id_user_kasir,kembali:kembali},
+				        data: {id_pesan:idd_pesan,nominal:bayar,id_user_kasir:id_user_kasir,kembali:kembali},
                 async : false,
                 dataType : 'json',
                 success : function(data){
@@ -225,16 +236,28 @@ function pajak(pajak,hargaAwal){
     							alert(data.pesan);
     						}else{
     							alert(data.pesan);
-    							window.location = "<?php echo base_url('kasir/penjualan');?>";
+
     						}
 
 
                 }
 
             });
+
 	}
+
+  function cetak(no_meja){
+    total=$('#total_value').val();
+    pajak=$('#pajak_value').val();
+    diskon=$('#diskonrp_value').val();
+    bayar=$('#bayar').val();
+    kembali=$('#kembali_value').val();
+
+    $('#cetak').attr('href', '<?php echo base_url('report/pdf/?no_meja=');?>'+no_meja);
+
+  }
   //fungsi tampil barang
-  var no_meja;
+
   function tampil_data_pemesan(meja){
     no_meja=meja;
     $('tbody').html("");
@@ -511,13 +534,15 @@ function tampil_pesan_paket(id_pesan){
 		 var selected = $(this).children("option:selected").val();
 		 alert(selected);
 		 tampil_data_pemesan(selected);   //pemanggilan fungsi tampil barang.
+
+     cetak(selected);
 		 return false;
     });
 	$("#diskon").keyup(function(){
 		 var dk=$('#diskon').val();
 		 var hargaAwal=$('#total_value').val();
 		 var p=$('#pajak_value').val();
-		 var dc=diskon(dk,hargaAwal);
+		 var dc=diskonku(dk,hargaAwal);
 		 $('#diskonrp').val(dc);
 		 $('#diskonrp_value').val(dc);
 

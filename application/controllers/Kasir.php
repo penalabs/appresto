@@ -27,6 +27,10 @@ class Kasir extends CI_Controller {
 		}
 
 	}
+	public function cetak_struk()
+	{
+		$this->load->view('modul_kasir/cetak_struk');
+	}
 	public function penjualan()
 	{
 		$this->load->view('modul_kasir/penjualan');
