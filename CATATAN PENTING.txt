@@ -67,7 +67,6 @@ setoran kasir copy yang sudah ada
 laporan investasi cabang copy yang sudah ada
 laporan permintaaan barang copy yang sudah ada
 laporan penerimaan barang copy yang sudah ada
-laporan biaya operasional copy yang sudah ada
 laporan penjulan copy yang sudah ada
 laporan transaksi masih bingung rumus yang dulu
-laporan biaya operasional copy yang sudah ada
+laporan biaya operasional copy yang sudah ada -> sudah (irhas)

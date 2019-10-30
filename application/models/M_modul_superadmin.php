@@ -218,4 +218,37 @@ class M_modul_superadmin extends CI_Model{
 
 	//---- menu permintaan_bahan
 
+
+
+
+
+
+
+
+
+	//-----------------------------irhas----------------------
+	function tampil_laporan_biaya_oprasional_where_hari($where){
+		$query = $this->db->query("
+		SELECT pengeluaran_cabang_operasional.*,kanwil.*,resto.*,operasional.*
+		FROM pengeluaran_cabang_operasional
+		JOIN kanwil ON kanwil.id_kanwil = pengeluaran_cabang_operasional.`id_kanwil`
+		JOIN resto ON resto.id = pengeluaran_cabang_operasional.`id_resto`
+		JOIN operasional ON operasional.id = pengeluaran_cabang_operasional.`id_operasional`
+		WHERE pengeluaran_cabang_operasional.`tanggal` = '$where'
+		ORDER BY pengeluaran_cabang_operasional.`id` DESC");
+		return $query;
+	}
+
+	function tampil_laporan_biaya_oprasional_where_bulan($where){
+		$query = $this->db->query("
+		SELECT pengeluaran_cabang_operasional.*,kanwil.*,resto.*,operasional.*
+		FROM pengeluaran_cabang_operasional
+		JOIN kanwil ON kanwil.id_kanwil = pengeluaran_cabang_operasional.`id_kanwil`
+		JOIN resto ON resto.id = pengeluaran_cabang_operasional.`id_resto`
+		JOIN operasional ON operasional.id = pengeluaran_cabang_operasional.`id_operasional`
+		WHERE SUBSTR(tanggal,6,2) = '$where'
+		ORDER BY pengeluaran_cabang_operasional.`id` DESC");
+		return $query;
+	}
+
 }
