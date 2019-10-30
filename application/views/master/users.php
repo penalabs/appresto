@@ -36,15 +36,17 @@
             </div>
             <div class="box-body">
 						<?php
-              $tipe=$this->session->userdata('tipe');
-						  if($_GET['user']==$tipe){
-							  $user=$_GET['user'];
+
+						  if(empty($this->session->userdata('tipe'))){
+
+
 						  ?>
 
 						  <?php
               }else{
+                $tipe=$this->session->userdata('tipe');
 						  ?>
-              <a href="<?php echo base_url('master/add_user?tipe='.$user);?>" type="button" class="btn btn-success" >  Tambah
+              <a href="<?php echo base_url('master/add_user?tipe='.$tipe);?>" type="button" class="btn btn-success" >  Tambah
               </a>
               <?php
               }
@@ -88,11 +90,12 @@
 				          <td>
                     <?php
 
-                    $tipe=$this->session->userdata('tipe');
-      						  if($_GET['user']!=$tipe){
-      							  $user=$_GET['user'];
+
+      						  if(!empty($this->session->userdata('tipe'))){
+
+                      echo $tipe=$this->session->userdata('tipe');
       						  ?>
-                    <a href="<?php echo base_url('master/edit_user?tipe='.$user);?>&&id=<?php echo $u->id ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
+                    <a href="<?php echo base_url('master/edit_user?tipe='.$tipe);?>&&id=<?php echo $u->id ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
 
                     <a href="" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a>
                     <?php

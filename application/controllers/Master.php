@@ -41,29 +41,60 @@ class Master extends CI_Controller {
 	}
 	public function users()
 	{
+
+
 		if(isset($_GET['user'])){
 
 			$user=$_GET['user'];
+			$id_user=$this->session->userdata('id');
+
+
+
 			if($user=="superadmin"){
+
+
+
 			$data['data'] = $this->m_master->tampil_data($user)->result();
 			$this->load->view('master/superadmin',$data);
 			}else if($user=="general manajer"){
+				$sql2 = "SELECT id_kanwil FROM user_resto where id='$id_user'";
+				$id_kanwil=$this->db->query($sql2)->row();
+
 				$where = array(
-					'tipe' => $user
+					'tipe' => $user,
+					'id_kanwil'=>$id_kanwil->id_kanwil
 				);
 			$data['data'] = $this->m_master->tampil_data_where('user_kanwil',$where)->result();
 			$this->load->view('master/users',$data);
 			}else if($user=="bendahara"){
+				$sql2 = "SELECT id_kanwil FROM user_resto where id='$id_user'";
+				$id_kanwil=$this->db->query($sql2)->row();
+				$id_kanwil->id_kanwil;
 				$where = array(
-					'tipe' => $user
+					'tipe' => $user,
+					'id_kanwil'=>$id_kanwil->id_kanwil
 				);
 			$data['data'] = $this->m_master->tampil_data_where('user_kanwil',$where)->result();
 			$this->load->view('master/users',$data);
 			}else if($user=="logistik"){
+				$sql2 = "SELECT id_kanwil FROM user_resto where id='$id_user'";
+				$id_kanwil=$this->db->query($sql2)->row();
+
 				$where = array(
-					'tipe' => $user
+					'tipe' => $user,
+					'id_kanwil'=>$id_kanwil->id_kanwil
 				);
 			$data['data'] = $this->m_master->tampil_data_where('user_kanwil',$where)->result();
+			$this->load->view('master/users',$data);
+			}else{
+				$sql2 = "SELECT id_kanwil FROM user_resto where id='$id_user'";
+				$id_kanwil=$this->db->query($sql2)->row();
+
+				$where = array(
+					'jenis' => $user,
+					'id_kanwil'=>$id_kanwil->id_kanwil
+				);
+			$data['data'] = $this->m_master->tampil_data_where('user_resto',$where)->result();
 			$this->load->view('master/users',$data);
 			}
 		}

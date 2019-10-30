@@ -3,8 +3,8 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar user panel -->
-     
-    
+
+
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
@@ -32,18 +32,18 @@
             </span>
           </a>
           <ul class="treeview-menu">
-			<li><a href="<?php echo base_url('master/users');?>"><i class="fa fa-circle-o"></i> Manajemen User Admin Resto</a></li>
-			<li><a href="<?php echo base_url('master/users');?>"><i class="fa fa-circle-o"></i> Manajemen User Produksi</a></li>
-			<li><a href="<?php echo base_url('master/users');?>"><i class="fa fa-circle-o"></i> Manajemen User Kasir</a></li>
-			<li><a href="<?php echo base_url('master/users');?>"><i class="fa fa-circle-o"></i> Manajemen User Waiters</a></li>
-			<li><a href="<?php echo base_url('#');?>"><i class="fa fa-circle-o"></i> Laporan Kinerja Karyawan</a></li>
-			<li><a href="<?php echo base_url('#');?>"><i class="fa fa-circle-o"></i> Gaji Intensif Karyawan</a></li>
-			<li><a href="<?php echo base_url('#');?>"><i class="fa fa-circle-o"></i> Permintaan Investasi</a></li>
+			<li><a href="<?php echo base_url('master/users?user=admin resto');?>"><i class="fa fa-circle-o"></i> Manajemen User Admin Resto</a></li>
+			<li><a href="<?php echo base_url('master/users?user=produksi');?>"><i class="fa fa-circle-o"></i> Manajemen User Produksi</a></li>
+			<li><a href="<?php echo base_url('master/users?user=kasir');?>"><i class="fa fa-circle-o"></i> Manajemen User Kasir</a></li>
+			<li><a href="<?php echo base_url('master/users?user=waiters');?>"><i class="fa fa-circle-o"></i> Manajemen User Waiters</a></li>
+			<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Kinerja Karyawan</a></li>
+			<li><a href="#"><i class="fa fa-circle-o"></i> Gaji Intensif Karyawan</a></li>
+			<li><a href="#"><i class="fa fa-circle-o"></i> Permintaan Investasi</a></li>
 
           </ul>
         </li>
-		
-		
+
+
       </ul>
     </section>
     <!-- /.sidebar -->
