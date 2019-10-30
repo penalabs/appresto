@@ -46,7 +46,7 @@ SELANJUTNYA CEKING SUPER ADMIN OWNER SAM GENERAL MANAGER cetak nota kasir
 
 -user general manager
 
-crud prmintaan investasi
+crud prmintaan investasi *SUDAH
 
 - user owner
 owner copy laporan laba rugi yang sudah jadi
