@@ -110,4 +110,29 @@ class Superadmin extends CI_Controller {
 		redirect('superadmin/setupowner');
 	}
 
+
+
+
+
+
+
+	//---------------------------irhas---------------------------
+	public function laporanbiayaoprasional_view(){
+		$tanggalwhare 				= date('Y-m-d');
+		$data['laporanbiayaoprasional'] = $this->m_modul_superadmin->tampil_laporan_biaya_oprasional_where_hari($tanggalwhare)->result();
+		$this->load->view('modul_superadmin/V_laporanbiayaoprasional_view', $data);
+	}
+
+	public function laporanbiayaoprasional_cariaksi_hari(){
+		$tanggal_hari				= $this->input->post('tanggal_hari');
+		$data['laporanbiayaoprasional'] = $this->m_modul_superadmin->tampil_laporan_biaya_oprasional_where_hari($tanggal_hari)->result();
+		$this->load->view('modul_superadmin/V_laporanbiayaoprasional_view', $data);
+	}
+
+	public function laporanbiayaoprasional_cariaksi_bulan(){
+		$tanggal_bulan				= $this->input->post('tanggal_bulan');
+		$data['laporanbiayaoprasional'] = $this->m_modul_superadmin->tampil_laporan_biaya_oprasional_where_bulan($tanggal_bulan)->result();
+		$this->load->view('modul_superadmin/V_laporanbiayaoprasional_view', $data);
+	}
+
 }
