@@ -42,3 +42,32 @@ LOGIN LOGISTIK user dan password wiwin
 LOGIN BENDAHRA user dan password tria 
 
 SELANJUTNYA CEKING SUPER ADMIN OWNER SAM GENERAL MANAGER cetak nota kasir
+
+
+-user general manager
+
+crud prmintaan investasi
+
+- user owner
+owner copy laporan laba rugi yang sudah jadi
+crud bagi hasil
+menampilkan laporan investasi
+
+-user superadmin
+laporan owner
+insvestor / owner
+pajak resto
+copy laporan penjualan kasir
+copy laporan laba rugi kasir
+copy laporan pengeluaran yang ada
+kinerja pegawai pending dulu
+gaji intensif
+laporan kas cabang copy yang sudah ada
+setoran kasir copy yang sudah ada
+laporan investasi cabang copy yang sudah ada
+laporan permintaaan barang copy yang sudah ada
+laporan penerimaan barang copy yang sudah ada
+laporan biaya operasional copy yang sudah ada
+laporan penjulan copy yang sudah ada
+laporan transaksi masih bingung rumus yang dulu
+laporan biaya operasional copy yang sudah ada
