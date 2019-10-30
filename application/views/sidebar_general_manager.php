@@ -38,7 +38,8 @@
 			<li><a href="<?php echo base_url('master/users?user=waiters');?>"><i class="fa fa-circle-o"></i> Manajemen User Waiters</a></li>
 			<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Kinerja Karyawan</a></li>
 			<li><a href="#"><i class="fa fa-circle-o"></i> Gaji Intensif Karyawan</a></li>
-			<li><a href="<?php echo base_url('modul_general_manager/permintaan_investasi');?>"><i class="fa fa-circle-o"></i> Permintaan Investasi</a></li>
+			<li><a href="<?php echo base_url('modul_general_manager/permintaan_investasi');?>"><i class="fa fa-circle-o"></i> Investasi Kanwil</a></li>
+      <li><a href="<?php echo base_url('modul_general_manager/bendahara_pengeluaran_investasi');?>"><i class="fa fa-circle-o"></i> Setujui Permintaan Investasi</a></li>
 
           </ul>
         </li>

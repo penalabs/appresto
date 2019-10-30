@@ -20,7 +20,7 @@ class Modul_general_manager extends CI_Controller {
 	 */
 	 function __construct(){
 		parent::__construct();
-		$this->load->model('m_modul_general_manager');
+		$this->load->model(array('m_modul_general_manager','M_modul_general_manager'));
 		$this->load->helper('url');
 		if($this->session->userdata('status')==""){
 			redirect(base_url("login"));
@@ -102,8 +102,82 @@ class Modul_general_manager extends CI_Controller {
 			// 'nominal'				=> $nominal,
 			// 'nominal_penyusutan'	=> $penyusutan
 		);
-	
+
 		$this->m_modul_general_manager->update_data($where, $datainput, 'investasi_kanwil');
 		redirect('modul_general_manager/permintaan_investasi');
+	}
+
+
+
+
+
+	public function bendahara_pengeluaran_investasi()
+	{
+		$id_bendahara=$this->session->userdata('id');
+		$data['data_pengeluaran_investasi_cabang']=$this->M_modul_general_manager->data_pengeluaran_invest_cabang('')->result();
+		$this->load->view('modul_general_manager/vc_pengeluaran_investasi',$data);
+	}
+
+	public function bendahara_pengeluaran_investasi_tambah()
+	{
+		$data['data_cabang_resto']=$this->M_modul_general_manager->data_cabang_resto()->result();
+		//$data['data_investasi_cabang']=$this->M_modul_general_manager->data_investasi_cabang()->result();
+		//$data['data_peralatan']=$this->M_modul_general_manager->data_peralatan()->result();
+		$this->load->view('modul_general_manager/vc_pengeluaran_investasi_tambah',$data);
+	}
+
+	public function bendahara_pengeluaran_investasi_tambahaksi()
+	{
+		$id_bendahara=$this->session->userdata('id');
+		$nama_cabang	= $this->input->post('nama_cabang');
+		//$id_pemberian_kas_keluar	= $this->input->post('id_pemberian_kas_keluar');
+		$nama_investasi				= $this->input->post('nama_investasi');
+		$tanggal_mulai				= $this->input->post('tanggal_mulai');
+		$tanggal_selesai 	= $this->input->post('tanggal_selesai');
+		$jumlah_pengeluaran			= $this->input->post('jumlah_pengeluaran');
+		$persen_susut		= $this->input->post('persen_susut');
+
+		$datainput = array(
+			'id_resto'				=> $nama_cabang,
+			//'id_pemberian_kas_keluar'=> $id_pemberian_kas_keluar,
+			'id_user_bendahara'				=> $id_bendahara,
+			'nama_investasi'				=> $nama_investasi,
+			'tanggal_mulai'				=> $tanggal_mulai,
+			'tanggal_selesai'		=> $tanggal_selesai,
+			'jumlah_pengeluaran'				=> $jumlah_pengeluaran,
+			'persen_penyusutan'				=> $persen_susut,
+
+		);
+		$this->M_modul_general_manager->input_data($datainput,'investasi_cabang');
+		redirect('modul_general_manager/bendahara_pengeluaran_investasi');
+	}
+
+	public function edit_bendahara_pengeluaran_investasi($id)
+	{
+		//$data['data_cabang_resto']=$this->M_modul_general_manager->data_cabang_resto()->result();
+		//$data['data_investasi_cabang']=$this->M_modul_general_manager->data_investasi_cabang()->result();
+		//$data['data_peralatan']=$this->M_modul_general_manager->data_peralatan()->result();
+		$data['data_pengeluaran_invest_cabang']=$this->M_modul_general_manager->data_pengeluaran_invest_cabang_edit($id)->result();
+		$this->load->view('modul_general_manager/vc_pengeluaran_investasi_edit',$data);
+	}
+
+	public function bendahara_pengeluaran_investasi_editaksi()
+	{
+
+
+		$id	= $this->input->get('id');
+		$datainput = array(
+			'status'				=> 'disetujui',
+		);
+		$where = array('id' => $id);
+		$this->M_modul_general_manager->update_data($where,$datainput,'investasi_cabang');
+		//redirect('modul_general_manager/bendahara_pengeluaran_investasi');
+	}
+
+	public function hapus_bendahara_pengeluaran_investasi($id)
+	{
+		$where = array('id' => $id);
+		$this->M_modul_general_manager->hapus_data($where,'investasi_cabang');
+		redirect('modul_general_manager/pengeluaran_investasi');
 	}
 }
