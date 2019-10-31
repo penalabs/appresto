@@ -11,7 +11,7 @@
  Target Server Version : 100131
  File Encoding         : 65001
 
- Date: 31/10/2019 06:43:31
+ Date: 30/10/2019 23:04:25
 */
 
 SET NAMES utf8mb4;
@@ -237,18 +237,16 @@ CREATE TABLE `investasi_cabang`  (
   `tanggal_selesai` date NOT NULL,
   `jumlah_pengeluaran` int(11) NOT NULL,
   `persen_penyusutan` int(11) NULL DEFAULT NULL,
-  `status` enum('permintaan','disetujui','invest dikembalikan','invest belum kembali') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT 'permintaan',
+  `status` enum('invest dikembalikan','invest belum kembali') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of investasi_cabang
 -- ----------------------------
-INSERT INTO `investasi_cabang` VALUES (4, 1, 2, 'Dekorasi', '2019-10-01', '2019-10-31', 20000, 10, 'disetujui');
+INSERT INTO `investasi_cabang` VALUES (4, 1, 2, 'Dekorasi', '2019-10-01', '2019-10-31', 20000, 10, 'invest dikembalikan');
 INSERT INTO `investasi_cabang` VALUES (5, 1, 2, 'Renovasi', '2019-10-01', '2019-10-30', 5000, 20, 'invest dikembalikan');
 INSERT INTO `investasi_cabang` VALUES (6, 1, 2, 'Pembelian p', '2019-10-01', '2019-10-30', 500000, 20, 'invest dikembalikan');
-INSERT INTO `investasi_cabang` VALUES (7, 1, 2, 'Pengecetan', '2019-10-01', '2019-10-30', 80000, 20, 'permintaan');
-INSERT INTO `investasi_cabang` VALUES (8, 1, 2, 'pembelian alat', '2019-10-01', '2019-10-30', 700000, 10, 'permintaan');
 
 -- ----------------------------
 -- Table structure for investasi_kanwil
@@ -271,7 +269,7 @@ CREATE TABLE `investasi_kanwil`  (
 -- Records of investasi_kanwil
 -- ----------------------------
 INSERT INTO `investasi_kanwil` VALUES (1, 1, 1, 1, '2019-11-01', 3000000, 20, 1000, 'permintaan');
-INSERT INTO `investasi_kanwil` VALUES (3, 1, 1, 1, '2019-10-01', 9000, 90, 0, 'diterima');
+INSERT INTO `investasi_kanwil` VALUES (3, 1, 1, 1, '2019-10-01', 9000, 90, 0, 'permintaan');
 
 -- ----------------------------
 -- Table structure for investasi_owner
@@ -286,13 +284,14 @@ CREATE TABLE `investasi_owner`  (
   `jumlah_investasi` int(11) NOT NULL,
   `jangka_waktu` varchar(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `persentase_omset` int(11) NOT NULL,
+  `jumlah_omset` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of investasi_owner
 -- ----------------------------
-INSERT INTO `investasi_owner` VALUES (1, 1, 1, 2, '0000-00-00', 1000000, '2 bulan', 20);
+INSERT INTO `investasi_owner` VALUES (1, 1, 1, 2, '0000-00-00', 1000000, '2 bulan', 20, NULL);
 
 -- ----------------------------
 -- Table structure for jenis_masakan
@@ -389,23 +388,22 @@ INSERT INTO `menu` VALUES (5, 1, 'Nasi Goreng', 'start2.png', 3000, 'tersedia', 
 INSERT INTO `menu` VALUES (6, 1, 'Tahu Kripsi', 'wp2754931.jpg', 6000, 'tersedia', 1, 'insert');
 
 -- ----------------------------
--- Table structure for omset_investasi_owner
+-- Table structure for omset_investasi
 -- ----------------------------
-DROP TABLE IF EXISTS `omset_investasi_owner`;
-CREATE TABLE `omset_investasi_owner`  (
+DROP TABLE IF EXISTS `omset_investasi`;
+CREATE TABLE `omset_investasi`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_investasi_owner` int(11) NOT NULL,
   `id_super_admin` int(11) NOT NULL,
-  `tanggal` date NOT NULL,
-  `penyusutan_invest` int(11) NOT NULL,
+  `id_pendapatan` int(11) NOT NULL,
+  `jumlah_omset_pendapatan` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Records of omset_investasi_owner
+-- Records of omset_investasi
 -- ----------------------------
-INSERT INTO `omset_investasi_owner` VALUES (1, 1, 1, '2019-10-30', 200000);
-INSERT INTO `omset_investasi_owner` VALUES (2, 1, 1, '2019-10-31', 200000);
+INSERT INTO `omset_investasi` VALUES (1, 1, 1, 1, 200);
 
 -- ----------------------------
 -- Table structure for operasional
@@ -911,14 +909,13 @@ CREATE TABLE `resto`  (
   `nama_resto` varchar(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `alamat` varchar(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `no_telp` varchar(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `pajak` int(255) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of resto
 -- ----------------------------
-INSERT INTO `resto` VALUES (1, 1, 'resto farma', 'blabak', '085376372', 20);
+INSERT INTO `resto` VALUES (1, 1, 'resto farma', 'blabak', '085376372');
 
 -- ----------------------------
 -- Table structure for stok_bahan_mentah_produksi

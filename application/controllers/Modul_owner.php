@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Modul_general_manager extends CI_Controller {
+class Modul_owner extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -20,7 +20,7 @@ class Modul_general_manager extends CI_Controller {
 	 */
 	 function __construct(){
 		parent::__construct();
-		$this->load->model(array('m_modul_general_manager','M_modul_general_manager'));
+		$this->load->model(array('m_modul_owner'));
 		$this->load->helper('url');
 		if($this->session->userdata('status')==""){
 			redirect(base_url("login"));
@@ -29,18 +29,14 @@ class Modul_general_manager extends CI_Controller {
 	}
 	public function permintaan_investasi()
 	{
-		$id_user_kanwil=$this->session->userdata('id');
-		$sql1 = "SELECT id_kanwil FROM user_kanwil WHERE id='$id_user_kanwil'";
-		$data2=$this->db->query($sql1)->row();
-		$id_kanwil=$data2->id_kanwil;
 
-		$sql2 = "SELECT investasi_kanwil.status,investasi_kanwil.id,investasi_kanwil.tanggal,investasi_kanwil.nominal_investasi,investasi_kanwil.penyusutan,investasi_kanwil.nominal_saldo FROM investasi_kanwil  WHERE investasi_kanwil.id_kanwil='$id_kanwil'";
-		$data['permintaaninvestasi'] = $this->db->query($sql2)->result();
-		$this->load->view('modul_general_manager/V_permintaaninvestasi', $data);
+
+
+		$this->load->view('modul_owner/V_permintaaninvestasi');
 	}
 	public function permintaaninvestasi_tambah()
 	{
-		$this->load->view('modul_general_manager/V_permintaaninvestasi_tambah');
+		$this->load->view('modul_owner/V_permintaaninvestasi_tambah');
 	}
 	public function permintaaninvestasi_tambahaksi()
 	{
@@ -62,8 +58,8 @@ class Modul_general_manager extends CI_Controller {
 			// 'nominal'				=> $nominal,
 			// 'nominal_penyusutan'	=> $penyusutan
 		);
-		$this->m_modul_general_manager->input_data($datainput, 'investasi_kanwil');
-		redirect('modul_general_manager/permintaan_investasi');
+		$this->m_modul_owner->input_data($datainput, 'investasi_kanwil');
+		redirect('modul_owner/permintaan_investasi');
 	}
 
 	public function permintaaninvestasi_edit()
@@ -71,7 +67,7 @@ class Modul_general_manager extends CI_Controller {
 		$id=$this->input->get('id');
 		$sql1 = "SELECT * FROM investasi_kanwil WHERE id='$id'";
 		$data['investasi_kanwil']=$this->db->query($sql1)->row();
-		$this->load->view('modul_general_manager/V_permintaaninvestasi_edit', $data);
+		$this->load->view('modul_owner/V_permintaaninvestasi_edit', $data);
 	}
 	public function permintaaninvestasi_hapus()
 	{
@@ -79,9 +75,9 @@ class Modul_general_manager extends CI_Controller {
 		echo $id=$this->input->get('id');
 
 		$where = array('id' => $id);
-		$this->m_modul_general_manager->hapus_data($where, 'investasi_kanwil');
+		$this->m_modul_owner->hapus_data($where, 'investasi_kanwil');
 
-		redirect('modul_general_manager/permintaan_investasi');
+		redirect('modul_owner/permintaan_investasi');
 	}
 	public function permintaaninvestasi_editaksi()
 	{
@@ -103,8 +99,8 @@ class Modul_general_manager extends CI_Controller {
 			// 'nominal_penyusutan'	=> $penyusutan
 		);
 
-		$this->m_modul_general_manager->update_data($where, $datainput, 'investasi_kanwil');
-		redirect('modul_general_manager/permintaan_investasi');
+		$this->m_modul_owner->update_data($where, $datainput, 'investasi_kanwil');
+		redirect('modul_owner/permintaan_investasi');
 	}
 
 
@@ -114,16 +110,16 @@ class Modul_general_manager extends CI_Controller {
 	public function bendahara_pengeluaran_investasi()
 	{
 		$id_bendahara=$this->session->userdata('id');
-		$data['data_pengeluaran_investasi_cabang']=$this->M_modul_general_manager->data_pengeluaran_invest_cabang('')->result();
-		$this->load->view('modul_general_manager/vc_pengeluaran_investasi',$data);
+		$data['data_pengeluaran_investasi_cabang']=$this->M_modul_owner->data_pengeluaran_invest_cabang('')->result();
+		$this->load->view('modul_owner/vc_pengeluaran_investasi',$data);
 	}
 
 	public function bendahara_pengeluaran_investasi_tambah()
 	{
-		$data['data_cabang_resto']=$this->M_modul_general_manager->data_cabang_resto()->result();
-		//$data['data_investasi_cabang']=$this->M_modul_general_manager->data_investasi_cabang()->result();
-		//$data['data_peralatan']=$this->M_modul_general_manager->data_peralatan()->result();
-		$this->load->view('modul_general_manager/vc_pengeluaran_investasi_tambah',$data);
+		$data['data_cabang_resto']=$this->M_modul_owner->data_cabang_resto()->result();
+		//$data['data_investasi_cabang']=$this->M_modul_owner->data_investasi_cabang()->result();
+		//$data['data_peralatan']=$this->M_modul_owner->data_peralatan()->result();
+		$this->load->view('modul_owner/vc_pengeluaran_investasi_tambah',$data);
 	}
 
 	public function bendahara_pengeluaran_investasi_tambahaksi()
@@ -148,17 +144,17 @@ class Modul_general_manager extends CI_Controller {
 			'persen_penyusutan'				=> $persen_susut,
 
 		);
-		$this->M_modul_general_manager->input_data($datainput,'investasi_cabang');
-		redirect('modul_general_manager/bendahara_pengeluaran_investasi');
+		$this->M_modul_owner->input_data($datainput,'investasi_cabang');
+		redirect('modul_owner/bendahara_pengeluaran_investasi');
 	}
 
 	public function edit_bendahara_pengeluaran_investasi($id)
 	{
-		//$data['data_cabang_resto']=$this->M_modul_general_manager->data_cabang_resto()->result();
-		//$data['data_investasi_cabang']=$this->M_modul_general_manager->data_investasi_cabang()->result();
-		//$data['data_peralatan']=$this->M_modul_general_manager->data_peralatan()->result();
-		$data['data_pengeluaran_invest_cabang']=$this->M_modul_general_manager->data_pengeluaran_invest_cabang_edit($id)->result();
-		$this->load->view('modul_general_manager/vc_pengeluaran_investasi_edit',$data);
+		//$data['data_cabang_resto']=$this->M_modul_owner->data_cabang_resto()->result();
+		//$data['data_investasi_cabang']=$this->M_modul_owner->data_investasi_cabang()->result();
+		//$data['data_peralatan']=$this->M_modul_owner->data_peralatan()->result();
+		$data['data_pengeluaran_invest_cabang']=$this->M_modul_owner->data_pengeluaran_invest_cabang_edit($id)->result();
+		$this->load->view('modul_owner/vc_pengeluaran_investasi_edit',$data);
 	}
 
 	public function bendahara_pengeluaran_investasi_editaksi()
@@ -170,14 +166,14 @@ class Modul_general_manager extends CI_Controller {
 			'status'				=> 'disetujui',
 		);
 		$where = array('id' => $id);
-		$this->M_modul_general_manager->update_data($where,$datainput,'investasi_cabang');
-		//redirect('modul_general_manager/bendahara_pengeluaran_investasi');
+		$this->M_modul_owner->update_data($where,$datainput,'investasi_cabang');
+		//redirect('modul_owner/bendahara_pengeluaran_investasi');
 	}
 
 	public function hapus_bendahara_pengeluaran_investasi($id)
 	{
 		$where = array('id' => $id);
-		$this->M_modul_general_manager->hapus_data($where,'investasi_cabang');
-		redirect('modul_general_manager/pengeluaran_investasi');
+		$this->M_modul_owner->hapus_data($where,'investasi_cabang');
+		redirect('modul_owner/pengeluaran_investasi');
 	}
 }

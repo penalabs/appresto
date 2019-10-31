@@ -98,10 +98,10 @@
 						  <label for="exampleInputPassword1">Persentase Omset</label>
 						  <input type="number" class="form-control" id="exampleInputPassword1" name="persentase_omset" placeholder="Persentase omset">
 						</div>
-            <div class="form-group">
+            <!-- <div class="form-group">
 						  <label for="exampleInputPassword1">Jumlah Omset</label>
 						  <input type="number" class="form-control" id="exampleInputPassword1" name="jumlah_omset" placeholder="Jumlah omset">
-						</div>
+						</div> -->
 
 
 					  </div>

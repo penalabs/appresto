@@ -1,6 +1,6 @@
 <?php
 
-class M_modul_general_manager extends CI_Model{
+class M_modul_owner extends CI_Model{
 	function tampil_data($tabel){
 		return $this->db->get($tabel);
 	}
