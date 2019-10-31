@@ -29,7 +29,9 @@ class Superadmin extends CI_Controller {
 	}
 	public function setupowner()
 	{
-		$data['data'] = $this->m_modul_superadmin->tampil_data('investasi_owner')->result();
+		$sql2 = "SELECT investasi_owner.id,owner.nama as nama_owner,user_kanwil.nama as nama_bendahara,investasi_owner.tanggal,investasi_owner.jumlah_investasi,investasi_owner.jangka_waktu,investasi_owner.persentase_omset FROM investasi_owner join user_kanwil on user_kanwil.id=investasi_owner.id_bendahara join owner on owner.id=investasi_owner.id_owner";
+
+		$data['data'] = $this->db->query($sql2)->result();
 		$this->load->view('modul_superadmin/setupowner', $data);
 	}
 	public function add_investasi()
@@ -46,7 +48,7 @@ class Superadmin extends CI_Controller {
 		$jumlah_investasi = $this->input->post('jumlah_investasi');
 		$jangka_waktu = $this->input->post('jangka_waktu');
 		$persentase_omset = $this->input->post('persentase_omset');
-		$jumlah_omset = $this->input->post('jumlah_omset');
+		// $jumlah_omset = $this->input->post('jumlah_omset');
 		$data = array(
 		'id_super_admin'=>$id,
 		'id_owner'=>$owner,
@@ -55,7 +57,7 @@ class Superadmin extends CI_Controller {
 		'jumlah_investasi' => $jumlah_investasi,
 		'jangka_waktu' => $jangka_waktu,
 		'persentase_omset' => $persentase_omset,
-		'jumlah_omset' => $jumlah_omset,
+		// 'jumlah_omset' => $jumlah_omset,
 		);
 
 		$data['data'] = $this->m_modul_superadmin->input_data($data,'investasi_owner');
@@ -85,7 +87,7 @@ class Superadmin extends CI_Controller {
 		$where = array(
 		'id'=>$id,
 		);
-		
+
 		$data = array(
 		'id_super_admin'=>$id_superadmin,
 		'id_owner'=>$owner,

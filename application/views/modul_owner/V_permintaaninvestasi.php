@@ -52,7 +52,7 @@
                   <th>Jumlah Investasi</th>
                   <th>Jangka Waktu</th>
                   <th>Persentase Omset</th>
-
+                  <th>Total Omset</th>
                   <!-- <th>Nominal</th>
                   <th>Penyusutan %</th> -->
                   <th>Aksi</th>
@@ -73,7 +73,7 @@
                   <td><?php echo $u->jumlah_investasi ?></td>
                   <td><?php echo $u->jangka_waktu ?></td>
                   <td><?php echo $u->persentase_omset ?></td>
-
+                  <td><?php echo (int)$u->persentase_omset/100*(int)$u->jumlah_investasi+$u->jumlah_investasi; ?></td>
 
                   <td>
 
