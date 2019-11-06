@@ -70,3 +70,4 @@ laporan penerimaan barang copy yang sudah ada
 laporan penjulan copy yang sudah ada
 laporan transaksi masih bingung rumus yang dulu
 laporan biaya operasional copy yang sudah ada -> sudah dikerjakan (irhas)
+coba
