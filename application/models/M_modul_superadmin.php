@@ -251,4 +251,39 @@ class M_modul_superadmin extends CI_Model{
 		return $query;
 	}
 
+	function tampil_laporan_penjualanmenu($where){
+		$query = $this->db->query("SELECT pemesanan_menu.* ,pemesanan.* ,menu.*
+		FROM pemesanan_menu
+		JOIN pemesanan ON pemesanan.`id` = pemesanan_menu.`id_pemesanan`
+		JOIN menu ON menu.`id` = pemesanan_menu.`id_menu`
+		WHERE id_menu = '$where'");
+		return $query;
+	}
+
+	function tampil_laporan_penjualanpaket($where){
+		$query = $this->db->query("SELECT pemesanan_paket.* ,pemesanan.* ,paket.*
+		FROM pemesanan_paket
+		JOIN pemesanan ON pemesanan.`id` = pemesanan_paket.`id_pemesanan`
+		JOIN paket ON paket.`id` = pemesanan_paket.`id_paket`
+		WHERE id_paket = '$where'");
+		return $query;
+	}
+
+	function tampil_laporan_penjualanmenutotal($where){
+		$query = $this->db->query("SELECT pemesanan_menu.* ,pemesanan.* ,menu.* ,SUM(jumlah_pesan) AS payu
+		FROM pemesanan_menu
+		JOIN pemesanan ON pemesanan.`id` = pemesanan_menu.`id_pemesanan`
+		JOIN menu ON menu.`id` = pemesanan_menu.`id_menu`
+		WHERE id_menu = '$where'");
+		return $query;
+	}
+
+	function tampil_laporan_penjualanpakettotal($where){
+		$query = $this->db->query("SELECT pemesanan_paket.* ,pemesanan.* ,paket.* ,SUM(jumlah_pesan) AS payu
+		FROM pemesanan_paket
+		JOIN pemesanan ON pemesanan.`id` = pemesanan_paket.`id_pemesanan`
+		JOIN paket ON paket.`id` = pemesanan_paket.`id_paket`
+		WHERE id_paket = '$where'");
+		return $query;
+	}
 }

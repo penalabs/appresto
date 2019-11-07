@@ -119,6 +119,7 @@ class Superadmin extends CI_Controller {
 
 
 	//---------------------------irhas---------------------------
+	//=====================laporan biaya operasional========================
 	public function laporanbiayaoprasional_view(){
 		$tanggalwhare 				= date('Y-m-d');
 		$data['laporanbiayaoprasional'] = $this->m_modul_superadmin->tampil_laporan_biaya_oprasional_where_hari($tanggalwhare)->result();
@@ -135,6 +136,38 @@ class Superadmin extends CI_Controller {
 		$tanggal_bulan				= $this->input->post('tanggal_bulan');
 		$data['laporanbiayaoprasional'] = $this->m_modul_superadmin->tampil_laporan_biaya_oprasional_where_bulan($tanggal_bulan)->result();
 		$this->load->view('modul_superadmin/V_laporanbiayaoprasional_view', $data);
+	}
+
+//==============================laporan penjualan==================================
+	public function laporanpenjualan_view(){
+		$data['comboboxmenu'] = $this->m_modul_superadmin->tampil_data('menu')->result();
+		$data['comboboxpaket'] = $this->m_modul_superadmin->tampil_data('paket')->result();
+		$data['laporanpenjualanM'] = $this->m_modul_superadmin->tampil_laporan_penjualanmenu('')->result();
+		$data['laporanpenjualanP'] = $this->m_modul_superadmin->tampil_laporan_penjualanpaket('')->result();
+		$data['totalmenupayu'] = $this->m_modul_superadmin->tampil_laporan_penjualanmenutotal('')->row_array();
+		$data['totalpaketpayu'] = $this->m_modul_superadmin->tampil_laporan_penjualanpakettotal('')->row_array();
+		$data['datakondisi'] = "";
+		$this->load->view('modul_superadmin/V_laporanpenjualan_view', $data);
+	}
+
+	public function laporanpenjualanmenu_cariaksi(){
+		$where						= $this->input->post('namamenu');
+		$data['comboboxmenu'] = $this->m_modul_superadmin->tampil_data('menu')->result();
+		$data['comboboxpaket'] = $this->m_modul_superadmin->tampil_data('paket')->result();
+		$data['laporanpenjualanM'] = $this->m_modul_superadmin->tampil_laporan_penjualanmenu($where)->result();
+		$data['totalmenupayu'] = $this->m_modul_superadmin->tampil_laporan_penjualanmenutotal($where)->row_array();
+		$data['datakondisi'] = "menu";
+		$this->load->view('modul_superadmin/V_laporanpenjualan_view', $data);
+	}
+
+	public function laporanpenjualanpaket_cariaksi(){
+		$where						= $this->input->post('namapaket');
+		$data['comboboxmenu'] = $this->m_modul_superadmin->tampil_data('menu')->result();
+		$data['comboboxpaket'] = $this->m_modul_superadmin->tampil_data('paket')->result();
+		$data['laporanpenjualanP'] = $this->m_modul_superadmin->tampil_laporan_penjualanpaket($where)->result();
+		$data['totalpaketpayu'] = $this->m_modul_superadmin->tampil_laporan_penjualanpakettotal($where)->row_array();
+		$data['datakondisi'] = "";
+		$this->load->view('modul_superadmin/V_laporanpenjualan_view', $data);
 	}
 
 }

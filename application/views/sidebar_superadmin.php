@@ -51,7 +51,7 @@
             
       			<li><a href="<?php echo base_url('master/owners?user=owner');?>"><i class="fa fa-circle-o"></i> Investor / Owner</a></li>
       			<li><a href="<?php echo base_url('master/restos');?>"><i class="fa fa-circle-o"></i> Daftar resto / Pajak Resto</a></li>
-      			<li><a href="<?php echo base_url('#');?>"><i class="fa fa-circle-o"></i> Laporan Penjualan</a></li>
+      			<li><a href="<?php echo base_url('Superadmin/laporanpenjualan_view');?>"><i class="fa fa-circle-o"></i> Laporan Penjualan</a></li>
       			<li><a href="<?php echo base_url('#');?>"><i class="fa fa-circle-o"></i> Laporan Laba Rugi</a></li>
       			<li><a href="<?php echo base_url('#');?>"><i class="fa fa-circle-o"></i> Laporan Pengeluaran</a></li>
       			<li><a href="<?php echo base_url('#');?>"><i class="fa fa-circle-o"></i> Laporan Kinerja Pegawai</a></li>
@@ -104,7 +104,7 @@
           </a>
           <ul class="treeview-menu">
       			<li><a href="<?php echo base_url('Superadmin/laporanbiayaoprasional_view');?>"><i class="fa fa-circle-o"></i> laporan biaya Operasional</a></li>
-      			<li><a href="<?php echo base_url('#');?>"><i class="fa fa-circle-o"></i> Laporan Penjualan</a></li>
+      			<li><a href="<?php echo base_url('Superadmin/laporanpenjualan_view');?>"><i class="fa fa-circle-o"></i> Laporan Penjualan</a></li>
       			<li><a href="<?php echo base_url('#');?>"><i class="fa fa-circle-o"></i> Laporan Kinerja karyawan</a></li>
       			<li><a href="<?php echo base_url('#');?>"><i class="fa fa-circle-o"></i> Laporan Transaksi</a></li>
           </ul>
