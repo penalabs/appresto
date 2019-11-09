@@ -149,6 +149,7 @@ class Superadmin extends CI_Controller {
 
 
 	//---------------------------irhas---------------------------
+	//=====================laporan biaya operasional========================
 	public function laporanbiayaoprasional_view(){
 		$tanggalwhare 				= date('Y-m-d');
 		$data['laporanbiayaoprasional'] = $this->m_modul_superadmin->tampil_laporan_biaya_oprasional_where_hari($tanggalwhare)->result();
@@ -222,7 +223,7 @@ class Superadmin extends CI_Controller {
 
 		$data['data'] = $this->m_modul_superadmin->update_data($where,$data,'resto');
 
-		json_encode($data);
+		//json_encode($data);
 		//redirect('superadmin/restos');
 	}
 
