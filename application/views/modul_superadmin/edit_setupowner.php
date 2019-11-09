@@ -39,35 +39,26 @@
 					</div>
 					<!-- /.box-header -->
 					<!-- form start -->
+
+          <?php
+          $id=$_GET['id'];
+          $sql2 = "SELECT owner.nama,investasi_owner.*,user_kanwil.nama as nama_bendahara FROM investasi_owner join owner on owner.id=investasi_owner.id_owner join user_kanwil  on user_kanwil.id=investasi_owner.id_bendahara where investasi_owner.id='$id'";
+          $data = $this->db->query($sql2)->result();
+          foreach($data as $u){
+          ?>
 					<form  action="<?php echo base_url(). 'superadmin/action_update_investasi'; ?>" method="post" role="form">
-            <input type="text" value=<?php echo $_GET['id'];?>"" class="form-control" id="id" name="id">
+            <input type="hidden" value="<?php echo $_GET['id'];?>" class="form-control" id="id" name="id">
             <div class="box-body">
-
-						<div class="form-group">
-						  <label for="exampleInputPassword1">Owner</label>
-              <select name="owner" class="form-control">
-                <option value="">--- Pilih Owner---</option>
-                <?php
-                $sql = "SELECT * FROM owner";
-      				  $data2=$this->db->query($sql)->result();
-                foreach($data2 as $u2){ ?>
-                  <option value="<?php echo $u2->id; ?>"><?php echo $u2->nama; ?></option>
-                <?php } ?>
-                </select>
-						</div>
             <div class="form-group">
-						  <label for="exampleInputPassword1">Bendahara</label>
-              <select name="bendahara" class="form-control">
-                <option value="">--- Pilih Bendahara---</option>
-                <?php
-                $sql = "SELECT * FROM user_kanwil where tipe='bendahara'";
-      				  $data2=$this->db->query($sql)->result();
-                foreach($data2 as $u2){ ?>
-                  <option value="<?php echo $u2->id; ?>"><?php echo $u2->nama; ?></option>
-                <?php } ?>
-                </select>
-						</div>
-
+              <label for="exampleInputPassword1">Owner</label>
+              <input type="hidden" class="form-control" id="id_owner" name="id_owner" value="<?php echo $u->id_owner;?>" placeholder="id_owner" readonly>
+              <input type="text" class="form-control" id="" name="" value="<?php echo $u->nama;?>" placeholder="id_owner" readonly>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Bendahara</label>
+              <input type="hidden" class="form-control" id="id_bendahara" name="id_bendahara" value="<?php echo $u->id_bendahara;?>" placeholder="id_bendahara" readonly>
+              <input type="text" class="form-control" id="" name="" value="<?php echo $u->nama_bendahara;?>" placeholder="id_bendahara" readonly>
+            </div>
 						<div class="form-group">
 						  <label for="exampleInputPassword1">Tanggal</label>
 						  <input type="text" class="form-control" id="tanggal" name="tanggal" placeholder="Tanggal">
@@ -110,6 +101,11 @@
 						<button type="submit" class="btn btn-primary">Simpan</button>
 					  </div>
 					</form>
+          <?php
+          }
+          ?>
+
+
 				  </div>
 				</div>
 				<div class="col-md-3">

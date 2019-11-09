@@ -105,10 +105,7 @@ class Master extends CI_Controller {
 		$data['data'] = $this->m_master->tampil_data('owner')->result();
 		$this->load->view('master/owners',$data);
 	}
-	public function restos()
-	{
-		$this->load->view('manajemen/resto');
-	}
+
 	public function kanwils()
 	{
 
