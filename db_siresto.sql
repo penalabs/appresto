@@ -11,7 +11,7 @@
  Target Server Version : 100131
  File Encoding         : 65001
 
- Date: 31/10/2019 06:43:31
+ Date: 09/11/2019 23:45:19
 */
 
 SET NAMES utf8mb4;
@@ -265,7 +265,7 @@ CREATE TABLE `investasi_kanwil`  (
   `nominal_saldo` int(11) NOT NULL,
   `status` enum('permintaan','diterima') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of investasi_kanwil
@@ -287,12 +287,13 @@ CREATE TABLE `investasi_owner`  (
   `jangka_waktu` varchar(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `persentase_omset` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of investasi_owner
 -- ----------------------------
-INSERT INTO `investasi_owner` VALUES (1, 1, 1, 2, '0000-00-00', 1000000, '2 bulan', 20);
+INSERT INTO `investasi_owner` VALUES (1, 1, 1, 2, '2019-11-30', 90000, '2 bulan', 80000);
+INSERT INTO `investasi_owner` VALUES (4, 1, 1, 2, '2019-11-30', 9000, '3 bulan', 9000);
 
 -- ----------------------------
 -- Table structure for jenis_masakan
@@ -399,7 +400,7 @@ CREATE TABLE `omset_investasi_owner`  (
   `tanggal` date NOT NULL,
   `penyusutan_invest` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of omset_investasi_owner
@@ -913,7 +914,7 @@ CREATE TABLE `resto`  (
   `no_telp` varchar(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `pajak` int(255) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of resto
