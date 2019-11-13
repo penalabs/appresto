@@ -1,6 +1,32 @@
 <?php
 
 class M_modul_superadmin extends CI_Model{
+	function tampil_data_where_join($where){
+
+		$this->db->select("resto.nama_resto,pemesanan.id,nama_pemesan,no_meja,pembayaran.tanggal,total_harga,pembayaran.nominal,pembayaran.status");
+		$this->db->from('pemesanan');
+		$this->db->join('user_resto', 'user_resto.id = pemesanan.id_user_resto');
+		$this->db->join('resto', 'resto.id = user_resto.id_resto');
+    $this->db->join('pembayaran', 'pembayaran.id_pemesanan = pemesanan.id');
+		$this->db->where('resto.id', $where);
+		return $this->db->get();
+	}
+	function detail_transaksi_paket($tabel,$where){
+
+		$this->db->select('pemesanan_paket.jumlah_pesan,paket.nama_paket,pemesanan_paket.subharga');
+		$this->db->from($tabel);
+		$this->db->join('paket', $tabel.'.id_paket = paket.id');
+		$this->db->where('pemesanan_paket.id_pemesanan', $where);
+		return $this->db->get();
+	}
+	function detail_transaksi_menu($tabel,$where){
+
+		$this->db->select('pemesanan_menu.jumlah_pesan,menu.menu,pemesanan_menu.subharga');
+		$this->db->from($tabel);
+		$this->db->join('menu', $tabel.'.id_menu = menu.id');
+		$this->db->where('pemesanan_menu.id_pemesanan', $where);
+		return $this->db->get();
+	}
 	function tampil_data_where($tabel,$where){
 		$this->db->where($where);
 		return $this->db->get($tabel);

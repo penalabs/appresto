@@ -223,8 +223,8 @@ class Superadmin extends CI_Controller {
 
 		$data['data'] = $this->m_modul_superadmin->update_data($where,$data,'resto');
 
-		//json_encode($data);
-		//redirect('superadmin/restos');
+		echo json_encode($data);
+		redirect('superadmin/restos');
 	}
 
 	public function hapus_manajemen_resto()
@@ -236,4 +236,37 @@ class Superadmin extends CI_Controller {
 		$this->m_modul_superadmin->hapus_data($data,'resto');
 		redirect('superadmin/restos');
 	}
+
+	public function pemesanan()
+	{
+		$id_user_kasir=$this->session->userdata('id');
+
+		$query = $this->db->query("SELECT resto.id as id_resto FROM user_resto join resto on resto.id=user_resto.id_resto WHERE user_resto.id='$id_user_kasir'")->row();
+
+		/*$where = array(
+			'user_resto.id' => $id_user_kasir,
+		);*/
+		$id_resto=$query->id_resto;
+    $x['data']=$this->m_modul_superadmin->tampil_data_where_join($id_resto)->result();
+		$this->load->view('modul_superadmin/pemesanan',$x);
+	}
+	public function transaksi($id)
+	{
+		$id_pemesanan=$this->session->userdata('id');
+
+    $x['data']=$this->m_modul_superadmin->detail_transaksi_paket('pemesanan_paket',$id_pemesanan)->result();
+		$x['data2']=$this->m_modul_superadmin->detail_transaksi_menu('pemesanan_menu',$id_pemesanan)->result();
+		$this->load->view('modul_superadmin/pembayaran',$x);
+	}
+
+	public function setoran_kasir()
+	{
+		$id_user_kasir=$this->session->userdata('id');
+		$where = array(
+			'id_user_kasir' => $id_user_kasir,
+		);
+        $x['data']=$this->m_modul_superadmin->tampil_data_where('pendapatan_kas_masuk',$where)->result();
+		$this->load->view('modul_superadmin/setoran_kasir',$x);
+	}
+
 }

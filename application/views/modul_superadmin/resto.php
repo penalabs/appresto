@@ -67,7 +67,7 @@
                   <td><?php echo $u->no_telp;?></td>
                   <td><?php echo $u->pajak;?></td>
 
-				          <td><a href="" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Intensif"><i class="fa  fa-line-chart" ></i></a>  <a href="<?php echo base_url();?>/superadmin/restos/?id=<?php echo $u->id; ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>  <a href="<?php echo base_url(); ?>/superadmin/hapus_manajemen_resto/?id=<?php echo $u->id;?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
+				          <td> <a href="<?php echo base_url();?>/superadmin/restos/?id=<?php echo $u->id; ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>  <a href="<?php echo base_url(); ?>/superadmin/hapus_manajemen_resto/?id=<?php echo $u->id;?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
                 </tr>
                 <?php
                     }
@@ -104,8 +104,8 @@
               <div class="box-body">
                 <div class="form-group">
                   <!-- <label for="exampleInputEmail1">Kanwil</label> -->
-                  <input type="hidden" name="id" value="<?php echo $id_edit;?>" class="form-control"  placeholder="kanwil" disabled>
-                  <input type="hidden" name="id_kanwil" value="<?php echo $data2->id_kanwil?>" class="form-control"  placeholder="kanwil" disabled>
+                  <input type="hidden" name="id" value="<?php echo $id_edit;?>" class="form-control"  placeholder="kanwil" >
+                  <input type="hidden" name="id_kanwil" value="<?php echo $data2->id_kanwil?>" class="form-control"  placeholder="kanwil" >
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Nama Resto / Cabang</label>

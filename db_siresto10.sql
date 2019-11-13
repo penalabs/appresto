@@ -11,7 +11,7 @@
  Target Server Version : 100131
  File Encoding         : 65001
 
- Date: 13/11/2019 22:15:16
+ Date: 09/11/2019 23:45:19
 */
 
 SET NAMES utf8mb4;
@@ -400,7 +400,7 @@ CREATE TABLE `omset_investasi_owner`  (
   `tanggal` date NOT NULL,
   `penyusutan_invest` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of omset_investasi_owner
@@ -912,14 +912,14 @@ CREATE TABLE `resto`  (
   `nama_resto` varchar(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `alamat` varchar(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `no_telp` varchar(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `pajak` int(11) NULL DEFAULT NULL,
+  `pajak` int(255) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of resto
 -- ----------------------------
-INSERT INTO `resto` VALUES (1, 1, 'resto farma', 'blabak', '08537637200', 200000);
+INSERT INTO `resto` VALUES (1, 1, 'resto farma', 'blabak', '085376372', 20);
 
 -- ----------------------------
 -- Table structure for stok_bahan_mentah_produksi
