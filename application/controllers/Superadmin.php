@@ -168,6 +168,47 @@ class Superadmin extends CI_Controller {
 		$this->load->view('modul_superadmin/V_laporanbiayaoprasional_view', $data);
 	}
 
+	public function laporanpenjualan_view(){
+		$data['comboboxmenu'] = $this->m_modul_superadmin->tampil_data('menu')->result();
+		$data['comboboxpaket'] = $this->m_modul_superadmin->tampil_data('paket')->result();
+		$data['laporanpenjualanM'] = $this->m_modul_superadmin->tampil_laporan_penjualanmenu('')->result();
+		$data['laporanpenjualanP'] = $this->m_modul_superadmin->tampil_laporan_penjualanpaket('')->result();
+		$data['totalmenupayu'] = $this->m_modul_superadmin->tampil_laporan_penjualanmenutotal('')->row_array();
+		$data['totalpaketpayu'] = $this->m_modul_superadmin->tampil_laporan_penjualanpakettotal('')->row_array();
+		$data['datakondisi'] = "";
+		$this->load->view('modul_superadmin/V_laporanpenjualan_view', $data);
+	}
+
+	public function laporanpenjualanmenu_cariaksi(){
+		$where						= $this->input->post('namamenu');
+		$data['comboboxmenu'] = $this->m_modul_superadmin->tampil_data('menu')->result();
+		$data['comboboxpaket'] = $this->m_modul_superadmin->tampil_data('paket')->result();
+		$data['laporanpenjualanM'] = $this->m_modul_superadmin->tampil_laporan_penjualanmenu($where)->result();
+		$data['totalmenupayu'] = $this->m_modul_superadmin->tampil_laporan_penjualanmenutotal($where)->row_array();
+		$data['datakondisi'] = "menu";
+		$this->load->view('modul_superadmin/V_laporanpenjualan_view', $data);
+	}
+
+	public function laporanpenjualanpaket_cariaksi(){
+		$where						= $this->input->post('namapaket');
+		$data['comboboxmenu'] = $this->m_modul_superadmin->tampil_data('menu')->result();
+		$data['comboboxpaket'] = $this->m_modul_superadmin->tampil_data('paket')->result();
+		$data['laporanpenjualanP'] = $this->m_modul_superadmin->tampil_laporan_penjualanpaket($where)->result();
+		$data['totalpaketpayu'] = $this->m_modul_superadmin->tampil_laporan_penjualanpakettotal($where)->row_array();
+		$data['datakondisi'] = "";
+		$this->load->view('modul_superadmin/V_laporanpenjualan_view', $data);
+	}
+
+	public function laporan_investasi_cabang(){
+		$cabang = $this->input->post('cabang_resto');
+		$data['cabang'] = $this->input->post('cabang_resto');
+		$data['data_cabang_resto']=$this->m_modul_superadmin->data_cabang_resto()->result();
+		$data['data_lp_cabang']=$this->m_modul_superadmin->data_laporan_investasi_cabang($cabang)->result();
+		//$data['data_jum_storan']=$this->m_modul_superadmin->data_jum_storan($cabang)->row();
+		//$data['data_lp_ic']=$this->m_modul_superadmin->data_lp_ic($cabang)->result();
+		$this->load->view('modul_superadmin/vc_investasi_cabang',$data);
+	}
+
 	public function restos()
 	{
 		$this->load->view('modul_superadmin/resto');

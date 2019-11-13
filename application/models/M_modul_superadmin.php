@@ -312,4 +312,15 @@ class M_modul_superadmin extends CI_Model{
 		WHERE id_paket = '$where'");
 		return $query;
 	}
+
+	function data_laporan_investasi_cabang($where){
+		$query = $this->db->query("SELECT * FROM investasi_cabang join resto on resto.id=investasi_cabang.id_resto
+		WHERE investasi_cabang.id_resto = '$where'");
+		return $query;
+	}
+
+	function data_cabang_resto(){
+		$query = $this->db->query("SELECT * FROM resto");
+		return $query;
+	}
 }
