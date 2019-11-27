@@ -57,16 +57,16 @@ menampilkan laporan investasi (sudah)
 laporan owner
 insvestor / owner
 pajak resto
-copy laporan penjualan kasir
-copy laporan laba rugi kasir
-copy laporan pengeluaran yang ada
+copy laporan penjualan kasir (sudah)
+copy laporan laba rugi kasir -> sudah dikerjakan (irhas)
+copy laporan pengeluaran yang ada .
 kinerja pegawai pending dulu
 gaji intensif
-laporan kas cabang copy yang sudah ada
-setoran kasir copy yang sudah ada
+laporan kas cabang copy yang sudah ada .
+setoran kasir copy yang sudah ada (sudah)
 laporan investasi cabang copy yang sudah ada -> sudah dikerjakan (irhas)
-laporan permintaaan barang copy yang sudah ada
-laporan penerimaan barang copy yang sudah ada
+laporan permintaaan barang copy yang sudah ada -> sudah dikerjakan (irhas)
+laporan penerimaan barang copy yang sudah ada -> sudah dikerjakan (irhas)
 laporan penjulan copy yang sudah ada -> sudah dikerjakan (irhas)
 laporan transaksi masih bingung rumus yang dulu
 laporan biaya operasional copy yang sudah ada -> sudah dikerjakan (irhas)

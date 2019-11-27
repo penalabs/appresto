@@ -149,7 +149,6 @@ class Superadmin extends CI_Controller {
 
 
 	//---------------------------irhas---------------------------
-	//=====================laporan biaya operasional========================
 	public function laporanbiayaoprasional_view(){
 		$tanggalwhare 				= date('Y-m-d');
 		$data['laporanbiayaoprasional'] = $this->m_modul_superadmin->tampil_laporan_biaya_oprasional_where_hari($tanggalwhare)->result();
@@ -308,6 +307,24 @@ class Superadmin extends CI_Controller {
 		);
         $x['data']=$this->m_modul_superadmin->tampil_data_where('pendapatan_kas_masuk',$where)->result();
 		$this->load->view('modul_superadmin/setoran_kasir',$x);
+	}
+
+	public function laporan_permintaan_barang()
+	{
+	  $sql = "SELECT bahan_mentah.*,resto.nama_resto,pengiriman_bahan_mentah.jumlah_permintaan,permintaan_bahan_mentah.id,permintaan_bahan_mentah.nama_permintaan,permintaan_bahan_mentah.tanggal,permintaan_bahan_mentah.status FROM  pengiriman_bahan_mentah join permintaan_bahan_mentah on pengiriman_bahan_mentah.id_permintaan=permintaan_bahan_mentah.id join user_resto on user_resto.id=permintaan_bahan_mentah.id_user_produksi join resto on resto.id=user_resto.id_resto join bahan_mentah on bahan_mentah.id=pengiriman_bahan_mentah.id_bahan_mentah where permintaan_bahan_mentah.status='permintaan'";
+	  $data['data']=$this->db->query($sql)->result();
+	  $sql2 = "SELECT bahan_olahan.*,pengiriman_bahan_olahan.jumlah_permintaan,pengiriman_bahan_olahan.jumlah_permintaan,resto.nama_resto,permintaan_bahan_olahan.id,permintaan_bahan_olahan.nama_permintaan,permintaan_bahan_olahan.tanggal,permintaan_bahan_olahan.status FROM pengiriman_bahan_olahan join permintaan_bahan_olahan on pengiriman_bahan_olahan.id_permintaan=permintaan_bahan_olahan.id join user_resto on user_resto.id=permintaan_bahan_olahan.id_user_produksi join resto on resto.id=user_resto.id_resto join bahan_olahan on bahan_olahan.id=pengiriman_bahan_olahan.id_bahan_olahan where permintaan_bahan_olahan.status='permintaan'";
+	  $data['data2']=$this->db->query($sql2)->result();
+	  $this->load->view('modul_superadmin/laporan_permintaan_bahan',$data);
+	}
+
+	public function laporan_penerimaan_barang()
+	{
+	  $sql = "SELECT bahan_mentah.*,resto.nama_resto,pengiriman_bahan_mentah.jumlah_permintaan,permintaan_bahan_mentah.id,permintaan_bahan_mentah.nama_permintaan,permintaan_bahan_mentah.tanggal,permintaan_bahan_mentah.status FROM  pengiriman_bahan_mentah join permintaan_bahan_mentah on pengiriman_bahan_mentah.id_permintaan=permintaan_bahan_mentah.id join user_resto on user_resto.id=permintaan_bahan_mentah.id_user_produksi join resto on resto.id=user_resto.id_resto join bahan_mentah on bahan_mentah.id=pengiriman_bahan_mentah.id_bahan_mentah where permintaan_bahan_mentah.status='diterima'";
+	  $data['data']=$this->db->query($sql)->result();
+	  $sql2 = "SELECT bahan_olahan.*,pengiriman_bahan_olahan.jumlah_permintaan,pengiriman_bahan_olahan.jumlah_permintaan,resto.nama_resto,permintaan_bahan_olahan.id,permintaan_bahan_olahan.nama_permintaan,permintaan_bahan_olahan.tanggal,permintaan_bahan_olahan.status FROM pengiriman_bahan_olahan join permintaan_bahan_olahan on pengiriman_bahan_olahan.id_permintaan=permintaan_bahan_olahan.id join user_resto on user_resto.id=permintaan_bahan_olahan.id_user_produksi join resto on resto.id=user_resto.id_resto join bahan_olahan on bahan_olahan.id=pengiriman_bahan_olahan.id_bahan_olahan where permintaan_bahan_olahan.status='diterima'";
+	  $data['data2']=$this->db->query($sql2)->result();
+	  $this->load->view('modul_superadmin/laporan_penerimaan_bahan',$data);
 	}
 
 }
