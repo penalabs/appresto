@@ -14,7 +14,7 @@ membuat fitur entry bahan mentah
 * modul pengadaan peralatan dibuat sama saja kayak pengadaan bahan mentah
 
 
-KALAU ADA PERUBAHAN DATABASE 
+KALAU ADA PERUBAHAN DATABASE
 SILAHKAN ISI DISINI
 
 * perubahan database tanggal ada perubahan database silahkan import database yang tidak ada tanggalnya
@@ -39,7 +39,7 @@ LOGIN kasir user dan password debi
 LOGIN WAITERS user dan password wahyu
 LOGIN PRODUKSI user dan password fauzin
 LOGIN LOGISTIK user dan password wiwin
-LOGIN BENDAHRA user dan password tria 
+LOGIN BENDAHRA user dan password tria
 
 SELANJUTNYA CEKING SUPER ADMIN OWNER SAM GENERAL MANAGER cetak nota kasir
 
@@ -57,59 +57,16 @@ menampilkan laporan investasi (sudah)
 laporan owner
 insvestor / owner
 pajak resto
-copy laporan penjualan kasir
-copy laporan laba rugi kasir
-copy laporan pengeluaran yang ada
+copy laporan penjualan kasir (sudah)
+copy laporan laba rugi kasir -> sudah dikerjakan (irhas)
+copy laporan pengeluaran yang ada .
 kinerja pegawai pending dulu
 gaji intensif
-laporan kas cabang copy yang sudah ada
-setoran kasir copy yang sudah ada
+laporan kas cabang copy yang sudah ada .
+setoran kasir copy yang sudah ada (sudah)
 laporan investasi cabang copy yang sudah ada -> sudah dikerjakan (irhas)
-laporan permintaaan barang copy yang sudah ada
-laporan penerimaan barang copy yang sudah ada
+laporan permintaaan barang copy yang sudah ada -> sudah dikerjakan (irhas)
+laporan penerimaan barang copy yang sudah ada -> sudah dikerjakan (irhas)
 laporan penjulan copy yang sudah ada -> sudah dikerjakan (irhas)
 laporan transaksi masih bingung rumus yang dulu
 laporan biaya operasional copy yang sudah ada -> sudah dikerjakan (irhas)
-
-
-
-LIST BARU
-
-===DAFTAR FITUR YANG BELUM===
-
-manajemen kanwil
-manajemen resto
-owner edit
-Manajemen Kanwil
-Manajemen Resto
-Investor / Owner
-
-Laporan Penjualan
-Laporan Laba Rugi
-Laporan Pengeluaran
-Laporan Kinerja Pegawai
-
-
-Laporan Kinerja Karyawan
-Gaji Intensif Karyawan
-Laporan Kas Cabang
-Laporan Laba Rugi
-
-
-Laporan Permintaan barang
-Laporan penerimaan barang
-Laporan Kinerja karyawan
-Laporan Transaksi
-
-====YANG SUDAH===
-laporan biaya Operasional
-Laporan Penjualan
-Setoran Kasir
-Laporan investasi cabang
- Daftar resto / Pajak Resto
- Daftar resto / Pajak Resto
-Laporan Penjualan
-Setup Investor / Owner
- Manajer Kanwil
-Bendahara Kanwil
-Logistik
