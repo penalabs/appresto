@@ -41,7 +41,7 @@
 					</div>
 					<!-- /.box-header -->
 					<!-- form start -->
-					<form  action="<?php echo base_url(). 'master/action_update_user'; ?>" method="post" role="form">
+					<form  action="<?php echo base_url(). 'superadmin/action_update_user'; ?>" method="post" role="form">
 					  <div class="box-body">
 					  <?php
 					  foreach($data as $u){

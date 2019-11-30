@@ -19,9 +19,9 @@
           <ul class="treeview-menu">
             <li><a href="<?php echo base_url('master/users?user=superadmin');?>"><i class="fa fa-circle-o"></i> Super Admin</a></li>
 
-      			<li><a href="<?php echo base_url('master/users?user=general manajer');?>"><i class="fa fa-circle-o"></i> Manajer Kanwil</a></li>
-      			<li><a href="<?php echo base_url('master/users?user=bendahara');?>"><i class="fa fa-circle-o"></i> Bendahara Kanwil</a></li>
-      			<li><a href="<?php echo base_url('master/users?user=logistik');?>"><i class="fa fa-circle-o"></i> Logistik</a></li>
+      			<li><a href="<?php echo base_url('superadmin/users?user=general manajer');?>"><i class="fa fa-circle-o"></i> Manajer Kanwil</a></li>
+      			<li><a href="<?php echo base_url('superadmin/users?user=bendahara');?>"><i class="fa fa-circle-o"></i> Bendahara Kanwil</a></li>
+      			<li><a href="<?php echo base_url('superadmin/users?user=logistik');?>"><i class="fa fa-circle-o"></i> Logistik</a></li>
           </ul>
         </li>
 		<li class="treeview">

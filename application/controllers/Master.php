@@ -47,13 +47,7 @@ class Master extends CI_Controller {
 
 			$user=$_GET['user'];
 			$id_user=$this->session->userdata('id');
-
-
-
 			if($user=="superadmin"){
-
-
-
 			$data['data'] = $this->m_master->tampil_data($user)->result();
 			$this->load->view('master/superadmin',$data);
 			}else if($user=="general manajer"){
@@ -101,7 +95,6 @@ class Master extends CI_Controller {
 	}
 	public function owners()
 	{
-
 		$data['data'] = $this->m_master->tampil_data('owner')->result();
 		$this->load->view('master/owners',$data);
 	}
@@ -166,7 +159,7 @@ class Master extends CI_Controller {
 	{
 		$id=$_GET['id'];
 		if(isset($_GET['tipe'])){
-			$tipe=$_GET['tipe'];
+			echo $tipe=$_GET['tipe'];
 			if($tipe=="logistik" || $tipe=="bendahara" || $tipe=="general manajer"){
 				$tabel='user_kanwil';
 				$where = array('id' => $id);
@@ -177,15 +170,15 @@ class Master extends CI_Controller {
 				$tabel=$tipe;
 				$where = array('id' => $id);
 				$data['data'] = $this->m_master->tampil_data_where($tabel,$where)->result();
-				$this->load->view('master/edit_owner',$data);
+				//$this->load->view('master/edit_owner',$data);
 			}
 		}
 
 	}
 	public function action_update_user()
 	{
-		$session_id = $this->session->userdata('id');
-		$id = $this->input->post('id');
+		echo $session_id = $this->session->userdata('id');
+		echo $id = $this->input->post('id');
 		$tipe = $this->input->post('tipe');
 		$nama = $this->input->post('nama');
 		$user = $this->input->post('user');

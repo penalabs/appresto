@@ -70,3 +70,46 @@ laporan penerimaan barang copy yang sudah ada
 laporan penjulan copy yang sudah ada -> sudah dikerjakan (irhas)
 laporan transaksi masih bingung rumus yang dulu
 laporan biaya operasional copy yang sudah ada -> sudah dikerjakan (irhas)
+
+
+
+LIST BARU
+
+===DAFTAR FITUR YANG BELUM===
+
+manajemen kanwil
+manajemen resto
+owner edit
+Manajemen Kanwil
+Manajemen Resto
+Investor / Owner
+
+Laporan Penjualan
+Laporan Laba Rugi
+Laporan Pengeluaran
+Laporan Kinerja Pegawai
+
+
+Laporan Kinerja Karyawan
+Gaji Intensif Karyawan
+Laporan Kas Cabang
+Laporan Laba Rugi
+
+
+Laporan Permintaan barang
+Laporan penerimaan barang
+Laporan Kinerja karyawan
+Laporan Transaksi
+
+====YANG SUDAH===
+laporan biaya Operasional
+Laporan Penjualan
+Setoran Kasir
+Laporan investasi cabang
+ Daftar resto / Pajak Resto
+ Daftar resto / Pajak Resto
+Laporan Penjualan
+Setup Investor / Owner
+ Manajer Kanwil
+Bendahara Kanwil
+Logistik

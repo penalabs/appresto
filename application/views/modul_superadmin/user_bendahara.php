@@ -46,7 +46,7 @@
               }else{
                 //$tipe=$this->session->userdata('tipe');
 						  ?>
-              <a href="<?php echo base_url('master/add_user?tipe=general manajer');?>" type="button" class="btn btn-success" >  Tambah
+              <a href="<?php echo base_url('master/add_user?tipe=bendahara');?>" type="button" class="btn btn-success" >  Tambah
               </a>
               <?php
               }
@@ -93,9 +93,9 @@
 
       						  if(!empty($this->session->userdata('tipe'))){
 
-                      echo $tipe=$this->session->userdata('tipe');
+                      $tipe=$this->session->userdata('tipe');
       						  ?>
-                    <a href="<?php echo base_url('master/edit_user?tipe=general manajer');?>&&id=<?php echo $u->id ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
+                    <a href="<?php echo base_url('superadmin/edit_user?tipe=bendahara');?>&&id=<?php echo $u->id ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
 
                     <a href="" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a>
                     <?php

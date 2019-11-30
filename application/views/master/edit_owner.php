@@ -12,7 +12,7 @@
 <!-- Site wrapper -->
 <div class="wrapper">
 
-  
+
 	<?php include(APPPATH.'views/header.php');?>
 	<?php include(APPPATH.'views/menu.php');?>
   <!-- Content Wrapper. Contains page content -->
@@ -21,15 +21,15 @@
     <section class="content-header">
       <h1>
         Users
-       
+
       </h1>
-      
+
     </section>
 
     <!-- Main content -->
     <section class="content">
 	<div class="row">
-		
+
 
 
 				<div class="col-md-6">
@@ -42,18 +42,18 @@
 					<form  action="<?php echo base_url(). 'master/action_update_user'; ?>" method="post" role="form">
 					  <div class="box-body">
 					  <?php
-					  foreach($data as $u){ 
+					  foreach($data as $u){
 					  ?>
 						<div class="form-group">
 						  <label for="exampleInputPassword1">Nama</label>
-						  <?php
+						  <!-- <?php
 						  if(isset($_GET['tipe'])){
-						  ?>
+						  ?> -->
 						  <input type="hidden" class="form-control" id="exampleInputPassword1" name="tipe" value="<?php echo $_GET['tipe'];?>" placeholder="nama">
 						  <input type="hidden" class="form-control" id="exampleInputPassword1" name="id" value="<?php echo $_GET['id'];?>" placeholder="nama">
-						  <?php
+						  <!-- <?php
 						  }
-						  ?>
+						  ?> -->
 						  <input type="text" class="form-control" id="exampleInputPassword1" name="nama" value="<?php echo $u->nama; ?>" placeholder="nama" disabled>
 						</div>
 					   <div class="form-group">
@@ -64,7 +64,7 @@
 						  <label for="exampleInputPassword1">Pass</label>
 						  <input type="text" class="form-control" id="exampleInputPassword1" name="pass" value="<?php echo $u->pass; ?>" placeholder="pass">
 						</div>
-						
+
 						<div class="form-group">
 						  <label>Alamat</label>
 						  <textarea class="form-control" rows="3" name="alamat" placeholder="alamat ..."><?php echo $u->alamat; ?></textarea>
@@ -81,7 +81,7 @@
 						  <label for="exampleInputPassword1">Email</label>
 						  <input type="email" class="form-control" id="exampleInputPassword1" name="email" value="<?php echo $u->email; ?>" placeholder="email">
 						</div>
-					   
+
 					  </div>
 					  <!-- /.box-body -->
 					<?php
@@ -103,7 +103,7 @@
 
 
 
-	
+
 		<div class="modal fade" id="modal-default">
           <div class="modal-dialog">
             <div class="modal-content">

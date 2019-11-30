@@ -27,6 +27,149 @@ class Superadmin extends CI_Controller {
 		}
 
 	}
+	public function users(){
+		if(isset($_GET['user'])){
+			 $tipe=$_GET['user'];
+			if($tipe=="logistik" || $tipe=="bendahara" || $tipe=="general manajer"){
+
+				$where = array(
+					'tipe' => $tipe,
+				);
+				$data['data'] = $this->m_modul_superadmin->tampil_data_where('user_kanwil',$where)->result();
+			}
+			}
+	$this->load->view('modul_superadmin/user',$data);
+	}
+
+	// public function user_bendahara(){
+	// 	$where = array(
+	// 		'tipe' => 'bendahara',
+	// 	);
+	// $data['data'] = $this->m_modul_superadmin->tampil_data_where('user_kanwil',$where)->result();
+	// $this->load->view('modul_superadmin/user_bendahara',$data);
+	// }
+
+	public function add_user()
+	{
+		$this->load->view('modul_superadmin/add_user');
+	}
+
+	public function edit_user()
+	{
+		$id=$_GET['id'];
+		if(isset($_GET['tipe'])){
+			echo $tipe=$_GET['tipe'];
+			if($tipe=="logistik" || $tipe=="bendahara" || $tipe=="general manajer"){
+				$tabel='user_kanwil';
+				$where = array('id' => $id);
+				$data['data'] = $this->m_modul_superadmin->tampil_data_where($tabel,$where)->result();
+				$this->load->view('modul_superadmin/edit_user',$data);
+			}else{
+				$tipe=$_GET['tipe'];
+				$tabel=$tipe;
+				$where = array('id' => $id);
+				$data['data'] = $this->m_modul_superadmin->tampil_data_where($tabel,$where)->result();
+				$this->load->view('modul_superadmin/edit_owner',$data);
+			}
+		}
+
+	}
+	public function action_update_user()
+	{
+		 $session_id = $this->session->userdata('id');
+		 $id = $this->input->post('id');
+		$tipe = $this->input->post('tipe');
+		$nama = $this->input->post('nama');
+		$user = $this->input->post('user');
+		$pass = $this->input->post('pass');
+		$alamat = $this->input->post('alamat');
+		$telp = $this->input->post('telp');
+		$email = $this->input->post('email');
+		$tabel="";
+		if($tipe=="logistik" || $tipe=="bendahara" || $tipe=="general manajer"){
+			$tabel='user_kanwil';
+			$data = array(
+			'id_super_admin'=>$session_id,
+			'nama' => $nama,
+			'user' => $user,
+			'pass' => $pass,
+			'alamat' => $alamat,
+			'telp' => $telp,
+			'email' => $email,
+			'tipe' => $tipe,
+			);
+			$where = array(
+			'id' => $id
+			);
+		$this->m_modul_superadmin->update_data($where,$data,$tabel);
+		redirect('superadmin/users?user='.$tipe);
+		}else{
+			$saldo_rek = $this->input->post('saldo_rek');
+			$tabel=$tipe;
+			$data = array(
+			'id_super_admin'=>$session_id,
+			'nama' => $nama,
+			'user' => $user,
+			'pass' => $pass,
+			'alamat' => $alamat,
+			'telp' => $telp,
+			'email' => $email,
+			'saldo_rek'=>$saldo_rek,
+			);
+			$where = array(
+			'id' => $id
+			);
+		$this->m_modul_superadmin->update_data($where,$data,$tabel);
+		redirect('superadmin/owners?user='.$tipe);
+		}
+
+	}
+
+	public function action_add_user()
+	{
+		$session_id = $this->session->userdata('id');
+		$tipe = $this->input->post('tipe');
+		$nama = $this->input->post('nama');
+		$user = $this->input->post('user');
+		$pass = $this->input->post('pass');
+		$alamat = $this->input->post('alamat');
+		$telp = $this->input->post('telp');
+		$email = $this->input->post('email');
+		$tabel="";
+		if($tipe=="logistik" || $tipe=="bendahara" || $tipe=="general manajer"){
+			$tabel='user_kanwil';
+			$data = array(
+			'id_super_admin'=>$session_id,
+			'nama' => $nama,
+			'user' => $user,
+			'pass' => $pass,
+			'alamat' => $alamat,
+			'telp' => $telp,
+			'email' => $email,
+			'tipe' => $tipe,
+			);
+			$this->m_modul_superadmin->input_data($data,$tabel);
+			redirect('superadmin/users?user='.$tipe);
+		}else{
+			$tabel=$tipe;
+			$saldo_rek = $this->input->post('saldo_rek');
+			$data = array(
+			'id_super_admin'=>$session_id,
+			'nama' => $nama,
+			'user' => $user,
+			'pass' => $pass,
+			'alamat' => $alamat,
+			'telp' => $telp,
+			'email' => $email,
+			'saldo_rek'=>$saldo_rek,
+			);
+			$this->m_modul_superadmin->input_data($data,$tabel);
+			redirect('superadmin/owners?user='.$tipe);
+		}
+
+	}
+
+
 	public function setupowner()
 	{
 		$sql2 = "SELECT investasi_owner.id,owner.nama as nama_owner,user_kanwil.nama as nama_bendahara,investasi_owner.tanggal,investasi_owner.jumlah_investasi,investasi_owner.jangka_waktu,investasi_owner.persentase_omset FROM investasi_owner join user_kanwil on user_kanwil.id=investasi_owner.id_bendahara join owner on owner.id=investasi_owner.id_owner";
