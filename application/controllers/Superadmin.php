@@ -470,4 +470,87 @@ class Superadmin extends CI_Controller {
 	  $this->load->view('modul_superadmin/laporan_penerimaan_bahan',$data);
 	}
 
+		//Pengeluaran Biaya Oprasional
+	public function pengeluaranbiayaoprasional_view(){
+		//$data['pengeluaranbiayaoprasional'] = $this->m_modul_superadmin->tampil_data('pengeluaran_cabang_operasional')->result();
+		$data['data_cabang_resto'] = $this->m_modul_superadmin->tampil_data('resto')->result();
+		//$id_admin_resto=$this->session->userdata('id');
+		$sql = "SELECT pengeluaran_cabang_operasional.tanggal,pengeluaran_cabang_operasional.masa_sewa,pengeluaran_cabang_operasional.nominal,operasional.nama_pengeluaran,pengeluaran_cabang_operasional.id as id_operasional FROM pengeluaran_cabang_operasional join operasional on operasional.id=pengeluaran_cabang_operasional.id_operasional where id_resto=''";
+		$data['pengeluaranbiayaoprasional']=$this->db->query($sql)->result();
+		$this->load->view('modul_superadmin/V_pengeluaranbiayaoprasional_view', $data);
+	}
+
+	public function cari_pengeluaranbiayaoprasional_view(){
+		//$data['pengeluaranbiayaoprasional'] = $this->m_modul_superadmin->tampil_data('pengeluaran_cabang_operasional')->result();
+		$data['data_cabang_resto'] = $this->m_modul_superadmin->tampil_data('resto')->result();
+		$cari_id_resto = $this->input->post('cari_id_resto');
+		//$id_admin_resto=$this->session->userdata('id');
+		$sql = "SELECT pengeluaran_cabang_operasional.*,operasional.*,pengeluaran_cabang_operasional.id as id_operasional FROM pengeluaran_cabang_operasional join operasional on operasional.id=pengeluaran_cabang_operasional.id_operasional where id_resto='1'";
+		//echo "datane broo : ".$cari_id_resto;
+		$data['pengeluaranbiayaoprasional']=$this->db->query($sql)->result();
+		$this->load->view('modul_superadmin/V_pengeluaranbiayaoprasional_view', $data);
+	}
+
+	public function pengeluaranbiayaoprasional_tambah(){
+		$this->load->view('modul_superadmin/V_pengeluaranbiayaoprasional_tambah');
+	}
+
+	public function pengeluaranbiayaoprasional_tambahaksi(){
+		$id_operasional		= $this->input->post('id_operasional');
+		$id_resto		= $this->input->post('id_resto');
+		$id_kanwil		= $this->input->post('id_kanwil');
+		$id_admin_resto		= $this->input->post('id_admin_resto');
+		$nominal	= $this->input->post('nominal');
+		$tanggal	= date('Y-m-d');
+		$masa_sewa	= $this->input->post('masa_sewa');
+		$datainput = array(
+			'id_operasional'				=> $id_operasional,
+			'nominal'	=> $nominal,
+			'tanggal'	=> $tanggal,
+			'masa_sewa'	=> $masa_sewa,
+			'id_kanwil'	=> $id_kanwil,
+			'id_admin_resto'	=> $id_admin_resto,
+			'id_resto'	=> $id_resto
+		);
+		$this->m_modul_superadmin->input_data($datainput, 'pengeluaran_cabang_operasional');
+		redirect('superadmin/cari_pengeluaranbiayaoprasional_view');
+	}
+
+	public function pengeluaranbiayaoprasional_edit(){
+		//$where = array('id_pengeluaran_kebutuhan' => $id);
+		$id		= $this->input->get('id');
+		$sql = "SELECT pengeluaran_cabang_operasional.*,operasional.*,pengeluaran_cabang_operasional.id as id_operasional FROM pengeluaran_cabang_operasional join operasional on operasional.id=pengeluaran_cabang_operasional.id_operasional where pengeluaran_cabang_operasional.id='$id'";
+		$data['pengeluaranbiayaoprasional_edit']=$this->db->query($sql)->result();
+		$this->load->view('modul_superadmin/V_pengeluaranbiayaoprasional_edit', $data);
+	}
+
+	public function pengeluaranbiayaoprasional_updateaksi(){
+		$id		= $this->input->post('id');
+		$id_operasional		= $this->input->post('idops');
+		$id_resto		= $this->input->post('id_resto');
+		$id_kanwil		= $this->input->post('id_kanwil');
+		$id_admin_resto		= $this->input->post('id_admin_resto');
+		$nominal	= $this->input->post('nominal');
+		$tanggal	= date('Y-m-d');
+		$masa_sewa	= $this->input->post('masa_sewa');
+		$datainput = array(
+			'id_operasional'	=> $id_operasional,
+			'nominal'	=> $nominal,
+			'tanggal'	=> $tanggal,
+			'masa_sewa'	=> $masa_sewa,
+			'id_kanwil'	=> $id_kanwil,
+			'id_admin_resto'	=> $id_admin_resto,
+			'id_resto'	=> $id_resto
+		);
+		$where = array('id' => $id);
+		$this->m_modul_superadmin->update_data($where,$datainput, 'pengeluaran_cabang_operasional');
+		redirect('superadmin/cari_pengeluaranbiayaoprasional_view');
+	}
+
+	public function pengeluaranbiayaoprasional_hapus($id_pengeluaran_kebutuhan){
+		$where = array('id_pengeluaran_kebutuhan' => $id_pengeluaran_kebutuhan);
+		$this->m_modul_superadmin->hapus_data($where, 'tbl_pengeluaran_kebutuhan');
+		redirect('superadmin/pengeluaranbiayaoprasional_view');
+	}
+
 }
