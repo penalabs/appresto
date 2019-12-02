@@ -247,6 +247,80 @@ class Superadmin extends CI_Controller {
 		$this->load->view('modul_superadmin/add_owner');
 	}
 
+	function tambah_owner_aksi(){
+		$session_id = $this->session->userdata('id');
+		$tipe = $this->input->post('tipe');
+		$nama = $this->input->post('nama');
+		$user = $this->input->post('user');
+		$pass = $this->input->post('pass');
+		$alamat = $this->input->post('alamat');
+		$telp = $this->input->post('telp');
+		$email = $this->input->post('email');
+		$saldo_rek = $this->input->post('saldo_rek');
+
+			$data = array(
+				'id_super_admin'=>$session_id,
+				'nama' => $nama,
+				'user' => $user,
+				'pass' => $pass,
+				'alamat' => $alamat,
+				'telp' => $telp,
+				'email' => $email,
+				'saldo_rek'=>$saldo_rek,
+				);
+			$this->m_modul_superadmin->input_data($data,'owner');
+		redirect('superadmin/owners');
+	}
+
+	function hapus_owner(){
+		echo $id = $this->input->get('id');
+		$where = array('id' => $id);
+		$this->m_modul_superadmin->hapus_data($where,'owner');
+		redirect('superadmin/owners');
+	}
+
+	public function edit_owner()
+	{
+				$id=$_GET['id'];
+				$where = array('id' => $id);
+				$data['data'] = $this->m_modul_superadmin->tampil_data_where('owner',$where)->result();
+				$this->load->view('modul_superadmin/edit_owner',$data);
+	}
+
+	public function action_update_owner()
+	{
+		$session_id = $this->session->userdata('id');
+		$id = $this->input->post('id');
+		$tipe = $this->input->post('tipe');
+		$nama = $this->input->post('nama');
+		$user = $this->input->post('user');
+		$pass = $this->input->post('pass');
+		$alamat = $this->input->post('alamat');
+		$telp = $this->input->post('telp');
+		$email = $this->input->post('email');
+		$saldo_rek= $this->input->post('saldo_rek');
+
+			$data = array(
+			'nama' => $nama,
+			'user' => $user,
+			'pass' => $pass,
+			'alamat' => $alamat,
+			'telp' => $telp,
+			'email' => $email,
+			'saldo_rek' => $saldo_rek,
+			);
+			$where = array(
+			'id' => $id
+			);
+		$this->m_modul_superadmin->update_data($where,$data,'owner');
+		redirect('superadmin/owners');
+
+
+	}
+
+
+
+
 	public function manajemen_resto()
 	{
 

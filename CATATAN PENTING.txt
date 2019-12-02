@@ -56,7 +56,7 @@ menampilkan laporan investasi (sudah)
 -user superadmin
 Manajemen Kanwil -> sudah dikerjakan (fauzin)
 laporan owner
-insvestor / owner -> proses (fauzin)
+insvestor / owner -> sudah dikerjakan (fauzin)
 pajak resto -> sudah dikerjakan (fauzin)
 copy laporan penjualan kasir (sudah)
 copy laporan laba rugi kasir -> sudah dikerjakan (irhas)

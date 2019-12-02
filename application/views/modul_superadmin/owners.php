@@ -80,7 +80,7 @@
                   <td><?php echo $u->pass ?></td>
 				          <td><?php echo $u->saldo_rek ?></td>
                   <td><?php echo $u->telp ?></td>
-				          <td><a href="<?php echo base_url('superadmin/owners');?>&&id=<?php echo $u->id ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>  <a href="" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
+				          <td><a href="<?php echo base_url('superadmin/edit_owner');?>/?id=<?php echo $u->id ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>  <a href="<?php echo base_url('superadmin/hapus_owner/?');?>id=<?php echo $u->id ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
                 </tr>
 				<?php } ?>
 
