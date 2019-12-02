@@ -29,70 +29,67 @@
     <!-- Main content -->
     <section class="content">
 	<div class="row">
-	<div class="col-xs-10">
-          <div class="box box-default">
-            <div class="box-header with-border">
 
-            </div>
-            <div class="box-body">
-             <?php
 
-						  ?>
-						  <a href="<?php echo base_url('superadmin/add_owner');?>" type="button" class="btn btn-success" >
+
+				<div class="col-md-6">
+				<div class="box box-primary">
+					<div class="box-header with-border">
+					  <h3 class="box-title">Quick Input</h3>
+					</div>
+					<!-- /.box-header -->
+					<!-- form start -->
+					<form  action="<?php echo base_url(). 'superadmin/action_add_user'; ?>" method="post" role="form">
+					  <div class="box-body">
+						<div class="form-group">
+						  <label for="exampleInputPassword1">Nama</label>
 						  <?php
-
+						  if(isset($_GET['tipe'])){
+               $_GET['tipe'];
 						  ?>
+						  <input type="hidden" class="form-control" id="exampleInputPassword1" name="tipe" value="<?php echo $_GET['tipe'];?>" placeholder="nama">
+						  <?php
+						  }
+						  ?>
+						  <input type="text" class="form-control" id="exampleInputPassword1" name="nama" placeholder="nama">
+						</div>
+					   <div class="form-group">
+						  <label for="exampleInputPassword1">User</label>
+						  <input type="text" class="form-control" id="exampleInputPassword1" name="user" placeholder="user">
+						</div>
+						<div class="form-group">
+						  <label for="exampleInputPassword1">Pass</label>
+						  <input type="text" class="form-control" id="exampleInputPassword1" name="pass" placeholder="pass">
+						</div>
 
-                Tambah
-              </a>
-            </div>
-          </div>
-    </div>
-	<div class="col-md-10">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Data Owners</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Nama</th>
-                  <th>User</th>
-				          <th>Password</th>
-                  <th>Saldo Rekening</th>
-                  <th>Telp</th>
-				          <th>Aksi</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php
-					$no = 1;
-					foreach($data as $u){
-				?>
-                <tr>
-                  <td><?php echo $no++ ?>.</td>
-                  <td><?php echo $u->nama ?>
-                  </td>
-                  <td><?php echo $u->user ?></td>
-                  <td><?php echo $u->pass ?></td>
-				          <td><?php echo $u->saldo_rek ?></td>
-                  <td><?php echo $u->telp ?></td>
-				          <td><a href="<?php echo base_url('superadmin/owners');?>&&id=<?php echo $u->id ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>  <a href="" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
-                </tr>
-				<?php } ?>
+						<div class="form-group">
+						  <label>Alamat</label>
+						  <textarea class="form-control" rows="3" name="alamat" placeholder="alamat ..."></textarea>
+						</div>
+						 <div class="form-group">
+						  <label for="exampleInputPassword1">Telp</label>
+						  <input type="number" size="12" class="form-control" id="exampleInputPassword1" name="telp" placeholder="telp">
+						</div>
+						<div class="form-group">
+						  <label for="exampleInputPassword1">Email</label>
+						  <input type="email" class="form-control" id="exampleInputPassword1" name="email" placeholder="email">
+						</div>
 
-                </tbody>
+					  </div>
+					  <!-- /.box-body -->
 
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-	</div>
+					  <div class="box-footer">
+						<button type="submit" class="btn btn-primary">Simpan</button>
+					  </div>
+					</form>
+				  </div>
+				</div>
+				<div class="col-md-3">
+				<div class="box-header with-border">
+					  <h3 class="box-title">INPUT USER BARU <i class="fa  fa-hand-lizard-o" ></i></h3>
+				</div>
+				</div>
+		</div>
 
 
 
@@ -149,11 +146,6 @@
       'autoWidth'   : false
     })
   })
-</script>
-<script>
-$(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip();
-});
 </script>
 </body>
 </html>

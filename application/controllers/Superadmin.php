@@ -241,6 +241,12 @@ class Superadmin extends CI_Controller {
 		$data['data'] = $this->m_modul_superadmin->tampil_data('owner')->result();
 		$this->load->view('modul_superadmin/owners',$data);
 	}
+
+	public function add_owner()
+	{
+		$this->load->view('modul_superadmin/add_owner');
+	}
+
 	public function manajemen_resto()
 	{
 
