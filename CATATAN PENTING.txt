@@ -63,7 +63,7 @@ copy laporan laba rugi kasir -> sudah dikerjakan (irhas)
 copy laporan pengeluaran yang ada .
 kinerja pegawai pending dulu
 gaji intensif
-laporan kas cabang copy yang sudah ada .
+laporan kas cabang copy yang sudah ada -> tabel kas keluar dan pendapatan kas masuk (kerjakno ir)
 setoran kasir copy yang sudah ada (sudah)
 laporan investasi cabang copy yang sudah ada -> sudah dikerjakan (irhas)
 laporan permintaaan barang copy yang sudah ada -> sudah dikerjakan (irhas)
