@@ -36,7 +36,10 @@ class Superadmin extends CI_Controller {
 					'tipe' => $tipe,
 				);
 				$data['data'] = $this->m_modul_superadmin->tampil_data_where('user_kanwil',$where)->result();
-			}
+			}else	if($tipe=="superadmin"){
+				$data['data'] = $this->m_modul_superadmin->tampil_data($tipe)->result();
+
+				}
 			}
 	$this->load->view('modul_superadmin/user',$data);
 	}
@@ -69,7 +72,7 @@ class Superadmin extends CI_Controller {
 				$tabel=$tipe;
 				$where = array('id' => $id);
 				$data['data'] = $this->m_modul_superadmin->tampil_data_where($tabel,$where)->result();
-				$this->load->view('modul_superadmin/edit_owner',$data);
+				$this->load->view('modul_superadmin/edit_user',$data);
 			}
 		}
 
@@ -103,24 +106,21 @@ class Superadmin extends CI_Controller {
 			);
 		$this->m_modul_superadmin->update_data($where,$data,$tabel);
 		redirect('superadmin/users?user='.$tipe);
-		}else{
-			$saldo_rek = $this->input->post('saldo_rek');
+	}else if($tipe=="superadmin"){
 			$tabel=$tipe;
 			$data = array(
-			'id_super_admin'=>$session_id,
 			'nama' => $nama,
 			'user' => $user,
 			'pass' => $pass,
 			'alamat' => $alamat,
 			'telp' => $telp,
 			'email' => $email,
-			'saldo_rek'=>$saldo_rek,
 			);
 			$where = array(
 			'id' => $id
 			);
 		$this->m_modul_superadmin->update_data($where,$data,$tabel);
-		redirect('superadmin/owners?user='.$tipe);
+		redirect('superadmin/users?user='.$tipe);
 		}
 
 	}
@@ -169,6 +169,83 @@ class Superadmin extends CI_Controller {
 
 	}
 
+	public function hapus_user()
+	{
+		$session_id = $this->session->userdata('id');
+		$tipe = $this->input->get('tipe');
+		$id = $this->input->get('id');
+		$tabel="";
+		if($tipe=="logistik" || $tipe=="bendahara" || $tipe=="general manajer"){
+			$tabel='user_kanwil';
+			$where = array(
+			'id' => $id,
+			);
+			$this->m_modul_superadmin->hapus_data($where,$tabel);
+			redirect('superadmin/users?user='.$tipe);
+		}else{
+			$tabel=$tipe;
+			$where = array(
+			'id'=>$id,
+			);
+			$this->m_modul_superadmin->hapus_data($where,$tabel);
+			redirect('superadmin/owners?user='.$tipe);
+		}
+
+	}
+
+
+	public function manajemen_kanwil()
+	{
+		$data['data'] = $this->m_modul_superadmin->tampil_data('kanwil')->result();
+		$this->load->view('manajemen/kanwil',$data);
+	}
+	function tambah_kanwil_aksi(){
+			$alamat_kantor = $this->input->post('alamat_kantor');
+			$telp = $this->input->post('telp');
+
+			$data = array(
+				'alamat_kantor' => $alamat_kantor,
+				'telp' => $telp,
+				);
+			$this->m_modul_superadmin->input_data($data,'kanwil');
+		redirect('superadmin/manajemen_kanwil');
+	}
+
+
+	function hapus_kanwil(){
+		echo $id = $this->input->get('id');
+		$where = array('id_kanwil' => $id);
+		$this->m_modul_superadmin->hapus_data($where,'kanwil');
+		redirect('superadmin/manajemen_kanwil');
+	}
+
+		function update_kanwil(){
+		$id = $this->input->post('id');
+		$alamat = $this->input->post('alamat');
+		$telp = $this->input->post('telp');
+
+		$data = array(
+			'alamat_kantor' => $alamat,
+			'telp' => $pekerjaan
+		);
+
+		$where = array(
+			'id' => $id
+		);
+
+		$this->m_modul_superadmin->update_data($where,$data,'kanwil');
+		redirect('superadmin/manajemen_kanwil');
+	}
+	public function owners()
+	{
+		$data['data'] = $this->m_modul_superadmin->tampil_data('owner')->result();
+		$this->load->view('modul_superadmin/owners',$data);
+	}
+	public function manajemen_resto()
+	{
+
+		$this->load->view('manajemen/resto');
+	}
 
 	public function setupowner()
 	{

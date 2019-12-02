@@ -17,7 +17,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo base_url('master/users?user=superadmin');?>"><i class="fa fa-circle-o"></i> Super Admin</a></li>
+            <li><a href="<?php echo base_url('superadmin/users?user=superadmin');?>"><i class="fa fa-circle-o"></i> Super Admin</a></li>
 
       			<li><a href="<?php echo base_url('superadmin/users?user=general manajer');?>"><i class="fa fa-circle-o"></i> Manajer Kanwil</a></li>
       			<li><a href="<?php echo base_url('superadmin/users?user=bendahara');?>"><i class="fa fa-circle-o"></i> Bendahara Kanwil</a></li>
@@ -46,10 +46,10 @@
             </span>
           </a>
           <ul class="treeview-menu">
-      			<li><a href="<?php echo base_url('master/superadmins');?>"><i class="fa fa-circle-o"></i> Manajemen Kanwil</a></li>
-      			<li><a href="<?php echo base_url('master/kanwils');?>"><i class="fa fa-circle-o"></i> Manajemen Resto</a></li>
+      			<li><a href="<?php echo base_url('superadmin/manajemen_kanwil');?>"><i class="fa fa-circle-o"></i> Manajemen Kanwil</a></li>
+      			<!-- <li><a href="<?php echo base_url('superadmin/manajemen_resto');?>"><i class="fa fa-circle-o"></i> Manajemen Resto</a></li> -->
 
-      			<li><a href="<?php echo base_url('master/owners?user=owner');?>"><i class="fa fa-circle-o"></i> Investor / Owner</a></li>
+      			<li><a href="<?php echo base_url('superadmin/owners');?>"><i class="fa fa-circle-o"></i> Investor / Owner</a></li>
 
             <li><a href="<?php echo base_url('superadmin/restos');?>"><i class="fa fa-circle-o"></i> Daftar resto / Pajak Resto</a></li>
       			<li><a href="<?php echo base_url('Superadmin/pemesanan');?>"><i class="fa fa-circle-o"></i> Laporan Penjualan</a></li>
@@ -108,8 +108,8 @@
       			<li><a href="<?php echo base_url('Superadmin/laporanbiayaoprasional_view');?>"><i class="fa fa-circle-o"></i> laporan biaya Operasional</a></li>
 
       			<li><a href="<?php echo base_url('Superadmin/laporanpenjualan_view');?>"><i class="fa fa-circle-o"></i> Laporan Penjualan</a></li>
-      			<li><a href="<?php echo base_url('#');?>"><i class="fa fa-circle-o"></i> Laporan Kinerja karyawan</a></li>
-      			<li><a href="<?php echo base_url('#');?>"><i class="fa fa-circle-o"></i> Laporan Transaksi</a></li>
+      			<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Kinerja karyawan</a></li>
+      			<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Transaksi</a></li>
 
           </ul>
         </li>

@@ -54,9 +54,10 @@ crud bagi hasil
 menampilkan laporan investasi (sudah)
 
 -user superadmin
+Manajemen Kanwil -> sudah dikerjakan (fauzin)
 laporan owner
-insvestor / owner
-pajak resto
+insvestor / owner -> proses (fauzin)
+pajak resto -> sudah dikerjakan (fauzin)
 copy laporan penjualan kasir (sudah)
 copy laporan laba rugi kasir -> sudah dikerjakan (irhas)
 copy laporan pengeluaran yang ada .

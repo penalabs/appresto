@@ -90,11 +90,11 @@
 
       						  if(!empty($this->session->userdata('tipe'))){
 
-                      $tipe=$this->session->userdata('tipe');
+                      echo $user=$_GET['user'];
       						  ?>
-                    <a href="<?php echo base_url('superadmin/edit_user?tipe=general manajer');?>&&id=<?php echo $u->id ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
+                    <a href="<?php echo base_url('superadmin/edit_user?tipe='.$user);?>&&id=<?php echo $u->id ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
 
-                    <a href="" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a>
+                    <a href="<?php echo base_url('superadmin/hapus_user?tipe='.$user);?>&&id=<?php echo $u->id ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a>
                     <?php
                     }
                     ?>

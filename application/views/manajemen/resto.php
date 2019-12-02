@@ -12,18 +12,20 @@
 <!-- Site wrapper -->
 <div class="wrapper">
 
-
+  
 	<?php include(APPPATH.'views/header.php');?>
 	<?php include(APPPATH.'views/menu.php');?>
+  <!-- =============================================== -->
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Manajemen Kantor Wilayah
-
+        Manajemen Resto
+       
       </h1>
-
+      
     </section>
 
     <!-- Main content -->
@@ -32,7 +34,7 @@
 	<div class="col-md-8">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Daftar kanwil</h3>
+              <h3 class="box-title">Daftar Kanwil pengurus resto</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -40,70 +42,82 @@
                 <thead>
                 <tr>
                   <th>#</th>
-
-            				  <th>Alamat</th>
-                      <th>Telp</th>
-            				  <th>Aksi</th>
+				  <th>Kanwil</th>
+                  <th>Nama Resto</th>
+                  <th>Pengurus / Admin resto</th>
+				  <th>Alamat</th>
+                  <th>Telp</th>
+				  <th>Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
-
-                <?php
-                $no = 1;
-                foreach($data as $u){
-                ?>
                 <tr>
-                  <td><?php echo $no;?></td>
-                  <td><?php echo $u->alamat_kantor;?></td>
-        				  <td><?php echo $u->telp;?></td>
-        				  <td>  <a href="<?php echo base_url('superadmin/');?>manajemen_kanwil?id=<?php echo  $u->id_kanwil;?>&&mode=edit" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>  <a href="<?php echo base_url('superadmin/');?>hapus_kanwil?id=<?php echo  $u->id_kanwil;?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
+                  <td>1.</td>
+				  <td>Kediri</td>
+                  <td>Resto Omah Bebek
+                  </td>
+                  <td>Dedy Ardiansyah</td>
+                  <td>Jln perintis kemerdekaan no 100</td>
+				  <td>08564684655774</td>
+				  <td><a href="" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Intensif"><i class="fa  fa-line-chart" ></i></a>  <a href="" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>  <a href="" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
                 </tr>
-                <?php
-                $no++;
-                }
-                ?>
+				<tr>
+                  <td>1.</td>
+				  <td>Kediri</td>
+                  <td>Resto Omah Ayam Gejoh
+                  </td>
+                  <td>Dedy Ardiansyah</td>
+                  <td>Jln perintis kemerdekaan no 100</td>
+				  <td>08564684655774</td>
+				  <td><a href="" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Intensif"><i class="fa  fa-line-chart" ></i></a>  <a href="" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>  <a href="" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
+                </tr>
                 </tbody>
-
+               
               </table>
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
         </div>
-
-      <?php if (isset($_GET['mode']))
-        {
-        ?>
-        <div class="col-md-4">
-		      <div class="box box-primary">
+		<div class="col-md-4">
+		<div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Quick Input</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" action="<?php echo base_url('superadmin/');?>tambah_kanwil_aksi" method="post">
+            <form role="form">
               <div class="box-body">
+				<div class="form-group">
+                  <label for="exampleInputPassword1">Kantor Wilayah</label>
+                  <input type="text" class="form-control" id="exampleInputPassword1" placeholder="wilayah">
+                </div>
+               <div class="form-group">
+                  <label>Nama resto / cabang</label>
+                  <select class="form-control">
+                    <option>--pilih--</option>
+                    <option>Resto Omah Bebek</option>
+                    <option>Resto Omah Ayam Gejoh</option>
+                  </select>
+                </div>
 				 <!-- select -->
-
-               <?php
-               $id=$_GET['id'];
-               $sql = "SELECT * FROM kanwil where id_kanwil='$id'";
-               $data=$this->db->query($sql)->result();
-               foreach($data as $u){
-               ?>
-                 <input type="hidden" class="form-control" name="id" value="<?php echo $u->id_kanwil;?>" >
-				        <div class="form-group">
-                  <label>Alamat kanwil</label>
-                  <textarea class="form-control" rows="3" name="alamat_kantor" placeholder="alamat ..."><?php echo $u->alamat_kantor;?></textarea>
+                <div class="form-group">
+                  <label>Pengurus Admin resto</label>
+                  <select class="form-control">
+                    <option>--pilih--</option>
+                    <option>Dedy ardiansyah</option>
+                    <option>Endang</option>
+                  </select>
                 </div>
-				        <div class="form-group">
-                  <label for="exampleInputPassword1">Telp kanwil</label>
-                  <input type="text" class="form-control" name="telp" value="<?php echo $u->telp;?>" id="exampleInputPassword1" placeholder="telp kanwil">
+				<div class="form-group">
+                  <label>Alamat</label>
+                  <textarea class="form-control" rows="3" placeholder="alamat ..."></textarea>
                 </div>
-                <?php
-                }
-               ?>
-
+				 <div class="form-group">
+                  <label for="exampleInputPassword1">Telp cabang</label>
+                  <input type="text" class="form-control" id="exampleInputPassword1" placeholder="telp cabang">
+                </div>
+               
               </div>
               <!-- /.box-body -->
 
@@ -112,50 +126,14 @@
               </div>
             </form>
           </div>
-		      </div>
+		</div>
           <!-- /.box -->
-
-          <?php
-          }else{
-          ?>
-          <div class="col-md-4">
-          <div class="box box-primary">
-                  <div class="box-header with-border">
-                    <h3 class="box-title">Quick Input</h3>
-                  </div>
-                  <!-- /.box-header -->
-                  <!-- form start -->
-                  <form role="form" action="<?php echo base_url('superadmin/');?>tambah_kanwil_aksi" method="post">
-                    <div class="box-body">
-               <!-- select -->
-
-                      <div class="form-group">
-                        <label>Alamat kanwil</label>
-                        <textarea class="form-control" rows="3" name="alamat_kantor" placeholder="alamat ..."></textarea>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputPassword1">Telp kanwil</label>
-                        <input type="text" class="form-control" name="telp" id="exampleInputPassword1" placeholder="telp cabang">
-                      </div>
-
-                    </div>
-                    <!-- /.box-body -->
-
-                    <div class="box-footer">
-                      <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                  </form>
-                </div>
-          </div>
-          <?php
-          }
-          ?>
 	</div>
 
 
 
 
-
+	
 		<div class="modal fade" id="modal-default">
           <div class="modal-dialog">
             <div class="modal-content">

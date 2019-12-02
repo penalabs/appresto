@@ -12,7 +12,7 @@
 <!-- Site wrapper -->
 <div class="wrapper">
 
-  
+
 	<?php include(APPPATH.'views/header.php');?>
 	<?php include(APPPATH.'views/menu.php');?>
   <!-- Content Wrapper. Contains page content -->
@@ -20,19 +20,38 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Manajemen Kantor Wilayah
-       
+        Users
+
       </h1>
-      
+
     </section>
 
     <!-- Main content -->
     <section class="content">
 	<div class="row">
-	<div class="col-md-8">
+	<div class="col-xs-10">
+          <div class="box box-default">
+            <div class="box-header with-border">
+
+            </div>
+            <div class="box-body">
+             <?php
+
+						  ?>
+						  <a href="<?php echo base_url('master/add_user');?>" type="button" class="btn btn-success" >
+						  <?php
+
+						  ?>
+
+                Tambah
+              </a>
+            </div>
+          </div>
+    </div>
+	<div class="col-md-10">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Daftar Super Admin pengurus kanwil</h3>
+              <h3 class="box-title">Data Owners</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -40,86 +59,45 @@
                 <thead>
                 <tr>
                   <th>#</th>
-				  <th>Nama Super admin</th>
-                  <th>Kanwil</th>
-				  <th>Alamat</th>
+                  <th>Nama</th>
+                  <th>User</th>
+				          <th>Password</th>
+                  <th>Saldo Rekening</th>
                   <th>Telp</th>
-				  <th>Aksi</th>
+				          <th>Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
+                <?php
+					$no = 1;
+					foreach($data as $u){
+				?>
                 <tr>
-                  <td>1.</td>
-				  <td>Dedy Ardiansyah</td>
-				  <td>Kediri</td>
-                  <td>Jln perintis kemerdekaan no 100</td>
-				  <td>08564684655774</td>
-				  <td><a href="" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Intensif"><i class="fa  fa-line-chart" ></i></a>  <a href="" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>  <a href="" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
+                  <td><?php echo $no++ ?>.</td>
+                  <td><?php echo $u->nama ?>
+                  </td>
+                  <td><?php echo $u->user ?></td>
+                  <td><?php echo $u->pass ?></td>
+				          <td><?php echo $u->saldo_rek ?></td>
+                  <td><?php echo $u->telp ?></td>
+				          <td><a href="<?php echo base_url('superadmin/owners');?>&&id=<?php echo $u->id ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>  <a href="" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
                 </tr>
-				 <tr>
-                  <td>2.</td>
-				  <td>Dedy Ardiansyah</td>
-				  <td>Blitar</td>
-                  <td>Jln merdeka</td>
-				  <td>08564684655774</td>
-				  <td><a href="" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Intensif"><i class="fa  fa-line-chart" ></i></a>  <a href="" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>  <a href="" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
-                </tr>
+				<?php } ?>
+
                 </tbody>
-               
+
               </table>
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
         </div>
-		<div class="col-md-4">
-		<div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Quick Input</h3>
-            </div>
-            <!-- /.box-header -->
-            <!-- form start -->
-            <form role="form">
-              <div class="box-body">
-				<div class="form-group">
-                  <label for="exampleInputPassword1">Kantor Wilayah</label>
-                  <input type="text" class="form-control" id="exampleInputPassword1" placeholder="wilayah">
-                </div>
-               
-				 <!-- select -->
-                <div class="form-group">
-                  <label>Pengurus Kanwil</label>
-                  <select class="form-control">
-                    <option>--pilih--</option>
-                    <option>Dedy ardiansyah</option>
-                    <option>Endang</option>
-                  </select>
-                </div>
-				<div class="form-group">
-                  <label>Alamat kanwil</label>
-                  <textarea class="form-control" rows="3" placeholder="alamat ..."></textarea>
-                </div>
-				 <div class="form-group">
-                  <label for="exampleInputPassword1">Telp kanwil</label>
-                  <input type="text" class="form-control" id="exampleInputPassword1" placeholder="telp cabang">
-                </div>
-               
-              </div>
-              <!-- /.box-body -->
-
-              <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Simpan</button>
-              </div>
-            </form>
-          </div>
-		</div>
-          <!-- /.box -->
 	</div>
 
 
 
 
-	
+
 		<div class="modal fade" id="modal-default">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -171,6 +149,11 @@
       'autoWidth'   : false
     })
   })
+</script>
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
 </script>
 </body>
 </html>
