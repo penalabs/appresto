@@ -333,7 +333,7 @@ class M_modul_superadmin extends CI_Model{
 		return $query;
 	}
 
-	//---- kas keluar cabang
+	//---- kas keluar cabang  // IKI LOH ZIN KUDU RUBAH TABLE SOALE AKU KUDU JUMUK ID_OPRASIONAL TAPI GK ENEK FORENKAY
 	function tampil_data_kas_keluar_cabang(){
 		$hasil=$this->db->query("SELECT * FROM pemberian_kaskeluar
 			JOIN resto ON resto.`id` = `pemberian_kaskeluar`.`id_resto` join user_kanwil on user_kanwil.id=pemberian_kaskeluar.id_bendahara");

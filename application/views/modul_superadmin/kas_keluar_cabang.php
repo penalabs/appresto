@@ -190,7 +190,7 @@
 				              <td>
                         <!-- <button type="submit" class="btn btn-success btn-xs edit" data-toggle="modal" data-target="#myModalEdit" data-toggle="tooltip" title="Detail"> <i class="fa  fa-edit" ></i></button>
                         <a href="<?php echo site_url('superadmin/delete_data_kas_keluar_cabang/'.$data->id_pengeluaran) ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a> -->
-                        <a href="<?php echo site_url('superadmin/data_kas_keluar_cabang/?id_kas='.$data->id_pengeluaran) ?>" class="btn btn-danger btn-xs"><i class="fa  fa-eye" ></i></a>
+                        <a href="<?php echo site_url('superadmin/data_kas_keluar_cabang/?id='.$data->id_pengeluaran) ?>" class="btn btn-danger btn-xs"><i class="fa  fa-eye" ></i></a>
                       </td>
                 </tr>
                 </tbody>
@@ -205,8 +205,8 @@
         </div>
           <!-- /.box -->
           <?php
-          if(isset($_GET['id_kas'])){
-            $id_kas=$_GET['id_kas'];
+          if(isset($_GET['id'])){
+            $id=$_GET['id'];
             ?>
           <div class="col-md-12">
                   <div class="box">
@@ -234,7 +234,9 @@
                         <tbody>
                           <?php
                           $no = 0;
-                          $sql = "SELECT * from pengeluaran_cabang_operasional join operasional on operasional.id=pengeluaran_cabang_operasional.id_operasional where id_kas='$id_kas'";
+                          $sql = "SELECT pengeluaran_cabang_operasional.*,operasional.*
+                          FROM pengeluaran_cabang_operasional
+                          join operasional on operasional.id=pengeluaran_cabang_operasional.id_operasional where id_operasional='$id'";
             						  $detail_pengeluaran_cabang=$this->db->query($sql)->result();
                           foreach ($detail_pengeluaran_cabang as $data) {
                             $no++;
