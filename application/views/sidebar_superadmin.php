@@ -79,7 +79,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-    			<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Kas Cabang</a></li>
+    			<li><a href="<?php echo base_url('superadmin/data_kas_keluar_cabang');?>"><i class="fa fa-circle-o"></i> Laporan Kas Cabang</a></li>
     			<li><a href="<?php echo base_url('modul_labarugi/');?>"><i class="fa fa-circle-o"></i> Laporan Laba Rugi</a></li>
     			<li><a href="<?php echo base_url('Superadmin/setoran_kasir');?>"><i class="fa fa-circle-o"></i> Setoran Kasir</a></li>
     			<li><a href="<?php echo base_url('Superadmin/laporan_investasi_cabang');?>"><i class="fa fa-circle-o"></i> Laporan investasi cabang</a></li>

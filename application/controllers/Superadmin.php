@@ -710,4 +710,35 @@ class Superadmin extends CI_Controller {
 		redirect('superadmin/pengeluaranbiayaoprasional_view');
 	}
 
+	//----- data_kas_keluar_cabang
+	public function data_kas_keluar_cabang()
+	{
+		$data['data_kas_keluar_cabang'] = $this->m_modul_superadmin->tampil_data_kas_keluar_cabang()->result();
+		$data['data_resto'] = $this->m_modul_superadmin->tampil_data_resto()->result();
+		$this->load->view('modul_superadmin/kas_keluar_cabang',$data);
+	}
+	public function tambah_data_kas_keluar_cabang()
+	{
+		$resto = $this->input->post('resto');
+		$nominal = $this->input->post('nominal');
+		$tanggal = $this->input->post('tanggal');
+
+		$this->m_modul_superadmin->tambah_data_kas_keluar_cabang($resto,$tanggal,$nominal);
+		redirect('superadmin/data_kas_keluar_cabang');
+	}
+	public function edit_data_kas_keluar_cabang()
+	{
+		$id_kas_keluar_cabang = $this->uri->segment('3');
+		$edit_data_kas_keluar_cabang = $this->m_modul_superadmin->edit_data_kas_keluar_cabang($id_kas_keluar_cabang)->result();
+		echo json_encode($edit_data_kas_keluar_cabang);
+	}
+	public function delete_data_kas_keluar_cabang()
+	{
+		$id_kas_keluar_cabang = $this->uri->segment('3');
+
+		$this->m_modul_superadmin->delete_data_kas_keluar_cabang($id_kas_keluar_cabang);
+		redirect('superadmin/data_kas_keluar_cabang');
+	}
+	//-----------------------------
+
 }

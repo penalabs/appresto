@@ -332,4 +332,36 @@ class M_modul_superadmin extends CI_Model{
 		JOIN user_resto ON user_resto.id = pendapatan_kas_masuk.id_user_kasir");
 		return $query;
 	}
+
+	//---- kas keluar cabang
+	function tampil_data_kas_keluar_cabang(){
+		$hasil=$this->db->query("SELECT * FROM pemberian_kaskeluar
+			JOIN resto ON resto.`id` = `pemberian_kaskeluar`.`id_resto` join user_kanwil on user_kanwil.id=pemberian_kaskeluar.id_bendahara");
+		return $hasil;
+	}
+	function tambah_data_kas_keluar_cabang($resto,$tanggal,$nominal){
+		$hasil=$this->db->query("INSERT INTO pemberian_kaskeluar
+			(id_bendahara,id_resto,tanggal,nominal_kas_keluar)
+      VALUES ('2','$resto','$tanggal','$nominal')");
+
+		return $hasil;
+	}
+	function edit_data_kas_keluar_cabang($id_kas_keluar_cabang){
+		$hasil=$this->db->query("SELECT * FROM pemberian_kaskeluar
+		JOIN resto ON resto.`id` = `pemberian_kaskeluar`.`id_resto`
+		WHERE pemberian_kaskeluar.id_pengeluaran = $id_kas_keluar_cabang");
+
+		return $hasil;
+	}
+	function delete_data_kas_keluar_cabang($id_kas_keluar_cabang){
+		$hasil=$this->db->query("DELETE FROM pemberian_kaskeluar WHERE id_pengeluaran = '$id_kas_keluar_cabang'");
+
+		return $hasil;
+	}
+
+	function tampil_data_resto(){
+		$hasil=$this->db->query("SELECT * FROM resto");
+		return $hasil;
+	}
+	//-----------------------
 }
