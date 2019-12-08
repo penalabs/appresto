@@ -713,6 +713,7 @@ class Superadmin extends CI_Controller {
 	//----- data_kas_keluar_cabang
 	public function data_kas_keluar_cabang()
 	{
+		$data['data_kas_masuk_cabang'] = $this->m_modul_superadmin->tampil_data_kas_masuk_cabang()->result();
 		$data['data_kas_keluar_cabang'] = $this->m_modul_superadmin->tampil_data_kas_keluar_cabang()->result();
 		$data['data_resto'] = $this->m_modul_superadmin->tampil_data_resto()->result();
 		$this->load->view('modul_superadmin/kas_keluar_cabang',$data);
@@ -740,5 +741,6 @@ class Superadmin extends CI_Controller {
 		redirect('superadmin/data_kas_keluar_cabang');
 	}
 	//-----------------------------
+
 
 }

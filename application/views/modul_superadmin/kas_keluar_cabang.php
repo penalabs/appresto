@@ -154,7 +154,7 @@
 	<div class="col-md-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Laporan Kas Cabang</h3>
+              <h3 class="box-title">Laporan Kas Masuk</h3>
               <br>
               <br>
               <!-- <button type="button" data-toggle="modal" data-target="#myModal" data-toggle="tooltip" title="Detail" class="btn btn-default pass_id"><i class="fa fa-plus"> Tambah</i></button> -->
@@ -166,36 +166,77 @@
                 <tr>
                   <th>No</th>
 				          <th>Bendahara</th>
+                  <th>Nama Kasir</th>
+                  <th>Jumlah Setoran</th>
+                  <th>Tanggal</th>
+                </tr>
+                </thead>
+                <?php
+                $no = 0;
+                foreach ($data_kas_masuk_cabang as $datamasuk) {
+                  $no++;
+                	?>
+
+                <tbody>
+                <tr>
+                      <td><?php echo $no;?></td>
+				              <td><?php echo $datamasuk->namakanwil;?></td>
+				              <td><?php echo $datamasuk->namaresto;?></td>
+                      <td><?php
+                       echo $hasil_rupiah = "Rp " . number_format($datamasuk->jumlah_setoran,2,',','.');
+                       ?></td>
+                      <td><?php echo $datamasuk->tanggal;?></td>
+                </tr>
+                </tbody>
+                <?php
+                	}
+                ?>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+
+        <div class="col-md-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Laporan Kas Keluar</h3>
+              <br>
+              <br>
+              <!-- <button type="button" data-toggle="modal" data-target="#myModal" data-toggle="tooltip" title="Detail" class="btn btn-default pass_id"><i class="fa fa-plus"> Tambah</i></button> -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Bendahara</th>
                   <th>Nama Resto</th>
-                  <th>nominal_kas_keluar</th>
-                  <th>tanggal</th>
-                  <th>Aksi</th>
+                  <th>Nominal_kas_keluar</th>
+                  <th>Tanggal</th>
                 </tr>
                 </thead>
                 <?php
                 $no = 0;
                 foreach ($data_kas_keluar_cabang as $data) {
                   $no++;
-                	?>
+                  ?>
 
                 <tbody>
                 <tr id="<?php echo $data->id_pengeluaran;?>">
                       <td><?php echo $no;?></td>
-				              <td><?php echo $data->nama;?></td>
-				              <td><?php echo $data->nama_resto;?></td>
+                      <td><?php echo $data->nama;?></td>
+                      <td><?php echo $data->nama_resto;?></td>
                       <td><?php
                        echo $hasil_rupiah = "Rp " . number_format($data->nominal_kas_keluar,2,',','.');
                        ?></td>
                       <td><?php echo $data->tanggal;?></td>
-				              <td>
-                        <!-- <button type="submit" class="btn btn-success btn-xs edit" data-toggle="modal" data-target="#myModalEdit" data-toggle="tooltip" title="Detail"> <i class="fa  fa-edit" ></i></button>
-                        <a href="<?php echo site_url('superadmin/delete_data_kas_keluar_cabang/'.$data->id_pengeluaran) ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a> -->
-                        <a href="<?php echo site_url('superadmin/data_kas_keluar_cabang/?id='.$data->id_pengeluaran) ?>" class="btn btn-danger btn-xs"><i class="fa  fa-eye" ></i></a>
-                      </td>
                 </tr>
                 </tbody>
                 <?php
-                	}
+                  }
                 ?>
               </table>
             </div>

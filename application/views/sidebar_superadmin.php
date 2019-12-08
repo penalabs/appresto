@@ -32,7 +32,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Laporan Laba rugi</a></li>
+            <li><a href="<?php echo base_url('modul_labarugi/');?>"><i class="fa fa-circle-o"></i> Laporan Laba rugi</a></li>
       			<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Bagi hasil</a></li>
       			<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Investasi</a></li>
           </ul>
@@ -53,7 +53,7 @@
 
             <li><a href="<?php echo base_url('superadmin/restos');?>"><i class="fa fa-circle-o"></i> Daftar resto / Pajak Resto</a></li>
       			<li><a href="<?php echo base_url('Superadmin/pemesanan');?>"><i class="fa fa-circle-o"></i> Laporan Penjualan</a></li>
-      			<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Laba Rugi</a></li>
+      			<li><a href="<?php echo base_url('modul_labarugi/');?>"><i class="fa fa-circle-o"></i> Laporan Laba Rugi</a></li>
       			<li><a href="<?php echo base_url('Superadmin/pengeluaranbiayaoprasional_view');?>""><i class="fa fa-circle-o"></i> Laporan Pengeluaran</a></li>
       			<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Kinerja Pegawai</a></li>
 

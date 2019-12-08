@@ -364,4 +364,12 @@ class M_modul_superadmin extends CI_Model{
 		return $hasil;
 	}
 	//-----------------------
+
+	function tampil_data_kas_masuk_cabang(){
+		$hasil = $this->db->query("SELECT pendapatan_kas_masuk.*, user_kanwil.*, user_resto.*, user_kanwil.nama AS namakanwil, user_resto.nama AS namaresto
+		FROM pendapatan_kas_masuk
+		JOIN user_kanwil ON user_kanwil.id = pendapatan_kas_masuk.id_user_bendahara
+		JOIN user_resto ON user_resto.id = pendapatan_kas_masuk.id_user_kasir");
+		return $hasil;
+	}
 }
