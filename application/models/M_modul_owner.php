@@ -1,6 +1,10 @@
 <?php
 
 class M_modul_owner extends CI_Model{
+	function tampil_data_where($tabel,$where){
+		$this->db->where($where);
+		return $this->db->get($tabel);
+	}
 	function tampil_data($tabel){
 		return $this->db->get($tabel);
 	}

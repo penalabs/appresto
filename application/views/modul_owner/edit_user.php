@@ -15,6 +15,8 @@
 
 	<?php include(APPPATH.'views/header.php');?>
 	<?php include(APPPATH.'views/menu.php');?>
+  <!-- =============================================== -->
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -39,58 +41,53 @@
 					</div>
 					<!-- /.box-header -->
 					<!-- form start -->
-					<form  action="<?php echo base_url(). 'superadmin/action_add_user'; ?>" method="post" role="form">
+					<form  action="<?php echo base_url(). 'modul_owner/action_update_user'; ?>" method="post" role="form">
 					  <div class="box-body">
-              <div class="form-group">
-                <label for="exampleInputPassword1">Kanwil</label>
-                <select name="id_kanwil" class="form-control">
-                  <option value="">--- Pilih Kanwil---</option>
-                  <?php
-                  $sql = "SELECT * FROM kanwil";
-                  $data2=$this->db->query($sql)->result();
-                  foreach($data2 as $u2){ ?>
-                    <option value="<?php echo $u2->id_kanwil; ?>"><?php echo $u2->alamat_kantor; ?></option>
-                  <?php } ?>
-                  </select>
-              </div>
+					  <?php
+					  foreach($data as $u){
+					  ?>
 						<div class="form-group">
 						  <label for="exampleInputPassword1">Nama</label>
-						  <?php
+						  <!-- <?php
 						  if(isset($_GET['tipe'])){
-               $_GET['tipe'];
-						  ?>
+						  ?> -->
 						  <input type="hidden" class="form-control" id="exampleInputPassword1" name="tipe" value="<?php echo $_GET['tipe'];?>" placeholder="nama">
-						  <?php
+						  <input type="hidden" class="form-control" id="exampleInputPassword1" name="id" value="<?php echo $_GET['id'];?>" placeholder="nama">
+						  <!-- <?php
 						  }
-						  ?>
-						  <input type="text" class="form-control" id="exampleInputPassword1" name="nama" placeholder="nama">
+						  ?> -->
+						  <input type="text" class="form-control" id="exampleInputPassword1" name="nama" value="<?php echo $u->nama; ?>" placeholder="nama" >
 						</div>
-
 					   <div class="form-group">
 						  <label for="exampleInputPassword1">User</label>
-						  <input type="text" class="form-control" id="exampleInputPassword1" name="user" placeholder="user">
+						  <input type="text" class="form-control" id="exampleInputPassword1" name="user" value="<?php echo $u->user; ?>" placeholder="user">
 						</div>
 						<div class="form-group">
 						  <label for="exampleInputPassword1">Pass</label>
-						  <input type="text" class="form-control" id="exampleInputPassword1" name="pass" placeholder="pass">
+						  <input type="text" class="form-control" id="exampleInputPassword1" name="pass" value="<?php echo $u->pass; ?>" placeholder="pass">
 						</div>
 
 						<div class="form-group">
 						  <label>Alamat</label>
-						  <textarea class="form-control" rows="3" name="alamat" placeholder="alamat ..."></textarea>
+						  <textarea class="form-control" rows="3" name="alamat" placeholder="alamat ..."><?php echo $u->alamat; ?></textarea>
 						</div>
 						 <div class="form-group">
 						  <label for="exampleInputPassword1">Telp</label>
-						  <input type="number" size="12" class="form-control" id="exampleInputPassword1" name="telp" placeholder="telp">
+						  <input type="number" size="12" class="form-control" id="exampleInputPassword1" name="telp" value="<?php echo $u->telp; ?>" placeholder="telp">
 						</div>
 						<div class="form-group">
 						  <label for="exampleInputPassword1">Email</label>
-						  <input type="email" class="form-control" id="exampleInputPassword1" name="email" placeholder="email">
+						  <input type="email" class="form-control" id="exampleInputPassword1" name="email" value="<?php echo $u->email; ?>" placeholder="email">
 						</div>
-
+            <div class="form-group">
+						  <label for="exampleInputPassword1">Saldo Rekening</label>
+						  <input type="number" class="form-control" id="exampleInputPassword1" name="saldo_rek"  value="<?php echo $u->saldo_rek; ?>" placeholder="saldo rekening">
+						</div>
 					  </div>
 					  <!-- /.box-body -->
-
+					<?php
+					  }
+					  ?>
 					  <div class="box-footer">
 						<button type="submit" class="btn btn-primary">Simpan</button>
 					  </div>

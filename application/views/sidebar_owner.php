@@ -19,7 +19,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo base_url('master/owners?user=owner');?>"><i class="fa fa-circle-o"></i> Owner</a></li>
+            <li><a href="<?php echo base_url('modul_owner/users?user=owner');?>"><i class="fa fa-circle-o"></i> Owner</a></li>
           </ul>
         </li>
 		<li class="treeview">
@@ -30,9 +30,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Laporan Laba rugi</a></li>
-			<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Bagi hasil</a></li>
-			<li><a href="<?php echo base_url('modul_owner/permintaan_investasi');?>"><i class="fa fa-circle-o"></i> Laporan Investasi</a></li>
+            <li><a href="<?php echo base_url('modul_labarugi/');?>"><i class="fa fa-circle-o"></i> Laporan Laba rugi</a></li>
+      			<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Bagi hasil</a></li>
+      			<li><a href="<?php echo base_url('modul_owner/permintaan_investasi');?>"><i class="fa fa-circle-o"></i> Laporan Investasi</a></li>
           </ul>
         </li>
 

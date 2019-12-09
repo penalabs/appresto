@@ -73,10 +73,19 @@ laporan transaksi masih bingung rumus yang dulu
 laporan biaya operasional copy yang sudah ada -> sudah dikerjakan (irhas)
 
 
-----------------------------------------------------catatan luweh penting-------------------------------------------
+----------------------------------------------------catatan luweh penting------------------------------------------- wkwkwkwk
 IKI LOH KUDU RUBAH TABLE SOALE AKU KUDU JUMUK ID_OPRASIONAL TAPI GK ENEK
 function tampil_data_kas_keluar_cabang(){
 		$hasil=$this->db->query("SELECT * FROM pemberian_kaskeluar
 			JOIN resto ON resto.`id` = `pemberian_kaskeluar`.`id_resto` join user_kanwil on user_kanwil.id=pemberian_kaskeluar.id_bendahara");
 		return $hasil;
 	}
+
+penggarapan modul owner
+---------YANG SUDAH
+crud user owner
+modul laba rugi
+modul investasi
+
+---------YANG BELUM 
+modul bagi hasil

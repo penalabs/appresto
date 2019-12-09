@@ -93,6 +93,7 @@ class Superadmin extends CI_Controller {
 			$tabel='user_kanwil';
 			$data = array(
 			'id_super_admin'=>$session_id,
+			'id_kanwil' => $id_kanwil,
 			'nama' => $nama,
 			'user' => $user,
 			'pass' => $pass,
@@ -135,11 +136,13 @@ class Superadmin extends CI_Controller {
 		$alamat = $this->input->post('alamat');
 		$telp = $this->input->post('telp');
 		$email = $this->input->post('email');
+		$id_kanwil = $this->input->post('id_kanwil');
 		$tabel="";
 		if($tipe=="logistik" || $tipe=="bendahara" || $tipe=="general manajer"){
 			$tabel='user_kanwil';
 			$data = array(
 			'id_super_admin'=>$session_id,
+			'id_kanwil' => $id_kanwil,
 			'nama' => $nama,
 			'user' => $user,
 			'pass' => $pass,

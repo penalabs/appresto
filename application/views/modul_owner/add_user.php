@@ -39,20 +39,8 @@
 					</div>
 					<!-- /.box-header -->
 					<!-- form start -->
-					<form  action="<?php echo base_url(). 'superadmin/action_add_user'; ?>" method="post" role="form">
+					<form  action="<?php echo base_url(). 'modul_owner/action_add_user'; ?>" method="post" role="form">
 					  <div class="box-body">
-              <div class="form-group">
-                <label for="exampleInputPassword1">Kanwil</label>
-                <select name="id_kanwil" class="form-control">
-                  <option value="">--- Pilih Kanwil---</option>
-                  <?php
-                  $sql = "SELECT * FROM kanwil";
-                  $data2=$this->db->query($sql)->result();
-                  foreach($data2 as $u2){ ?>
-                    <option value="<?php echo $u2->id_kanwil; ?>"><?php echo $u2->alamat_kantor; ?></option>
-                  <?php } ?>
-                  </select>
-              </div>
 						<div class="form-group">
 						  <label for="exampleInputPassword1">Nama</label>
 						  <?php
@@ -87,7 +75,10 @@
 						  <label for="exampleInputPassword1">Email</label>
 						  <input type="email" class="form-control" id="exampleInputPassword1" name="email" placeholder="email">
 						</div>
-
+            <div class="form-group">
+						  <label for="exampleInputPassword1">Saldo Rekening</label>
+						  <input type="number" class="form-control" id="exampleInputPassword1" name="saldo_rek" placeholder="saldo rekening">
+						</div>
 					  </div>
 					  <!-- /.box-body -->
 

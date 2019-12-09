@@ -20,6 +20,7 @@ class Modul_owner extends CI_Controller {
 	 */
 	 function __construct(){
 		parent::__construct();
+		$this->load->model('m_modul_owner');
 		$this->load->model(array('m_modul_owner'));
 		$this->load->helper('url');
 		if($this->session->userdata('status')==""){
@@ -175,5 +176,180 @@ class Modul_owner extends CI_Controller {
 		$where = array('id' => $id);
 		$this->M_modul_owner->hapus_data($where,'investasi_cabang');
 		redirect('modul_owner/pengeluaran_investasi');
+	}
+
+
+
+
+	public function users(){
+		if(isset($_GET['user'])){
+			 $tipe=$_GET['user'];
+			if($tipe=="logistik" || $tipe=="bendahara" || $tipe=="general manajer"){
+
+				$where = array(
+					'tipe' => $tipe,
+				);
+				$data['data'] = $this->m_modul_owner->tampil_data_where('user_kanwil',$where)->result();
+			}else	if($tipe=="owner"){
+				$data['data'] = $this->m_modul_owner->tampil_data($tipe)->result();
+
+				}
+			}
+	$this->load->view('modul_owner/user',$data);
+	}
+
+	// public function user_bendahara(){
+	// 	$where = array(
+	// 		'tipe' => 'bendahara',
+	// 	);
+	// $data['data'] = $this->m_modul_owner->tampil_data_where('user_kanwil',$where)->result();
+	// $this->load->view('modul_owner/user_bendahara',$data);
+	// }
+
+	public function add_user()
+	{
+		$this->load->view('modul_owner/add_user');
+	}
+
+	public function edit_user()
+	{
+		$id=$_GET['id'];
+		if(isset($_GET['tipe'])){
+			echo $tipe=$_GET['tipe'];
+			if($tipe=="logistik" || $tipe=="bendahara" || $tipe=="general manajer"){
+				$tabel='user_kanwil';
+				$where = array('id' => $id);
+				$data['data'] = $this->m_modul_owner->tampil_data_where($tabel,$where)->result();
+				$this->load->view('modul_owner/edit_user',$data);
+			}else{
+				$tipe=$_GET['tipe'];
+				$tabel=$tipe;
+				$where = array('id' => $id);
+				$data['data'] = $this->m_modul_owner->tampil_data_where($tabel,$where)->result();
+				$this->load->view('modul_owner/edit_user',$data);
+			}
+		}
+
+	}
+	public function action_update_user()
+	{
+		$session_id = $this->session->userdata('id');
+		$id = $this->input->post('id');
+		$tipe = $this->input->post('tipe');
+		$nama = $this->input->post('nama');
+		$user = $this->input->post('user');
+		$pass = $this->input->post('pass');
+		$alamat = $this->input->post('alamat');
+		$telp = $this->input->post('telp');
+		$email = $this->input->post('email');
+		$tabel="";
+		if($tipe=="logistik" || $tipe=="bendahara" || $tipe=="general manajer"){
+			$tabel='user_kanwil';
+			$data = array(
+			'id_super_admin'=>$session_id,
+			'id_kanwil' => $id_kanwil,
+			'nama' => $nama,
+			'user' => $user,
+			'pass' => $pass,
+			'alamat' => $alamat,
+			'telp' => $telp,
+			'email' => $email,
+			'tipe' => $tipe,
+			);
+			$where = array(
+			'id' => $id
+			);
+		$this->m_modul_owner->update_data($where,$data,$tabel);
+		redirect('modul_owner/users?user='.$tipe);
+	}else if($tipe=="owner"){
+			$tabel=$tipe;
+			$saldo_rek = $this->input->post('saldo_rek');
+			$data = array(
+				'id_super_admin'=>$session_id,
+				'nama' => $nama,
+				'user' => $user,
+				'pass' => $pass,
+				'alamat' => $alamat,
+				'telp' => $telp,
+				'email' => $email,
+				'saldo_rek'=>$saldo_rek,
+			);
+			$where = array(
+			'id' => $id
+			);
+		$this->m_modul_owner->update_data($where,$data,$tabel);
+		redirect('modul_owner/users?user='.$tipe);
+		}
+
+	}
+
+	public function action_add_user()
+	{
+		$session_id = $this->session->userdata('id');
+		$tipe = $this->input->post('tipe');
+		$nama = $this->input->post('nama');
+		$user = $this->input->post('user');
+		$pass = $this->input->post('pass');
+		$alamat = $this->input->post('alamat');
+		$telp = $this->input->post('telp');
+		$email = $this->input->post('email');
+		// $id_kanwil = $this->input->post('id_kanwil');
+		$tabel="";
+		if($tipe=="logistik" || $tipe=="bendahara" || $tipe=="general manajer"){
+			$tabel='user_kanwil';
+			$data = array(
+			'id_super_admin'=>$session_id,
+			// 'id_kanwil' => $id_kanwil,
+			'nama' => $nama,
+			'user' => $user,
+			'pass' => $pass,
+			'alamat' => $alamat,
+			'telp' => $telp,
+			'email' => $email,
+			'tipe' => $tipe,
+			);
+			$this->m_modul_owner->input_data($data,$tabel);
+			redirect('modul_owner/users?user='.$tipe);
+		} else if($tipe=="owner"){
+			$tabel=$tipe;
+			$saldo_rek = $this->input->post('saldo_rek');
+			$data = array(
+			'id_super_admin'=>$session_id,
+			'nama' => $nama,
+			'user' => $user,
+			'pass' => $pass,
+			'alamat' => $alamat,
+			'telp' => $telp,
+			'email' => $email,
+			'saldo_rek'=>$saldo_rek,
+			);
+			$this->m_modul_owner->input_data($data,$tabel);
+			redirect('modul_owner/users?user='.$tipe);
+		}
+
+	}
+
+	public function hapus_user()
+	{
+		$session_id = $this->session->userdata('id');
+		$tipe = $this->input->get('tipe');
+		$id = $this->input->get('id');
+		$tabel="";
+		if($tipe=="logistik" || $tipe=="bendahara" || $tipe=="general manajer"){
+			$tabel='user_kanwil';
+			$where = array(
+			'id' => $id,
+			);
+			$this->m_modul_owner->hapus_data($where,$tabel);
+			redirect('modul_owner/users?user='.$tipe);
+		}else{
+			$tabel=$tipe;
+			$where = array(
+			'id'=>$id,
+			);
+			$this->m_modul_owner->hapus_data($where,$tabel);
+			redirect('modul_owner/users?user='.$tipe);
+		}
+
 	}
 }
