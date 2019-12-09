@@ -43,6 +43,7 @@ LOGIN BENDAHRA user dan password tria
 LOGIN GENERAL MANAGER  user dan password indah
 LOGIN OWNER user dan password fauzin
 LOGIN SUPERADMIN user dan password dedi
+LOGIN ADMIN RESTO user dan password rifangi
 
 
 SELANJUTNYA CEKING SUPER ADMIN OWNER SAM GENERAL MANAGER cetak nota kasir
@@ -53,22 +54,22 @@ SELANJUTNYA CEKING SUPER ADMIN OWNER SAM GENERAL MANAGER cetak nota kasir
 crud prmintaan investasi *SUDAH
 
 - user owner
-owner copy laporan laba rugi yang sudah jadi
+owner copy laporan laba rugi yang sudah jadi (sudah) fauzin
 crud bagi hasil
-menampilkan laporan investasi (sudah)
+menampilkan laporan investasi (sudah) fauzin
 
 -user superadmin
 Manajemen Kanwil -> sudah dikerjakan (fauzin)
 laporan owner
 insvestor / owner -> sudah dikerjakan (fauzin)
 pajak resto -> sudah dikerjakan (fauzin)
-copy laporan penjualan kasir (sudah)
+copy laporan penjualan kasir -> sudah dikerjakan (irhas)
 copy laporan laba rugi kasir -> sudah dikerjakan (irhas)
-copy laporan pengeluaran yang ada .
+copy laporan pengeluaran yang ada -> sudah dikerjakan (irhas) .
 kinerja pegawai pending dulu
 gaji intensif
 laporan kas cabang copy yang sudah ada -> tabel kas keluar dan pendapatan kas masuk (kerjakno ir) -> sudah boss (irhas)
-setoran kasir copy yang sudah ada (sudah)
+setoran kasir copy yang sudah ada (sudah) 
 laporan investasi cabang copy yang sudah ada -> sudah dikerjakan (irhas)
 laporan permintaaan barang copy yang sudah ada -> sudah dikerjakan (irhas)
 laporan penerimaan barang copy yang sudah ada -> sudah dikerjakan (irhas)
