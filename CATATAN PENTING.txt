@@ -40,6 +40,10 @@ LOGIN WAITERS user dan password wahyu
 LOGIN PRODUKSI user dan password fauzin
 LOGIN LOGISTIK user dan password wiwin
 LOGIN BENDAHRA user dan password tria
+LOGIN GENERAL MANAGER  user dan password indah
+LOGIN OWNER user dan password fauzin
+LOGIN SUPERADMIN user dan password dedi
+
 
 SELANJUTNYA CEKING SUPER ADMIN OWNER SAM GENERAL MANAGER cetak nota kasir
 
