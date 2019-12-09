@@ -32,8 +32,9 @@ permintaan bahan mentah dan olahan di SUM, masing masing jumlah permintaan stokn
 
 CLONE BARU REPOSITORY
 
-gunakan database db_siresto2.sql
+gunakan database db_siresto2.sql -> dbsiresto.sql
 
+----------------------------------------------------------------------------------------------------------------------------
 
 LOGIN kasir user dan password debi
 LOGIN WAITERS user dan password wahyu
@@ -50,7 +51,6 @@ SELANJUTNYA CEKING SUPER ADMIN OWNER SAM GENERAL MANAGER cetak nota kasir
 
 
 -user general manager
-
 crud prmintaan investasi *SUDAH
 
 - user owner
@@ -59,15 +59,25 @@ crud bagi hasil
 menampilkan laporan investasi (sudah) fauzin
 
 -user superadmin
-Manajemen Kanwil -> sudah dikerjakan (fauzin)
-laporan owner
+Superadmin -> sudah dikerjakan (fauzin)
+Manajer Kanwil -> sudah dikerjakan (fauzin)
+Bendahara kanwil -> sudah dikerjakan (fauzin)
+Logistik -> sudah dikerjakan (fauzin)
+
+-menu owner
+crud user owner -> sudah dikerjakan (fauzin)
+laporan laba rugi -> sudah dikerjakan (fauzin)
+laporan bagi hasil belum -> kerjakno ir
+laporan investasi belum -> kerjakno ir copy modul user owner (menampilkan laporan investasi (sudah) fauzin)
+
+-menu menu lain di superadmin
 insvestor / owner -> sudah dikerjakan (fauzin)
 pajak resto -> sudah dikerjakan (fauzin)
 copy laporan penjualan kasir -> sudah dikerjakan (irhas)
 copy laporan laba rugi kasir -> sudah dikerjakan (irhas)
 copy laporan pengeluaran yang ada -> sudah dikerjakan (irhas) .
 kinerja pegawai pending dulu
-gaji intensif
+gaji intensif pending dulu
 laporan kas cabang copy yang sudah ada -> tabel kas keluar dan pendapatan kas masuk (kerjakno ir) -> sudah boss (irhas)
 setoran kasir copy yang sudah ada (sudah) 
 laporan investasi cabang copy yang sudah ada -> sudah dikerjakan (irhas)
@@ -86,11 +96,12 @@ function tampil_data_kas_keluar_cabang(){
 		return $hasil;
 	}
 
-penggarapan modul owner
+
+user owner, modul owner 
 ---------YANG SUDAH
-crud user owner
-modul laba rugi
-modul investasi
+crud user owner -> sudah dikerjakan (fauzin)
+modul laba rugi -> sudah dikerjakan (fauzin)
+modul investasi -> sudah dikerjakan (fauzin)
 
 ---------YANG BELUM 
 modul bagi hasil
