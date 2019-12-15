@@ -104,3 +104,4 @@ modul investasi -> sudah dikerjakan (fauzin)
 
 ---------YANG BELUM 
 modul bagi hasil = BADAKE.... AKU BAGI HASIL GK ROH ALURE, PIYE JELASKAN.
+select sum(jumlah_bonus) as total_bonus from intensif_waiters where tanggal>'2019-12-01' and tanggal<'2019-12-31'

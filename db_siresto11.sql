@@ -11,7 +11,7 @@
  Target Server Version : 100131
  File Encoding         : 65001
 
- Date: 15/12/2019 21:38:28
+ Date: 13/11/2019 22:15:16
 */
 
 SET NAMES utf8mb4;
@@ -202,36 +202,27 @@ CREATE TABLE `gaji`  (
   `id` int(11) NOT NULL,
   `id_resto` int(11) NOT NULL,
   `id_user_resto` int(11) NOT NULL,
-  `tanggal_awal` date NOT NULL,
-  `tanggal_akhir` date NOT NULL,
+  `bulan_awal` datetime(0) NOT NULL,
+  `bulan_akhir` datetime(0) NOT NULL,
   `jenis_gaji` enum('bulanan','THR','bonus','pesangon') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `nominal_gaji` int(11) NOT NULL,
+  `jumlah_gaji` int(11) NOT NULL,
+  `total_gaji` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Records of gaji
+-- Table structure for insentif
 -- ----------------------------
-INSERT INTO `gaji` VALUES (1, 1, 2, '2019-12-01', '2019-12-31', 'bulanan', 100000);
-
--- ----------------------------
--- Table structure for intensif_waiters
--- ----------------------------
-DROP TABLE IF EXISTS `intensif_waiters`;
-CREATE TABLE `intensif_waiters`  (
+DROP TABLE IF EXISTS `insentif`;
+CREATE TABLE `insentif`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_user_resto` int(11) NOT NULL,
-  `tanggal` date NULL DEFAULT NULL,
-  `jumlah_bonus` int(11) NOT NULL,
+  `id_resto` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `total_orderan` int(11) NOT NULL,
+  `jumlah_insentif` int(11) NOT NULL,
+  `id_gaji` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of intensif_waiters
--- ----------------------------
-INSERT INTO `intensif_waiters` VALUES (1, 1, '2019-12-02', 1000);
-INSERT INTO `intensif_waiters` VALUES (2, 1, '2019-12-03', 1000);
-INSERT INTO `intensif_waiters` VALUES (3, 1, '2019-12-30', 1000);
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for investasi_cabang
@@ -301,8 +292,8 @@ CREATE TABLE `investasi_owner`  (
 -- ----------------------------
 -- Records of investasi_owner
 -- ----------------------------
-INSERT INTO `investasi_owner` VALUES (1, 1, 1, 2, '2019-11-30', 90000, '2 bulan', 20);
-INSERT INTO `investasi_owner` VALUES (2, 1, 1, 2, '2019-11-30', 9000, '3 bulan', 20);
+INSERT INTO `investasi_owner` VALUES (1, 1, 1, 2, '2019-11-30', 90000, '2 bulan', 80000);
+INSERT INTO `investasi_owner` VALUES (4, 1, 1, 2, '2019-11-30', 9000, '3 bulan', 9000);
 
 -- ----------------------------
 -- Table structure for jenis_masakan
@@ -330,14 +321,12 @@ CREATE TABLE `kanwil`  (
   `alamat_kantor` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `telp` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id_kanwil`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of kanwil
 -- ----------------------------
 INSERT INTO `kanwil` VALUES (1, 'ngronggo', '0856464646');
-INSERT INTO `kanwil` VALUES (2, 'a', '94586845');
-INSERT INTO `kanwil` VALUES (5, 'b', '94586845');
 
 -- ----------------------------
 -- Table structure for logistik
@@ -411,14 +400,13 @@ CREATE TABLE `omset_investasi_owner`  (
   `tanggal` date NOT NULL,
   `penyusutan_invest` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of omset_investasi_owner
 -- ----------------------------
 INSERT INTO `omset_investasi_owner` VALUES (1, 1, 1, '2019-10-30', 200000);
 INSERT INTO `omset_investasi_owner` VALUES (2, 1, 1, '2019-10-31', 200000);
-INSERT INTO `omset_investasi_owner` VALUES (3, 1, 1, '2019-11-01', 200000);
 
 -- ----------------------------
 -- Table structure for operasional
@@ -456,13 +444,12 @@ CREATE TABLE `owner`  (
   `create_at` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
   `update_at` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of owner
 -- ----------------------------
-INSERT INTO `owner` VALUES (1, 1, 'fauzin', 'fauzin', 'fauzin', 'sambirejo', '1234567', 'fauzin@gmail.com', '200000', '2019-05-08 00:37:00', '2019-05-08 00:37:00');
-INSERT INTO `owner` VALUES (2, 1, 'dedy ardiansyah 1', 'sd', 'as', 'asadas', '94586845', 'dfs@gmail.com', '100000', '2019-12-09 14:04:05', '2019-12-09 14:04:05');
+INSERT INTO `owner` VALUES (1, 1, 'fauzin', 'fauzin', 'fauzin', 'sambirejo', '123456', 'fauzin@gmail.com', '0', '2019-05-08 00:37:00', '2019-05-08 00:37:00');
 
 -- ----------------------------
 -- Table structure for paket
@@ -1009,16 +996,14 @@ CREATE TABLE `user_kanwil`  (
   `update_at` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
   `tipe` enum('general manajer','bendahara','logistik') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of user_kanwil
 -- ----------------------------
-INSERT INTO `user_kanwil` VALUES (1, 1, 1, 'indah', 'indah', 'indah', 'ngronggo', '085855', 'indah@gmail.com', '2019-05-08 00:42:08', '2019-05-08 00:42:08', 'general manajer');
-INSERT INTO `user_kanwil` VALUES (2, 1, 1, 'tria', 'tria', 'tria', 'ngronggo', '0858858585', 'tria@gmail.com', '2019-05-08 00:42:08', '2019-05-08 00:42:08', 'bendahara');
+INSERT INTO `user_kanwil` VALUES (1, 1, 1, 'indah', 'indah', 'indah', 'ngronggo', '2222222', 'indah@gmail.com', '2019-05-08 00:42:08', '2019-05-08 00:42:08', 'general manajer');
+INSERT INTO `user_kanwil` VALUES (2, 1, 1, 'tria', 'tria', 'tria', 'ngronggo', '12121212', 'tria@gmail.com', '2019-05-08 00:42:08', '2019-05-08 00:42:08', 'bendahara');
 INSERT INTO `user_kanwil` VALUES (3, 1, 1, 'wiwin', 'wiwin', 'wiwin', 'ngronggo', '098336366363', 'wiwin@gmail.com', '2019-05-08 00:42:08', '2019-05-08 00:42:08', 'logistik');
-INSERT INTO `user_kanwil` VALUES (17, 1, 1, 'dedy ardiansyah 1', 'sd', 'as', 'sddsd', '43334', 'dfs@gmail.com', '2019-12-09 13:45:32', '2019-12-09 13:45:32', 'general manajer');
-INSERT INTO `user_kanwil` VALUES (18, 1, 1, 'dedy ardiansyah 1', 'sa', 'asa', 'asda', '32423', 'dfs@gmail.com', '2019-12-09 13:46:37', '2019-12-09 13:46:37', 'bendahara');
 
 -- ----------------------------
 -- Table structure for user_resto
@@ -1028,13 +1013,11 @@ CREATE TABLE `user_resto`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_kanwil` int(11) NOT NULL,
   `id_resto` int(11) NOT NULL,
-  `nama` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `user` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `pass` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `nama` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `alamat` varchar(500) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `telp` varchar(12) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `create_at` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `update_at` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
   `jenis` enum('admin resto','kasir','waiters','produksi') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
@@ -1042,9 +1025,9 @@ CREATE TABLE `user_resto`  (
 -- ----------------------------
 -- Records of user_resto
 -- ----------------------------
-INSERT INTO `user_resto` VALUES (1, 1, 1, 'debi', 'debi', 'debi', 'nganjuk', '085646898767', '2019-12-09 13:48:51', '2019-12-09 13:48:51', 'kasir');
-INSERT INTO `user_resto` VALUES (2, 1, 1, 'wahyu', 'wahyu', 'wahyu', 'mojoroto', '085646898767', '2019-12-09 13:48:51', '2019-12-09 13:48:51', 'waiters');
-INSERT INTO `user_resto` VALUES (3, 1, 1, 'fauzin', 'fauzin', 'fauzin', 'gampengrejo', '085646898767', '2019-12-09 13:48:51', '2019-12-09 13:48:51', 'produksi');
-INSERT INTO `user_resto` VALUES (4, 1, 1, 'rifangi', 'rifangi', 'rifangi', 'nganjuk', '085646898767', '2019-12-09 13:48:51', '2019-12-09 13:48:51', 'admin resto');
+INSERT INTO `user_resto` VALUES (1, 1, 1, 'debi', 'debi', 'debi', 'nganjuk', '085646898767', 'kasir');
+INSERT INTO `user_resto` VALUES (2, 1, 1, 'wahyu', 'wahyu', 'wahyu', 'mojoroto', '085646898767', 'waiters');
+INSERT INTO `user_resto` VALUES (3, 1, 1, 'fauzin', 'fauzin', 'fauzin', 'gampengrejo', '085646898767', 'produksi');
+INSERT INTO `user_resto` VALUES (4, 1, 1, 'rifangi', 'rifangi', 'rifangi', 'nganjuk', '085646898767', 'admin resto');
 
 SET FOREIGN_KEY_CHECKS = 1;
