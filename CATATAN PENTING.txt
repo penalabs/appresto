@@ -67,7 +67,7 @@ Logistik -> sudah dikerjakan (fauzin)
 -menu owner
 crud user owner -> sudah dikerjakan (fauzin)
 laporan laba rugi -> sudah dikerjakan (fauzin)
-laporan bagi hasil belum -> kerjakno ir
+laporan bagi hasil belum -> dikerjakan (fauzin) cek en ir sesuai gak mbe alur e ko debi lek kurang sesuai, sesuakno yo
 laporan investasi belum -> sudah dikerjakan (fauzin)
 
 -menu menu lain di superadmin
