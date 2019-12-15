@@ -76,8 +76,7 @@ pajak resto -> sudah dikerjakan (fauzin)
 copy laporan penjualan kasir -> sudah dikerjakan (irhas)
 copy laporan laba rugi kasir -> sudah dikerjakan (irhas)
 copy laporan pengeluaran yang ada -> sudah dikerjakan (irhas) .
-kinerja pegawai pending dulu
-gaji intensif pending dulu
+kinerja pegawai / gaji intensif kerjakno ir
 laporan kas cabang copy yang sudah ada -> tabel kas keluar dan pendapatan kas masuk (kerjakno ir) -> sudah boss (irhas)
 setoran kasir copy yang sudah ada (sudah) 
 laporan investasi cabang copy yang sudah ada -> sudah dikerjakan (irhas)
