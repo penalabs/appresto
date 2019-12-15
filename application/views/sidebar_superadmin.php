@@ -33,7 +33,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="<?php echo base_url('modul_labarugi/');?>"><i class="fa fa-circle-o"></i> Laporan Laba rugi</a></li>
-      			<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Bagi hasil</a></li>
+      			<li><a href="<?php echo base_url('superadmin/laporan_bagi_hasil_owner');?>"><i class="fa fa-circle-o"></i> Laporan Bagi hasil</a></li>
       			<li><a href="<?php echo base_url('superadmin/laporan_investasi_owner');?>"><i class="fa fa-circle-o"></i> Laporan Investasi</a></li>
           </ul>
     </li>

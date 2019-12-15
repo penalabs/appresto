@@ -57,7 +57,7 @@
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Investasi Owner</h3>
+              <h3 class="box-title">Data Laporan Bagi Hasil</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -72,7 +72,6 @@
                   <th>Jangka waktu</th>
                   <th>Persenase Omset</th>
                   <th>Nominal Omset</th>
-				          <th>Detail</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -90,11 +89,6 @@
                   <td><?php echo $u->jangka_waktu ?></td>
                   <td><?php echo $u->persentase_omset ?> %</td>
                   <td><?php echo $u->persentase_omset/100*$u->jumlah_investasi ?></td>
-                  <td>
-
-                    <a href="<?php echo base_url('superadmin/detail_investasi?id=');?><?php echo $u->id ?>" class="btn btn-danger btn-xs"><i class="fa  fa-eye" ></i></a>
-
-                  </td>
                 </tr>
 				<?php } ?>
 

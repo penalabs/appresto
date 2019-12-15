@@ -196,12 +196,43 @@ class Superadmin extends CI_Controller {
 
 	}
 
-	public function laporan_investasi_owner()
+	public function laporan_bagi_hasil_owner()
 	{
 		$sql2 = "SELECT investasi_owner.id,owner.nama as nama_owner,user_kanwil.nama as nama_bendahara,investasi_owner.tanggal,investasi_owner.jumlah_investasi,investasi_owner.jangka_waktu,investasi_owner.persentase_omset FROM investasi_owner join user_kanwil on user_kanwil.id=investasi_owner.id_bendahara join owner on owner.id=investasi_owner.id_owner";
 
 		$data['data'] = $this->db->query($sql2)->result();
 		$this->load->view('modul_superadmin/investasi_owner',$data);
+	}
+
+	public function  action_add_penyusutan(){
+		$session_id = $this->session->userdata('id');
+		$id_investasi_owner = $this->input->post('id');
+		$tanggal = $this->input->post('tanggal');
+		$penyusutan_invest = $this->input->post('penyusutan_invest');
+
+			$data = array(
+			'id_investasi_owner' => $id_investasi_owner,
+			'id_super_admin'=>$session_id,
+			'tanggal' => $tanggal,
+			'penyusutan_invest' => $penyusutan_invest,
+			);
+			$this->m_modul_superadmin->input_data($data,'omset_investasi_owner');
+			redirect('superadmin/detail_investasi?id='.$id_investasi_owner);
+	}
+	public function detail_investasi()
+	{
+		$id = $this->input->get('id');
+		$sql2 = "SELECT * from omset_investasi_owner where id_investasi_owner='$id'";
+		$data['data'] = $this->db->query($sql2)->result();
+		$this->load->view('modul_superadmin/detail_investasi',$data);
+	}
+
+	public function laporan_investasi_owner()
+	{
+		$sql2 = "SELECT investasi_owner.id,owner.nama as nama_owner,user_kanwil.nama as nama_bendahara,investasi_owner.tanggal,investasi_owner.jumlah_investasi,investasi_owner.jangka_waktu,investasi_owner.persentase_omset FROM investasi_owner join user_kanwil on user_kanwil.id=investasi_owner.id_bendahara join owner on owner.id=investasi_owner.id_owner";
+
+		$data['data'] = $this->db->query($sql2)->result();
+		$this->load->view('modul_superadmin/laporan_bagi_hasil_owner',$data);
 	}
 
 	public function manajemen_kanwil()

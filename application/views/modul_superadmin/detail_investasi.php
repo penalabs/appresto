@@ -29,35 +29,39 @@
     <!-- Main content -->
     <section class="content">
 	<div class="row">
-	    <div class="col-xs-10">
-          <div class="box box-default">
-            <div class="box-header with-border">
-
-            </div>
-            <div class="box-body">
-						<?php
-
-						  if(empty($_GET['user'])){
-						  ?>
-						  <?php
-              }else{
-                echo $tipe=$_GET['user'];
-						  ?>
-              <a href="<?php echo base_url('superadmin/add_user?tipe='.$tipe);?>" type="button" class="btn btn-success" >  Tambah
-              </a>
-              <?php
-              }
-               ?>
-
-
-            </div>
-          </div>
+    <div class="col-md-6">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Quick Input penyusutan</h3>
+      </div>
+      <!-- /.box-header -->
+      <!-- form start -->
+      <form  action="<?php echo base_url(). 'superadmin/action_add_penyusutan'; ?>" method="post" role="form">
+        <div class="box-body">
+          <input type="hidden" class="form-control" id="exampleInputPassword1" name="id" placeholder="id" value="<?php echo $_GET['id'];?>">
+         <div class="form-group">
+          <label for="exampleInputPassword1">Tanggal</label>
+          <input type="text" size="12" class="form-control" id="exampleInputPassword1" name="tanggal" placeholder="tanggal">
         </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Nominal Penyusutan</label>
+          <input type="number" class="form-control" id="exampleInputPassword1" name="penyusutan_invest" placeholder="Nominal penyusutan">
+        </div>
+
+        </div>
+        <!-- /.box-body -->
+
+        <div class="box-footer">
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+      </form>
+      </div>
+    </div>
 	<div class="col-md-10">
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Investasi Owner</h3>
+              <h3 class="box-title">Data detail penyusutan investasi</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -65,14 +69,10 @@
                 <thead>
                 <tr>
                   <th>#</th>
-                  <th>Owner</th>
-                  <th>Bendahara</th>
+
                   <th>Tanggal</th>
-                  <th>Jumlah investasi</th>
-                  <th>Jangka waktu</th>
-                  <th>Persenase Omset</th>
-                  <th>Nominal Omset</th>
-				          <th>Detail</th>
+                  <th>Penyusutan investasi</th>
+
                 </tr>
                 </thead>
                 <tbody>
@@ -82,17 +82,11 @@
 				?>
                 <tr>
                   <td><?php echo $no++ ?>.</td>
-                  <td><?php echo $u->nama_owner?>
-                  </td>
-                  <td><?php echo $u->nama_bendahara ?></td>
-                  <td><?php echo $u->tanggal ?></td>
-                  <td><?php echo $u->jumlah_investasi ?></td>
-                  <td><?php echo $u->jangka_waktu ?></td>
-                  <td><?php echo $u->persentase_omset ?> %</td>
-                  <td><?php echo $u->persentase_omset/100*$u->jumlah_investasi ?></td>
-                  <td>
 
-                    <a href="<?php echo base_url('superadmin/detail_investasi?id=');?><?php echo $u->id ?>" class="btn btn-danger btn-xs"><i class="fa  fa-eye" ></i></a>
+                  <td><?php echo $u->tanggal ?></td>
+                  <td><?php echo $u->penyusutan_invest ?></td>
+
+                  <td>
 
                   </td>
                 </tr>
