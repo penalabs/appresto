@@ -196,6 +196,13 @@ class Superadmin extends CI_Controller {
 
 	}
 
+	public function laporan_investasi_owner()
+	{
+		$sql2 = "SELECT investasi_owner.id,owner.nama as nama_owner,user_kanwil.nama as nama_bendahara,investasi_owner.tanggal,investasi_owner.jumlah_investasi,investasi_owner.jangka_waktu,investasi_owner.persentase_omset FROM investasi_owner join user_kanwil on user_kanwil.id=investasi_owner.id_bendahara join owner on owner.id=investasi_owner.id_owner";
+
+		$data['data'] = $this->db->query($sql2)->result();
+		$this->load->view('modul_superadmin/investasi_owner',$data);
+	}
 
 	public function manajemen_kanwil()
 	{
@@ -605,10 +612,15 @@ class Superadmin extends CI_Controller {
 	public function setoran_kasir()
 	{
 		$id_user_kasir=$this->session->userdata('id');
-		$where = array(
-			'id_user_kasir' => $id_user_kasir,
-		);
-        $x['data']=$this->m_modul_superadmin->tampil_data_where('pendapatan_kas_masuk',$where)->result();
+		// $where = array(
+		// 	'id_user_kasir' => $id_user_kasir,
+		// );
+    // $x['data']=$this->m_modul_superadmin->tampil_data_where('pendapatan_kas_masuk',$where)->result();
+
+		$sql2 = "SELECT * FROM pendapatan_kas_masuk join user_kanwil on user_kanwil.id=pendapatan_kas_masuk.id_user_bendahara ";
+
+		$x['data'] = $this->db->query($sql2)->result();
+
 		$this->load->view('modul_superadmin/setoran_kasir',$x);
 	}
 

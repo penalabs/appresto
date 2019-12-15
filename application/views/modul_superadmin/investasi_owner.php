@@ -20,7 +20,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Setoran Kasir
+        Users
 
       </h1>
 
@@ -30,24 +30,34 @@
     <section class="content">
 	<div class="row">
 	    <div class="col-xs-10">
-          <!-- <div class="box box-default">
+          <div class="box box-default">
             <div class="box-header with-border">
 
             </div>
             <div class="box-body">
+						<?php
 
-						  <a href="<?php echo base_url('kasir/add_setor');?>" type="button" class="btn btn-success" >
-
-                Tambah
+						  if(empty($_GET['user'])){
+						  ?>
+						  <?php
+              }else{
+                echo $tipe=$_GET['user'];
+						  ?>
+              <a href="<?php echo base_url('superadmin/add_user?tipe='.$tipe);?>" type="button" class="btn btn-success" >  Tambah
               </a>
+              <?php
+              }
+               ?>
+
+
             </div>
-          </div> -->
+          </div>
         </div>
 	<div class="col-md-10">
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Setoran ke Bendahara</h3>
+              <h3 class="box-title">Data Investasi Owner</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -55,11 +65,13 @@
                 <thead>
                 <tr>
                   <th>#</th>
+                  <th>Owner</th>
                   <th>Bendahara</th>
-                  <th>Jumlah setoran</th>
                   <th>Tanggal</th>
-                  <th>status</th>
-				  <!-- <th>Aksi</th> -->
+                  <th>Jumlah investasi</th>
+                  <th>Jangka waktu</th>
+                  <th>Persenase Omset</th>
+				          
                 </tr>
                 </thead>
                 <tbody>
@@ -69,12 +81,14 @@
 				?>
                 <tr>
                   <td><?php echo $no++ ?>.</td>
-                  <td><?php echo $u->nama ?>
-                  <td><?php echo $u->jumlah_setoran ?>
+                  <td><?php echo $u->nama_owner?>
                   </td>
-                  <td><?php echo $u->tanggal_awal; ?> - <?php echo $u->tanggal_akhir; ?></td>
-				  <td>Setoran diterima bendahara</td>
-				  <!-- <td><a href="" class="btn btn-danger btn-xs" data-toggle="tooltip" title="Batal"><i class="fa  fa-close" ></i></a></td> -->
+                  <td><?php echo $u->nama_bendahara ?></td>
+                  <td><?php echo $u->tanggal ?></td>
+                  <td><?php echo $u->jumlah_investasi ?></td>
+                  <td><?php echo $u->jangka_waktu ?></td>
+                  <td><?php echo $u->persentase_omset ?></td>
+
                 </tr>
 				<?php } ?>
 

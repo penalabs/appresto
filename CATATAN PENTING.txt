@@ -68,7 +68,7 @@ Logistik -> sudah dikerjakan (fauzin)
 crud user owner -> sudah dikerjakan (fauzin)
 laporan laba rugi -> sudah dikerjakan (fauzin)
 laporan bagi hasil belum -> kerjakno ir
-laporan investasi belum -> kerjakno ir copy modul user owner (menampilkan laporan investasi (sudah) fauzin)
+laporan investasi belum -> sudah dikerjakan (fauzin)
 
 -menu menu lain di superadmin
 insvestor / owner -> sudah dikerjakan (fauzin)
