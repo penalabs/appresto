@@ -56,7 +56,7 @@ class Master extends CI_Controller {
 
 				$where = array(
 					'tipe' => $user,
-					'id_kanwil'=>$id_kanwil->id_kanwil
+					// 'id_kanwil'=>$id_kanwil->id_kanwil
 				);
 			$data['data'] = $this->m_master->tampil_data_where('user_kanwil',$where)->result();
 			$this->load->view('master/users',$data);
@@ -66,7 +66,7 @@ class Master extends CI_Controller {
 				$id_kanwil->id_kanwil;
 				$where = array(
 					'tipe' => $user,
-					'id_kanwil'=>$id_kanwil->id_kanwil
+					// 'id_kanwil'=>$id_kanwil->id_kanwil
 				);
 			$data['data'] = $this->m_master->tampil_data_where('user_kanwil',$where)->result();
 			$this->load->view('master/users',$data);
@@ -76,7 +76,7 @@ class Master extends CI_Controller {
 
 				$where = array(
 					'tipe' => $user,
-					'id_kanwil'=>$id_kanwil->id_kanwil
+					// 'id_kanwil'=>$id_kanwil->id_kanwil
 				);
 			$data['data'] = $this->m_master->tampil_data_where('user_kanwil',$where)->result();
 			$this->load->view('master/users',$data);
@@ -86,7 +86,7 @@ class Master extends CI_Controller {
 
 				$where = array(
 					'jenis' => $user,
-					'id_kanwil'=>$id_kanwil->id_kanwil
+					// 'id_kanwil'=>$id_kanwil->id_kanwil
 				);
 			$data['data'] = $this->m_master->tampil_data_where('user_resto',$where)->result();
 			$this->load->view('master/users',$data);
@@ -222,6 +222,30 @@ class Master extends CI_Controller {
 			);
 		$this->m_master->update_data($where,$data,$tabel);
 		redirect('master/owners?user='.$tipe);
+		}
+
+	}
+
+	public function hapus_user()
+	{
+		$session_id = $this->session->userdata('id');
+		$tipe = $this->input->get('tipe');
+		$id = $this->input->get('id');
+		$tabel="";
+		if($tipe=="logistik" || $tipe=="bendahara" || $tipe=="general manajer"){
+			$tabel='user_kanwil';
+			$where = array(
+			'id' => $id,
+			);
+			$this->m_master->hapus_data($where,$tabel);
+			redirect('master/users?user='.$tipe);
+		}else{
+			$tabel=$tipe;
+			$where = array(
+			'id'=>$id,
+			);
+			$this->m_master->hapus_data($where,$tabel);
+			redirect('master/owners?user='.$tipe);
 		}
 
 	}

@@ -605,7 +605,7 @@ class Modul_resto extends CI_Controller {
 
 	public function index_permintaan_bahan()
 	{
-		$this->load->view('modul_produksi/menu_permintaan_bahan/permintaan_bahan');
+		$this->load->view('modul_resto/menu_permintaan_bahan/permintaan_bahan');
 	}
 	public function data_permintaan_bahan()
 	{
@@ -637,7 +637,7 @@ class Modul_resto extends CI_Controller {
 
 		$nama_permintaan = $this->input->post('nama_permintaan');
 		$this->m_modul_resto->tambah_data_permintaan_bahan($nama_permintaan,$id_user_resto_produksi_adminresto,$id_user_kanwil_logistik);
-		redirect('modul_produksi/index_permintaan_bahan');
+		redirect('modul_resto/index_permintaan_bahan');
 	}
 	public function edit_data_permintaan_bahan()
 	{
@@ -653,13 +653,13 @@ class Modul_resto extends CI_Controller {
 		// $nama_permintaan = $this->input->post('nama_permintaan');
 		// echo $nama_permintaan;
 		$this->m_modul_resto->update_data_permintaan_bahan($id_permintaan_edit,$nama_permintaan_edit);
-		redirect('modul_produksi/index_permintaan_bahan');
+		redirect('modul_resto/index_permintaan_bahan');
 	}
 	public function delete_data_permintaan_bahan()
 	{
 		$id_permintaan = $this->uri->segment('3');
 		$this->m_modul_resto->delete_data_permintaan_bahan($id_permintaan);
-		redirect('modul_produksi/index_permintaan_bahan');
+		redirect('modul_resto/index_permintaan_bahan');
 	}
 	public function update_proses_permintaan()
 	{
@@ -667,7 +667,7 @@ class Modul_resto extends CI_Controller {
 		// $nama_permintaan = $this->input->post('nama_permintaan');
 		// echo $nama_permintaan;
 		$this->m_modul_resto->update_proses_permintaan($id_permintaan);
-		redirect('modul_produksi/index_permintaan_bahan');
+		redirect('modul_resto/index_permintaan_bahan');
 	}
 	public function update_diterima()
 	{
@@ -755,7 +755,7 @@ class Modul_resto extends CI_Controller {
 		// 	WHERE bahan_mentah.id = $id_bahan_mentah; ");
 
 		$this->m_modul_resto->update_diterima($id_permintaan);
-		redirect('modul_produksi/index_permintaan_bahan');
+		redirect('modul_resto/index_permintaan_bahan');
 	}
 
 	//----------------------
@@ -791,7 +791,7 @@ class Modul_resto extends CI_Controller {
 		$data['id_permintaan'] = $id_permintaan;
 		$data['nama_permintaan'] = $nama_permintaan;
 		// echo $status;
-		$this->load->view('modul_produksi/menu_permintaan_bahan/permintaan_bahan_detail',$data);
+		$this->load->view('modul_resto/menu_permintaan_bahan/permintaan_bahan_detail',$data);
 	}
 	public function tambah_data_permintaan_bahan_detail()
 	{
@@ -801,7 +801,7 @@ class Modul_resto extends CI_Controller {
 		$satuan_besar = $this->input->post('satuan_besar');
 
 		$this->m_modul_resto->tambah_data_permintaan_bahan_detail($id_permintaan,$bahan_mentah,$jumlah_permintaan,$satuan_besar);
-		redirect('modul_produksi/data_permintaan_bahan_detail/'.$id_permintaan);
+		redirect('modul_resto/data_permintaan_bahan_detail/'.$id_permintaan);
 	}
 	public function update_sesuai_data_permintaan_bahan_detail()
 	{
@@ -820,7 +820,7 @@ class Modul_resto extends CI_Controller {
 		// $nama_permintaan = $this->input->post('nama_permintaan');
 		// echo $nama_permintaan;
 		$this->m_modul_resto->update_sesuai_data_permintaan_bahan_detail($id_detail_permintaan);
-		redirect('modul_produksi/data_permintaan_bahan_detail/'.$id_permintaan);
+		redirect('modul_resto/data_permintaan_bahan_detail/'.$id_permintaan);
 	}
 	public function update_tidak_sesuai_data_permintaan_bahan_detail()
 	{
@@ -842,10 +842,14 @@ class Modul_resto extends CI_Controller {
 
 		$this->m_modul_resto->update_tidak_sesuai_data_permintaan_bahan_detail($id_detail_permintaan);
 		$this->m_modul_resto->tambah_data_permintaan_bahan_tidak_sesuai($id_detail_permintaan,$jumlah_bahan_terkirim,$selisih_bahan);
-		redirect('modul_produksi/data_permintaan_bahan_detail/'.$id_permintaan);
+		redirect('modul_resto/data_permintaan_bahan_detail/'.$id_permintaan);
 	}
 
 
 	//---------------------------
 	//--------------------------------------
+
+
+
+	
 }
