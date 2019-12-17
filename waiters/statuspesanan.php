@@ -77,8 +77,28 @@ header("Location:index.php");
 						<img src="user.png" class="img-circle" alt="User Image">
 					</div>
 					<div class="pull-left info">
-						<p><?php echo $_SESSION['user']; ?></p>
-						<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+						<p>
+        <?php 
+          $kalimat = $_SESSION['user']; 
+          $kalimat_new = ucfirst($kalimat);
+          echo $kalimat_new;
+          $waiters = $_SESSION['id'];
+
+          //select tanggal awal dan akhir untuk menentukan intensif SUM intensif gajo
+          $querytanggalgaji ="SELECT tanggal_awal,tanggal_akhir FROM gaji ORDER BY tanggal_awal,tanggal_akhir DESC LIMIT 1";
+          $hasiltglgaji = mysqli_query($koneksi,$querytanggalgaji);
+          $datatglgaji=mysqli_fetch_array($hasiltglgaji);
+          $tgl_awal = $datatglgaji['tanggal_awal'];
+          $tgl_akhir = $datatglgaji['tanggal_akhir'];
+
+          // sum intensif gaji
+          $queryitensif ="SELECT SUM(jumlah_bonus) AS total_bonus FROM intensif_waiters WHERE tanggal>'$tgl_awal' AND tanggal<'$tgl_akhir' AND id_user_resto='$waiters'";
+          $hasilitensif = mysqli_query($koneksi,$queryitensif);
+          $dataitensif=mysqli_fetch_array($hasilitensif);
+          $nominalitensif = $dataitensif['total_bonus'];
+        ?>
+        </p>
+          <a href="#"><i class="text-success"></i> Bonus : <?php echo "Rp. ".number_format($nominalitensif).",-"; ?></a>
 					</div>
 				</div>
 				<!-- sidebar menu: : style can be found in sidebar.less -->
