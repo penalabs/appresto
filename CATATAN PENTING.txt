@@ -32,7 +32,7 @@ permintaan bahan mentah dan olahan di SUM, masing masing jumlah permintaan stokn
 
 CLONE BARU REPOSITORY
 
-gunakan database db_siresto2.sql -> dbsiresto.sql
+gunakan database dbsiresto.sql
 
 ----------------------------------------------------------------------------------------------------------------------------
 
@@ -83,7 +83,7 @@ laporan investasi cabang copy yang sudah ada -> sudah dikerjakan (irhas)
 laporan permintaaan barang copy yang sudah ada -> sudah dikerjakan (irhas)
 laporan penerimaan barang copy yang sudah ada -> sudah dikerjakan (irhas)
 laporan penjulan copy yang sudah ada -> sudah dikerjakan (irhas)
-laporan transaksi masih bingung rumus yang dulu
+laporan transaksi masih bingung rumus yang dulu -> sudah dikerjakan (fauzin)
 laporan biaya operasional copy yang sudah ada -> sudah dikerjakan (irhas)
 
 
@@ -105,3 +105,11 @@ modul investasi -> sudah dikerjakan (fauzin)
 ---------YANG BELUM 
 modul bagi hasil = BADAKE.... AKU BAGI HASIL GK ROH ALURE, PIYE JELASKAN.
 select sum(jumlah_bonus) as total_bonus from intensif_waiters where tanggal>'2019-12-01' and tanggal<'2019-12-31'
+
+
+
+--------------pengerjaan fauzin-------------------
+laporan kunjungan / transaksi
+crud gaji
+laporan kinerja karyawan / intensif
+ngelink kan modul yang sama pada sidebar superadmin ke admin resto (kinerja karyawan / intensif dan laporan kunjungan transaksi)

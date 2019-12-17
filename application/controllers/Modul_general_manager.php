@@ -180,4 +180,87 @@ class Modul_general_manager extends CI_Controller {
 		$this->M_modul_general_manager->hapus_data($where,'investasi_cabang');
 		redirect('modul_general_manager/pengeluaran_investasi');
 	}
+
+	// ................................
+	public function gaji()
+	{
+		$sql = "SELECT user_resto.id as id_user_resto,user_resto.nama,gaji.* FROM gaji join user_resto on user_resto.id=gaji.id_user_resto";
+		$data['data']=$this->db->query($sql)->result();
+		$this->load->view('modul_general_manager/gaji',$data);
+	}
+	public function add_gaji()
+	{
+
+		$this->load->view('modul_general_manager/add_gaji');
+	}
+
+	public function action_add_gaji()
+	{
+		$session_id = $this->session->userdata('id');
+		$id_user_resto = $this->input->post('id_user_resto');
+		$id_resto = $this->input->post('id_resto');
+		$tanggal_awal = $this->input->post('tanggal_awal');
+		$tanggal_akhir = $this->input->post('tanggal_akhir');
+		$jenis_gaji = $this->input->post('jenis_gaji');
+		$nominal_gaji = $this->input->post('nominal_gaji');
+
+
+			$data = array(
+			'id_user_resto' => $id_user_resto,
+			'id_resto' => $id_resto,
+			'tanggal_awal' => $tanggal_awal,
+			'tanggal_akhir' => $tanggal_akhir,
+			'jenis_gaji' => $jenis_gaji,
+			'nominal_gaji' => $nominal_gaji,
+			);
+			$this->m_modul_general_manager->input_data($data,'gaji');
+			redirect('general_manager/gaji');
+
+	}
+	public function edit_gaji()
+	{
+
+		$this->load->view('modul_general_manager/edit_gaji');
+	}
+
+	public function action_edit_gaji()
+	{
+		$session_id = $this->session->userdata('id');
+		$id = $this->input->post('id');
+		$id_user_resto = $this->input->post('id_user_resto');
+		$id_resto = $this->input->post('id_resto');
+		$tanggal_awal = $this->input->post('tanggal_awal');
+		$tanggal_akhir = $this->input->post('tanggal_akhir');
+		$jenis_gaji = $this->input->post('jenis_gaji');
+		$nominal_gaji = $this->input->post('nominal_gaji');
+
+			$where = array(
+			'id'=>$id,
+			);
+
+			$data = array(
+			'id_user_resto' => $id_user_resto,
+			'id_resto' => $id_resto,
+			'tanggal_awal' => $tanggal_awal,
+			'tanggal_akhir' => $tanggal_akhir,
+			'jenis_gaji' => $jenis_gaji,
+			'nominal_gaji' => $nominal_gaji,
+			);
+			$data['data'] = $this->m_modul_general_manager->update_data($where,$data,'gaji');
+			redirect('general_manager/gaji');
+
+	}
+	function hapus_gaji(){
+		echo $id = $this->input->get('id');
+		$where = array('id' => $id);
+		$this->m_modul_general_manager->hapus_data($where,'gaji');
+		redirect('general_manager/gaji');
+	}
+
+	public function intensif()
+	{
+		$sql = "SELECT user_resto.nama,intensif_waiters.* FROM intensif_waiters join user_resto on user_resto.id=intensif_waiters.id_user_resto";
+		$data['data']=$this->db->query($sql)->result();
+		$this->load->view('modul_general_manager/intensif',$data);
+	}
 }

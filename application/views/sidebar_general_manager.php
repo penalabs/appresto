@@ -36,8 +36,8 @@
 			<li><a href="<?php echo base_url('master/users?user=produksi');?>"><i class="fa fa-circle-o"></i> Manajemen User Produksi</a></li>
 			<li><a href="<?php echo base_url('master/users?user=kasir');?>"><i class="fa fa-circle-o"></i> Manajemen User Kasir</a></li>
 			<li><a href="<?php echo base_url('master/users?user=waiters');?>"><i class="fa fa-circle-o"></i> Manajemen User Waiters</a></li>
-			<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Gaji Intensif Karyawan</a></li>
-			<li><a href="#"><i class="fa fa-circle-o"></i> Gaji Karyawan</a></li>
+			<li><a href="<?php echo base_url('modul_general_manager/intensif');?>"><i class="fa fa-circle-o"></i> Laporan Gaji Intensif Karyawan</a></li>
+			<li><a href="<?php echo base_url('modul_general_manager/gaji');?>"><i class="fa fa-circle-o"></i> Gaji Karyawan</a></li>
 			<li><a href="<?php echo base_url('modul_general_manager/permintaan_investasi');?>"><i class="fa fa-circle-o"></i> Investasi Kanwil</a></li>
       <li><a href="<?php echo base_url('modul_general_manager/bendahara_pengeluaran_investasi');?>"><i class="fa fa-circle-o"></i> Setujui Permintaan Investasi</a></li>
 

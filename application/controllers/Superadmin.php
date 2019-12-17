@@ -789,4 +789,93 @@ class Superadmin extends CI_Controller {
 	//-----------------------------
 
 
+
+	// ................................
+	public function gaji()
+	{
+		$sql = "SELECT user_resto.id as id_user_resto,user_resto.nama,gaji.* FROM gaji join user_resto on user_resto.id=gaji.id_user_resto";
+		$data['data']=$this->db->query($sql)->result();
+		$this->load->view('modul_superadmin/gaji',$data);
+	}
+	public function add_gaji()
+	{
+
+		$this->load->view('modul_superadmin/add_gaji');
+	}
+
+	public function action_add_gaji()
+	{
+		$session_id = $this->session->userdata('id');
+		$id_user_resto = $this->input->post('id_user_resto');
+		$id_resto = $this->input->post('id_resto');
+		$tanggal_awal = $this->input->post('tanggal_awal');
+		$tanggal_akhir = $this->input->post('tanggal_akhir');
+		$jenis_gaji = $this->input->post('jenis_gaji');
+		$nominal_gaji = $this->input->post('nominal_gaji');
+
+
+			$data = array(
+			'id_user_resto' => $id_user_resto,
+			'id_resto' => $id_resto,
+			'tanggal_awal' => $tanggal_awal,
+			'tanggal_akhir' => $tanggal_akhir,
+			'jenis_gaji' => $jenis_gaji,
+			'nominal_gaji' => $nominal_gaji,
+			);
+			$this->m_modul_superadmin->input_data($data,'gaji');
+			redirect('superadmin/gaji');
+
+	}
+	public function edit_gaji()
+	{
+
+		$this->load->view('modul_superadmin/edit_gaji');
+	}
+
+	public function action_edit_gaji()
+	{
+		$session_id = $this->session->userdata('id');
+		$id = $this->input->post('id');
+		$id_user_resto = $this->input->post('id_user_resto');
+		$id_resto = $this->input->post('id_resto');
+		$tanggal_awal = $this->input->post('tanggal_awal');
+		$tanggal_akhir = $this->input->post('tanggal_akhir');
+		$jenis_gaji = $this->input->post('jenis_gaji');
+		$nominal_gaji = $this->input->post('nominal_gaji');
+
+			$where = array(
+			'id'=>$id,
+			);
+
+			$data = array(
+			'id_user_resto' => $id_user_resto,
+			'id_resto' => $id_resto,
+			'tanggal_awal' => $tanggal_awal,
+			'tanggal_akhir' => $tanggal_akhir,
+			'jenis_gaji' => $jenis_gaji,
+			'nominal_gaji' => $nominal_gaji,
+			);
+			$data['data'] = $this->m_modul_superadmin->update_data($where,$data,'gaji');
+			redirect('superadmin/gaji');
+
+	}
+	function hapus_gaji(){
+		echo $id = $this->input->get('id');
+		$where = array('id' => $id);
+		$this->m_modul_superadmin->hapus_data($where,'gaji');
+		redirect('superadmin/gaji');
+	}
+
+	public function intensif()
+	{
+		$sql = "SELECT user_resto.nama,intensif_waiters.* FROM intensif_waiters join user_resto on user_resto.id=intensif_waiters.id_user_resto";
+		$data['data']=$this->db->query($sql)->result();
+		$this->load->view('modul_superadmin/intensif',$data);
+	}
+
+	public function laporan_transaksi()
+	{
+
+		$this->load->view('modul_superadmin/laporan_transaksi');
+	}
 }

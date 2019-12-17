@@ -67,8 +67,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-    			<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Kinerja Karyawan</a></li>
-    			<li><a href="#"><i class="fa fa-circle-o"></i> Gaji Intensif Karyawan</a></li>
+    			<li><a href="<?php echo base_url('superadmin/intensif');?>"><i class="fa fa-circle-o"></i> Laporan Kinerja Karyawan</a></li>
+    			<li><a href="<?php echo base_url('superadmin/gaji');?>"><i class="fa fa-circle-o"></i> Gaji Intensif Karyawan</a></li>
           </ul>
         </li>
 		  <li class="treeview">
@@ -108,8 +108,8 @@
       			<li><a href="<?php echo base_url('Superadmin/laporanbiayaoprasional_view');?>"><i class="fa fa-circle-o"></i> laporan biaya Operasional</a></li>
 
       			<li><a href="<?php echo base_url('Superadmin/laporanpenjualan_view');?>"><i class="fa fa-circle-o"></i> Laporan Penjualan</a></li>
-      			<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Kinerja karyawan</a></li>
-      			<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Transaksi</a></li>
+      			<li><a href="<?php echo base_url('superadmin/intensif');?>"><i class="fa fa-circle-o"></i> Laporan Kinerja karyawan</a></li>
+      			<li><a href="<?php echo base_url('superadmin/laporan_transaksi');?>"><i class="fa fa-circle-o"></i> Laporan Transaksi</a></li>
 
           </ul>
         </li>
