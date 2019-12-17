@@ -11,7 +11,7 @@
   <div id="login-box">
     <div class="logo">
       <img src="user.png" class="img img-responsive img-circle center-block"/>
-      <h1 class="logo-caption"><span class="tweak">L</span>ogin</h1>
+      <h1 class="logo-caption"><span class="tweak">L</span>Login</h1>
     </div><!-- /.logo -->
     <div class="controls">
       <form method="post" action="cek_login.php">
