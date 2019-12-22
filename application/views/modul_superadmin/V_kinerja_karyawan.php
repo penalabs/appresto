@@ -30,18 +30,26 @@
     <section class="content">
 	<div class="row">
 	    <div class="col-xs-12">
-          <div class="box box-default">
+      <!--     <div class="box box-default">
+            <div class="box-header with-border">
+
+            </div>
             <div class="box-body">
+
+
               <a href="<?php echo base_url('superadmin/add_gaji');?>" type="button" class="btn btn-success" >  Tambah
               </a>
+
+
+
             </div>
           </div>
-        </div>
+        </div> -->
 	<div class="col-md-12">
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Gaji Karyawan</h3>
+              <h3 class="box-title">Data Kinerja Karyawan</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -49,12 +57,13 @@
                 <thead>
                 <tr>
                   <th>#</th>
-                  <th>Nama</th>
-                  <th>Tanggal awal</th>
-                  <th>Tanggal akhir</th>
-                  <th>Jenis Gaji</th>
-                  <th>nominal Gaji</th>
-				          <th>Aksi</th>
+                  <th>Nama Karyawan</th>
+                  <th>Nama Pelanggan</th>
+                  <th>Tanggal</th>
+                  <th>Jumlah Point</th>
+                  <th>Aksi</th>
+
+				          <!-- <th>Aksi</th> -->
                 </tr>
                 </thead>
                 <tbody>
@@ -66,18 +75,11 @@
                   <td><?php echo $no++ ?>.</td>
                   <td><?php echo $u->nama ?>
                   </td>
-                  <td><?php echo $u->tanggal_awal ?></td>
-                  <td><?php echo $u->tanggal_akhir ?></td>
-                  <td><?php echo $u->jenis_gaji ?></td>
-                  <td><?php echo $u->nominal_gaji ?></td>
+                  <td><?php echo $u->nama_pemesan ?></td>
+                  <td><?php echo $u->tanggal ?></td>
+                  <td><?php echo $u->jml_point ?></td>
 				          <td>
-
-                    <a href="<?php echo base_url('superadmin/intensif/');?><?php echo $u->id_user_resto; ?>" class="btn btn-success btn-xs"><i class="fa  fa-eye" ></i></a>
-
-                    <a href="<?php echo base_url('superadmin/edit_gaji?id=');?><?php echo $u->id; ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
-
-                    <a href="<?php echo base_url('superadmin/hapus_gaji?id=');?><?php echo $u->id; ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a>
-
+                    <a href="<?php echo base_url('superadmin/view_kinerja/');?><?php echo $u->id_user_resto; ?>" class="btn btn-success btn-xs"><i class="fa fa-eye" ></i></a>
                   </td>
                 </tr>
 				<?php } ?>

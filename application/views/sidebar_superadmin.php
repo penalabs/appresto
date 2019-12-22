@@ -67,8 +67,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-    			<li><a href="<?php echo base_url('superadmin/intensif');?>"><i class="fa fa-circle-o"></i> Laporan Kinerja Karyawan</a></li>
-          <li><a href="<?php echo base_url('superadmin/intensif');?>"><i class="fa fa-circle-o"></i> Gaji Intensif</a></li>
+    			<li><a href="<?php echo base_url('superadmin/kinerja_karyawan');?>"><i class="fa fa-circle-o"></i> Laporan Kinerja Karyawan</a></li>
     			<li><a href="<?php echo base_url('superadmin/gaji');?>"><i class="fa fa-circle-o"></i> Gaji Karyawan</a></li>
           </ul>
         </li>

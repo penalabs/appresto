@@ -866,9 +866,13 @@ class Superadmin extends CI_Controller {
 		redirect('superadmin/gaji');
 	}
 
-	public function intensif()
+	public function intensif($id)
 	{
-		$sql = "SELECT user_resto.nama,intensif_waiters.* FROM intensif_waiters join user_resto on user_resto.id=intensif_waiters.id_user_resto";
+		$sql = "SELECT user_resto.* ,intensif_waiters.* ,gaji.*
+		FROM intensif_waiters 
+		join user_resto on user_resto.id=intensif_waiters.id_user_resto
+		join gaji on gaji.id_user_resto = intensif_waiters.id_user_resto
+		WHERE gaji.id_user_resto='$id'";
 		$data['data']=$this->db->query($sql)->result();
 		$this->load->view('modul_superadmin/intensif',$data);
 	}
@@ -877,5 +881,24 @@ class Superadmin extends CI_Controller {
 	{
 
 		$this->load->view('modul_superadmin/laporan_transaksi');
+	}
+
+	public function kinerja_karyawan(){
+		$sql = "SELECT tbl_kinerja_karyawan.*, user_resto.*, pemesanan.* ,SUM(point) AS jml_point
+		FROM tbl_kinerja_karyawan
+		JOIN user_resto ON user_resto.id = tbl_kinerja_karyawan.id_user_resto
+		JOIN pemesanan ON pemesanan.id = tbl_kinerja_karyawan.pemesanan";
+		$data['data']=$this->db->query($sql)->result();
+		$this->load->view('modul_superadmin/V_kinerja_karyawan',$data);
+	}
+
+	public function view_kinerja($id){
+		$sql = "SELECT tbl_kinerja_karyawan.*, user_resto.*, pemesanan.*
+		FROM tbl_kinerja_karyawan
+		JOIN user_resto ON user_resto.id = tbl_kinerja_karyawan.id_user_resto
+		JOIN pemesanan ON pemesanan.id = tbl_kinerja_karyawan.pemesanan
+		WHERE tbl_kinerja_karyawan.id_user_resto='$id'";
+		$data['data']=$this->db->query($sql)->result();
+		$this->load->view('modul_superadmin/V_view_kinerja',$data);
 	}
 }

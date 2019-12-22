@@ -29,11 +29,8 @@
     <!-- Main content -->
     <section class="content">
 	<div class="row">
-	    <div class="col-xs-10">
+	    <div class="col-xs-12">
           <div class="box box-default">
-            <div class="box-header with-border">
-
-            </div>
             <div class="box-body">
 						<?php
 
@@ -53,7 +50,7 @@
             </div>
           </div>
         </div>
-	<div class="col-md-10">
+	<div class="col-md-12">
 
           <div class="box">
             <div class="box-header">
