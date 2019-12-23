@@ -174,6 +174,15 @@ header("Location:index.php");
 												<a href="detail_pembayaran.php?id=<?php echo $data['id']; ?>"
 													class="btn btn-block glyphicon glyphicon-check"> Detail</a>
 												<?php
+                              }elseif($statuspesan == 'produksi_lunas') {
+                              ?>
+												<a href="#" class="btn btn-block glyphicon glyphicon-hourglass"></a>
+												<?php
+                              }elseif($statuspesan == 'siapsaji_lunas') {
+                              ?>
+												<a href="updatestatus_siapsaji_lunas_to_selsai.php?id=<?php echo $data['id']; ?>"
+													class="btn btn-block btn-warning btn-xs">Ambil</a>
+												<?php
                               }
                           ?>
 

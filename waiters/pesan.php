@@ -279,8 +279,13 @@ header("Location:index.php");
                   <td style="width: 75%;"><?php echo "Rp. ".number_format($subtotal).",-"; ?></td>
                 </tr>
               </table>
-              <hr>
-              <button style="width: 100%; height: 100%;" type="submit" name="submit" class="btn btn-primary">Pesan</button>
+              </div>
+                <div style="float: left; width: 50%;">
+                <button style="width: 100%;" type="submit" name="submit" class="btn btn-primary">Pesan Dulu</button>  
+                </div>
+                <div style="float: right; width: 50%;">
+                <a style="width: 100%;" data-toggle="modal" data-target="#modal-default2" class="btn btn-success">Bayar Awal</a>  
+                </div>
             </div>
             <!-- /.box-body -->
           </div>
@@ -288,6 +293,58 @@ header("Location:index.php");
         </div>
       </div>
   </div>
+  <div class="modal fade" id="modal-default2">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div style="background-color: #db1d36;" class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+            <h4 style="color: white;" class="modal-title">Pembayaran</h4>
+          </div>
+          <div class="modal-body">
+             <!-- checkbox -->
+             <input type="hidden" id="txt1" onkeyup="sum();" value="<?php echo $subtotal; ?>" class="form-control">
+                 <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
+                <tr>
+                  <th style="width: 20%;">Subtotal Menu</th>
+                  <th style="width: 2%;"> : </th>
+                  <td style="width: 75%;"><?php echo "Rp. ".number_format($subhargamenu).",-"; ?></td>
+                </tr>
+                <tr>
+                  <th style="width: 20%;">Subtotal Paket</th>
+                  <th style="width: 2%;"> : </th>
+                  <td style="width: 75%;"><?php echo "Rp. ".number_format($subhargapaket).",-"; ?></td>
+                </tr>
+                <tr>
+                  <th style="width: 20%;">Total Menu + Paket</th>
+                  <th style="width: 2%;"> : </th>
+                  <td style="width: 75%;"><?php echo "Rp. ".number_format($subtotal).",-"; ?></td>
+                </tr>
+              </table>
+              </div>
+            
+                <div class="input-group input-group-md">
+                  <!-- <input type="hidden" name="idpemesanan" value="<?php echo $id; ?>" class="form-control"> -->
+                  <input type="text" id="txt2" onkeyup="sum();" name="nominal_bayar" placeholder="Uang Bayar" class="form-control">
+                  <span class="input-group-btn">
+                    <button type="submit" name="submitbayar" class="btn btn-info btn-flat">Bayar</button>
+                  </span>
+                </div>
+                <br>
+                <div class="form-group">
+                  <input type="text" id="txt3" class="form-control" placeholder="Uang Kembalian" disabled>
+                </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 </form>
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
@@ -442,7 +499,31 @@ header("Location:index.php");
       </div>
       <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal -->
+    
+
+    <script>
+  var bayar = document.getElementById('txt2').value;
+  function numberWithCommas(bayar) {
+    return bayar.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  function sum() {
+    var txtFirstNumberValue = document.getElementById('txt1').value;
+    var txtSecondNumberValue = document.getElementById('txt2').value;
+    var result = parseInt(txtSecondNumberValue) - parseInt(txtFirstNumberValue);
+    if (!isNaN(result)) {
+      var number_string = result.toString(),
+      sisa  = number_string.length % 3,
+      rupiah  = number_string.substr(0, sisa),
+      ribuan  = number_string.substr(sisa).match(/\d{3}/g);
+      if (ribuan) {
+        separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+      }
+      document.getElementById('txt3').value = "Rp. "+rupiah+",-";
+    }
+  }
+  </script>
       <script src="../plugins/jquery/dist/jquery.min.js"></script>
       <!-- Bootstrap 3.3.7 -->
       <script src="../plugins/bootstrap/dist/js/bootstrap.min.js"></script>
