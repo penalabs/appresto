@@ -6,21 +6,21 @@
   <title>Aplikasi Manajemen Resto</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-	<?php include(APPPATH.'views/css.php');?>
+  <?php include(APPPATH.'views/css.php');?>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
 
 
-	<?php include(APPPATH.'views/header.php');?>
-	<?php include(APPPATH.'views/menu.php');?>
+  <?php include(APPPATH.'views/header.php');?>
+  <?php include(APPPATH.'views/menu.php');?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Users
+        General Manager Kanwil
 
       </h1>
 
@@ -28,24 +28,16 @@
 
     <!-- Main content -->
     <section class="content">
-	<div class="row">
-	    <div class="col-xs-10">
+  <div class="row">
+      <div class="col-xs-12">
           <div class="box box-default">
-            <div class="box-header with-border">
-
-            </div>
             <div class="box-body">
-
-
-              <a href="<?php echo base_url('general_manager/add_gaji');?>" type="button" class="btn btn-success" >  Tambah
+              <a href="<?php echo base_url('superadmin/add_gaji');?>" type="button" class="btn btn-success" >  Tambah
               </a>
-
-
-
             </div>
           </div>
         </div>
-	<div class="col-md-10">
+  <div class="col-md-12">
 
           <div class="box">
             <div class="box-header">
@@ -62,14 +54,14 @@
                   <th>Tanggal akhir</th>
                   <th>Jenis Gaji</th>
                   <th>nominal Gaji</th>
-				          <th>Aksi</th>
+                  <th>Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
-				<?php
-					$no = 1;
-					foreach($data as $u){
-				?>
+        <?php
+          $no = 1;
+          foreach($data as $u){
+        ?>
                 <tr>
                   <td><?php echo $no++ ?>.</td>
                   <td><?php echo $u->nama ?>
@@ -77,16 +69,18 @@
                   <td><?php echo $u->tanggal_awal ?></td>
                   <td><?php echo $u->tanggal_akhir ?></td>
                   <td><?php echo $u->jenis_gaji ?></td>
-                  <td><?php echo $u->nominal_gaji ?></td>
-				          <td>
+                  <td><?php echo "Rp. ".number_format($u->nominal_gaji).",-"; ?></td>
+                  <td>
 
-                    <a href="<?php echo base_url('general_manager/edit_gaji?id=');?><?php echo $u->id; ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
+                    <a href="<?php echo base_url('superadmin/intensif/');?><?php echo $u->id_user_resto; ?>" class="btn btn-success btn-xs"><i class="fa  fa-eye" ></i></a>
 
-                    <a href="<?php echo base_url('general_manager/hapus_gaji?id=');?><?php echo $u->id; ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a>
+                    <a href="<?php echo base_url('superadmin/edit_gaji?id=');?><?php echo $u->id; ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
+
+                    <a href="<?php echo base_url('superadmin/hapus_gaji?id=');?><?php echo $u->id; ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a>
 
                   </td>
                 </tr>
-				<?php } ?>
+        <?php } ?>
 
                 </tbody>
 
@@ -96,13 +90,13 @@
           </div>
           <!-- /.box -->
         </div>
-	</div>
+  </div>
 
 
 
 
 
-		<div class="modal fade" id="modal-default">
+    <div class="modal fade" id="modal-default">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">

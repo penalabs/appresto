@@ -18,14 +18,6 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Users
-
-      </h1>
-
-    </section>
-
     <!-- Main content -->
     <section class="content">
 	<div class="row">
@@ -35,7 +27,7 @@
 				<div class="col-md-6">
 				<div class="box box-primary">
 					<div class="box-header with-border">
-					  <h3 class="box-title">Quick Input</h3>
+					  <h3 class="box-title">ADD Gaji</h3>
 					</div>
 					<!-- /.box-header -->
 					<!-- form start -->
@@ -68,12 +60,12 @@
 						<div class="form-group">
 						  <label for="exampleInputPassword1">Tanggal Awal</label>
 
-						  <input type="text" class="form-control" id="exampleInputPassword1" name="tanggal_awal" placeholder="Tanggal Awal">
+						  <input type="date" class="form-control" id="exampleInputPassword1" name="tanggal_awal" placeholder="Tanggal Awal">
 						</div>
 
 					   <div class="form-group">
 						  <label for="exampleInputPassword1">Tanggal Akhir</label>
-						  <input type="text" class="form-control" id="exampleInputPassword1" name="tanggal_akhir" placeholder="Tanggal Akhir">
+						  <input type="date" class="form-control" id="exampleInputPassword1" name="tanggal_akhir" placeholder="Tanggal Akhir">
 						</div>
 
             <div class="form-group">
@@ -99,11 +91,6 @@
 					  </div>
 					</form>
 				  </div>
-				</div>
-				<div class="col-md-3">
-				<div class="box-header with-border">
-					  <h3 class="box-title">INPUT GAJI KARYAWAN <i class="fa  fa-hand-lizard-o" ></i></h3>
-				</div>
 				</div>
 		</div>
 
