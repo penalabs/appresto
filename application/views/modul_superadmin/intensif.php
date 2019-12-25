@@ -18,38 +18,14 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Users
-
-      </h1>
-
-    </section>
-
     <!-- Main content -->
     <section class="content">
 	<div class="row">
-	    <div class="col-xs-10">
-          <div class="box box-default">
-            <div class="box-header with-border">
-
-            </div>
-            <div class="box-body">
-
-
-              <!-- <a href="<?php echo base_url('superadmin/add_gaji');?>" type="button" class="btn btn-success" >  Tambah
-              </a> -->
-
-
-
-            </div>
-          </div>
-        </div>
-	<div class="col-md-10">
+	<div class="col-md-12">
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Kinerja Karyawan</h3>
+              <h3 class="box-title">Data Bonus Karyawan</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">

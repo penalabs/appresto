@@ -69,7 +69,7 @@
                   <td><?php echo $u->tanggal_awal ?></td>
                   <td><?php echo $u->tanggal_akhir ?></td>
                   <td><?php echo $u->jenis_gaji ?></td>
-                  <td><?php echo $u->nominal_gaji ?></td>
+                  <td><?php echo "Rp. ".number_format($u->nominal_gaji).",-"; ?></td>
 				          <td>
 
                     <a href="<?php echo base_url('superadmin/intensif/');?><?php echo $u->id_user_resto; ?>" class="btn btn-success btn-xs"><i class="fa  fa-eye" ></i></a>

@@ -18,14 +18,6 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Users
-
-      </h1>
-
-    </section>
-
     <!-- Main content -->
     <section class="content">
 	<div class="row">
@@ -35,7 +27,7 @@
 				<div class="col-md-6">
 				<div class="box box-primary">
 					<div class="box-header with-border">
-					  <h3 class="box-title">Quick Input</h3>
+					  <h3 class="box-title">Edit Gaji Karyawan</h3>
 					</div>
 					<!-- /.box-header -->
 					<!-- form start -->
@@ -50,11 +42,11 @@
               <div class="form-group">
                 <label for="exampleInputPassword1">Resto</label>
                 <select name="id_resto" class="form-control">
-                  <option value="">--- Pilih Resto---</option>
                   <?php
                   $sql = "SELECT * FROM resto";
                   $data2=$this->db->query($sql)->result();
                   foreach($data2 as $u2){ ?>
+                    <option value="<?php echo $u2->id; ?>"><?php echo $u2->nama_resto; ?> --> awal pilihan</option>
                     <option value="<?php echo $u2->id; ?>"><?php echo $u2->nama_resto; ?></option>
                   <?php } ?>
                   </select>
@@ -62,11 +54,11 @@
               <div class="form-group">
                 <label for="exampleInputPassword1">Karyawan</label>
                 <select name="id_user_resto" class="form-control">
-                  <option value="">--- Pilih Karyawan---</option>
                   <?php
                   $sql = "SELECT * FROM user_resto";
                   $data2=$this->db->query($sql)->result();
                   foreach($data2 as $u2){ ?>
+                    <option value="<?php echo $u2->id; ?>"><?php echo $u2->nama; ?> --> awal yang dipilih</option>
                     <option value="<?php echo $u2->id; ?>"><?php echo $u2->nama; ?></option>
                   <?php } ?>
                   </select>
@@ -75,21 +67,18 @@
 						<div class="form-group">
 						  <label for="exampleInputPassword1">Tanggal Awal</label>
 
-						  <input type="text" class="form-control" id="exampleInputPassword1" value="<?php echo $u3->tanggal_awal; ?>" name="tanggal_awal" placeholder="Tanggal Awal">
+						  <input type="date" class="form-control" id="exampleInputPassword1" value="<?php echo $u3->tanggal_awal; ?>" name="tanggal_awal" placeholder="Tanggal Awal">
 						</div>
 
 					   <div class="form-group">
 						  <label for="exampleInputPassword1">Tanggal Akhir</label>
-						  <input type="text" class="form-control" id="exampleInputPassword1" value="<?php echo $u3->tanggal_akhir; ?>" name="tanggal_akhir" placeholder="Tanggal Akhir">
+						  <input type="date" class="form-control" id="exampleInputPassword1" value="<?php echo $u3->tanggal_akhir; ?>" name="tanggal_akhir" placeholder="Tanggal Akhir">
 						</div>
 
             <div class="form-group">
               <label for="exampleInputPassword1">Jenis Gaji</label>
               <select name="jenis_gaji" class="form-control">
-                <option value="">--- Pilih ---</option>
-
-                  <option value="bulanan">Bulanan</option>
-
+                  <option selected="" value="bulanan">Bulanan</option>
                 </select>
             </div>
             <div class="form-group">
@@ -106,11 +95,6 @@
 					  </div>
 					</form>
 				  </div>
-				</div>
-				<div class="col-md-3">
-				<div class="box-header with-border">
-					  <h3 class="box-title">INPUT GAJI KARYAWAN <i class="fa  fa-hand-lizard-o" ></i></h3>
-				</div>
 				</div>
 		</div>
 
