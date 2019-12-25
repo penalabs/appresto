@@ -55,7 +55,7 @@
       			<li><a href="<?php echo base_url('Superadmin/pemesanan');?>"><i class="fa fa-circle-o"></i> Laporan Penjualan</a></li>
       			<li><a href="<?php echo base_url('modul_labarugi/');?>"><i class="fa fa-circle-o"></i> Laporan Laba Rugi</a></li>
       			<li><a href="<?php echo base_url('Superadmin/pengeluaranbiayaoprasional_view');?>""><i class="fa fa-circle-o"></i> Laporan Pengeluaran</a></li>
-      			<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Kinerja Pegawai</a></li>
+      			<li><a href="<?php echo base_url('superadmin/kinerja_karyawan');?>"><i class="fa fa-circle-o"></i> Laporan Kinerja Pegawai</a></li>
 
           </ul>
         </li>
