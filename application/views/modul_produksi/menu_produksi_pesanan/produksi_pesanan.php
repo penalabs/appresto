@@ -76,7 +76,26 @@
                           <td><?=$u->no_meja;?></td>
                           <td><?=$u->keterangantambahan;?></td>
                           <td><?=$u->status;?></td>
-                          <td><a class="btn btn-success btn-xs" href="<?php echo base_url('modul_produksi/konfirm_siap_saji/?id_pemesanan=');?><?=$u->id;?>">Konfirm siap saji</a>  <a onClick="selesai(<?=$u->id;?>)" href="#" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Lihat Pesanan</a></td>
+                          <td>
+
+                            <?php 
+                            $prosuksi_to_siapsaji = $u->status;
+                            if ($prosuksi_to_siapsaji == "produksi") {
+                              ?>
+                             <a class="btn btn-success btn-xs" href="<?php echo base_url('modul_produksi/konfirm_siap_saji/?id_pemesanan=');?><?=$u->id;?>">Konfirm siap saji</a>
+
+                            <a onClick="selesai(<?=$u->id;?>)" href="#" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Lihat Pesanan</a>
+                            <?php
+                            }elseif ($prosuksi_to_siapsaji == "produksi_lunas") {
+                               ?>
+                             <a disabled="disabled" class="btn btn-success btn-xs" href="#">Konfirm siap saji</a>
+
+                            <a onClick="selesai(<?=$u->id;?>)" href="#" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Lihat Pesanan</a>
+                            <?php
+                            }
+                            ?>
+
+                            </td>
                       </tr>
                       <?php
                         $no++;

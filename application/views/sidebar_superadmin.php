@@ -108,7 +108,7 @@
       			<li><a href="<?php echo base_url('Superadmin/laporanbiayaoprasional_view');?>"><i class="fa fa-circle-o"></i> laporan biaya Operasional</a></li>
 
       			<li><a href="<?php echo base_url('Superadmin/laporanpenjualan_view');?>"><i class="fa fa-circle-o"></i> Laporan Penjualan</a></li>
-      			<li><a href="<?php echo base_url('superadmin/intensif');?>"><i class="fa fa-circle-o"></i> Laporan Kinerja karyawan</a></li>
+      			<li><a href="<?php echo base_url('superadmin/kinerja_karyawan');?>"><i class="fa fa-circle-o"></i> Laporan Kinerja karyawan</a></li>
       			<li><a href="<?php echo base_url('superadmin/laporan_transaksi');?>"><i class="fa fa-circle-o"></i> Laporan Transaksi</a></li>
 
           </ul>

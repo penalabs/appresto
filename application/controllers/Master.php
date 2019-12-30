@@ -133,6 +133,22 @@ class Master extends CI_Controller {
 			);
 			$this->m_master->input_data($data,$tabel);
 			redirect('master/users?user='.$tipe);
+		}else if($tipe=="waiters"){
+			$tabel='user_resto';
+			$id_kanwil = $this->input->post('id_kanwil');
+			$id_resto = $this->input->post('id_resto');
+			$data = array(
+			'id_kanwil'=>$id_kanwil,
+			'id_resto'=>$id_resto,
+			'nama' => $nama,
+			'user' => $user,
+			'pass' => $pass,
+			'alamat' => $alamat,
+			'telp' => $telp,
+			'jenis' => $tipe,
+			);
+			$this->m_master->input_data($data,$tabel);
+			redirect('master/users?user='.$tipe);
 		}else{
 			$tabel=$tipe;
 			$saldo_rek = $this->input->post('saldo_rek');
@@ -153,7 +169,11 @@ class Master extends CI_Controller {
 	}
 	public function add_user()
 	{
-		$this->load->view('master/add_user');
+		if(isset($_GET['tipe']) && $_GET['tipe']=="waiters"){
+			$this->load->view('master/add_user2');
+		}else{
+			$this->load->view('master/add_user');
+		}
 	}
 	public function edit_user()
 	{
@@ -165,6 +185,11 @@ class Master extends CI_Controller {
 				$where = array('id' => $id);
 				$data['data'] = $this->m_master->tampil_data_where($tabel,$where)->result();
 				$this->load->view('master/edit_user',$data);
+			}else if($tipe=="waiters"){
+				$tabel='user_resto';
+				$where = array('id' => $id);
+				$data['data'] = $this->m_master->tampil_data_where($tabel,$where)->result();
+				$this->load->view('master/edit_user2',$data);
 			}else{
 				$tipe=$_GET['tipe'];
 				$tabel=$tipe;
@@ -204,6 +229,25 @@ class Master extends CI_Controller {
 			);
 		$this->m_master->update_data($where,$data,$tabel);
 		redirect('master/users?user='.$tipe);
+		}else if($tipe=="waiters"){
+			$tabel='user_resto';
+			$id_kanwil = $this->input->post('id_kanwil');
+			$id_resto = $this->input->post('id_resto');
+			$data = array(
+			'id_kanwil'=>$id_kanwil,
+			'id_resto'=>$id_resto,
+			'nama' => $nama,
+			'user' => $user,
+			'pass' => $pass,
+			'alamat' => $alamat,
+			'telp' => $telp,
+			'jenis' => $tipe,
+			);
+			$where = array(
+			'id' => $id
+			);
+			$this->m_master->update_data($where,$data,$tabel);
+			redirect('master/users?user='.$tipe);
 		}else{
 			$saldo_rek = $this->input->post('saldo_rek');
 			$tabel=$tipe;
@@ -234,6 +278,13 @@ class Master extends CI_Controller {
 		$tabel="";
 		if($tipe=="logistik" || $tipe=="bendahara" || $tipe=="general manajer"){
 			$tabel='user_kanwil';
+			$where = array(
+			'id' => $id,
+			);
+			$this->m_master->hapus_data($where,$tabel);
+			redirect('master/users?user='.$tipe);
+		}else if($tipe=="waiters"){
+			$tabel='user_resto';
 			$where = array(
 			'id' => $id,
 			);

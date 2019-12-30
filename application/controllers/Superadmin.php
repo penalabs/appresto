@@ -54,7 +54,14 @@ class Superadmin extends CI_Controller {
 
 	public function add_user()
 	{
-		$this->load->view('modul_superadmin/add_user');
+		if(isset($_GET['tipe'])){
+			echo $tipe=$_GET['tipe'];
+			if($tipe=="logistik" || $tipe=="bendahara" || $tipe=="general manajer"){
+				$this->load->view('modul_superadmin/add_user');
+		}else{
+				$this->load->view('modul_superadmin/add_user2');
+			}
+		}
 	}
 
 	public function edit_user()
@@ -153,6 +160,18 @@ class Superadmin extends CI_Controller {
 			);
 			$this->m_modul_superadmin->input_data($data,$tabel);
 			redirect('superadmin/users?user='.$tipe);
+		}if($tipe=="superadmin"){
+			$tabel='superadmin';
+			$data = array(
+			'nama' => $nama,
+			'user' => $user,
+			'pass' => $pass,
+			'alamat' => $alamat,
+			'telp' => $telp,
+			'email' => $email,
+			);
+			$this->m_modul_superadmin->input_data($data,$tabel);
+			redirect('superadmin/users?user='.$tipe);
 		}else{
 			$tabel=$tipe;
 			$saldo_rek = $this->input->post('saldo_rek');
@@ -180,6 +199,13 @@ class Superadmin extends CI_Controller {
 		$tabel="";
 		if($tipe=="logistik" || $tipe=="bendahara" || $tipe=="general manajer"){
 			$tabel='user_kanwil';
+			$where = array(
+			'id' => $id,
+			);
+			$this->m_modul_superadmin->hapus_data($where,$tabel);
+			redirect('superadmin/users?user='.$tipe);
+		}else if($tipe=="superadmin"){
+			$tabel='superadmin';
 			$where = array(
 			'id' => $id,
 			);
@@ -751,8 +777,8 @@ class Superadmin extends CI_Controller {
 	}
 
 	public function pengeluaranbiayaoprasional_hapus($id_pengeluaran_kebutuhan){
-		$where = array('id_pengeluaran_kebutuhan' => $id_pengeluaran_kebutuhan);
-		$this->m_modul_superadmin->hapus_data($where, 'tbl_pengeluaran_kebutuhan');
+		$where = array('id' => $id_pengeluaran_kebutuhan);
+		$this->m_modul_superadmin->hapus_data($where, 'pengeluaran_cabang_operasional');
 		redirect('superadmin/pengeluaranbiayaoprasional_view');
 	}
 

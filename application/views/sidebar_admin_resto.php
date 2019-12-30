@@ -26,7 +26,7 @@
       <li><a href="<?php echo base_url('/C_modul_admin_resto/pengeluaranbiayaoprasional_view');?>"><i class="fa fa-circle-o"></i> Pengeluaran Operasional</a></li>
 			<li><a href="<?php echo base_url('C_modul_admin_resto/laporanbiayaoprasional_view');?>"><i class="fa fa-circle-o"></i> Laporan biaya Operasional</a></li>
 			<li><a href="<?php echo base_url('C_modul_admin_resto/laporanpenjualan_view');?>"><i class="fa fa-circle-o"></i> Laporan Penjualan</a></li>
-			<li><a href="<?php echo base_url('superadmin/intensif');?>"><i class="fa fa-circle-o"></i> Laporan Kinerja karyawan</a></li>
+			<li><a href="<?php echo base_url('superadmin/kinerja_karyawan');?>"><i class="fa fa-circle-o"></i> Laporan Kinerja karyawan</a></li>
 			<li><a href="<?php echo base_url('superadmin/laporan_transaksi');?>"><i class="fa fa-circle-o"></i> Laporan Transaksi</a></li>
       <li><a href="<?php echo base_url('/C_modul_admin_resto/permintaan_bahan_mentah');?>"><i class="fa fa-circle-o"></i> Permintaan Bahan Manual</a></li>
           </ul>
