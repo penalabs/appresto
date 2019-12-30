@@ -714,7 +714,7 @@ class Superadmin extends CI_Controller {
 		$data['data_cabang_resto'] = $this->m_modul_superadmin->tampil_data('resto')->result();
 		$cari_id_resto = $this->input->post('cari_id_resto');
 		//$id_admin_resto=$this->session->userdata('id');
-		$sql = "SELECT pengeluaran_cabang_operasional.*,operasional.*,pengeluaran_cabang_operasional.id as id_operasional FROM pengeluaran_cabang_operasional join operasional on operasional.id=pengeluaran_cabang_operasional.id_operasional where id_resto='1'";
+		$sql = "SELECT pengeluaran_cabang_operasional.*,operasional.*,pengeluaran_cabang_operasional.id as id_operasional FROM pengeluaran_cabang_operasional join operasional on operasional.id=pengeluaran_cabang_operasional.id_operasional where id_resto='$cari_id_resto'";
 		//echo "datane broo : ".$cari_id_resto;
 		$data['pengeluaranbiayaoprasional']=$this->db->query($sql)->result();
 		$this->load->view('modul_superadmin/V_pengeluaranbiayaoprasional_view', $data);
@@ -748,7 +748,11 @@ class Superadmin extends CI_Controller {
 	public function pengeluaranbiayaoprasional_edit(){
 		//$where = array('id_pengeluaran_kebutuhan' => $id);
 		$id		= $this->input->get('id');
-		$sql = "SELECT pengeluaran_cabang_operasional.*,operasional.*,pengeluaran_cabang_operasional.id as id_operasional FROM pengeluaran_cabang_operasional join operasional on operasional.id=pengeluaran_cabang_operasional.id_operasional where pengeluaran_cabang_operasional.id='$id'";
+		$sql = "SELECT pengeluaran_cabang_operasional.*,operasional.*,resto.*,pengeluaran_cabang_operasional.id as id_operasional 
+		FROM pengeluaran_cabang_operasional 
+		join operasional on operasional.id=pengeluaran_cabang_operasional.id_operasional 
+		join resto on resto.id=pengeluaran_cabang_operasional.id_resto
+		where pengeluaran_cabang_operasional.id='$id'";
 		$data['pengeluaranbiayaoprasional_edit']=$this->db->query($sql)->result();
 		$this->load->view('modul_superadmin/V_pengeluaranbiayaoprasional_edit', $data);
 	}

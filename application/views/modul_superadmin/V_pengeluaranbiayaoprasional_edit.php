@@ -54,11 +54,19 @@
 
 									<input type="hidden" name="id_admin_resto"  value="<?=$id_admin_resto;?>" class="form-control" >
 									<input type="hidden" name="id_kanwil"  value="<?=$id_kanwil;?>" class="form-control" >
-									<input type="hidden" name="id_resto"  value="<?=$id_resto;?>" class="form-control" >
+									<!-- <input type="hidden" name="id_resto"  value="<?=$id_resto;?>" class="form-control" > -->
 									<input type="hidden" name="id"  value="<?php echo $_GET['id'];?>" class="form-control" >
 									<input type="hidden" name="idops" value="<?php echo $dataedit->id;?>" class="form-control" readonly>
 
 									<div class="box-body">
+										<div class="form-group">
+						                  <label class="col-sm-2 control-label">Resto</label>
+						                  <div class="col-sm-10">
+						                    <select name="id_resto" class="form-control" readonly>
+						                      <option value="<?php echo $dataedit->id_resto;?>" class="form-control"><?php echo $dataedit->nama_resto;?></option>
+						                    </select>
+						                    </div>
+						                </div>
 										<div class="form-group">
 											<label class="col-sm-2 control-label">Operasional</label>
 											<div class="col-sm-10">

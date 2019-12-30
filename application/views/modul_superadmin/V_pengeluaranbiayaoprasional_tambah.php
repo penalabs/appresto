@@ -50,10 +50,31 @@
               ?>
               <input type="hidden" name="id_admin_resto"  value="<?=$id_admin_resto;?>" class="form-control" >
               <input type="hidden" name="id_kanwil"  value="<?=$id_kanwil;?>" class="form-control" >
-              <input type="hidden" name="id_resto"  value="<?=$id_resto;?>" class="form-control" >
+              <!-- <input type="hidden" name="id_resto"  value="<?=$id_resto;?>" class="form-control" > -->
 
               <div class="box-body">
                 <div class="form-group">
+                  <label class="col-sm-2 control-label">Resto</label>
+                  <div class="col-sm-10">
+                    <select name="id_resto" class="form-control">
+                      <option value="">-- Pilihan --</option>
+
+                      <?php
+
+
+                      $sql = "SELECT * FROM resto";
+                      $operasional=$this->db->query($sql)->result();
+                      foreach($operasional as $u){
+                      ?>
+                      <option value="<?= $u->id?>"><?= $u->nama_resto?></option>
+                      <?php
+                      }
+                      ?>
+
+                    </select>
+                    </div>
+                </div>
+                    <div class="form-group">
                   <label class="col-sm-2 control-label">Pengeluaran Oprasional</label>
                   <div class="col-sm-10">
                   <select name="id_operasional" class="form-control">
