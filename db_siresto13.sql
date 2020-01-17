@@ -2,10 +2,10 @@
 -- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 17 Jan 2020 pada 02.42
--- Versi server: 10.4.8-MariaDB
--- Versi PHP: 7.3.11
+-- Host: localhost
+-- Generation Time: Dec 25, 2019 at 08:58 AM
+-- Server version: 10.4.8-MariaDB
+-- PHP Version: 7.2.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `bahan_mentah`
+-- Table structure for table `bahan_mentah`
 --
 
 CREATE TABLE `bahan_mentah` (
@@ -39,7 +39,7 @@ CREATE TABLE `bahan_mentah` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `bahan_mentah`
+-- Dumping data for table `bahan_mentah`
 --
 
 INSERT INTO `bahan_mentah` (`id`, `id_resto`, `id_logistik`, `nama_bahan`, `satuan_besar`, `stok`, `status`) VALUES
@@ -50,7 +50,7 @@ INSERT INTO `bahan_mentah` (`id`, `id_resto`, `id_logistik`, `nama_bahan`, `satu
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `bahan_mentah_masakan`
+-- Table structure for table `bahan_mentah_masakan`
 --
 
 CREATE TABLE `bahan_mentah_masakan` (
@@ -61,17 +61,16 @@ CREATE TABLE `bahan_mentah_masakan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `bahan_mentah_masakan`
+-- Dumping data for table `bahan_mentah_masakan`
 --
 
 INSERT INTO `bahan_mentah_masakan` (`id`, `id_produksi_masakan`, `id_bahan_mentah`, `jumlah`) VALUES
-(1, 1, 1, 1),
-(2, 2, 3, 1);
+(1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `bahan_olahan`
+-- Table structure for table `bahan_olahan`
 --
 
 CREATE TABLE `bahan_olahan` (
@@ -84,7 +83,7 @@ CREATE TABLE `bahan_olahan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `bahan_olahan`
+-- Dumping data for table `bahan_olahan`
 --
 
 INSERT INTO `bahan_olahan` (`id`, `id_logistik`, `nama_bahan`, `satuan_kecil`, `stok`, `status`) VALUES
@@ -94,7 +93,7 @@ INSERT INTO `bahan_olahan` (`id`, `id_logistik`, `nama_bahan`, `satuan_kecil`, `
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `bahan_olahan_masakan`
+-- Table structure for table `bahan_olahan_masakan`
 --
 
 CREATE TABLE `bahan_olahan_masakan` (
@@ -105,7 +104,7 @@ CREATE TABLE `bahan_olahan_masakan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `bahan_olahan_masakan`
+-- Dumping data for table `bahan_olahan_masakan`
 --
 
 INSERT INTO `bahan_olahan_masakan` (`id`, `id_produksi_masakan`, `id_bahan_olahan`, `jumlah`) VALUES
@@ -115,7 +114,7 @@ INSERT INTO `bahan_olahan_masakan` (`id`, `id_produksi_masakan`, `id_bahan_olaha
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `biaya_lain`
+-- Table structure for table `biaya_lain`
 --
 
 CREATE TABLE `biaya_lain` (
@@ -126,7 +125,7 @@ CREATE TABLE `biaya_lain` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `biaya_lain`
+-- Dumping data for table `biaya_lain`
 --
 
 INSERT INTO `biaya_lain` (`id`, `id_resto`, `nama_biaya_lain`, `jumlah`) VALUES
@@ -136,7 +135,7 @@ INSERT INTO `biaya_lain` (`id`, `id_resto`, `nama_biaya_lain`, `jumlah`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `daftar_masakan`
+-- Table structure for table `daftar_masakan`
 --
 
 CREATE TABLE `daftar_masakan` (
@@ -148,7 +147,7 @@ CREATE TABLE `daftar_masakan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `daftar_masakan`
+-- Dumping data for table `daftar_masakan`
 --
 
 INSERT INTO `daftar_masakan` (`id`, `id_bahan_oalahan`, `id_menu`, `jenis`, `jumlah`) VALUES
@@ -158,7 +157,7 @@ INSERT INTO `daftar_masakan` (`id`, `id_bahan_oalahan`, `id_menu`, `jenis`, `jum
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detail_paket`
+-- Table structure for table `detail_paket`
 --
 
 CREATE TABLE `detail_paket` (
@@ -171,7 +170,7 @@ CREATE TABLE `detail_paket` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `detail_paket`
+-- Dumping data for table `detail_paket`
 --
 
 INSERT INTO `detail_paket` (`id`, `id_paket`, `id_menu`, `jumlah`, `total_harga`, `diskon`) VALUES
@@ -180,7 +179,7 @@ INSERT INTO `detail_paket` (`id`, `id_paket`, `id_menu`, `jumlah`, `total_harga`
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detail_pembelian_alat`
+-- Table structure for table `detail_pembelian_alat`
 --
 
 CREATE TABLE `detail_pembelian_alat` (
@@ -192,20 +191,18 @@ CREATE TABLE `detail_pembelian_alat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `detail_pembelian_alat`
+-- Dumping data for table `detail_pembelian_alat`
 --
 
 INSERT INTO `detail_pembelian_alat` (`id`, `id_transaksi`, `id_alat`, `jumlah`, `harga_beli`) VALUES
 (12, '1', '1', '1', '8000'),
 (13, '6', '1', '7', '7000'),
-(14, '7', '1', '1', '9000'),
-(15, '7', '1', '30', '5000'),
-(16, '7', '1', '10', '5000');
+(14, '7', '1', '1', '9000');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detail_pembelian_bahan_mentah`
+-- Table structure for table `detail_pembelian_bahan_mentah`
 --
 
 CREATE TABLE `detail_pembelian_bahan_mentah` (
@@ -217,7 +214,7 @@ CREATE TABLE `detail_pembelian_bahan_mentah` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `detail_pembelian_bahan_mentah`
+-- Dumping data for table `detail_pembelian_bahan_mentah`
 --
 
 INSERT INTO `detail_pembelian_bahan_mentah` (`id`, `id_transaksi`, `id_bahan_mentah`, `jumlah`, `harga_beli`) VALUES
@@ -232,7 +229,7 @@ INSERT INTO `detail_pembelian_bahan_mentah` (`id`, `id_transaksi`, `id_bahan_men
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `gaji`
+-- Table structure for table `gaji`
 --
 
 CREATE TABLE `gaji` (
@@ -246,18 +243,17 @@ CREATE TABLE `gaji` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `gaji`
+-- Dumping data for table `gaji`
 --
 
 INSERT INTO `gaji` (`id`, `id_resto`, `id_user_resto`, `tanggal_awal`, `tanggal_akhir`, `jenis_gaji`, `nominal_gaji`) VALUES
-(1, 1, 2, '2019-12-01', '2019-12-31', 'bulanan', 1004000),
-(2, 1, 5, '2019-12-01', '2019-12-31', 'bulanan', 1003000),
-(3, 1, 2, '2020-01-01', '2020-01-31', 'bulanan', 1500000);
+(1, 1, 2, '2019-12-01', '2019-12-31', 'bulanan', 1002000),
+(2, 1, 5, '2019-12-01', '2019-12-31', 'bulanan', 1000000);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `intensif_waiters`
+-- Table structure for table `intensif_waiters`
 --
 
 CREATE TABLE `intensif_waiters` (
@@ -268,20 +264,17 @@ CREATE TABLE `intensif_waiters` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `intensif_waiters`
+-- Dumping data for table `intensif_waiters`
 --
 
 INSERT INTO `intensif_waiters` (`id`, `id_user_resto`, `tanggal`, `jumlah_bonus`) VALUES
 (21, '2', '2019-12-23 20:10:44', '1000'),
-(22, '2', '2019-12-23 20:11:06', '1000'),
-(23, '2', '2020-01-03 19:58:16', '1000'),
-(24, '5', '2020-01-03 20:31:22', '1000'),
-(25, '2', '2020-01-14 21:46:24', '1000');
+(22, '2', '2019-12-23 20:11:06', '1000');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `investasi_cabang`
+-- Table structure for table `investasi_cabang`
 --
 
 CREATE TABLE `investasi_cabang` (
@@ -297,7 +290,7 @@ CREATE TABLE `investasi_cabang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `investasi_cabang`
+-- Dumping data for table `investasi_cabang`
 --
 
 INSERT INTO `investasi_cabang` (`id`, `id_resto`, `id_user_bendahara`, `nama_investasi`, `tanggal_mulai`, `tanggal_selesai`, `jumlah_pengeluaran`, `persen_penyusutan`, `status`) VALUES
@@ -305,14 +298,12 @@ INSERT INTO `investasi_cabang` (`id`, `id_resto`, `id_user_bendahara`, `nama_inv
 (5, 1, 2, 'Renovasi', '2019-10-01', '2019-10-30', 5000, 20, 'invest dikembalikan'),
 (6, 1, 2, 'Pembelian p', '2019-10-01', '2019-10-30', 500000, 20, 'invest dikembalikan'),
 (7, 1, 2, 'Pengecetan', '2019-10-01', '2019-10-30', 80000, 20, 'permintaan'),
-(8, 1, 2, 'pembelian alat', '2019-10-01', '2019-10-30', 700000, 10, 'permintaan'),
-(9, 3, 2, 'sewa ruko', '2020-01-14', '2025-01-14', 200000000, 10, 'permintaan'),
-(10, 3, 2, 'renovasi', '2020-02-01', '2020-05-01', 50000000, 10, 'permintaan');
+(8, 1, 2, 'pembelian alat', '2019-10-01', '2019-10-30', 700000, 10, 'permintaan');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `investasi_kanwil`
+-- Table structure for table `investasi_kanwil`
 --
 
 CREATE TABLE `investasi_kanwil` (
@@ -328,7 +319,7 @@ CREATE TABLE `investasi_kanwil` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `investasi_kanwil`
+-- Dumping data for table `investasi_kanwil`
 --
 
 INSERT INTO `investasi_kanwil` (`id`, `id_super_admin`, `id_kanwil`, `id_investasi_owner`, `tanggal`, `nominal_investasi`, `penyusutan`, `nominal_saldo`, `status`) VALUES
@@ -338,7 +329,7 @@ INSERT INTO `investasi_kanwil` (`id`, `id_super_admin`, `id_kanwil`, `id_investa
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `investasi_owner`
+-- Table structure for table `investasi_owner`
 --
 
 CREATE TABLE `investasi_owner` (
@@ -353,7 +344,7 @@ CREATE TABLE `investasi_owner` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `investasi_owner`
+-- Dumping data for table `investasi_owner`
 --
 
 INSERT INTO `investasi_owner` (`id`, `id_super_admin`, `id_owner`, `id_bendahara`, `tanggal`, `jumlah_investasi`, `jangka_waktu`, `persentase_omset`) VALUES
@@ -363,7 +354,7 @@ INSERT INTO `investasi_owner` (`id`, `id_super_admin`, `id_owner`, `id_bendahara
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jenis_masakan`
+-- Table structure for table `jenis_masakan`
 --
 
 CREATE TABLE `jenis_masakan` (
@@ -372,7 +363,7 @@ CREATE TABLE `jenis_masakan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `jenis_masakan`
+-- Dumping data for table `jenis_masakan`
 --
 
 INSERT INTO `jenis_masakan` (`id`, `jenis`) VALUES
@@ -383,7 +374,7 @@ INSERT INTO `jenis_masakan` (`id`, `jenis`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kanwil`
+-- Table structure for table `kanwil`
 --
 
 CREATE TABLE `kanwil` (
@@ -393,19 +384,18 @@ CREATE TABLE `kanwil` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `kanwil`
+-- Dumping data for table `kanwil`
 --
 
 INSERT INTO `kanwil` (`id_kanwil`, `alamat_kantor`, `telp`) VALUES
 (1, 'ngronggo', '0856464646'),
 (2, 'a', '94586845'),
-(5, 'b', '94586845'),
-(6, 'c', '085288886666');
+(5, 'b', '94586845');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `logistik`
+-- Table structure for table `logistik`
 --
 
 CREATE TABLE `logistik` (
@@ -419,7 +409,7 @@ CREATE TABLE `logistik` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `meja`
+-- Table structure for table `meja`
 --
 
 CREATE TABLE `meja` (
@@ -429,7 +419,7 @@ CREATE TABLE `meja` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `meja`
+-- Dumping data for table `meja`
 --
 
 INSERT INTO `meja` (`id`, `panel`, `nomor`) VALUES
@@ -444,7 +434,7 @@ INSERT INTO `meja` (`id`, `panel`, `nomor`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `menu`
+-- Table structure for table `menu`
 --
 
 CREATE TABLE `menu` (
@@ -459,22 +449,21 @@ CREATE TABLE `menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `menu`
+-- Dumping data for table `menu`
 --
 
 INSERT INTO `menu` (`id`, `id_resto`, `menu`, `foto`, `harga`, `status`, `stok`, `mode`) VALUES
 (1, 1, 'Ayam Geprek', 'nasibebek.jpg', 10000, 'tersedia', 5, 'insert'),
-(2, 1, 'Jamur Kripsi', '124789-mint-background-2560x1600-for-ios.jpg', 10000, 'tersedia', 0, 'insert'),
+(2, 1, 'Jamur Kripsi', '124789-mint-background-2560x1600-for-ios.jpg', 10000, 'tersedia', 1, 'insert'),
 (3, 1, 'Es Teh Anget', '124789-mint-background-2560x1600-for-ios4.jpg', 10000, 'tersedia', 10, 'insert'),
 (4, 1, 'Kopi Susu', 'start4.jpg', 3000, 'tersedia', 6, 'insert'),
 (5, 1, 'Nasi Goreng', 'start2.png', 3000, 'tersedia', 6, 'insert'),
-(6, 1, 'Tahu Kripsi', 'wp2754931.jpg', 6000, 'tersedia', 1, 'insert'),
-(7, 1, 'teh pucuk', 'Struktur-Komite.png', 3000, 'tersedia', 1, 'insert');
+(6, 1, 'Tahu Kripsi', 'wp2754931.jpg', 6000, 'tersedia', 1, 'insert');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `omset_investasi_owner`
+-- Table structure for table `omset_investasi_owner`
 --
 
 CREATE TABLE `omset_investasi_owner` (
@@ -486,19 +475,18 @@ CREATE TABLE `omset_investasi_owner` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `omset_investasi_owner`
+-- Dumping data for table `omset_investasi_owner`
 --
 
 INSERT INTO `omset_investasi_owner` (`id`, `id_investasi_owner`, `id_super_admin`, `tanggal`, `penyusutan_invest`) VALUES
 (1, 1, 1, '2019-10-30', 200000),
 (2, 1, 1, '2019-10-31', 200000),
-(3, 1, 1, '2019-11-01', 200000),
-(9, 1, 0, '2019-12-01', 20000);
+(3, 1, 1, '2019-11-01', 200000);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `operasional`
+-- Table structure for table `operasional`
 --
 
 CREATE TABLE `operasional` (
@@ -507,7 +495,7 @@ CREATE TABLE `operasional` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `operasional`
+-- Dumping data for table `operasional`
 --
 
 INSERT INTO `operasional` (`id`, `nama_pengeluaran`) VALUES
@@ -520,7 +508,7 @@ INSERT INTO `operasional` (`id`, `nama_pengeluaran`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `owner`
+-- Table structure for table `owner`
 --
 
 CREATE TABLE `owner` (
@@ -538,18 +526,17 @@ CREATE TABLE `owner` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `owner`
+-- Dumping data for table `owner`
 --
 
 INSERT INTO `owner` (`id`, `id_super_admin`, `nama`, `user`, `pass`, `alamat`, `telp`, `email`, `saldo_rek`, `create_at`, `update_at`) VALUES
 (1, 1, 'fauzin', 'fauzin', 'fauzin', 'sambirejo', '1234567', 'fauzin@gmail.com', '200000', '2019-05-08 00:37:00', '2019-05-08 00:37:00'),
-(2, 1, 'dedy ardiansyah 1', 'sd', 'as', 'asadas', '94586845', 'dfs@gmail.com', '100000', '2019-12-09 14:04:05', '2019-12-09 14:04:05'),
-(3, 1, 'owner c', 'cc', 'cc', 'mojoroto', '085288886666', '1@gmail.com', '100000000', '2019-12-29 23:05:54', '2019-12-29 23:05:54');
+(2, 1, 'dedy ardiansyah 1', 'sd', 'as', 'asadas', '94586845', 'dfs@gmail.com', '100000', '2019-12-09 14:04:05', '2019-12-09 14:04:05');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `paket`
+-- Table structure for table `paket`
 --
 
 CREATE TABLE `paket` (
@@ -564,7 +551,7 @@ CREATE TABLE `paket` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `paket`
+-- Dumping data for table `paket`
 --
 
 INSERT INTO `paket` (`id`, `id_resto`, `nama_paket`, `jumlah`, `status`, `foto`, `harga`, `mode`) VALUES
@@ -575,7 +562,7 @@ INSERT INTO `paket` (`id`, `id_resto`, `nama_paket`, `jumlah`, `status`, `foto`,
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pembayaran`
+-- Table structure for table `pembayaran`
 --
 
 CREATE TABLE `pembayaran` (
@@ -588,22 +575,16 @@ CREATE TABLE `pembayaran` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `pembayaran`
+-- Dumping data for table `pembayaran`
 --
 
 INSERT INTO `pembayaran` (`id`, `id_user_kasir`, `id_pemesanan`, `nominal`, `status`, `tanggal`) VALUES
-(18, 2, 1, 50000, 'lunas', '2019-12-23 20:10:44'),
-(19, 5, 4, 20000, 'lunas', '2020-01-03 20:31:22'),
-(20, 1, 3, 63000, 'lunas', '2020-01-13 15:31:25'),
-(21, 1, 3, 70000, 'lunas', '2020-01-13 15:58:29'),
-(22, 1, 3, 63000, 'lunas', '2020-01-13 16:08:27'),
-(23, 2, 3, 70000, 'lunas', '2020-01-13 16:18:48'),
-(24, 1, 5, 55000, 'lunas', '2020-01-14 15:49:47');
+(18, 2, 1, 50000, 'lunas', '2019-12-23 20:10:44');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pembelian_alat`
+-- Table structure for table `pembelian_alat`
 --
 
 CREATE TABLE `pembelian_alat` (
@@ -619,18 +600,17 @@ CREATE TABLE `pembelian_alat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `pembelian_alat`
+-- Dumping data for table `pembelian_alat`
 --
 
 INSERT INTO `pembelian_alat` (`id`, `id_logistik`, `no_transaksi`, `nama_supplier`, `tanggal`, `total_harga_beli`, `dibayar`, `status`, `catatan`) VALUES
 (5, 3, '1', 'fauzin', '2019-10-16', 8000, 8000, 'selesai', 'ok'),
-(6, 3, '6', '', '2019-10-16', 49000, 49000, 'selesai', 'ok'),
-(7, 3, '7', 'Tmart', '2020-01-14', 209000, 200000, 'selesai', '');
+(6, 3, '6', '', '2019-10-16', 49000, 49000, 'selesai', 'ok');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pembelian_bahan_mentah`
+-- Table structure for table `pembelian_bahan_mentah`
 --
 
 CREATE TABLE `pembelian_bahan_mentah` (
@@ -646,7 +626,7 @@ CREATE TABLE `pembelian_bahan_mentah` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `pembelian_bahan_mentah`
+-- Dumping data for table `pembelian_bahan_mentah`
 --
 
 INSERT INTO `pembelian_bahan_mentah` (`id`, `id_logistik`, `no_transaksi`, `nama_supplier`, `tanggal`, `total_harga_beli`, `dibayar`, `status`, `catatan`) VALUES
@@ -655,7 +635,7 @@ INSERT INTO `pembelian_bahan_mentah` (`id`, `id_logistik`, `no_transaksi`, `nama
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pemberian_kaskeluar`
+-- Table structure for table `pemberian_kaskeluar`
 --
 
 CREATE TABLE `pemberian_kaskeluar` (
@@ -668,19 +648,18 @@ CREATE TABLE `pemberian_kaskeluar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `pemberian_kaskeluar`
+-- Dumping data for table `pemberian_kaskeluar`
 --
 
 INSERT INTO `pemberian_kaskeluar` (`id_pengeluaran`, `id_bendahara`, `id_resto`, `tanggal`, `nominal_kas_keluar`, `status`) VALUES
 (1, 2, 1, '2019-06-26', 400000, 'pemberian'),
 (6, 2, 1, '2019-10-19', 60000, 'pemberian'),
-(7, 2, 1, '2019-10-20', 60000, 'pemberian'),
-(8, 2, 3, '2020-01-14', 3000000, 'pengajuan');
+(7, 2, 1, '2019-10-20', 60000, 'pemberian');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pemesanan`
+-- Table structure for table `pemesanan`
 --
 
 CREATE TABLE `pemesanan` (
@@ -691,23 +670,21 @@ CREATE TABLE `pemesanan` (
   `tanggal` datetime NOT NULL,
   `total_harga` int(11) NOT NULL,
   `id_user_resto` int(11) NOT NULL,
-  `status` enum('belum','kredit','lunas','produksi','siapsaji','selesai','siapsaji_lunas','produksi_lunas') NOT NULL
+  `status` enum('belum','kredit','lunas','produksi','siapsaji','selsai','siapsaji_lunas','produksi_lunas') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `pemesanan`
+-- Dumping data for table `pemesanan`
 --
 
 INSERT INTO `pemesanan` (`id`, `nama_pemesan`, `no_meja`, `keterangantambahan`, `tanggal`, `total_harga`, `id_user_resto`, `status`) VALUES
 (1, 'irhas', 1, '', '2019-12-23 20:10:44', 40000, 2, 'lunas'),
-(3, 'rury', 4, 'sambal 2', '2020-01-03 19:58:16', 63000, 2, 'lunas'),
-(4, 'joko', 7, 'kopi susu hangat', '2020-01-03 20:31:22', 19000, 5, 'selesai'),
-(5, 'tony', 5, 'sambal level 1', '2020-01-14 21:46:24', 48000, 2, 'lunas');
+(2, 'fadila', 4, '', '2019-12-23 20:11:06', 3000, 2, 'selsai');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pemesanan_menu`
+-- Table structure for table `pemesanan_menu`
 --
 
 CREATE TABLE `pemesanan_menu` (
@@ -720,27 +697,17 @@ CREATE TABLE `pemesanan_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `pemesanan_menu`
+-- Dumping data for table `pemesanan_menu`
 --
 
 INSERT INTO `pemesanan_menu` (`id`, `id_pemesanan`, `id_menu`, `jumlah_pesan`, `subharga`, `status`) VALUES
 (40, 1, 1, 1, 10000, ''),
-(41, 2, 5, 1, 3000, ''),
-(42, 3, 1, 1, 10000, ''),
-(43, 3, 2, 1, 10000, ''),
-(44, 3, 3, 1, 10000, ''),
-(45, 3, 4, 1, 3000, ''),
-(46, 4, 2, 1, 10000, ''),
-(47, 4, 4, 1, 3000, ''),
-(48, 4, 6, 1, 6000, ''),
-(49, 5, 1, 1, 10000, ''),
-(50, 5, 2, 1, 10000, ''),
-(51, 5, 3, 2, 20000, '');
+(41, 2, 5, 1, 3000, '');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pemesanan_paket`
+-- Table structure for table `pemesanan_paket`
 --
 
 CREATE TABLE `pemesanan_paket` (
@@ -753,18 +720,16 @@ CREATE TABLE `pemesanan_paket` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `pemesanan_paket`
+-- Dumping data for table `pemesanan_paket`
 --
 
 INSERT INTO `pemesanan_paket` (`id`, `id_pemesanan`, `id_paket`, `jumlah_pesan`, `subharga`, `status`) VALUES
-(29, 1, 3, 1, 30000, ''),
-(30, 3, 3, 1, 30000, ''),
-(31, 5, 1, 1, 8000, '');
+(29, 1, 3, 1, 30000, '');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pendapatan_kas_masuk`
+-- Table structure for table `pendapatan_kas_masuk`
 --
 
 CREATE TABLE `pendapatan_kas_masuk` (
@@ -778,7 +743,7 @@ CREATE TABLE `pendapatan_kas_masuk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `pendapatan_kas_masuk`
+-- Dumping data for table `pendapatan_kas_masuk`
 --
 
 INSERT INTO `pendapatan_kas_masuk` (`id`, `id_user_bendahara`, `id_user_kasir`, `jumlah_setoran`, `tanggal`, `tanggal_awal`, `tanggal_akhir`) VALUES
@@ -789,7 +754,7 @@ INSERT INTO `pendapatan_kas_masuk` (`id`, `id_user_bendahara`, `id_user_kasir`, 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengeluaran_cabang_operasional`
+-- Table structure for table `pengeluaran_cabang_operasional`
 --
 
 CREATE TABLE `pengeluaran_cabang_operasional` (
@@ -804,19 +769,18 @@ CREATE TABLE `pengeluaran_cabang_operasional` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `pengeluaran_cabang_operasional`
+-- Dumping data for table `pengeluaran_cabang_operasional`
 --
 
 INSERT INTO `pengeluaran_cabang_operasional` (`id`, `id_admin_resto`, `id_resto`, `id_kanwil`, `tanggal`, `id_operasional`, `masa_sewa`, `nominal`) VALUES
 (1, 4, 1, 1, '2019-10-02', 1, '1 bulan', '5000'),
 (2, 4, 1, 1, '2019-10-03', 1, '2 bulan', '90'),
-(3, 4, 1, 1, '2019-10-19', 0, '2 hari', '10000'),
-(5, 1, 1, 1, '2019-12-29', 2, '1 bulan', '70000');
+(3, 4, 1, 1, '2019-10-19', 0, '2 hari', '10000');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengeluaran_kanwil_operasional`
+-- Table structure for table `pengeluaran_kanwil_operasional`
 --
 
 CREATE TABLE `pengeluaran_kanwil_operasional` (
@@ -829,19 +793,18 @@ CREATE TABLE `pengeluaran_kanwil_operasional` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `pengeluaran_kanwil_operasional`
+-- Dumping data for table `pengeluaran_kanwil_operasional`
 --
 
 INSERT INTO `pengeluaran_kanwil_operasional` (`id`, `id_kanwil`, `id_operasional`, `tanggal`, `masa_sewa`, `nominal`) VALUES
 (1, 1, 1, '2019-10-02', '1 bulan', '5000'),
 (3, 1, 1, '2019-10-03', '1 bulan', '100'),
-(4, 1, 1, '2019-10-04', '1 bulan', '2000'),
-(5, 1, 4, '0000-00-00', NULL, '2000000');
+(4, 1, 1, '2019-10-04', '1 bulan', '2000');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengiriman_bahan_mentah`
+-- Table structure for table `pengiriman_bahan_mentah`
 --
 
 CREATE TABLE `pengiriman_bahan_mentah` (
@@ -856,7 +819,7 @@ CREATE TABLE `pengiriman_bahan_mentah` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `pengiriman_bahan_mentah`
+-- Dumping data for table `pengiriman_bahan_mentah`
 --
 
 INSERT INTO `pengiriman_bahan_mentah` (`id`, `id_permintaan`, `id_bahan_mentah`, `tanggal_pengiriman`, `jumlah_permintaan`, `jumlah_dikirim`, `jumlah_dikembalikan`, `status`) VALUES
@@ -865,7 +828,7 @@ INSERT INTO `pengiriman_bahan_mentah` (`id`, `id_permintaan`, `id_bahan_mentah`,
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengiriman_bahan_olahan`
+-- Table structure for table `pengiriman_bahan_olahan`
 --
 
 CREATE TABLE `pengiriman_bahan_olahan` (
@@ -880,7 +843,7 @@ CREATE TABLE `pengiriman_bahan_olahan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `pengiriman_bahan_olahan`
+-- Dumping data for table `pengiriman_bahan_olahan`
 --
 
 INSERT INTO `pengiriman_bahan_olahan` (`id`, `id_permintaan`, `id_bahan_olahan`, `tanggal_pengiriman`, `jumlah_permintaan`, `jumlah_dikirim`, `jumlah_dikembalikan`, `status`) VALUES
@@ -890,7 +853,7 @@ INSERT INTO `pengiriman_bahan_olahan` (`id`, `id_permintaan`, `id_bahan_olahan`,
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `penyusutan_investasi_cabang`
+-- Table structure for table `penyusutan_investasi_cabang`
 --
 
 CREATE TABLE `penyusutan_investasi_cabang` (
@@ -901,7 +864,7 @@ CREATE TABLE `penyusutan_investasi_cabang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `penyusutan_investasi_cabang`
+-- Dumping data for table `penyusutan_investasi_cabang`
 --
 
 INSERT INTO `penyusutan_investasi_cabang` (`id_penyusutan`, `id_investasi_cabang`, `tanggal`, `nominal_penyusutan`) VALUES
@@ -924,7 +887,7 @@ INSERT INTO `penyusutan_investasi_cabang` (`id_penyusutan`, `id_investasi_cabang
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `peralatan`
+-- Table structure for table `peralatan`
 --
 
 CREATE TABLE `peralatan` (
@@ -938,16 +901,16 @@ CREATE TABLE `peralatan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `peralatan`
+-- Dumping data for table `peralatan`
 --
 
 INSERT INTO `peralatan` (`id`, `id_logistik`, `id_resto`, `nama_peralatan`, `satuan_besar`, `jumlah_stok`, `status`) VALUES
-(1, 3, 1, 'sendok', 'pcs', 40, 1);
+(1, 3, 1, 'sendok', 'pcs', 14, 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `permintaan_alat`
+-- Table structure for table `permintaan_alat`
 --
 
 CREATE TABLE `permintaan_alat` (
@@ -962,18 +925,16 @@ CREATE TABLE `permintaan_alat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `permintaan_alat`
+-- Dumping data for table `permintaan_alat`
 --
 
 INSERT INTO `permintaan_alat` (`id_permintaan_alat`, `id_resto`, `id_kanwil`, `id_alat`, `tanggal`, `jumlah`, `masa_pemanfatan`, `status_permintaan`) VALUES
-(8, 1, 1, 1, '0000-00-00', '1', '2 bulan', 'diterima'),
-(9, 1, 1, 1, '0000-00-00', '50', '10 bulan', 'permintaan'),
-(10, 1, 1, 1, '0000-00-00', '10', '3 bulan', 'permintaan');
+(8, 1, 1, 1, '0000-00-00', '1', '2 bulan', 'diterima');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `permintaan_bahan_mentah`
+-- Table structure for table `permintaan_bahan_mentah`
 --
 
 CREATE TABLE `permintaan_bahan_mentah` (
@@ -986,7 +947,7 @@ CREATE TABLE `permintaan_bahan_mentah` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `permintaan_bahan_mentah`
+-- Dumping data for table `permintaan_bahan_mentah`
 --
 
 INSERT INTO `permintaan_bahan_mentah` (`id`, `id_resto`, `id_user_produksi`, `nama_permintaan`, `tanggal`, `status`) VALUES
@@ -995,7 +956,7 @@ INSERT INTO `permintaan_bahan_mentah` (`id`, `id_resto`, `id_user_produksi`, `na
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `permintaan_bahan_olahan`
+-- Table structure for table `permintaan_bahan_olahan`
 --
 
 CREATE TABLE `permintaan_bahan_olahan` (
@@ -1008,7 +969,7 @@ CREATE TABLE `permintaan_bahan_olahan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `permintaan_bahan_olahan`
+-- Dumping data for table `permintaan_bahan_olahan`
 --
 
 INSERT INTO `permintaan_bahan_olahan` (`id`, `id_resto`, `id_user_produksi`, `nama_permintaan`, `tanggal`, `status`) VALUES
@@ -1018,7 +979,7 @@ INSERT INTO `permintaan_bahan_olahan` (`id`, `id_resto`, `id_user_produksi`, `na
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `produksi`
+-- Table structure for table `produksi`
 --
 
 CREATE TABLE `produksi` (
@@ -1032,7 +993,7 @@ CREATE TABLE `produksi` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `produksi_bahan_olahan`
+-- Table structure for table `produksi_bahan_olahan`
 --
 
 CREATE TABLE `produksi_bahan_olahan` (
@@ -1044,7 +1005,7 @@ CREATE TABLE `produksi_bahan_olahan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `produksi_bahan_olahan`
+-- Dumping data for table `produksi_bahan_olahan`
 --
 
 INSERT INTO `produksi_bahan_olahan` (`id`, `id_bahan_mentah`, `id_bahan_olahan`, `jumlah`, `tanggal`) VALUES
@@ -1056,7 +1017,7 @@ INSERT INTO `produksi_bahan_olahan` (`id`, `id_bahan_mentah`, `id_bahan_olahan`,
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `produksi_masakan`
+-- Table structure for table `produksi_masakan`
 --
 
 CREATE TABLE `produksi_masakan` (
@@ -1067,20 +1028,17 @@ CREATE TABLE `produksi_masakan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `produksi_masakan`
+-- Dumping data for table `produksi_masakan`
 --
 
 INSERT INTO `produksi_masakan` (`id`, `id_menu`, `tanggal`, `jumlah_masakan`) VALUES
 (1, 1, '2019-10-10', 10),
-(2, 2, '2019-10-14', 1),
-(3, 2, '2020-01-03', 1),
-(4, 4, '2020-01-03', 1),
-(5, 6, '2020-01-03', 1);
+(2, 2, '2019-10-14', 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `resto`
+-- Table structure for table `resto`
 --
 
 CREATE TABLE `resto` (
@@ -1093,18 +1051,16 @@ CREATE TABLE `resto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `resto`
+-- Dumping data for table `resto`
 --
 
 INSERT INTO `resto` (`id`, `id_kanwil`, `nama_resto`, `alamat`, `no_telp`, `pajak`) VALUES
-(1, 1, 'resto farma', 'blabak', '08537637200', 200000),
-(2, 6, 'chikenet', 'mojoroto', '08528888666', 10),
-(3, 1, 'resbaru', 'mojoroto', '08528888666', 10);
+(1, 1, 'resto farma', 'blabak', '08537637200', 200000);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `stok_bahan_mentah_produksi`
+-- Table structure for table `stok_bahan_mentah_produksi`
 --
 
 CREATE TABLE `stok_bahan_mentah_produksi` (
@@ -1114,18 +1070,18 @@ CREATE TABLE `stok_bahan_mentah_produksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `stok_bahan_mentah_produksi`
+-- Dumping data for table `stok_bahan_mentah_produksi`
 --
 
 INSERT INTO `stok_bahan_mentah_produksi` (`id`, `id_bahan_mentah`, `stok`) VALUES
 (1, 1, 21),
 (2, 2, 51),
-(3, 3, 9);
+(3, 3, 10);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `stok_bahan_olahan_produksi`
+-- Table structure for table `stok_bahan_olahan_produksi`
 --
 
 CREATE TABLE `stok_bahan_olahan_produksi` (
@@ -1135,7 +1091,7 @@ CREATE TABLE `stok_bahan_olahan_produksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `stok_bahan_olahan_produksi`
+-- Dumping data for table `stok_bahan_olahan_produksi`
 --
 
 INSERT INTO `stok_bahan_olahan_produksi` (`id`, `id_bahan_olahan`, `stok`) VALUES
@@ -1145,7 +1101,7 @@ INSERT INTO `stok_bahan_olahan_produksi` (`id`, `id_bahan_olahan`, `stok`) VALUE
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `superadmin`
+-- Table structure for table `superadmin`
 --
 
 CREATE TABLE `superadmin` (
@@ -1161,17 +1117,16 @@ CREATE TABLE `superadmin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `superadmin`
+-- Dumping data for table `superadmin`
 --
 
 INSERT INTO `superadmin` (`id`, `nama`, `user`, `pass`, `alamat`, `telp`, `email`, `create_at`, `update_at`) VALUES
-(1, 'dedy ardiansyah', 'dedi', 'dedi', 'blitar', '08546464664', 'dedi@gmail.com', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(7, 'tessuper', 'superadmin', 'admin', 'reg', '085288886666', 'admin@ulah.id', '2019-12-29 23:01:19', '2019-12-29 23:01:19');
+(1, 'dedy ardiansyah', 'dedi', 'dedi', 'blitar', '08546464664', 'dedi@gmail.com', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_kinerja_karyawan`
+-- Table structure for table `tbl_kinerja_karyawan`
 --
 
 CREATE TABLE `tbl_kinerja_karyawan` (
@@ -1182,21 +1137,17 @@ CREATE TABLE `tbl_kinerja_karyawan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tbl_kinerja_karyawan`
+-- Dumping data for table `tbl_kinerja_karyawan`
 --
 
 INSERT INTO `tbl_kinerja_karyawan` (`id`, `id_user_resto`, `pemesanan`, `point`) VALUES
 (6, 2, 1, 1),
-(7, 2, 2, 1),
-(8, 5, 4, 1),
-(9, 2, 3, 1),
-(10, 2, 3, 1),
-(11, 2, 5, 1);
+(7, 2, 2, 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user_kanwil`
+-- Table structure for table `user_kanwil`
 --
 
 CREATE TABLE `user_kanwil` (
@@ -1215,7 +1166,7 @@ CREATE TABLE `user_kanwil` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `user_kanwil`
+-- Dumping data for table `user_kanwil`
 --
 
 INSERT INTO `user_kanwil` (`id`, `id_super_admin`, `id_kanwil`, `nama`, `user`, `pass`, `alamat`, `telp`, `email`, `create_at`, `update_at`, `tipe`) VALUES
@@ -1228,7 +1179,7 @@ INSERT INTO `user_kanwil` (`id`, `id_super_admin`, `id_kanwil`, `nama`, `user`, 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user_resto`
+-- Table structure for table `user_resto`
 --
 
 CREATE TABLE `user_resto` (
@@ -1246,7 +1197,7 @@ CREATE TABLE `user_resto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `user_resto`
+-- Dumping data for table `user_resto`
 --
 
 INSERT INTO `user_resto` (`id`, `id_kanwil`, `id_resto`, `nama`, `user`, `pass`, `alamat`, `telp`, `create_at`, `update_at`, `jenis`) VALUES
@@ -1261,599 +1212,599 @@ INSERT INTO `user_resto` (`id`, `id_kanwil`, `id_resto`, `nama`, `user`, `pass`,
 --
 
 --
--- Indeks untuk tabel `bahan_mentah`
+-- Indexes for table `bahan_mentah`
 --
 ALTER TABLE `bahan_mentah`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `bahan_mentah_masakan`
+-- Indexes for table `bahan_mentah_masakan`
 --
 ALTER TABLE `bahan_mentah_masakan`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `bahan_olahan`
+-- Indexes for table `bahan_olahan`
 --
 ALTER TABLE `bahan_olahan`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `bahan_olahan_masakan`
+-- Indexes for table `bahan_olahan_masakan`
 --
 ALTER TABLE `bahan_olahan_masakan`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `biaya_lain`
+-- Indexes for table `biaya_lain`
 --
 ALTER TABLE `biaya_lain`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `daftar_masakan`
+-- Indexes for table `daftar_masakan`
 --
 ALTER TABLE `daftar_masakan`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `detail_paket`
+-- Indexes for table `detail_paket`
 --
 ALTER TABLE `detail_paket`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `detail_pembelian_alat`
+-- Indexes for table `detail_pembelian_alat`
 --
 ALTER TABLE `detail_pembelian_alat`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `detail_pembelian_bahan_mentah`
+-- Indexes for table `detail_pembelian_bahan_mentah`
 --
 ALTER TABLE `detail_pembelian_bahan_mentah`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `gaji`
+-- Indexes for table `gaji`
 --
 ALTER TABLE `gaji`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `intensif_waiters`
+-- Indexes for table `intensif_waiters`
 --
 ALTER TABLE `intensif_waiters`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `investasi_cabang`
+-- Indexes for table `investasi_cabang`
 --
 ALTER TABLE `investasi_cabang`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `investasi_kanwil`
+-- Indexes for table `investasi_kanwil`
 --
 ALTER TABLE `investasi_kanwil`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `investasi_owner`
+-- Indexes for table `investasi_owner`
 --
 ALTER TABLE `investasi_owner`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `jenis_masakan`
+-- Indexes for table `jenis_masakan`
 --
 ALTER TABLE `jenis_masakan`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `kanwil`
+-- Indexes for table `kanwil`
 --
 ALTER TABLE `kanwil`
   ADD PRIMARY KEY (`id_kanwil`) USING BTREE;
 
 --
--- Indeks untuk tabel `logistik`
+-- Indexes for table `logistik`
 --
 ALTER TABLE `logistik`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `meja`
+-- Indexes for table `meja`
 --
 ALTER TABLE `meja`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `menu`
+-- Indexes for table `menu`
 --
 ALTER TABLE `menu`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `omset_investasi_owner`
+-- Indexes for table `omset_investasi_owner`
 --
 ALTER TABLE `omset_investasi_owner`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `operasional`
+-- Indexes for table `operasional`
 --
 ALTER TABLE `operasional`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `owner`
+-- Indexes for table `owner`
 --
 ALTER TABLE `owner`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `paket`
+-- Indexes for table `paket`
 --
 ALTER TABLE `paket`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `pembayaran`
+-- Indexes for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `pembelian_alat`
+-- Indexes for table `pembelian_alat`
 --
 ALTER TABLE `pembelian_alat`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `pembelian_bahan_mentah`
+-- Indexes for table `pembelian_bahan_mentah`
 --
 ALTER TABLE `pembelian_bahan_mentah`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `pemberian_kaskeluar`
+-- Indexes for table `pemberian_kaskeluar`
 --
 ALTER TABLE `pemberian_kaskeluar`
   ADD PRIMARY KEY (`id_pengeluaran`) USING BTREE;
 
 --
--- Indeks untuk tabel `pemesanan`
+-- Indexes for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `pemesanan_menu`
+-- Indexes for table `pemesanan_menu`
 --
 ALTER TABLE `pemesanan_menu`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `pemesanan_paket`
+-- Indexes for table `pemesanan_paket`
 --
 ALTER TABLE `pemesanan_paket`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `pendapatan_kas_masuk`
+-- Indexes for table `pendapatan_kas_masuk`
 --
 ALTER TABLE `pendapatan_kas_masuk`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `pengeluaran_cabang_operasional`
+-- Indexes for table `pengeluaran_cabang_operasional`
 --
 ALTER TABLE `pengeluaran_cabang_operasional`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `pengeluaran_kanwil_operasional`
+-- Indexes for table `pengeluaran_kanwil_operasional`
 --
 ALTER TABLE `pengeluaran_kanwil_operasional`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `pengiriman_bahan_mentah`
+-- Indexes for table `pengiriman_bahan_mentah`
 --
 ALTER TABLE `pengiriman_bahan_mentah`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `pengiriman_bahan_olahan`
+-- Indexes for table `pengiriman_bahan_olahan`
 --
 ALTER TABLE `pengiriman_bahan_olahan`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `penyusutan_investasi_cabang`
+-- Indexes for table `penyusutan_investasi_cabang`
 --
 ALTER TABLE `penyusutan_investasi_cabang`
   ADD PRIMARY KEY (`id_penyusutan`) USING BTREE;
 
 --
--- Indeks untuk tabel `peralatan`
+-- Indexes for table `peralatan`
 --
 ALTER TABLE `peralatan`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `permintaan_alat`
+-- Indexes for table `permintaan_alat`
 --
 ALTER TABLE `permintaan_alat`
   ADD PRIMARY KEY (`id_permintaan_alat`) USING BTREE;
 
 --
--- Indeks untuk tabel `permintaan_bahan_mentah`
+-- Indexes for table `permintaan_bahan_mentah`
 --
 ALTER TABLE `permintaan_bahan_mentah`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `permintaan_bahan_olahan`
+-- Indexes for table `permintaan_bahan_olahan`
 --
 ALTER TABLE `permintaan_bahan_olahan`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `produksi`
+-- Indexes for table `produksi`
 --
 ALTER TABLE `produksi`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `produksi_bahan_olahan`
+-- Indexes for table `produksi_bahan_olahan`
 --
 ALTER TABLE `produksi_bahan_olahan`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `produksi_masakan`
+-- Indexes for table `produksi_masakan`
 --
 ALTER TABLE `produksi_masakan`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `resto`
+-- Indexes for table `resto`
 --
 ALTER TABLE `resto`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `stok_bahan_mentah_produksi`
+-- Indexes for table `stok_bahan_mentah_produksi`
 --
 ALTER TABLE `stok_bahan_mentah_produksi`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `stok_bahan_olahan_produksi`
+-- Indexes for table `stok_bahan_olahan_produksi`
 --
 ALTER TABLE `stok_bahan_olahan_produksi`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `superadmin`
+-- Indexes for table `superadmin`
 --
 ALTER TABLE `superadmin`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `tbl_kinerja_karyawan`
+-- Indexes for table `tbl_kinerja_karyawan`
 --
 ALTER TABLE `tbl_kinerja_karyawan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `user_kanwil`
+-- Indexes for table `user_kanwil`
 --
 ALTER TABLE `user_kanwil`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indeks untuk tabel `user_resto`
+-- Indexes for table `user_resto`
 --
 ALTER TABLE `user_resto`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `bahan_mentah`
+-- AUTO_INCREMENT for table `bahan_mentah`
 --
 ALTER TABLE `bahan_mentah`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `bahan_mentah_masakan`
+-- AUTO_INCREMENT for table `bahan_mentah_masakan`
 --
 ALTER TABLE `bahan_mentah_masakan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `bahan_olahan`
+-- AUTO_INCREMENT for table `bahan_olahan`
 --
 ALTER TABLE `bahan_olahan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `bahan_olahan_masakan`
+-- AUTO_INCREMENT for table `bahan_olahan_masakan`
 --
 ALTER TABLE `bahan_olahan_masakan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `biaya_lain`
+-- AUTO_INCREMENT for table `biaya_lain`
 --
 ALTER TABLE `biaya_lain`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `daftar_masakan`
+-- AUTO_INCREMENT for table `daftar_masakan`
 --
 ALTER TABLE `daftar_masakan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT untuk tabel `detail_paket`
+-- AUTO_INCREMENT for table `detail_paket`
 --
 ALTER TABLE `detail_paket`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT untuk tabel `detail_pembelian_alat`
+-- AUTO_INCREMENT for table `detail_pembelian_alat`
 --
 ALTER TABLE `detail_pembelian_alat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT untuk tabel `detail_pembelian_bahan_mentah`
+-- AUTO_INCREMENT for table `detail_pembelian_bahan_mentah`
 --
 ALTER TABLE `detail_pembelian_bahan_mentah`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `gaji`
+-- AUTO_INCREMENT for table `gaji`
 --
 ALTER TABLE `gaji`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `intensif_waiters`
+-- AUTO_INCREMENT for table `intensif_waiters`
 --
 ALTER TABLE `intensif_waiters`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
--- AUTO_INCREMENT untuk tabel `investasi_cabang`
+-- AUTO_INCREMENT for table `investasi_cabang`
 --
 ALTER TABLE `investasi_cabang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `investasi_kanwil`
+-- AUTO_INCREMENT for table `investasi_kanwil`
 --
 ALTER TABLE `investasi_kanwil`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `investasi_owner`
+-- AUTO_INCREMENT for table `investasi_owner`
 --
 ALTER TABLE `investasi_owner`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `jenis_masakan`
+-- AUTO_INCREMENT for table `jenis_masakan`
 --
 ALTER TABLE `jenis_masakan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `kanwil`
+-- AUTO_INCREMENT for table `kanwil`
 --
 ALTER TABLE `kanwil`
-  MODIFY `id_kanwil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_kanwil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `logistik`
+-- AUTO_INCREMENT for table `logistik`
 --
 ALTER TABLE `logistik`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `meja`
+-- AUTO_INCREMENT for table `meja`
 --
 ALTER TABLE `meja`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT untuk tabel `menu`
+-- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `omset_investasi_owner`
+--
+ALTER TABLE `omset_investasi_owner`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT untuk tabel `omset_investasi_owner`
---
-ALTER TABLE `omset_investasi_owner`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT untuk tabel `operasional`
+-- AUTO_INCREMENT for table `operasional`
 --
 ALTER TABLE `operasional`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `owner`
+-- AUTO_INCREMENT for table `owner`
 --
 ALTER TABLE `owner`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `paket`
+-- AUTO_INCREMENT for table `paket`
 --
 ALTER TABLE `paket`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `pembayaran`
+-- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT untuk tabel `pembelian_alat`
+-- AUTO_INCREMENT for table `pembelian_alat`
 --
 ALTER TABLE `pembelian_alat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `pembelian_bahan_mentah`
+-- AUTO_INCREMENT for table `pembelian_bahan_mentah`
 --
 ALTER TABLE `pembelian_bahan_mentah`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `pemberian_kaskeluar`
+-- AUTO_INCREMENT for table `pemberian_kaskeluar`
 --
 ALTER TABLE `pemberian_kaskeluar`
-  MODIFY `id_pengeluaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_pengeluaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT untuk tabel `pemesanan`
+-- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT untuk tabel `pemesanan_menu`
+-- AUTO_INCREMENT for table `pemesanan_menu`
 --
 ALTER TABLE `pemesanan_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
--- AUTO_INCREMENT untuk tabel `pemesanan_paket`
+-- AUTO_INCREMENT for table `pemesanan_paket`
 --
 ALTER TABLE `pemesanan_paket`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
--- AUTO_INCREMENT untuk tabel `pendapatan_kas_masuk`
+-- AUTO_INCREMENT for table `pendapatan_kas_masuk`
 --
 ALTER TABLE `pendapatan_kas_masuk`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `pengeluaran_cabang_operasional`
+-- AUTO_INCREMENT for table `pengeluaran_cabang_operasional`
 --
 ALTER TABLE `pengeluaran_cabang_operasional`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `pengeluaran_kanwil_operasional`
+-- AUTO_INCREMENT for table `pengeluaran_kanwil_operasional`
 --
 ALTER TABLE `pengeluaran_kanwil_operasional`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `pengiriman_bahan_olahan`
+-- AUTO_INCREMENT for table `pengiriman_bahan_olahan`
 --
 ALTER TABLE `pengiriman_bahan_olahan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `penyusutan_investasi_cabang`
+-- AUTO_INCREMENT for table `penyusutan_investasi_cabang`
 --
 ALTER TABLE `penyusutan_investasi_cabang`
   MODIFY `id_penyusutan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT untuk tabel `peralatan`
+-- AUTO_INCREMENT for table `peralatan`
 --
 ALTER TABLE `peralatan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `permintaan_alat`
+-- AUTO_INCREMENT for table `permintaan_alat`
 --
 ALTER TABLE `permintaan_alat`
-  MODIFY `id_permintaan_alat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_permintaan_alat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `permintaan_bahan_mentah`
+-- AUTO_INCREMENT for table `permintaan_bahan_mentah`
 --
 ALTER TABLE `permintaan_bahan_mentah`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `permintaan_bahan_olahan`
+-- AUTO_INCREMENT for table `permintaan_bahan_olahan`
 --
 ALTER TABLE `permintaan_bahan_olahan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `produksi`
+-- AUTO_INCREMENT for table `produksi`
 --
 ALTER TABLE `produksi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `produksi_bahan_olahan`
+-- AUTO_INCREMENT for table `produksi_bahan_olahan`
 --
 ALTER TABLE `produksi_bahan_olahan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `produksi_masakan`
+-- AUTO_INCREMENT for table `produksi_masakan`
 --
 ALTER TABLE `produksi_masakan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `resto`
+-- AUTO_INCREMENT for table `resto`
 --
 ALTER TABLE `resto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `stok_bahan_mentah_produksi`
+-- AUTO_INCREMENT for table `stok_bahan_mentah_produksi`
 --
 ALTER TABLE `stok_bahan_mentah_produksi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `stok_bahan_olahan_produksi`
+-- AUTO_INCREMENT for table `stok_bahan_olahan_produksi`
 --
 ALTER TABLE `stok_bahan_olahan_produksi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `superadmin`
+-- AUTO_INCREMENT for table `superadmin`
 --
 ALTER TABLE `superadmin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tbl_kinerja_karyawan`
+--
+ALTER TABLE `tbl_kinerja_karyawan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_kinerja_karyawan`
---
-ALTER TABLE `tbl_kinerja_karyawan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT untuk tabel `user_kanwil`
+-- AUTO_INCREMENT for table `user_kanwil`
 --
 ALTER TABLE `user_kanwil`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT untuk tabel `user_resto`
+-- AUTO_INCREMENT for table `user_resto`
 --
 ALTER TABLE `user_resto`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
