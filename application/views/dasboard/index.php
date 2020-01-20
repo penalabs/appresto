@@ -23,8 +23,27 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard
-       <?=$this->session->userdata('tipe');?>
+        <?php
+        $tipe = $this->session->userdata('tipe');
+        if ($tipe == "general manajer") {
+          $id_kanwil = $this->session->userdata('id_kanwil');
+          $query1 = "SELECT id_kanwil,alamat_kantor FROM kanwil where  id_kanwil='$id_kanwil'";
+          $hasilquery=$this->db->query($query1)->row();
+          echo "<h2>Dashboard ".$tipe." Kantor Wilayah ". $hasilquery->alamat_kantor."</h2>";
+        } elseif ($tipe == "bendahara") {
+          $id_kanwil = $this->session->userdata('id_kanwil');
+          $query1 = "SELECT id_kanwil,alamat_kantor FROM kanwil where  id_kanwil='$id_kanwil'";
+          $hasilquery=$this->db->query($query1)->row();
+          echo "<h2>Dashboard ".$tipe." Kantor Wilayah ". $hasilquery->alamat_kantor."</h2>";
+        }elseif ($tipe == "logistik") {
+          $id_kanwil = $this->session->userdata('id_kanwil');
+          $query1 = "SELECT id_kanwil,alamat_kantor FROM kanwil where  id_kanwil='$id_kanwil'";
+          $hasilquery=$this->db->query($query1)->row();
+          echo "<h2>Dashboard ".$tipe." Kantor Wilayah ". $hasilquery->alamat_kantor."</h2>";
+        }elseif ($tipe == true) {
+          echo "<h2>Dashboard ".$tipe."</h2>";
+        }
+       ?> 
       </h1>
 
     </section>
