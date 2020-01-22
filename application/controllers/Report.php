@@ -6,8 +6,8 @@ class Report extends CI_Controller {
 	public function pdf()
 	{
 
-     $no_meja = $this->input->get('no_meja');
-		 $this->load->library('pdfgenerator');
+      $no_meja = $this->input->get('no_meja');
+	  $this->load->library('pdfgenerator');
 
       $sql = "SELECT pemesanan.id,menu.menu,pemesanan_menu.jumlah_pesan,pemesanan_menu.subharga FROM pemesanan_menu join menu on menu.id=pemesanan_menu.id_menu join pemesanan on pemesanan.id=pemesanan_menu.id_pemesanan where pemesanan.no_meja='$no_meja'";
       $data['datamenu']=$this->db->query($sql)->result();
@@ -22,6 +22,11 @@ class Report extends CI_Controller {
 
       $sql = "SELECT * FROM pemesanan where no_meja='$no_meja'";
       $data['data_pemesanan']=$this->db->query($sql)->row();
+	  $id_user_resto=$this->db->query($sql)->row();
+	  $id_user_resto2=$id_user_resto->id_user_resto;
+	  
+	  $sql = "SELECT * FROM user_resto join resto on resto.id=user_resto.id_resto where user_resto.id='$id_user_resto2'";
+      $data['data_resto']=$this->db->query($sql)->row();
 
       $sql = "SELECT * FROM pembayaran where id_pemesanan='$id_pemesanan'";
       $data['data_pembayaran']=$this->db->query($sql)->row();

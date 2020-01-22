@@ -94,7 +94,9 @@ class Kasir extends CI_Controller {
 		$where = array(
 			'id_user_kasir' => $id_user_kasir,
 		);
-        $x['data']=$this->m_modul_kasir->tampil_data_where('pendapatan_kas_masuk',$where)->result();
+		$sql4 = "select user_kanwil.nama as nama_bendahara,pendapatan_kas_masuk.*,user_resto.nama as nama_kasir from pendapatan_kas_masuk join user_kanwil on user_kanwil.id=pendapatan_kas_masuk.id_user_bendahara join user_resto on user_resto.id=pendapatan_kas_masuk.id_user_kasir where id_user_kasir='$id_user_kasir'";
+        $x['data']=$this->db->query($sql4)->result();
+        // $x['data']=$this->m_modul_kasir->tampil_data_where('pendapatan_kas_masuk',$where)->result();
 		$this->load->view('modul_kasir/pendapatan',$x);
 	}
 	public function transaksi($id)
@@ -108,23 +110,24 @@ class Kasir extends CI_Controller {
 	public function pemesanan()
 	{
 		$id_user_kasir=$this->session->userdata('id');
-
 		$query = $this->db->query("SELECT resto.id as id_resto FROM user_resto join resto on resto.id=user_resto.id_resto WHERE user_resto.id='$id_user_kasir'")->row();
 
 		/*$where = array(
 			'user_resto.id' => $id_user_kasir,
 		);*/
 		$id_resto=$query->id_resto;
-    $x['data']=$this->m_modul_kasir->tampil_data_where_join($id_resto)->result();
+    	$x['data']=$this->m_modul_kasir->tampil_data_where_join($id_resto)->result();
 		$this->load->view('modul_kasir/pemesanan',$x);
 	}
 	 function get_pemesan(){
-        $kobar=$this->input->get('meja');
+        $no_meja=$this->input->get('meja');
 				$where = array(
-					'no_meja' => $kobar,
+					'no_meja' => $no_meja,
 					'status' => 'siapsaji',
 				);
-        $data=$this->m_modul_kasir->tampil_data_where('pemesanan',$where)->result();
+        //$data=$this->m_modul_kasir->tampil_data_where('pemesanan',$where)->result();
+		$sql = "SELECT * from pemesanan where no_meja='$no_meja' and status='selesai' limit 1";
+        $data=$this->db->query($sql)->result();
         echo json_encode($data);
     }
 	function get_menu(){
