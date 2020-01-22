@@ -164,7 +164,7 @@ header("Location:index.php");
 												<a href="updatestatus_siapsaji_to_selsai.php?id=<?php echo $data['id']; ?>"
 													class="btn btn-block btn-warning btn-xs">Ambil</a>
 												<?php
-                          }elseif($statuspesan == 'selsai') {
+                          }elseif($statuspesan == 'selesai') {
                             ?>
 												<a href="pembayaran.php?id=<?php echo $data['id']; ?>"
 													class="btn btn-block btn-warning btn-xs">Pembayaran</a>

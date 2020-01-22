@@ -8,7 +8,7 @@ $waiters = $_SESSION['id'];
 
 //update status
 $id = $_GET['id'];
-$queryupdate = "UPDATE pemesanan SET status='selsai' WHERE id='$id'";
+$queryupdate = "UPDATE pemesanan SET status='selesai' WHERE id='$id'";
 $hasilupdate = mysqli_query($koneksi,$queryupdate);
 
 //insert kinerja karyawan

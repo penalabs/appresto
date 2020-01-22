@@ -712,6 +712,29 @@ class modul_produksi extends CI_Controller {
 		  redirect('modul_produksi/index_produksi_pesanan');
 		}
 
+		function konfirm_siap_saji_lunas(){
+			$id_pemesanan = $this->input->get('id_pemesanan');
+
+
+			$where = array('id' => $id_pemesanan);
+
+
+
+			$data = array(
+			'status' => 'siapsaji_lunas',
+			);
+
+
+
+			$this->m_modul_produksi->update_data($where,$data,'pemesanan');
+			$data_session = array(
+			'pesan' => 'berhasil hapus data',
+			);
+
+			$this->session->set_userdata($data_session);
+			redirect('modul_produksi/index_produksi_pesanan');
+		}
+
 		//permintaan bahan mentah baru
 		public function permintaan_bahan_mentah()
 		{
