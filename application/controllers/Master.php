@@ -133,7 +133,7 @@ class Master extends CI_Controller {
 			);
 			$this->m_master->input_data($data,$tabel);
 			redirect('master/users?user='.$tipe);
-		}else if($tipe=="waiters"){
+		}else if($tipe=="admin resto" || $tipe=="kasir" || $tipe=="produksi" || $tipe=="waiters"){
 			$tabel='user_resto';
 			$id_kanwil = $this->input->post('id_kanwil');
 			$id_resto = $this->input->post('id_resto');
@@ -283,7 +283,7 @@ class Master extends CI_Controller {
 			);
 			$this->m_master->hapus_data($where,$tabel);
 			redirect('master/users?user='.$tipe);
-		}else if($tipe=="waiters"){
+		}else if($tipe=="admin resto" || $tipe=="kasir" || $tipe=="produksi" || $tipe=="waiters"){
 			$tabel='user_resto';
 			$where = array(
 			'id' => $id,

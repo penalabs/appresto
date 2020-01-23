@@ -931,4 +931,8 @@ class Superadmin extends CI_Controller {
 		$data['data']=$this->db->query($sql)->result();
 		$this->load->view('modul_superadmin/V_view_kinerja',$data);
 	}
+
+	public function view_user_resto(){
+		
+	}
 }
