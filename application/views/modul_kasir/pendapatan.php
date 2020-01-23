@@ -29,7 +29,7 @@
     <!-- Main content -->
     <section class="content">
 	<div class="row">
-	    <div class="col-xs-10">
+	   <!--  <div class="col-xs-10">
           <div class="box box-default">
             <div class="box-header with-border">
               
@@ -42,7 +42,7 @@
               </a>
             </div>
           </div>
-        </div>
+        </div> -->
 	<div class="col-md-10">
 	
           <div class="box">
@@ -55,10 +55,11 @@
                 <thead>
                 <tr>
                   <th>#</th>
+                  <th>Nama Kasir</th>
                   <th>Jumlah setoran</th>
-                  <th>Tanggal</th>
-                  <th>status</th>
-				  <th>Aksi</th>
+                  <th>Tanggal setor</th>
+                  <th>Ke Bendahara</th>
+				          <!-- <th>Aksi</th> -->
                 </tr>
                 </thead>
                 <tbody>
@@ -68,11 +69,14 @@
 				?>
                 <tr>
                   <td><?php echo $no++ ?>.</td>
+                  <td><?php echo $u->nama_kasir ?>
+                  </td>
                   <td><?php echo $u->jumlah_setoran ?>
                   </td>
-                  <td><?php echo $u->tanggal_awal; ?> - <?php echo $u->tanggal_akhir; ?></td>
-				  <td>Setoran diterima bendahara</td>
-				  <td><a href="" class="btn btn-danger btn-xs" data-toggle="tooltip" title="Batal"><i class="fa  fa-close" ></i></a></td>
+                  <td><?php echo $u->tanggal; ?></td>
+        				  <td><?php echo $u->nama_bendahara ?>
+                  <!-- </td>
+        				  <td><a href="" class="btn btn-danger btn-xs" data-toggle="tooltip" title="Batal"><i class="fa  fa-close" ></i></a></td> -->
                 </tr>
 				<?php } ?>
 				

@@ -90,13 +90,15 @@ class Login extends CI_Controller {
 			$data=$this->m_login->tampil_user_where($tabel,$where)->row();
 			$id=$data->id;
 			$id_resto=$data->id_resto;
+			$id_kanwil=$data->id_kanwil;
 			if($cek > 0){
 				$data_session = array(
 					'id' => $id,
 					'nama' => $username,
 					'tipe' => $tipe,
 					'status' => $tabel,
-					'id_resto'=>$id_resto
+					'id_resto'=>$id_resto,
+					'id_kanwil'=>$id_kanwil
 					);
 
 				$this->session->set_userdata($data_session);
