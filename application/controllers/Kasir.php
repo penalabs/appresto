@@ -122,7 +122,7 @@ class Kasir extends CI_Controller {
         $kobar=$this->input->get('meja');
 				$where = array(
 					'no_meja' => $kobar,
-					'status' => 'siapsaji',
+					'status' => 'selesai',
 				);
         $data=$this->m_modul_kasir->tampil_data_where('pemesanan',$where)->result();
         echo json_encode($data);
