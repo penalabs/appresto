@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 17 Jan 2020 pada 02.42
--- Versi server: 10.4.8-MariaDB
--- Versi PHP: 7.3.11
+-- Waktu pembuatan: 19 Jan 2020 pada 13.59
+-- Versi server: 10.4.11-MariaDB
+-- Versi PHP: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -38,15 +38,6 @@ CREATE TABLE `bahan_mentah` (
   `status` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
---
--- Dumping data untuk tabel `bahan_mentah`
---
-
-INSERT INTO `bahan_mentah` (`id`, `id_resto`, `id_logistik`, `nama_bahan`, `satuan_besar`, `stok`, `status`) VALUES
-(1, '1', 3, 'ayam kampung', 'ekor', 24, 1),
-(2, '1', 3, 'tomat', 'kg', 9, 1),
-(3, '1', 3, 'tepung', 'kg', 7, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -59,14 +50,6 @@ CREATE TABLE `bahan_mentah_masakan` (
   `id_bahan_mentah` int(11) NOT NULL,
   `jumlah` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
---
--- Dumping data untuk tabel `bahan_mentah_masakan`
---
-
-INSERT INTO `bahan_mentah_masakan` (`id`, `id_produksi_masakan`, `id_bahan_mentah`, `jumlah`) VALUES
-(1, 1, 1, 1),
-(2, 2, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -83,14 +66,6 @@ CREATE TABLE `bahan_olahan` (
   `status` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
---
--- Dumping data untuk tabel `bahan_olahan`
---
-
-INSERT INTO `bahan_olahan` (`id`, `id_logistik`, `nama_bahan`, `satuan_kecil`, `stok`, `status`) VALUES
-(1, 3, 'ayam kampung paha', 'buah', 4, 1),
-(3, 3, 'ayam kampung dada', 'buah', 1, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -103,14 +78,6 @@ CREATE TABLE `bahan_olahan_masakan` (
   `id_bahan_olahan` int(11) NOT NULL,
   `jumlah` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
---
--- Dumping data untuk tabel `bahan_olahan_masakan`
---
-
-INSERT INTO `bahan_olahan_masakan` (`id`, `id_produksi_masakan`, `id_bahan_olahan`, `jumlah`) VALUES
-(4, 2, 1, 1),
-(5, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -125,14 +92,6 @@ CREATE TABLE `biaya_lain` (
   `jumlah` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
---
--- Dumping data untuk tabel `biaya_lain`
---
-
-INSERT INTO `biaya_lain` (`id`, `id_resto`, `nama_biaya_lain`, `jumlah`) VALUES
-(1, 1, 'brosur', 10000),
-(2, 1, 'zakat', 11000);
-
 -- --------------------------------------------------------
 
 --
@@ -146,14 +105,6 @@ CREATE TABLE `daftar_masakan` (
   `jenis` varchar(100) NOT NULL,
   `jumlah` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
---
--- Dumping data untuk tabel `daftar_masakan`
---
-
-INSERT INTO `daftar_masakan` (`id`, `id_bahan_oalahan`, `id_menu`, `jenis`, `jumlah`) VALUES
-(6, 1, 1, '3', 1),
-(7, 2, 1, '1', 1);
 
 -- --------------------------------------------------------
 
@@ -175,7 +126,7 @@ CREATE TABLE `detail_paket` (
 --
 
 INSERT INTO `detail_paket` (`id`, `id_paket`, `id_menu`, `jumlah`, `total_harga`, `diskon`) VALUES
-(11, 4, 1, 1, '10000', '');
+(12, 1, 1, 2, '5000', '');
 
 -- --------------------------------------------------------
 
@@ -191,17 +142,6 @@ CREATE TABLE `detail_pembelian_alat` (
   `harga_beli` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
---
--- Dumping data untuk tabel `detail_pembelian_alat`
---
-
-INSERT INTO `detail_pembelian_alat` (`id`, `id_transaksi`, `id_alat`, `jumlah`, `harga_beli`) VALUES
-(12, '1', '1', '1', '8000'),
-(13, '6', '1', '7', '7000'),
-(14, '7', '1', '1', '9000'),
-(15, '7', '1', '30', '5000'),
-(16, '7', '1', '10', '5000');
-
 -- --------------------------------------------------------
 
 --
@@ -215,19 +155,6 @@ CREATE TABLE `detail_pembelian_bahan_mentah` (
   `jumlah` varchar(255) DEFAULT NULL,
   `harga_beli` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
---
--- Dumping data untuk tabel `detail_pembelian_bahan_mentah`
---
-
-INSERT INTO `detail_pembelian_bahan_mentah` (`id`, `id_transaksi`, `id_bahan_mentah`, `jumlah`, `harga_beli`) VALUES
-(2, '1', '1', '2', '5000'),
-(3, '1', '2', '1', '5000'),
-(4, '1', '3', '2', '3000'),
-(5, '1', '3', '2', '3000'),
-(6, '1', '1', '1', '5000'),
-(7, '1', '2', '5', '5000'),
-(8, '2', '1', '1', '6000');
 
 -- --------------------------------------------------------
 
@@ -244,15 +171,6 @@ CREATE TABLE `gaji` (
   `jenis_gaji` enum('bulanan','THR','bonus','pesangon') NOT NULL,
   `nominal_gaji` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
---
--- Dumping data untuk tabel `gaji`
---
-
-INSERT INTO `gaji` (`id`, `id_resto`, `id_user_resto`, `tanggal_awal`, `tanggal_akhir`, `jenis_gaji`, `nominal_gaji`) VALUES
-(1, 1, 2, '2019-12-01', '2019-12-31', 'bulanan', 1004000),
-(2, 1, 5, '2019-12-01', '2019-12-31', 'bulanan', 1003000),
-(3, 1, 2, '2020-01-01', '2020-01-31', 'bulanan', 1500000);
 
 -- --------------------------------------------------------
 
@@ -272,11 +190,7 @@ CREATE TABLE `intensif_waiters` (
 --
 
 INSERT INTO `intensif_waiters` (`id`, `id_user_resto`, `tanggal`, `jumlah_bonus`) VALUES
-(21, '2', '2019-12-23 20:10:44', '1000'),
-(22, '2', '2019-12-23 20:11:06', '1000'),
-(23, '2', '2020-01-03 19:58:16', '1000'),
-(24, '5', '2020-01-03 20:31:22', '1000'),
-(25, '2', '2020-01-14 21:46:24', '1000');
+(23, '2', '2020-01-19 19:55:25', '1000');
 
 -- --------------------------------------------------------
 
@@ -296,19 +210,6 @@ CREATE TABLE `investasi_cabang` (
   `status` enum('permintaan','disetujui','invest dikembalikan','invest belum kembali') DEFAULT 'permintaan'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
---
--- Dumping data untuk tabel `investasi_cabang`
---
-
-INSERT INTO `investasi_cabang` (`id`, `id_resto`, `id_user_bendahara`, `nama_investasi`, `tanggal_mulai`, `tanggal_selesai`, `jumlah_pengeluaran`, `persen_penyusutan`, `status`) VALUES
-(4, 1, 2, 'Dekorasi', '2019-10-01', '2019-10-31', 20000, 10, 'disetujui'),
-(5, 1, 2, 'Renovasi', '2019-10-01', '2019-10-30', 5000, 20, 'invest dikembalikan'),
-(6, 1, 2, 'Pembelian p', '2019-10-01', '2019-10-30', 500000, 20, 'invest dikembalikan'),
-(7, 1, 2, 'Pengecetan', '2019-10-01', '2019-10-30', 80000, 20, 'permintaan'),
-(8, 1, 2, 'pembelian alat', '2019-10-01', '2019-10-30', 700000, 10, 'permintaan'),
-(9, 3, 2, 'sewa ruko', '2020-01-14', '2025-01-14', 200000000, 10, 'permintaan'),
-(10, 3, 2, 'renovasi', '2020-02-01', '2020-05-01', 50000000, 10, 'permintaan');
-
 -- --------------------------------------------------------
 
 --
@@ -327,14 +228,6 @@ CREATE TABLE `investasi_kanwil` (
   `status` enum('permintaan','diterima') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
---
--- Dumping data untuk tabel `investasi_kanwil`
---
-
-INSERT INTO `investasi_kanwil` (`id`, `id_super_admin`, `id_kanwil`, `id_investasi_owner`, `tanggal`, `nominal_investasi`, `penyusutan`, `nominal_saldo`, `status`) VALUES
-(1, 1, 1, 1, '2019-11-01', 3000000, 20, 1000, 'permintaan'),
-(3, 1, 1, 1, '2019-10-01', 9000, 90, 0, 'diterima');
-
 -- --------------------------------------------------------
 
 --
@@ -352,14 +245,6 @@ CREATE TABLE `investasi_owner` (
   `persentase_omset` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
---
--- Dumping data untuk tabel `investasi_owner`
---
-
-INSERT INTO `investasi_owner` (`id`, `id_super_admin`, `id_owner`, `id_bendahara`, `tanggal`, `jumlah_investasi`, `jangka_waktu`, `persentase_omset`) VALUES
-(1, 1, 1, 2, '2019-11-30', 90000, '2 bulan', 20),
-(2, 1, 1, 2, '2019-11-30', 9000, '3 bulan', 20);
-
 -- --------------------------------------------------------
 
 --
@@ -370,15 +255,6 @@ CREATE TABLE `jenis_masakan` (
   `id` int(11) NOT NULL,
   `jenis` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
---
--- Dumping data untuk tabel `jenis_masakan`
---
-
-INSERT INTO `jenis_masakan` (`id`, `jenis`) VALUES
-(1, 'makanan'),
-(2, 'minuman'),
-(3, 'pelegkap');
 
 -- --------------------------------------------------------
 
@@ -391,16 +267,6 @@ CREATE TABLE `kanwil` (
   `alamat_kantor` varchar(100) NOT NULL,
   `telp` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
---
--- Dumping data untuk tabel `kanwil`
---
-
-INSERT INTO `kanwil` (`id_kanwil`, `alamat_kantor`, `telp`) VALUES
-(1, 'ngronggo', '0856464646'),
-(2, 'a', '94586845'),
-(5, 'b', '94586845'),
-(6, 'c', '085288886666');
 
 -- --------------------------------------------------------
 
@@ -463,13 +329,13 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`id`, `id_resto`, `menu`, `foto`, `harga`, `status`, `stok`, `mode`) VALUES
-(1, 1, 'Ayam Geprek', 'nasibebek.jpg', 10000, 'tersedia', 5, 'insert'),
-(2, 1, 'Jamur Kripsi', '124789-mint-background-2560x1600-for-ios.jpg', 10000, 'tersedia', 0, 'insert'),
-(3, 1, 'Es Teh Anget', '124789-mint-background-2560x1600-for-ios4.jpg', 10000, 'tersedia', 10, 'insert'),
-(4, 1, 'Kopi Susu', 'start4.jpg', 3000, 'tersedia', 6, 'insert'),
-(5, 1, 'Nasi Goreng', 'start2.png', 3000, 'tersedia', 6, 'insert'),
-(6, 1, 'Tahu Kripsi', 'wp2754931.jpg', 6000, 'tersedia', 1, 'insert'),
-(7, 1, 'teh pucuk', 'Struktur-Komite.png', 3000, 'tersedia', 1, 'insert');
+(1, 1, 'Minuman Teh Jeruk', 'teh_jeruk2.jpg', 2500, 'tersedia', 8, 'insert'),
+(2, 1, 'Minuman Teh Madu', 'tehmadu.jpg', 3000, 'tersedia', 0, 'insert'),
+(3, 1, 'Minuman Buah Naga', 'jice_buah_naga.jpg', 4000, 'habis', 10, 'insert'),
+(4, 1, 'Minuman Kopi Hitam', 'kopihitam.jpg', 2000, 'tersedia', 10, 'insert'),
+(5, 1, 'Ayam Geprek', 'ayamgeprek.jpg', 6000, 'tersedia', 10, 'insert'),
+(6, 1, 'Bebek Goreng', 'nasibebek.jpg', 10000, 'tersedia', 10, 'insert'),
+(7, 1, 'Nasi Goreng Sepesial', 'nasigoreng.jpg', 8000, 'habis', 10, 'insert');
 
 -- --------------------------------------------------------
 
@@ -484,16 +350,6 @@ CREATE TABLE `omset_investasi_owner` (
   `tanggal` date NOT NULL,
   `penyusutan_invest` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
---
--- Dumping data untuk tabel `omset_investasi_owner`
---
-
-INSERT INTO `omset_investasi_owner` (`id`, `id_investasi_owner`, `id_super_admin`, `tanggal`, `penyusutan_invest`) VALUES
-(1, 1, 1, '2019-10-30', 200000),
-(2, 1, 1, '2019-10-31', 200000),
-(3, 1, 1, '2019-11-01', 200000),
-(9, 1, 0, '2019-12-01', 20000);
 
 -- --------------------------------------------------------
 
@@ -537,15 +393,6 @@ CREATE TABLE `owner` (
   `update_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
---
--- Dumping data untuk tabel `owner`
---
-
-INSERT INTO `owner` (`id`, `id_super_admin`, `nama`, `user`, `pass`, `alamat`, `telp`, `email`, `saldo_rek`, `create_at`, `update_at`) VALUES
-(1, 1, 'fauzin', 'fauzin', 'fauzin', 'sambirejo', '1234567', 'fauzin@gmail.com', '200000', '2019-05-08 00:37:00', '2019-05-08 00:37:00'),
-(2, 1, 'dedy ardiansyah 1', 'sd', 'as', 'asadas', '94586845', 'dfs@gmail.com', '100000', '2019-12-09 14:04:05', '2019-12-09 14:04:05'),
-(3, 1, 'owner c', 'cc', 'cc', 'mojoroto', '085288886666', '1@gmail.com', '100000000', '2019-12-29 23:05:54', '2019-12-29 23:05:54');
-
 -- --------------------------------------------------------
 
 --
@@ -568,9 +415,8 @@ CREATE TABLE `paket` (
 --
 
 INSERT INTO `paket` (`id`, `id_resto`, `nama_paket`, `jumlah`, `status`, `foto`, `harga`, `mode`) VALUES
-(1, 1, 'Paket Bom', 10, 'tersedia', 'gepreksai3.jpg', '8000', 'insert'),
-(2, 1, 'Paket Granat', 10, 'tersedia', '', '20000', 'insert'),
-(3, 1, 'Paket asoy', 5, 'tersedia', '', '30000', 'insert');
+(1, 1, 'Paket Pasangan', 1, 'tersedia', 'paket_bom.jpg', '20000', 'insert'),
+(2, 1, 'Paket Jomblo', 1, 'tersedia', 'ayamgoreng.jpg', '1000', 'insert');
 
 -- --------------------------------------------------------
 
@@ -592,13 +438,7 @@ CREATE TABLE `pembayaran` (
 --
 
 INSERT INTO `pembayaran` (`id`, `id_user_kasir`, `id_pemesanan`, `nominal`, `status`, `tanggal`) VALUES
-(18, 2, 1, 50000, 'lunas', '2019-12-23 20:10:44'),
-(19, 5, 4, 20000, 'lunas', '2020-01-03 20:31:22'),
-(20, 1, 3, 63000, 'lunas', '2020-01-13 15:31:25'),
-(21, 1, 3, 70000, 'lunas', '2020-01-13 15:58:29'),
-(22, 1, 3, 63000, 'lunas', '2020-01-13 16:08:27'),
-(23, 2, 3, 70000, 'lunas', '2020-01-13 16:18:48'),
-(24, 1, 5, 55000, 'lunas', '2020-01-14 15:49:47');
+(20, 2, 1, 50000, 'lunas', '2020-01-19 13:56:49');
 
 -- --------------------------------------------------------
 
@@ -618,15 +458,6 @@ CREATE TABLE `pembelian_alat` (
   `catatan` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
---
--- Dumping data untuk tabel `pembelian_alat`
---
-
-INSERT INTO `pembelian_alat` (`id`, `id_logistik`, `no_transaksi`, `nama_supplier`, `tanggal`, `total_harga_beli`, `dibayar`, `status`, `catatan`) VALUES
-(5, 3, '1', 'fauzin', '2019-10-16', 8000, 8000, 'selesai', 'ok'),
-(6, 3, '6', '', '2019-10-16', 49000, 49000, 'selesai', 'ok'),
-(7, 3, '7', 'Tmart', '2020-01-14', 209000, 200000, 'selesai', '');
-
 -- --------------------------------------------------------
 
 --
@@ -645,13 +476,6 @@ CREATE TABLE `pembelian_bahan_mentah` (
   `catatan` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
---
--- Dumping data untuk tabel `pembelian_bahan_mentah`
---
-
-INSERT INTO `pembelian_bahan_mentah` (`id`, `id_logistik`, `no_transaksi`, `nama_supplier`, `tanggal`, `total_harga_beli`, `dibayar`, `status`, `catatan`) VALUES
-(4, 3, 1, 'fauzin', '2019-10-16', '57000', '57000', 'selesai', 'ok');
-
 -- --------------------------------------------------------
 
 --
@@ -667,16 +491,6 @@ CREATE TABLE `pemberian_kaskeluar` (
   `status` enum('pengajuan','pemberian') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
---
--- Dumping data untuk tabel `pemberian_kaskeluar`
---
-
-INSERT INTO `pemberian_kaskeluar` (`id_pengeluaran`, `id_bendahara`, `id_resto`, `tanggal`, `nominal_kas_keluar`, `status`) VALUES
-(1, 2, 1, '2019-06-26', 400000, 'pemberian'),
-(6, 2, 1, '2019-10-19', 60000, 'pemberian'),
-(7, 2, 1, '2019-10-20', 60000, 'pemberian'),
-(8, 2, 3, '2020-01-14', 3000000, 'pengajuan');
-
 -- --------------------------------------------------------
 
 --
@@ -691,7 +505,7 @@ CREATE TABLE `pemesanan` (
   `tanggal` datetime NOT NULL,
   `total_harga` int(11) NOT NULL,
   `id_user_resto` int(11) NOT NULL,
-  `status` enum('belum','kredit','lunas','produksi','siapsaji','selesai','siapsaji_lunas','produksi_lunas') NOT NULL
+  `status` enum('belum','kredit','lunas','produksi','siapsaji','siapsaji_lunas','produksi_lunas','selesai') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
@@ -699,10 +513,7 @@ CREATE TABLE `pemesanan` (
 --
 
 INSERT INTO `pemesanan` (`id`, `nama_pemesan`, `no_meja`, `keterangantambahan`, `tanggal`, `total_harga`, `id_user_resto`, `status`) VALUES
-(1, 'irhas', 1, '', '2019-12-23 20:10:44', 40000, 2, 'lunas'),
-(3, 'rury', 4, 'sambal 2', '2020-01-03 19:58:16', 63000, 2, 'lunas'),
-(4, 'joko', 7, 'kopi susu hangat', '2020-01-03 20:31:22', 19000, 5, 'selesai'),
-(5, 'tony', 5, 'sambal level 1', '2020-01-14 21:46:24', 48000, 2, 'lunas');
+(1, 'irhas', 1, '', '2020-01-19 19:55:25', 31000, 2, 'lunas');
 
 -- --------------------------------------------------------
 
@@ -724,18 +535,8 @@ CREATE TABLE `pemesanan_menu` (
 --
 
 INSERT INTO `pemesanan_menu` (`id`, `id_pemesanan`, `id_menu`, `jumlah_pesan`, `subharga`, `status`) VALUES
-(40, 1, 1, 1, 10000, ''),
-(41, 2, 5, 1, 3000, ''),
-(42, 3, 1, 1, 10000, ''),
-(43, 3, 2, 1, 10000, ''),
-(44, 3, 3, 1, 10000, ''),
-(45, 3, 4, 1, 3000, ''),
-(46, 4, 2, 1, 10000, ''),
-(47, 4, 4, 1, 3000, ''),
-(48, 4, 6, 1, 6000, ''),
-(49, 5, 1, 1, 10000, ''),
-(50, 5, 2, 1, 10000, ''),
-(51, 5, 3, 2, 20000, '');
+(42, 1, 1, 2, 5000, ''),
+(43, 1, 5, 1, 6000, '');
 
 -- --------------------------------------------------------
 
@@ -757,9 +558,7 @@ CREATE TABLE `pemesanan_paket` (
 --
 
 INSERT INTO `pemesanan_paket` (`id`, `id_pemesanan`, `id_paket`, `jumlah_pesan`, `subharga`, `status`) VALUES
-(29, 1, 3, 1, 30000, ''),
-(30, 3, 3, 1, 30000, ''),
-(31, 5, 1, 1, 8000, '');
+(30, 1, 1, 1, 20000, '');
 
 -- --------------------------------------------------------
 
@@ -776,15 +575,6 @@ CREATE TABLE `pendapatan_kas_masuk` (
   `tanggal_awal` datetime NOT NULL,
   `tanggal_akhir` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
---
--- Dumping data untuk tabel `pendapatan_kas_masuk`
---
-
-INSERT INTO `pendapatan_kas_masuk` (`id`, `id_user_bendahara`, `id_user_kasir`, `jumlah_setoran`, `tanggal`, `tanggal_awal`, `tanggal_akhir`) VALUES
-(2, 1, 1, '120000', '2019-08-02', '2019-07-02 00:00:00', '2019-07-31 00:00:00'),
-(3, 1, 1, '12000000', '2019-08-02', '2019-07-02 00:00:00', '2019-07-31 00:00:00'),
-(4, 2, 1, '9000000', '2019-08-22', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -803,16 +593,6 @@ CREATE TABLE `pengeluaran_cabang_operasional` (
   `nominal` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
---
--- Dumping data untuk tabel `pengeluaran_cabang_operasional`
---
-
-INSERT INTO `pengeluaran_cabang_operasional` (`id`, `id_admin_resto`, `id_resto`, `id_kanwil`, `tanggal`, `id_operasional`, `masa_sewa`, `nominal`) VALUES
-(1, 4, 1, 1, '2019-10-02', 1, '1 bulan', '5000'),
-(2, 4, 1, 1, '2019-10-03', 1, '2 bulan', '90'),
-(3, 4, 1, 1, '2019-10-19', 0, '2 hari', '10000'),
-(5, 1, 1, 1, '2019-12-29', 2, '1 bulan', '70000');
-
 -- --------------------------------------------------------
 
 --
@@ -827,16 +607,6 @@ CREATE TABLE `pengeluaran_kanwil_operasional` (
   `masa_sewa` varchar(255) DEFAULT NULL,
   `nominal` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
---
--- Dumping data untuk tabel `pengeluaran_kanwil_operasional`
---
-
-INSERT INTO `pengeluaran_kanwil_operasional` (`id`, `id_kanwil`, `id_operasional`, `tanggal`, `masa_sewa`, `nominal`) VALUES
-(1, 1, 1, '2019-10-02', '1 bulan', '5000'),
-(3, 1, 1, '2019-10-03', '1 bulan', '100'),
-(4, 1, 1, '2019-10-04', '1 bulan', '2000'),
-(5, 1, 4, '0000-00-00', NULL, '2000000');
 
 -- --------------------------------------------------------
 
@@ -855,13 +625,6 @@ CREATE TABLE `pengiriman_bahan_mentah` (
   `status` enum('sesuai','tidak') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
---
--- Dumping data untuk tabel `pengiriman_bahan_mentah`
---
-
-INSERT INTO `pengiriman_bahan_mentah` (`id`, `id_permintaan`, `id_bahan_mentah`, `tanggal_pengiriman`, `jumlah_permintaan`, `jumlah_dikirim`, `jumlah_dikembalikan`, `status`) VALUES
-(1, 3, 1, '2019-10-22', 2, 4, 2, 'tidak');
-
 -- --------------------------------------------------------
 
 --
@@ -879,14 +642,6 @@ CREATE TABLE `pengiriman_bahan_olahan` (
   `status` enum('sesuai','tidak','diterima') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
---
--- Dumping data untuk tabel `pengiriman_bahan_olahan`
---
-
-INSERT INTO `pengiriman_bahan_olahan` (`id`, `id_permintaan`, `id_bahan_olahan`, `tanggal_pengiriman`, `jumlah_permintaan`, `jumlah_dikirim`, `jumlah_dikembalikan`, `status`) VALUES
-(2, 2, 3, '2019-10-22', 4, 4, 0, 'diterima'),
-(4, 1, 3, '2019-10-25', 1, 1, 0, 'sesuai');
-
 -- --------------------------------------------------------
 
 --
@@ -899,27 +654,6 @@ CREATE TABLE `penyusutan_investasi_cabang` (
   `tanggal` date DEFAULT NULL,
   `nominal_penyusutan` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
---
--- Dumping data untuk tabel `penyusutan_investasi_cabang`
---
-
-INSERT INTO `penyusutan_investasi_cabang` (`id_penyusutan`, `id_investasi_cabang`, `tanggal`, `nominal_penyusutan`) VALUES
-(4, 6, '2019-10-20', '100000'),
-(5, 6, '2019-10-20', '100000'),
-(6, 6, '2019-10-20', '100000'),
-(7, 6, '2019-10-20', '100000'),
-(8, 6, '2019-10-20', '100000'),
-(9, 4, '2019-10-20', '2000'),
-(10, 4, '2019-10-20', '2000'),
-(11, 4, '2019-10-20', '2000'),
-(12, 4, '2019-10-20', '2000'),
-(13, 4, '2019-10-20', '2000'),
-(14, 4, '2019-10-20', '2000'),
-(15, 4, '2019-10-20', '2000'),
-(16, 4, '2019-10-20', '2000'),
-(17, 4, '2019-10-20', '2000'),
-(18, 4, '2019-10-20', '2000');
 
 -- --------------------------------------------------------
 
@@ -936,13 +670,6 @@ CREATE TABLE `peralatan` (
   `jumlah_stok` int(11) NOT NULL,
   `status` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
---
--- Dumping data untuk tabel `peralatan`
---
-
-INSERT INTO `peralatan` (`id`, `id_logistik`, `id_resto`, `nama_peralatan`, `satuan_besar`, `jumlah_stok`, `status`) VALUES
-(1, 3, 1, 'sendok', 'pcs', 40, 1);
 
 -- --------------------------------------------------------
 
@@ -961,15 +688,6 @@ CREATE TABLE `permintaan_alat` (
   `status_permintaan` enum('permintaan','proses pengiriman','diterima') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
---
--- Dumping data untuk tabel `permintaan_alat`
---
-
-INSERT INTO `permintaan_alat` (`id_permintaan_alat`, `id_resto`, `id_kanwil`, `id_alat`, `tanggal`, `jumlah`, `masa_pemanfatan`, `status_permintaan`) VALUES
-(8, 1, 1, 1, '0000-00-00', '1', '2 bulan', 'diterima'),
-(9, 1, 1, 1, '0000-00-00', '50', '10 bulan', 'permintaan'),
-(10, 1, 1, 1, '0000-00-00', '10', '3 bulan', 'permintaan');
-
 -- --------------------------------------------------------
 
 --
@@ -985,13 +703,6 @@ CREATE TABLE `permintaan_bahan_mentah` (
   `status` enum('permintaan','pengiriman','diterima') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
---
--- Dumping data untuk tabel `permintaan_bahan_mentah`
---
-
-INSERT INTO `permintaan_bahan_mentah` (`id`, `id_resto`, `id_user_produksi`, `nama_permintaan`, `tanggal`, `status`) VALUES
-(3, 1, 3, 'permintaan 3', '2019-11-04', 'pengiriman');
-
 -- --------------------------------------------------------
 
 --
@@ -1006,14 +717,6 @@ CREATE TABLE `permintaan_bahan_olahan` (
   `tanggal` date NOT NULL,
   `status` enum('permintaan','pengiriman','diterima') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
---
--- Dumping data untuk tabel `permintaan_bahan_olahan`
---
-
-INSERT INTO `permintaan_bahan_olahan` (`id`, `id_resto`, `id_user_produksi`, `nama_permintaan`, `tanggal`, `status`) VALUES
-(1, 1, 3, 'Permintaan bahan olahan 1', '2019-10-22', 'diterima'),
-(2, 1, 3, 'permintaan 2', '2019-10-24', 'diterima');
 
 -- --------------------------------------------------------
 
@@ -1043,16 +746,6 @@ CREATE TABLE `produksi_bahan_olahan` (
   `tanggal` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
---
--- Dumping data untuk tabel `produksi_bahan_olahan`
---
-
-INSERT INTO `produksi_bahan_olahan` (`id`, `id_bahan_mentah`, `id_bahan_olahan`, `jumlah`, `tanggal`) VALUES
-(2, 1, 1, 1, '2019-10-09'),
-(3, 1, 1, 1, '2019-10-09'),
-(4, 1, 1, 1, '2019-10-09'),
-(5, 1, 1, 1, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -1065,17 +758,6 @@ CREATE TABLE `produksi_masakan` (
   `tanggal` date NOT NULL,
   `jumlah_masakan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
---
--- Dumping data untuk tabel `produksi_masakan`
---
-
-INSERT INTO `produksi_masakan` (`id`, `id_menu`, `tanggal`, `jumlah_masakan`) VALUES
-(1, 1, '2019-10-10', 10),
-(2, 2, '2019-10-14', 1),
-(3, 2, '2020-01-03', 1),
-(4, 4, '2020-01-03', 1),
-(5, 6, '2020-01-03', 1);
 
 -- --------------------------------------------------------
 
@@ -1092,15 +774,6 @@ CREATE TABLE `resto` (
   `pajak` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
---
--- Dumping data untuk tabel `resto`
---
-
-INSERT INTO `resto` (`id`, `id_kanwil`, `nama_resto`, `alamat`, `no_telp`, `pajak`) VALUES
-(1, 1, 'resto farma', 'blabak', '08537637200', 200000),
-(2, 6, 'chikenet', 'mojoroto', '08528888666', 10),
-(3, 1, 'resbaru', 'mojoroto', '08528888666', 10);
-
 -- --------------------------------------------------------
 
 --
@@ -1113,15 +786,6 @@ CREATE TABLE `stok_bahan_mentah_produksi` (
   `stok` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
---
--- Dumping data untuk tabel `stok_bahan_mentah_produksi`
---
-
-INSERT INTO `stok_bahan_mentah_produksi` (`id`, `id_bahan_mentah`, `stok`) VALUES
-(1, 1, 21),
-(2, 2, 51),
-(3, 3, 9);
-
 -- --------------------------------------------------------
 
 --
@@ -1133,14 +797,6 @@ CREATE TABLE `stok_bahan_olahan_produksi` (
   `id_bahan_olahan` int(11) NOT NULL,
   `stok` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
---
--- Dumping data untuk tabel `stok_bahan_olahan_produksi`
---
-
-INSERT INTO `stok_bahan_olahan_produksi` (`id`, `id_bahan_olahan`, `stok`) VALUES
-(1, 1, 2),
-(2, 3, 5);
 
 -- --------------------------------------------------------
 
@@ -1165,8 +821,7 @@ CREATE TABLE `superadmin` (
 --
 
 INSERT INTO `superadmin` (`id`, `nama`, `user`, `pass`, `alamat`, `telp`, `email`, `create_at`, `update_at`) VALUES
-(1, 'dedy ardiansyah', 'dedi', 'dedi', 'blitar', '08546464664', 'dedi@gmail.com', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(7, 'tessuper', 'superadmin', 'admin', 'reg', '085288886666', 'admin@ulah.id', '2019-12-29 23:01:19', '2019-12-29 23:01:19');
+(1, 'dedy ardiansyah', 'dedi', 'dedi', 'blitar', '08546464664', 'dedi@gmail.com', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -1186,12 +841,7 @@ CREATE TABLE `tbl_kinerja_karyawan` (
 --
 
 INSERT INTO `tbl_kinerja_karyawan` (`id`, `id_user_resto`, `pemesanan`, `point`) VALUES
-(6, 2, 1, 1),
-(7, 2, 2, 1),
-(8, 5, 4, 1),
-(9, 2, 3, 1),
-(10, 2, 3, 1),
-(11, 2, 5, 1);
+(12, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1223,7 +873,7 @@ INSERT INTO `user_kanwil` (`id`, `id_super_admin`, `id_kanwil`, `nama`, `user`, 
 (2, 1, 1, 'tria', 'tria', 'tria', 'ngronggo', '0858858585', 'tria@gmail.com', '2019-05-08 00:42:08', '2019-05-08 00:42:08', 'bendahara'),
 (3, 1, 1, 'wiwin', 'wiwin', 'wiwin', 'ngronggo', '098336366363', 'wiwin@gmail.com', '2019-05-08 00:42:08', '2019-05-08 00:42:08', 'logistik'),
 (17, 1, 1, 'dedy ardiansyah 1', 'sd', 'as', 'sddsd', '43334', 'dfs@gmail.com', '2019-12-09 13:45:32', '2019-12-09 13:45:32', 'general manajer'),
-(18, 1, 1, 'dedy ardiansyah 1', 'sa', 'asa', 'asda', '32423', 'dfs@gmail.com', '2019-12-09 13:46:37', '2019-12-09 13:46:37', 'bendahara');
+(18, 1, 1, 'dedy ardiansyah 1', 'sa', 'asa', 'asda', '32423', 'dfs@gmail.com', '2019-12-09 13:46:37', '2019-12-09 13:46:37', 'logistik');
 
 -- --------------------------------------------------------
 
@@ -1574,7 +1224,7 @@ ALTER TABLE `bahan_mentah`
 -- AUTO_INCREMENT untuk tabel `bahan_mentah_masakan`
 --
 ALTER TABLE `bahan_mentah_masakan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `bahan_olahan`
@@ -1604,13 +1254,13 @@ ALTER TABLE `daftar_masakan`
 -- AUTO_INCREMENT untuk tabel `detail_paket`
 --
 ALTER TABLE `detail_paket`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_pembelian_alat`
 --
 ALTER TABLE `detail_pembelian_alat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_pembelian_bahan_mentah`
@@ -1622,19 +1272,19 @@ ALTER TABLE `detail_pembelian_bahan_mentah`
 -- AUTO_INCREMENT untuk tabel `gaji`
 --
 ALTER TABLE `gaji`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `intensif_waiters`
 --
 ALTER TABLE `intensif_waiters`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT untuk tabel `investasi_cabang`
 --
 ALTER TABLE `investasi_cabang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `investasi_kanwil`
@@ -1646,7 +1296,7 @@ ALTER TABLE `investasi_kanwil`
 -- AUTO_INCREMENT untuk tabel `investasi_owner`
 --
 ALTER TABLE `investasi_owner`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `jenis_masakan`
@@ -1658,7 +1308,7 @@ ALTER TABLE `jenis_masakan`
 -- AUTO_INCREMENT untuk tabel `kanwil`
 --
 ALTER TABLE `kanwil`
-  MODIFY `id_kanwil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_kanwil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `logistik`
@@ -1682,7 +1332,7 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT untuk tabel `omset_investasi_owner`
 --
 ALTER TABLE `omset_investasi_owner`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `operasional`
@@ -1694,7 +1344,7 @@ ALTER TABLE `operasional`
 -- AUTO_INCREMENT untuk tabel `owner`
 --
 ALTER TABLE `owner`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `paket`
@@ -1706,13 +1356,13 @@ ALTER TABLE `paket`
 -- AUTO_INCREMENT untuk tabel `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT untuk tabel `pembelian_alat`
 --
 ALTER TABLE `pembelian_alat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `pembelian_bahan_mentah`
@@ -1724,7 +1374,7 @@ ALTER TABLE `pembelian_bahan_mentah`
 -- AUTO_INCREMENT untuk tabel `pemberian_kaskeluar`
 --
 ALTER TABLE `pemberian_kaskeluar`
-  MODIFY `id_pengeluaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_pengeluaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `pemesanan`
@@ -1736,13 +1386,13 @@ ALTER TABLE `pemesanan`
 -- AUTO_INCREMENT untuk tabel `pemesanan_menu`
 --
 ALTER TABLE `pemesanan_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT untuk tabel `pemesanan_paket`
 --
 ALTER TABLE `pemesanan_paket`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT untuk tabel `pendapatan_kas_masuk`
@@ -1754,13 +1404,13 @@ ALTER TABLE `pendapatan_kas_masuk`
 -- AUTO_INCREMENT untuk tabel `pengeluaran_cabang_operasional`
 --
 ALTER TABLE `pengeluaran_cabang_operasional`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengeluaran_kanwil_operasional`
 --
 ALTER TABLE `pengeluaran_kanwil_operasional`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengiriman_bahan_olahan`
@@ -1784,7 +1434,7 @@ ALTER TABLE `peralatan`
 -- AUTO_INCREMENT untuk tabel `permintaan_alat`
 --
 ALTER TABLE `permintaan_alat`
-  MODIFY `id_permintaan_alat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_permintaan_alat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `permintaan_bahan_mentah`
@@ -1814,13 +1464,13 @@ ALTER TABLE `produksi_bahan_olahan`
 -- AUTO_INCREMENT untuk tabel `produksi_masakan`
 --
 ALTER TABLE `produksi_masakan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `resto`
 --
 ALTER TABLE `resto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `stok_bahan_mentah_produksi`
@@ -1838,13 +1488,13 @@ ALTER TABLE `stok_bahan_olahan_produksi`
 -- AUTO_INCREMENT untuk tabel `superadmin`
 --
 ALTER TABLE `superadmin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_kinerja_karyawan`
 --
 ALTER TABLE `tbl_kinerja_karyawan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_kanwil`

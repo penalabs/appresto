@@ -41,8 +41,79 @@
             </div>
           </div>
         </div>
-	<div class="col-md-10">
+        <div class="col-xs-3">
+          <div class="box box-default">
+            <div class="box-header with-border">
 
+            </div>
+            <div class="box-body">
+              <?php
+              echo $id_kanwil=$this->session->userdata('id_kanwil');
+              ?>
+              <div class="form-group">
+                  <label>Untuk setor ke bendahara pilih bendahara</label>
+                  <select class="form-control">
+                  <?php
+                    
+                    $sql4 = "select * from user_kanwil where id_kanwil='$id_kanwil' and tipe='bendahara'";
+                    $data2=$this->db->query($sql4)->result();
+                    foreach($data2 as $u2){ ?>
+                  ?>
+                    <option value="<?php echo $u2->id;?>"><?php echo $u2->nama;?></option>
+                    <?php } ?>
+                  </select>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <div class="box box-default">
+            <div class="box-header with-border">
+
+            </div>
+            <div class="box-body">
+              
+              <div class="form-group">
+                  <label>Jumlah yang disetor</label>
+                  <h1>
+                  <?php
+                   $total_setor=0;
+                  if(isset($_GET['jumlah_setor'])){
+                    if(isset($_GET['total_setor'])){
+                      $total_setor=$_GET['total_setor'];
+                      $jumlah_setor=$_GET['jumlah_setor'];
+                      echo $total=$total_setor+$jumlah_setor;
+                       $total_setor=$total;
+                    }else{
+                    
+                    echo $jumlah_setor=$_GET['jumlah_setor'];
+                    }
+
+                    //code insert update
+                  }else{
+                    echo "0";
+                  }
+                  ?>
+                  </h1>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <div class="box box-default">
+            <div class="box-header with-border">
+
+            </div>
+            <div class="box-body">
+              
+              <div class="form-group">
+                  <label>TANGGAL</label>
+                  <h1><?php echo date('Y-m-d');?></h1>
+                </div>
+            </div>
+          </div>
+        </div>
+	   <div class="col-md-10">
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Pemesanan</h3>
@@ -56,11 +127,11 @@
                   <th>No Urut</th>
                   <th>Nama Pemesan</th>
                   <th>Meja</th>
-				  <th>Tanggal</th>
-				  <th>Total Harga</th>
-          <th>Pembayaran</th>
-				  <th>Status</th>
-				  <th>Aksi</th>
+        				  <th>Tanggal</th>
+        				  <th>Total Harga</th>
+                  <th>Pembayaran</th>
+        				  <th>Status</th>
+        				  <th>Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -78,7 +149,35 @@
         				  <td><?php echo  "Rp " . number_format($u->total_harga,2,',','.'); ?></td>
                   <td><?php echo  "Rp " . number_format($u->nominal,2,',','.'); ?></td>
         				  <td><?php echo $u->status; ?></td>
-				          <td><a href="<?=base_url('kasir/transaksi/'.$u->id);?>" class="btn btn-success btn-xs" data-toggle="tooltip" title="Lihat detail"><i class="fa  fa-eye" ></i></a></td>
+				          <td><a href="<?=base_url('kasir/transaksi/'.$u->id);?>" class="btn btn-success btn-xs" data-toggle="tooltip" title="Lihat detail"><i class="fa  fa-eye" ></i> Detail masakan yang dipesan</a>
+                     <?php
+                  if($u->status=="disetor ke bendahara"){
+                  }else{
+                  if(isset($_GET['jumlah_setor'])){
+                    $total=0;
+                    if(isset($_GET['total_setor'])){
+                      $total_setor=$_GET['total_setor'];
+                      $jumlah_setor=$_GET['jumlah_setor'];
+                      $total=$total_setor+$jumlah_setor;
+                       
+                    
+                    ?>
+                    <a href="<?=base_url();?>/kasir/pemesanan/?id=<?php echo $u->id;?>&&jumlah_setor=<?php echo $u->nominal;?>&&total_setor=<?php echo $total;?>" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Lihat detail"><i class="fa  fa-check" ></i> Setor ke bendahara</a>
+                    <?php
+                    }else{
+                      ?>
+                      <a href="<?=base_url();?>/kasir/pemesanan/?id=<?php echo $u->id;?>&&jumlah_setor=<?php echo $u->nominal;?>&&total_setor=<?php echo $total;?>" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Lihat detail"><i class="fa  fa-check" ></i> Setor ke bendahara</a>
+                    <?php
+                    }
+                  }else{
+                    ?>
+                     <a href="<?=base_url();?>/kasir/pemesanan/?id=<?php echo $u->id;?>&&jumlah_setor=<?php echo $u->nominal;?>" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Lihat detail"><i class="fa  fa-check" ></i> Setor ke bendahara</a>
+                    <?php
+                  }
+                  }
+                  ?>
+                 
+                </td>
                 </tr>
 				<?php } ?>
 
