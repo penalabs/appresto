@@ -29,22 +29,15 @@
     <!-- Main content -->
     <section class="content">
 	<div class="row">
-	    <div class="col-xs-10">
+	    <div class="col-xs-12">
           <div class="box box-default">
-            <div class="box-header with-border">
-
-            </div>
             <div class="box-body">
 						<?php
-
-						  if(empty($this->session->userdata('tipe'))){
-
-                $user=$_GET['user'];
-						  ?>
-
-						  <?php
+            //$tipe = $this->session->userdata('tipe');
+            $user=$_GET['user'];
+						  if($user=="logistik" || $user=="bendahara" || $user=="general manajer"){
+                //kosong
               }else{
-                //$tipe=$this->session->userdata('tipe');
                 $user=$_GET['user'];
 						  ?>
               <a href="<?php echo base_url('master/add_user?tipe='.$user);?>" type="button" class="btn btn-success" >  Tambah
@@ -57,7 +50,7 @@
             </div>
           </div>
         </div>
-	<div class="col-md-10">
+	<div class="col-md-12">
 
           <div class="box">
             <div class="box-header">
@@ -94,7 +87,8 @@
 
       						  if(!empty($this->session->userdata('tipe'))){
 
-                        echo $user=$_GET['user'];
+                        //echo $user=$_GET['user'];
+                      $user=$_GET['user'];
       						  ?>
                     <a href="<?php echo base_url('master/edit_user?tipe='.$user);?>&&id=<?php echo $u->id ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
 

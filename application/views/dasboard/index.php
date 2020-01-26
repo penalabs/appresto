@@ -40,6 +40,14 @@
           $query1 = "SELECT id_kanwil,alamat_kantor FROM kanwil where  id_kanwil='$id_kanwil'";
           $hasilquery=$this->db->query($query1)->row();
           echo "<h2>Dashboard ".$tipe." Kantor Wilayah ". $hasilquery->alamat_kantor."</h2>";
+        }elseif ($tipe=="admin resto" || $tipe=="kasir" || $tipe=="produksi") {
+          $id_kanwil = $this->session->userdata('id_kanwil');
+          $query1 = "SELECT kanwil.*,resto.*
+          FROM kanwil
+          JOIN resto ON resto.`id_kanwil` = kanwil.`id_kanwil`
+          WHERE kanwil.`id_kanwil`='$id_kanwil'";
+          $hasilquery=$this->db->query($query1)->row();
+          echo "<h2>Dashboard ".$tipe." Resto ".$hasilquery->nama_resto." Kantor Wilayah ". $hasilquery->alamat_kantor."</h2>";
         }elseif ($tipe == true) {
           echo "<h2>Dashboard ".$tipe."</h2>";
         }

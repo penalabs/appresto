@@ -52,4 +52,23 @@ class M_master extends CI_Model{
 		return $hasil;
 	}
 
+	public function join_kanwil($where)
+	{
+		$hasil=$this->db->query("SELECT user_resto.*,kanwil.*
+		FROM user_resto
+		JOIN kanwil ON kanwil.`id_kanwil`=user_resto.`id_kanwil`
+		WHERE user_resto.`id`=$where");
+		return $hasil;
+	}
+
+	public function join_resto($where)
+	{
+		$hasil=$this->db->query("SELECT user_resto.*,resto.*
+		FROM user_resto
+		JOIN resto ON resto.`id`=user_resto.`id_resto`
+		WHERE user_resto.`id`=$where");
+		return $hasil;
+	}
+
+
 }

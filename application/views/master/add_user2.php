@@ -20,8 +20,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Users
-       
+        Add User
       </h1>
       
     </section>
@@ -32,7 +31,7 @@
 		
 
 
-				<div class="col-md-6">
+				<div class="col-md-12">
 				<div class="box box-primary">
 					<div class="box-header with-border">
 					  <h3 class="box-title">Quick Input</h3>
@@ -46,36 +45,63 @@
 						  <?php
 						  if(isset($_GET['tipe'])){
 						  ?>
-						  <input type="hidden" class="form-control" id="exampleInputPassword1" name="tipe" value="<?php echo $_GET['tipe'];?>" placeholder="nama">
+						  <input type="hidden" class="form-control" id="exampleInputPassword1" name="tipe" value="<?php echo $_GET['tipe'];?>" placeholder="nama" >
 						  <?php
 						  }
 						  ?>
-						  <input type="text" class="form-control" id="exampleInputPassword1" name="nama" placeholder="nama">
+						  <input type="text" class="form-control" id="exampleInputPassword1" name="nama" placeholder="nama" required>
 						</div>
-						<div class="form-group">
-						  <label for="exampleInputPassword1">ID KANWIL</label>
-						  <input type="text" class="form-control" id="exampleInputPassword1" name="id_kanwil" placeholder="ID KANWIL">
-						</div>
-						<div class="form-group">
-						  <label for="exampleInputPassword1">ID RESTO</label>
-						  <input type="text" class="form-control" id="exampleInputPassword1" name="id_resto" placeholder="ID RESTO">
-						</div>
+						<!--  <div class="form-group">
+    						  <label for="exampleInputPassword1">Kanwil</label>
+			                  <select name="id_kanwil" class="form-control" required>
+			                    <option value="">--- Pilih Kanwil---</option>
+			                    <?php
+			                    $sql = "SELECT * FROM kanwil";
+			          				  $data2=$this->db->query($sql)->result();
+			                    foreach($data2 as $u2){ ?>
+			                      <option value="<?php echo $u2->id_kanwil; ?>"><?php echo $u2->alamat_kantor; ?></option>
+			                    <?php } ?>
+			                    </select>
+    						</div> -->
+    						<div class="form-group">
+							  <label for="exampleInputPassword1">Kanwil</label>
+							  <?php
+							  $id_kanwil = $this->session->userdata('id_kanwil');
+					          $query1 = "SELECT id_kanwil,alamat_kantor FROM kanwil where  id_kanwil='$id_kanwil'";
+					          $hasilquery=$this->db->query($query1)->row();
+							  ?>
+							  <input type="hidden" class="form-control" id="exampleInputPassword1" name="id_kanwil" value="<?php echo $id_kanwil; ?>" >
+							  <input type="text" class="form-control" id="exampleInputPassword1" readonly="" value="<?php echo $hasilquery->alamat_kantor; ?>" >
+							</div>
+						 <div class="form-group">
+    						  <label for="exampleInputPassword2">Resto</label>
+			                  <select name="id_resto" class="form-control" required>
+			                    <option value="">--- Pilih Resto---</option>
+			                    <?php
+			                    $sql2 = "SELECT * FROM resto
+								WHERE resto.`id_kanwil`=$id_kanwil";
+			          				  $data3=$this->db->query($sql2)->result();
+			                    foreach($data3 as $u3){ ?>
+			                      <option value="<?php echo $u3->id; ?>"><?php echo $u3->nama_resto; ?></option>
+			                    <?php } ?>
+			                    </select>
+    						</div>
 					   <div class="form-group">
 						  <label for="exampleInputPassword1">User</label>
-						  <input type="text" class="form-control" id="exampleInputPassword1" name="user" placeholder="user">
+						  <input type="text" class="form-control" id="exampleInputPassword1" name="user" placeholder="user" required>
 						</div>
 						<div class="form-group">
 						  <label for="exampleInputPassword1">Pass</label>
-						  <input type="text" class="form-control" id="exampleInputPassword1" name="pass" placeholder="pass">
+						  <input type="text" class="form-control" id="exampleInputPassword1" name="pass" placeholder="pass" required>
 						</div>
 						
 						<div class="form-group">
 						  <label>Alamat</label>
-						  <textarea class="form-control" rows="3" name="alamat" placeholder="alamat ..."></textarea>
+						  <textarea class="form-control" rows="3" name="alamat" placeholder="alamat ..." required></textarea>
 						</div>
 						 <div class="form-group">
 						  <label for="exampleInputPassword1">Telp</label>
-						  <input type="number" size="12" class="form-control" id="exampleInputPassword1" name="telp" placeholder="telp">
+						  <input type="number" size="12" class="form-control" id="exampleInputPassword1" name="telp" placeholder="telp" required>
 						</div>
 						
 					   
@@ -87,11 +113,6 @@
 					  </div>
 					</form>
 				  </div>
-				</div>
-				<div class="col-md-3">
-				<div class="box-header with-border">
-					  <h3 class="box-title">INPUT USER BARU <i class="fa  fa-hand-lizard-o" ></i></h3>
-				</div>
 				</div>
 		</div>
 

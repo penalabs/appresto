@@ -32,7 +32,7 @@
 		
 
 
-				<div class="col-md-6">
+				<div class="col-md-12">
 				<div class="box box-primary">
 					<div class="box-header with-border">
 					  <h3 class="box-title">Quick Input</h3>
@@ -52,6 +52,29 @@
 						  ?>
 						  <input type="text" class="form-control" id="exampleInputPassword1" name="nama" placeholder="nama">
 						</div>
+						<div class="form-group">
+							  <label for="exampleInputPassword1">Kanwil</label>
+							  <?php
+							  $id_kanwil = $this->session->userdata('id_kanwil');
+					          $query1 = "SELECT id_kanwil,alamat_kantor FROM kanwil where  id_kanwil='$id_kanwil'";
+					          $hasilquery=$this->db->query($query1)->row();
+							  ?>
+							  <input type="hidden" class="form-control" id="exampleInputPassword1" name="id_kanwil" value="<?php echo $id_kanwil; ?>" >
+							  <input type="text" class="form-control" id="exampleInputPassword1" readonly="" value="<?php echo $hasilquery->alamat_kantor; ?>" >
+							</div>
+						 <div class="form-group">
+    						  <label for="exampleInputPassword2">Resto</label>
+			                  <select name="id_resto" class="form-control" required>
+			                    <option value="">--- Pilih Resto---</option>
+			                    <?php
+			                    $sql2 = "SELECT * FROM resto
+								WHERE resto.`id_kanwil`=$id_kanwil";
+			          				  $data3=$this->db->query($sql2)->result();
+			                    foreach($data3 as $u3){ ?>
+			                      <option value="<?php echo $u3->id; ?>"><?php echo $u3->nama_resto; ?></option>
+			                    <?php } ?>
+			                    </select>
+    						</div>
 					   <div class="form-group">
 						  <label for="exampleInputPassword1">User</label>
 						  <input type="text" class="form-control" id="exampleInputPassword1" name="user" placeholder="user">
@@ -83,16 +106,7 @@
 					</form>
 				  </div>
 				</div>
-				<div class="col-md-3">
-				<div class="box-header with-border">
-					  <h3 class="box-title">INPUT USER BARU <i class="fa  fa-hand-lizard-o" ></i></h3>
-				</div>
-				</div>
 		</div>
-
-
-
-
 	
 		<div class="modal fade" id="modal-default">
           <div class="modal-dialog">

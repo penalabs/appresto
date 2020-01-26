@@ -51,42 +51,45 @@ class Master extends CI_Controller {
 			$data['data'] = $this->m_master->tampil_data($user)->result();
 			$this->load->view('master/superadmin',$data);
 			}else if($user=="general manajer"){
-				$sql2 = "SELECT id_kanwil FROM user_resto where id='$id_user'";
+				$sql2 = "SELECT * FROM user_kanwil where id='$id_user'";
 				$id_kanwil=$this->db->query($sql2)->row();
 
 				$where = array(
 					'tipe' => $user,
-					// 'id_kanwil'=>$id_kanwil->id_kanwil
+					'id_kanwil'=>$id_kanwil->id_kanwil
 				);
 			$data['data'] = $this->m_master->tampil_data_where('user_kanwil',$where)->result();
 			$this->load->view('master/users',$data);
 			}else if($user=="bendahara"){
-				$sql2 = "SELECT id_kanwil FROM user_resto where id='$id_user'";
+				$sql2 = "SELECT * FROM user_kanwil where id='$id_user'";
 				$id_kanwil=$this->db->query($sql2)->row();
-				$id_kanwil->id_kanwil;
+				//$id_kanwil->id_kanwil;
 				$where = array(
 					'tipe' => $user,
-					// 'id_kanwil'=>$id_kanwil->id_kanwil
+					'id_kanwil'=>$id_kanwil->id_kanwil
 				);
 			$data['data'] = $this->m_master->tampil_data_where('user_kanwil',$where)->result();
 			$this->load->view('master/users',$data);
 			}else if($user=="logistik"){
-				$sql2 = "SELECT id_kanwil FROM user_resto where id='$id_user'";
+				$sql2 = "SELECT * FROM user_kanwil where id='$id_user'";
 				$id_kanwil=$this->db->query($sql2)->row();
 
 				$where = array(
 					'tipe' => $user,
-					// 'id_kanwil'=>$id_kanwil->id_kanwil
+					'id_kanwil'=>$id_kanwil->id_kanwil
 				);
 			$data['data'] = $this->m_master->tampil_data_where('user_kanwil',$where)->result();
 			$this->load->view('master/users',$data);
 			}else{
-				$sql2 = "SELECT id_kanwil FROM user_resto where id='$id_user'";
+				$sql2 = "SELECT user_kanwil.*, user_resto.*
+				FROM user_kanwil
+				JOIN user_resto ON user_resto.`id_kanwil` = user_kanwil.`id_kanwil`
+				WHERE user_kanwil.id='$id_user'";
 				$id_kanwil=$this->db->query($sql2)->row();
 
 				$where = array(
 					'jenis' => $user,
-					// 'id_kanwil'=>$id_kanwil->id_kanwil
+					'id_kanwil'=>$id_kanwil->id_kanwil
 				);
 			$data['data'] = $this->m_master->tampil_data_where('user_resto',$where)->result();
 			$this->load->view('master/users',$data);
@@ -185,10 +188,11 @@ class Master extends CI_Controller {
 				$where = array('id' => $id);
 				$data['data'] = $this->m_master->tampil_data_where($tabel,$where)->result();
 				$this->load->view('master/edit_user',$data);
-			}else if($tipe=="waiters"){
-				$tabel='user_resto';
-				$where = array('id' => $id);
-				$data['data'] = $this->m_master->tampil_data_where($tabel,$where)->result();
+			}else if($tipe=="admin resto" || $tipe=="kasir" || $tipe=="produksi" || $tipe=="waiters"){
+				//$where = array('id' => $id);
+				$where =  $id;
+				$data['data1'] = $this->m_master->join_kanwil($where)->result();
+				$data['data2'] = $this->m_master->join_resto($where)->result();
 				$this->load->view('master/edit_user2',$data);
 			}else{
 				$tipe=$_GET['tipe'];
@@ -229,7 +233,7 @@ class Master extends CI_Controller {
 			);
 		$this->m_master->update_data($where,$data,$tabel);
 		redirect('master/users?user='.$tipe);
-		}else if($tipe=="waiters"){
+		}else if($tipe=="admin resto" || $tipe=="kasir" || $tipe=="produksi" || $tipe=="waiters"){
 			$tabel='user_resto';
 			$id_kanwil = $this->input->post('id_kanwil');
 			$id_resto = $this->input->post('id_resto');

@@ -11,8 +11,6 @@
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
-
-
 	<?php include(APPPATH.'views/header.php');?>
 	<?php include(APPPATH.'views/menu.php');?>
   <!-- =============================================== -->
@@ -22,8 +20,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Users
-
+        Edit User
       </h1>
 
     </section>
@@ -34,7 +31,7 @@
 
 
 
-				<div class="col-md-6">
+				<div class="col-md-">
 				<div class="box box-primary">
 					<div class="box-header with-border">
 					  <h3 class="box-title">Quick Input</h3>
@@ -44,16 +41,8 @@
 					<form  action="<?php echo base_url(). 'master/action_update_user'; ?>" method="post" role="form">
 					  <div class="box-body">
 					  <?php
-					  foreach($data as $u){
+					  foreach($data1 as $u){
 					  ?>
-					  	<div class="form-group">
-						  <label for="exampleInputPassword1">ID KANWIL</label>
-						  <input type="text" class="form-control" id="exampleInputPassword1" name="id_kanwil" value="<?php echo $u->id_kanwil; ?>" placeholder="ID KANWIL">
-						</div>
-						<div class="form-group">
-						  <label for="exampleInputPassword1">ID RESTO</label>
-						  <input type="text" class="form-control" id="exampleInputPassword1" name="id_resto" value="<?php echo $u->id_resto; ?>" placeholder="ID RESTO">
-						</div>
 						<div class="form-group">
 						  <label for="exampleInputPassword1">Nama</label>
 						  <!-- <?php
@@ -66,6 +55,29 @@
 						  ?> -->
 						  <input type="text" class="form-control" id="exampleInputPassword1" name="nama" value="<?php echo $u->nama; ?>" placeholder="nama" >
 						</div>
+						<div class="form-group">
+						  <label for="exampleInputPassword1">Kanwil</label>
+						  <input type="hidden" class="form-control" name="id_kanwil" value="<?php echo $u->id_kanwil; ?>">
+						  <input type="text" class="form-control" value="<?php echo $u->alamat_kantor; ?>" readonly>
+						</div>
+						  <div class="form-group">
+    						  <label for="exampleInputPassword2">Resto</label>
+			                  <select name="id_resto" class="form-control">
+			                    <?php
+			                    foreach($data2 as $u2){
+			                    ?>
+			                    <option value=""><?php echo $u2->nama_resto; ?> --> pilihan awal</option>
+			                    <?php
+			                	}
+			                	$id_kanwil = $this->session->userdata('id_kanwil');
+			                    $sql2 = "SELECT * FROM resto
+								WHERE resto.`id_kanwil`=$id_kanwil";
+			          				  $data3=$this->db->query($sql2)->result();
+			                    foreach($data3 as $u3){ ?>
+			                      <option value="<?php echo $u3->id; ?>"><?php echo $u3->nama_resto; ?></option>
+			                    <?php } ?>
+			                    </select>
+    						</div>
 					   <div class="form-group">
 						  <label for="exampleInputPassword1">User</label>
 						  <input type="text" class="form-control" id="exampleInputPassword1" name="user" value="<?php echo $u->user; ?>" placeholder="user">
@@ -96,11 +108,7 @@
 					</form>
 				  </div>
 				</div>
-				<div class="col-md-3">
-				<div class="box-header with-border">
-					  <h3 class="box-title">INPUT USER BARU <i class="fa  fa-hand-lizard-o" ></i></h3>
-				</div>
-				</div>
+				
 		</div>
 
 
