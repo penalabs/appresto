@@ -60,16 +60,17 @@ function data_pengeluaran_invest_cabang_edit($where){
 		//$query = $this->db->get_where('gaji', array('id_resto' => $resto_id));
 		return $query;
 	}
-	function employeeList(){
-		$sql = "SELECT gaji.id AS id_gaji, nama, nama_resto, jenis AS jabatan, SUM(jumlah_bonus)AS intensif, nominal_gaji  FROM gaji
-		JOIN user_resto ON user_resto.id=gaji.id_user_resto
-		JOIN resto ON resto.id=gaji.id_resto
-		LEFT JOIN intensif_waiters ON intensif_waiters.id_user_resto=gaji.id_user_resto
-		GROUP BY gaji.id_user_resto
-		";
-		$hasil=$this->db->query($sql);
-		return $hasil->result();
+	function get_karyawan($id_resto){
+		$id_user_kanwil=$this->session->userdata('id');
+		$this->db->select('*');
+		$this->db->where('id_resto', $id_resto);
+		$this->db->where('id_kanwil', $id_user_kanwil);
+		$this->db->from('user_resto');
+		$query=$this->db->get();
+		//$query = $this->db->get_where('gaji', array('id_resto' => $resto_id));
+		return $query;
 	}
+
 	function updateEmpGaji($id,$nominal_gaji){
 		$hasil=$this->db->query("UPDATE gaji SET nominal_gaji='$nominal_gaji' WHERE id='$id'");
 		return $hasil;	
