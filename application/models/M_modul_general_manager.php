@@ -47,7 +47,39 @@ function data_pengeluaran_invest_cabang_edit($where){
 		$query = $this->db->query("SELECT * FROM peralatan");
 		return $query;
 	}
-
-
+	
+	function get_tabel($resto_id){
+		$this->db->select('gaji.id_resto, gaji.id AS id_gaji,nama, nama_resto, jenis AS jabatan, SUM(jumlah_bonus)AS intensif, nominal_gaji ',);
+		$this->db->join('resto', 'gaji.id_resto = resto.id');
+		$this->db->join('user_resto', 'gaji.id_user_resto = user_resto.id');
+		$this->db->join('intensif_waiters', 'intensif_waiters.id_user_resto = gaji.id_user_resto','Left');
+		$this->db->where('gaji.id_resto', $resto_id);
+		$this->db->from('gaji');
+		$this->db->group_by("gaji.id_user_resto");
+		$query=$this->db->get();
+		//$query = $this->db->get_where('gaji', array('id_resto' => $resto_id));
+		return $query;
+	}
+	function employeeList(){
+		$sql = "SELECT gaji.id AS id_gaji, nama, nama_resto, jenis AS jabatan, SUM(jumlah_bonus)AS intensif, nominal_gaji  FROM gaji
+		JOIN user_resto ON user_resto.id=gaji.id_user_resto
+		JOIN resto ON resto.id=gaji.id_resto
+		LEFT JOIN intensif_waiters ON intensif_waiters.id_user_resto=gaji.id_user_resto
+		GROUP BY gaji.id_user_resto
+		";
+		$hasil=$this->db->query($sql);
+		return $hasil->result();
+	}
+	function updateEmpGaji($id,$nominal_gaji){
+		$hasil=$this->db->query("UPDATE gaji SET nominal_gaji='$nominal_gaji' WHERE id='$id'");
+		return $hasil;	
+	}
+	
+	function deleteEmp(){
+		$id=$this->input->post('id');
+		$this->db->where('id', $id);
+		$result=$this->db->delete('gaji');
+		return $result;
+	}
 
 }

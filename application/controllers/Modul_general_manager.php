@@ -184,9 +184,23 @@ class Modul_general_manager extends CI_Controller {
 	// ................................
 	public function gaji()
 	{
-		$sql = "SELECT user_resto.id as id_user_resto,user_resto.nama,gaji.* FROM gaji join user_resto on user_resto.id=gaji.id_user_resto";
+		$sql = "SELECT gaji.id AS id_gaji, nama, nama_resto, jenis AS jabatan, SUM(jumlah_bonus)AS intensif, nominal_gaji  FROM gaji
+		JOIN user_resto ON user_resto.id=gaji.id_user_resto
+		JOIN resto ON resto.id=gaji.id_resto
+		LEFT JOIN intensif_waiters ON intensif_waiters.id_user_resto=gaji.id_user_resto
+		GROUP BY gaji.id_user_resto
+		";
 		$data['data']=$this->db->query($sql)->result();
 		$this->load->view('modul_general_manager/gaji',$data);
+	}
+	public function onchange(){
+	$resto_id = $this->input->post('id',TRUE);
+	$data = $this->M_modul_general_manager->get_tabel($resto_id)->result();
+	echo json_encode($data);
+	}
+	public function delete(){
+		$data=$this->M_modul_general_manager->deleteEmp();
+		echo json_encode($data);
 	}
 	public function add_gaji()
 	{
@@ -220,41 +234,45 @@ class Modul_general_manager extends CI_Controller {
 	public function edit_gaji()
 	{
 
-		$this->load->view('modul_general_manager/edit_gaji');
+		// $this->load->view('modul_general_manager/edit_gaji');
 	}
 
 	public function action_edit_gaji()
 	{
 		$session_id = $this->session->userdata('id');
-		$id = $this->input->post('id');
-		$id_user_resto = $this->input->post('id_user_resto');
-		$id_resto = $this->input->post('id_resto');
-		$tanggal_awal = $this->input->post('tanggal_awal');
-		$tanggal_akhir = $this->input->post('tanggal_akhir');
-		$jenis_gaji = $this->input->post('jenis_gaji');
-		$nominal_gaji = $this->input->post('nominal_gaji');
+		$id = $this->input->post('emId');
+		// $id_user_resto = $this->input->post('id_user_resto');
+		// $id_resto = $this->input->post('id_resto');
+		// $tanggal_awal = $this->input->post('tanggal_awal');
+		// $tanggal_akhir = $this->input->post('tanggal_akhir');
+		// $jenis_gaji = $this->input->post('jenis_gaji');
+		$nominal_gaji = $this->input->post('editgaji');
 
-			$where = array(
-			'id'=>$id,
-			);
+			// $where = array(
+			// 'id'=>$id,
+			// );
 
-			$data = array(
-			'id_user_resto' => $id_user_resto,
-			'id_resto' => $id_resto,
-			'tanggal_awal' => $tanggal_awal,
-			'tanggal_akhir' => $tanggal_akhir,
-			'jenis_gaji' => $jenis_gaji,
-			'nominal_gaji' => $nominal_gaji,
-			);
-			$data['data'] = $this->m_modul_general_manager->update_data($where,$data,'gaji');
-			redirect('general_manager/gaji');
-
+			// $data = array(
+			// 'id_user_resto' => $id_user_resto,
+			// 'id_resto' => $id_resto,
+			// 'tanggal_awal' => $tanggal_awal,
+			// 'tanggal_akhir' => $tanggal_akhir,
+			// 'jenis_gaji' => $jenis_gaji,
+			// 'nominal_gaji' => $nominal_gaji,
+			// );
+			// $data['data'] = $this->m_modul_general_manager->update_data($where,$data,'gaji');
+			// redirect('general_manager/gaji');
+		
+		$this->m_modul_general_manager->updateEmpGaji($id,$nominal_gaji);
+        redirect('modul_general_manager/gaji');
 	}
-	function hapus_gaji(){
-		echo $id = $this->input->get('id');
+
+	
+	public function hapus_gaji(){
+		$id = $this->input->post('deleteEmpId');
 		$where = array('id' => $id);
 		$this->m_modul_general_manager->hapus_data($where,'gaji');
-		redirect('general_manager/gaji');
+		redirect('modul_general_manager/gaji');
 	}
 
 	public function intensif()
