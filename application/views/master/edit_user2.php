@@ -66,7 +66,7 @@
 			                    <?php
 			                    foreach($data2 as $u2){
 			                    ?>
-			                    <option value=""><?php echo $u2->nama_resto; ?> --> pilihan awal</option>
+			                    <option value="<?php echo $u2->id; ?>"><?php echo $u2->nama_resto; ?> --> pilihan awal</option>
 			                    <?php
 			                	}
 			                	$id_kanwil = $this->session->userdata('id_kanwil');

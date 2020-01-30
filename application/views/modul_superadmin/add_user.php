@@ -32,7 +32,7 @@
 
 
 
-				<div class="col-md-6">
+				<div class="col-md-12">
 				<div class="box box-primary">
 					<div class="box-header with-border">
 					  <h3 class="box-title">Quick Input</h3>
@@ -96,11 +96,6 @@
 					  </div>
 					</form>
 				  </div>
-				</div>
-				<div class="col-md-3">
-				<div class="box-header with-border">
-					  <h3 class="box-title">INPUT USER BARU <i class="fa  fa-hand-lizard-o" ></i></h3>
-				</div>
 				</div>
 		</div>
 
