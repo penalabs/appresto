@@ -29,18 +29,6 @@
     <!-- Main content -->
     <section class="content">
 	<div class="row">
-	    <div class="col-xs-10">
-          <div class="box box-default">
-            <div class="box-header with-border">
-
-            </div>
-            <div class="box-body">
-						  <a href="<?php echo base_url('kasir/penjualan');?>" type="button" class="btn btn-success" >
-                Tambah
-              </a>
-            </div>
-          </div>
-        </div>
         <div class="col-xs-3">
           <div class="box box-default">
             <div class="box-header with-border">
@@ -48,20 +36,17 @@
             </div>
             <div class="box-body">
               <?php
-              echo $id_kanwil=$this->session->userdata('id_kanwil');
+              $id_kanwil=$this->session->userdata('id_kanwil');
               ?>
               <div class="form-group">
-                  <label>Untuk setor ke bendahara pilih bendahara</label>
-                  <select class="form-control">
-                  <?php
-                    
-                    $sql4 = "select * from user_kanwil where id_kanwil='$id_kanwil' and tipe='bendahara'";
+                <?php
+                    $sql4 = "SELECT * FROM user_kanwil WHERE id_kanwil='$id_kanwil' AND tipe='bendahara'";
                     $data2=$this->db->query($sql4)->result();
-                    foreach($data2 as $u2){ ?>
-                  ?>
-                    <option value="<?php echo $u2->id;?>"><?php echo $u2->nama;?></option>
+                    foreach($data2 as $u2){ 
+                    $kalimat_new = ucfirst($u2->nama);
+                      ?>
+                  <label>Untuk setor ke bendahara <br> <h3><b><?php echo $kalimat_new;?></b></h3></label>
                     <?php } ?>
-                  </select>
                 </div>
             </div>
           </div>
