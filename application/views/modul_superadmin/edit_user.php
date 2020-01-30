@@ -34,17 +34,39 @@
 
 
 
-				<div class="col-md-6">
+				<div class="col-md-12">
 				<div class="box box-primary">
 					<div class="box-header with-border">
-					  <h3 class="box-title">Quick Input</h3>
+					  <h3 class="box-title">Quick Inputttt</h3>
 					</div>
 					<!-- /.box-header -->
 					<!-- form start -->
 					<form  action="<?php echo base_url(). 'superadmin/action_update_user'; ?>" method="post" role="form">
 					  <div class="box-body">
 					  <?php
+					  $user = $this->session->userdata('tipe');
+						echo "masih perbaikan untuk user edit".$user;
 					  foreach($data as $u){
+						
+					  	if ($user == "superadmin") {
+					  		//kosong
+					  	} else {
+					  		?>
+					  		<div class="form-group">
+		                <label for="exampleInputPassword1">Kanwil</label>
+		                <select name="id_kanwil" class="form-control">
+		                  <option value="">--- Pilih Kanwil---</option>
+		                  <?php
+		                  $sql = "SELECT * FROM kanwil";
+		                  $data2=$this->db->query($sql)->result();
+		                  foreach($data2 as $u2){ ?>
+		                    <option value="<?php echo $u2->id_kanwil; ?>"><?php echo $u2->alamat_kantor; ?></option>
+		                  <?php } ?>
+		                  </select>
+		              </div>
+					  		<?php
+					  	}
+					  	
 					  ?>
 						<div class="form-group">
 						  <label for="exampleInputPassword1">Nama</label>
@@ -90,11 +112,6 @@
 					  </div>
 					</form>
 				  </div>
-				</div>
-				<div class="col-md-3">
-				<div class="box-header with-border">
-					  <h3 class="box-title">INPUT USER BARU <i class="fa  fa-hand-lizard-o" ></i></h3>
-				</div>
 				</div>
 		</div>
 

@@ -38,7 +38,7 @@
 						  ?>
 						  <?php
               }else{
-                echo $tipe=$_GET['user'];
+                $tipe=$_GET['user'];
 						  ?>
               <a href="<?php echo base_url('superadmin/add_user?tipe='.$tipe);?>" type="button" class="btn btn-success" >  Tambah
               </a>
@@ -87,7 +87,7 @@
 
       						  if(!empty($this->session->userdata('tipe'))){
 
-                      echo $user=$_GET['user'];
+                      $user=$_GET['user'];
       						  ?>
                     <a href="<?php echo base_url('superadmin/edit_user?tipe='.$user);?>&&id=<?php echo $u->id ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
 

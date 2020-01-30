@@ -76,6 +76,7 @@ header("Location:index.php");
         <div class="pull-left info">
           <p>
         <?php 
+        //menampilkan nama waiters
           $kalimat = $_SESSION['user']; 
           $kalimat_new = ucfirst($kalimat);
           echo $kalimat_new;
@@ -401,11 +402,10 @@ header("Location:index.php");
                      $querymenuhabis = "SELECT * FROM menu WHERE STATUS = 'habis'";
                       $hasilmenuhabis = mysqli_query($koneksi,$querymenuhabis);
                       while($datamenuhabis=mysqli_fetch_array($hasilmenuhabis)){
-                        if ($datamenu['foto'] == "") {
-                          $foto = "";
-                          echo " <img src='../gambar/default.jpg' width='60px' height='50px' /> <input disabled type='checkbox' name='menu[]' value='$datamenu[id]'> $datamenu[menu]<br>";
+                        if ($datamenuhabis['foto'] == "") {
+                          echo " <img src='../gambar/default.jpg' width='60px' height='50px' /> <input disabled type='checkbox' name='menu[]' value='$datamenuhabis[id]'> $datamenuhabis[menu]<br>";
                         }else{
-                          echo " <img src='../gambar/$datamenu[foto]' width='60px' height='50px' /> <input disabled type='checkbox' name='menu[]' value='$datamenu[id]'> $datamenu[menu]<br>";
+                          echo " <img src='../gambar/$datamenuhabis[foto]' width='60px' height='50px' /> <input disabled type='checkbox' name='menu[]' value='$datamenuhabis[id]'> $datamenuhabis[menu]<br>";
                         }
                       }
                       ?>
@@ -476,10 +476,9 @@ header("Location:index.php");
                       $hasilpaket = mysqli_query($koneksi,$querypaket);
                       while($datapaket=mysqli_fetch_array($hasilpaket)){
                         if ($datapaket['foto'] == "") {
-                          $foto = "";
                           echo " <img src='../uploads/default.jpg' width='60px' height='50px' /> <input disabled type='checkbox' name='paket[]' value='$datapaket[id]'> $datapaket[nama_paket]<br>";
                         }else{
-                          echo " <img src='../uploads/$datamenu[foto]' width='60px' height='50px' /> <input disabled type='checkbox' name='paket[]' value='$datapaket[id]'> $datapaket[nama_paket]<br>";
+                          echo " <img src='../uploads/$datapaket[foto]' width='60px' height='50px' /> <input disabled type='checkbox' name='paket[]' value='$datapaket[id]'> $datapaket[nama_paket]<br>";
                         }
                       }
                       ?>
