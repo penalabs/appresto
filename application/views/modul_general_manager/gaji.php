@@ -32,11 +32,12 @@
       <div class="col-xs-12">
           <div class="box box-default">
             <div class="box-body">
-              <!--<div class="float-right"><a href="javascript:void(0);" class="btn btn-primary" data-toggle="modal" data-target="#addEmpModal"><span class="fa fa-plus"></span>Tambah Karyawan</a></div><br>-->
+              <div class="float-right " ><a href="javascript:void(0);" class="btn btn-primary" data-toggle="modal" data-target="#addEmpModal"><span class="fa fa-plus">&nbsp </span >Tambah Gaji Karyawan</a></div><br>
 			  <select name="resto_id" id="resto_id" class="form-control">
 					
 						  <?php
-						  $sql = "SELECT * FROM resto";
+						  $id_user_kanwil=$this->session->userdata('id');
+						  $sql = "SELECT * FROM resto where id_kanwil='$id_user_kanwil'";
 						  $data2=$this->db->query($sql)->result();
 						  foreach($data2 as $u2){ ?>
 							<option value="<?php echo $u2->id; ?>"><?php echo $u2->nama_resto; ?></option>
@@ -51,8 +52,14 @@
             <div class="box-header">
               <h3 class="box-title">Data Gaji Karyawan</h3>
             </div>
+			
             <!-- /.box-header -->
             <div class="box-body">
+			<div class="flash-data" data-flashdata="<?php echo $this->session->flashdata('flash'); ?>"></div>
+			
+			  
+			
+			  
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -95,7 +102,7 @@
 					data-nominal_gaji="<?php echo $gaji; ?>"
 					data-intensif="<?php echo "Rp. ".number_format($intensif).",-"; ?>"><i class="fa  fa-edit" ></i></a>
 
-                    <a href="javascript:void(0);" class="btn btn-danger btn-sm deleteRecord" 
+                    <a href="<?php echo base_url()?>modul_general_manager/hapus_gaji/<?php echo $u->id_gaji?>" class="btn btn-danger btn-sm deleteRecord" 
 					data-id="<?php echo $u->id_gaji ?>"><i class="fa  fa-close" ></i></a>
 
                   </td>
@@ -114,26 +121,25 @@
 
 
 
-<form id="saveEmpForm" method="post">
+<form id="saveEmpForm" method="post" action="<?php echo base_url().'modul_general_manager/action_add_gaji'?>">
 	<div class="modal fade" id="addEmpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog modal-lg" role="document">
+	  <div class="modal-dialog" role="document">
 		<div class="modal-content">
 		  <div class="modal-header">
-		    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			  <span aria-hidden="true">&times;</span>
-			</button>
-			<h3 class="modal-title" id="exampleModalLabel">Tambah Karyawan</h3>
+		    
+			<h3 class="modal-title text-uppercase" id="exampleModalLabel" align="center">Tambah Gaji Karyawan</h3>
 			
 		  </div>
 		  <div class="modal-body">                       
 				<div class="form-group row">
-					<label class="col-md-2 col-form-label">Resto</label>
-					<div class="col-md-10">
-						
-						<select name="id_resto" class="form-control">
+					
+					<div class="col-md-12">
+						<label>Resto*</label>
+						<select name="addid_resto" id="addid_resto" class="form-control" required>
 						  <option value="">--- Pilih Resto---</option>
 						  <?php
-						  $sql = "SELECT * FROM resto";
+						  $id_user_kanwil=$this->session->userdata('id');
+						  $sql = "SELECT * FROM resto where id_kanwil='$id_user_kanwil'";
 						  $data2=$this->db->query($sql)->result();
 						  foreach($data2 as $u2){ ?>
 							<option value="<?php echo $u2->id; ?>"><?php echo $u2->nama_resto; ?></option>
@@ -143,40 +149,22 @@
 					</div>
 				</div>
 				<div class="form-group row">
-					<label class="col-md-2 col-form-label">Karyawan*</label>
-					<div class="col-md-10">
-					  <select name="id_user_resto" class="form-control">
+					
+					<div class="col-md-12">
+					<label>Karyawan*</label>
+					  <select name="id_user_resto" id="id_user_resto" class="form-control" required>
 						  <option value="">--- Pilih Karyawan---</option>
-						  <?php
-						  $sql = "SELECT * FROM user_resto";
-						  $data2=$this->db->query($sql)->result();
-						  foreach($data2 as $u2){ ?>
-							<option value="<?php echo $u2->id; ?>"><?php echo $u2->nama; ?></option>
-						  <?php } ?>
 						</select>
 					</div>
 				</div>
 				<div class="form-group row">
-					<label class="col-md-2 col-form-label">Tanggal Awal*</label>
-					<div class="col-md-10">
-						  <input type="date" class="form-control" id="tanggal_awal" name="tanggal_awal" placeholder="Tanggal Awal">
+					
+					<div class="col-md-12">
+					<label >Nominal Gaji*</label>
+					  <input type="text" name="gaji2" id="gaji2"  class="form-control text-uppercase" required>
 					</div>
 				</div>
-				<div class="form-group row">
-					<label class="col-md-2 col-form-label">Tanggal akhir*</label>
-					<div class="col-md-10">
-						  <input type="date" class="form-control" id="tanggal_awal" name="tanggal_awal" placeholder="Tanggal Awal">
-					</div>
-				</div>
-				<div class="form-group row">
-					<label class="col-md-2 col-form-label">Jenis Gaji*</label>
-					<div class="col-md-10">
-					<select name="jenis_gaji" class="form-control">
-						<option value="">--- Pilih ---</option>
-						<option value="bulanan">Bulanan</option>
-					</select>
-					</div>
-				</div>
+				
 		  </div>
 		  <div class="modal-footer">
 		  
@@ -416,11 +404,11 @@ $(document).ready(function(){
 	});
 	
 	// show delete form
-	$('#listRecords').on('click','.deleteRecord',function(){
-		var empId = $(this).data('id');            
-		$('#deleteEmpModal').modal('show');
-		$('#deleteEmpId').val(empId);
-	});
+	// $('#listRecords').on('click','.deleteRecord',function(){
+		// var empId = $(this).data('id');            
+		// $('#deleteEmpModal').modal('show');
+		// $('#deleteEmpId').val(empId);
+	// });
 	
 	//onchange
 	$('#resto_id').change(function(){ 
@@ -474,6 +462,32 @@ $(document).ready(function(){
 								n++
                         }
                         $('#listRecords').html(html);
+
+                    }
+                });
+                return false;
+            });
+			
+	//onchangeresto
+	$('#addid_resto').change(function(){ 
+                var id=$(this).val();
+                $.ajax({
+                    url : "<?php echo site_url('modul_general_manager/onchangekaryawan');?>",
+                    method : "POST",
+                    data : {id: id},
+                    async : true,
+                    dataType : 'json',
+                    success: function(data){
+                        
+                        var html = '';
+                        var i;
+						var n =1;
+                        for(i=0; i<data.length; i++){
+							
+                            html += '<option value='+data[i].id+'>'+data[i].nama+'</option>';
+
+                        }
+                        $('#id_user_resto').html(html);
 
                     }
                 });
