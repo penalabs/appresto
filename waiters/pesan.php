@@ -52,7 +52,21 @@ header("Location:index.php");
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <marquee> <span class="logo-lg">Resto</span></marquee>
+      <?php
+          $waiters = $_SESSION['id'];
+          $queryrestouser ="SELECT user_resto.*, kanwil.*, resto.*
+          FROM user_resto
+          JOIN kanwil ON kanwil.`id_kanwil` = user_resto.`id_kanwil`
+          JOIN resto ON resto.`id` = user_resto.`id_resto`
+          WHERE user_resto.`id`= '$waiters'
+          ORDER BY alamat_kantor,nama_resto DESC LIMIT 1";
+          $hasilqueryuser = mysqli_query($koneksi,$queryrestouser);
+          $datauserlogin=mysqli_fetch_array($hasilqueryuser);
+          $nama_resto = $datauserlogin['nama_resto'];
+          $nama_kanwil = $datauserlogin['alamat_kantor'];
+          echo "<marquee>Kantor Wilayah ".$nama_kanwil." Resto ".$nama_resto."</marquee>";
+      ?>
+      
     </a>
     <nav class="navbar navbar-static-top">
       <!-- Sidebar toggle button-->

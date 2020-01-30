@@ -37,26 +37,29 @@
 				<div class="col-md-12">
 				<div class="box box-primary">
 					<div class="box-header with-border">
-					  <h3 class="box-title">Quick Inputttt</h3>
+					  <h3 class="box-title">Quick Input</h3>
 					</div>
 					<!-- /.box-header -->
 					<!-- form start -->
 					<form  action="<?php echo base_url(). 'superadmin/action_update_user'; ?>" method="post" role="form">
 					  <div class="box-body">
 					  <?php
-					  $user = $this->session->userdata('tipe');
-						echo "masih perbaikan untuk user edit".$user;
+					  $tipe=$_GET['tipe'];
 					  foreach($data as $u){
 						
-					  	if ($user == "superadmin") {
+					  	if ($tipe == "superadmin") {
 					  		//kosong
 					  	} else {
 					  		?>
 					  		<div class="form-group">
 		                <label for="exampleInputPassword1">Kanwil</label>
 		                <select name="id_kanwil" class="form-control">
-		                  <option value="">--- Pilih Kanwil---</option>
-		                  <?php
+		                	 <?php
+			                    foreach($data1 as $u2){
+			                    ?>
+			                    <option value="<?php echo $u2->id_kanwil; ?>"><?php echo $u2->alamat_kantor; ?> --> pilihan awal</option>
+			                    <?php
+			                	}
 		                  $sql = "SELECT * FROM kanwil";
 		                  $data2=$this->db->query($sql)->result();
 		                  foreach($data2 as $u2){ ?>
