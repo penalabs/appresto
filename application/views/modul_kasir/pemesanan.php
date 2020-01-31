@@ -7,6 +7,31 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<?php include(APPPATH.'views/css.php');?>
+  <style>
+    .warnaahref {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding:5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+.warna {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #008CBA;
+}
+
+.warna:hover {
+  background-color: #008CBA;
+  color: white;
+}
+  </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
@@ -20,7 +45,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Transaksi
+        Setoran
 
       </h1>
 
@@ -30,9 +55,9 @@
     <section class="content">
 	<div class="row">
         <div class="col-xs-3">
-          <div class="box box-default">
+          <div style="height: 140px;" class="box box-default">
             <div class="box-header with-border">
-
+            <h5>Nama Bendahara</h5>
             </div>
             <div class="box-body">
               <?php
@@ -45,22 +70,20 @@
                     foreach($data2 as $u2){ 
                     $kalimat_new = ucfirst($u2->nama);
                       ?>
-                  <label>Untuk setor ke bendahara <br> <h3><b><?php echo $kalimat_new;?></b></h3></label>
+                  <h3><b><?php echo $kalimat_new;?></b></h3>
                     <?php } ?>
                 </div>
             </div>
           </div>
         </div>
-        <div class="col-xs-4">
-          <div class="box box-default">
+        <div class="col-xs-6">
+          <div style="height: 140px;" class="box box-default">
             <div class="box-header with-border">
-
+            <h5>Jumlah yang disetorkan</h5>
             </div>
             <div class="box-body">
-              
               <div class="form-group">
-                  <label>Jumlah yang disetor</label>
-                  <h1>
+                  <h1><b>
                   <?php
                    $total_setor=0;
                   if(isset($_GET['jumlah_setor'])){
@@ -70,7 +93,6 @@
                       echo $total=$total_setor+$jumlah_setor;
                        $total_setor=$total;
                     }else{
-                    
                     echo $jumlah_setor=$_GET['jumlah_setor'];
                     }
 
@@ -79,29 +101,102 @@
                     echo "0";
                   }
                   ?>
-                  </h1>
+                 </b> </h1>
                 </div>
             </div>
           </div>
         </div>
-        <div class="col-xs-4">
-          <div class="box box-default">
+        <div class="col-xs-3">
+          <div style="height: 140px;" class="box box-default">
             <div class="box-header with-border">
-
+            <h5>Tanggal</h5>
             </div>
             <div class="box-body">
-              
               <div class="form-group">
-                  <label>TANGGAL</label>
-                  <h1><?php echo date('Y-m-d');?></h1>
+                  <h1><b><?php echo date('Y-m-d');?></b></h1>
                 </div>
             </div>
           </div>
         </div>
-	   <div class="col-md-10">
+        <div class="col-md-12">
+          <div class="box box-default">
+            <div class="box-header with-border">
+            <h5>Setor ke bendahara</h5>
+            </div>
+            <div class="box-body">
+              <form action="" method="post">
+              <div class="col-xs-5 form-group">
+                   <select name="jamawal" class="form-control" required>
+                          <option value="">--- Pilih JAM awal---</option>
+                          <option value="">00:00</option>
+                          <option value="">01:00</option>
+                          <option value="">02:00</option>
+                          <option value="">03:00</option>
+                          <option value="">04:00</option>
+                          <option value="">05:00</option>
+                          <option value="">06:00</option>
+                          <option value="">07:00</option>
+                          <option value="">08:00</option>
+                          <option value="">09:00</option>
+                          <option value="">10:00</option>
+                          <option value="">11:00</option>
+                          <option value="">12:00</option>
+                          <option value="">13:00</option>
+                          <option value="">14:00</option>
+                          <option value="">15:00</option>
+                          <option value="">16:00</option>
+                          <option value="">17:00</option>
+                          <option value="">18:00</option>
+                          <option value="">19:00</option>
+                          <option value="">20:00</option>
+                          <option value="">21:00</option>
+                          <option value="">22:00</option>
+                          <option value="">23:00</option>
+                          <option value="">24:00</option>
+                    </select>
+                </div>
+                <div class="col-xs-5 form-group">
+                  <select name="jamakhir" class="form-control" required>
+                          <option value="">--- Pilih JAM akhir---</option>
+                          <option value="">00:00</option>
+                          <option value="">01:00</option>
+                          <option value="">02:00</option>
+                          <option value="">03:00</option>
+                          <option value="">04:00</option>
+                          <option value="">05:00</option>
+                          <option value="">06:00</option>
+                          <option value="">07:00</option>
+                          <option value="">08:00</option>
+                          <option value="">09:00</option>
+                          <option value="">10:00</option>
+                          <option value="">11:00</option>
+                          <option value="">12:00</option>
+                          <option value="">13:00</option>
+                          <option value="">14:00</option>
+                          <option value="">15:00</option>
+                          <option value="">16:00</option>
+                          <option value="">17:00</option>
+                          <option value="">18:00</option>
+                          <option value="">19:00</option>
+                          <option value="">20:00</option>
+                          <option value="">21:00</option>
+                          <option value="">22:00</option>
+                          <option value="">23:00</option>
+                          <option value="">24:00</option>
+                    </select>
+                </div>
+                <div class="col-xs-2 form-group">
+                   <button type="submit" class="warnaahref warna">Tampilkan</button>
+                </div>
+              </form>
+            </div>
+              
+          </div>
+        </div>
+	   <div class="col-md-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Pemesanan</h3>
+              <h3 class="box-title">Rincian pembayaran pesanan</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -115,8 +210,6 @@
         				  <th>Tanggal</th>
         				  <th>Total Harga</th>
                   <th>Pembayaran</th>
-        				  <th>Status</th>
-        				  <th>Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -133,36 +226,6 @@
         				  <td><?php echo $u->tanggal; ?></td>
         				  <td><?php echo  "Rp " . number_format($u->total_harga,2,',','.'); ?></td>
                   <td><?php echo  "Rp " . number_format($u->nominal,2,',','.'); ?></td>
-        				  <td><?php echo $u->status; ?></td>
-				          <td><a href="<?=base_url('kasir/transaksi/'.$u->id);?>" class="btn btn-success btn-xs" data-toggle="tooltip" title="Lihat detail"><i class="fa  fa-eye" ></i> Detail masakan yang dipesan</a>
-                     <?php
-                  if($u->status=="disetor ke bendahara"){
-                  }else{
-                  if(isset($_GET['jumlah_setor'])){
-                    $total=0;
-                    if(isset($_GET['total_setor'])){
-                      $total_setor=$_GET['total_setor'];
-                      $jumlah_setor=$_GET['jumlah_setor'];
-                      $total=$total_setor+$jumlah_setor;
-                       
-                    
-                    ?>
-                    <a href="<?=base_url();?>/kasir/pemesanan/?id=<?php echo $u->id;?>&&jumlah_setor=<?php echo $u->nominal;?>&&total_setor=<?php echo $total;?>" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Lihat detail"><i class="fa  fa-check" ></i> Setor ke bendahara</a>
-                    <?php
-                    }else{
-                      ?>
-                      <a href="<?=base_url();?>/kasir/pemesanan/?id=<?php echo $u->id;?>&&jumlah_setor=<?php echo $u->nominal;?>&&total_setor=<?php echo $total;?>" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Lihat detail"><i class="fa  fa-check" ></i> Setor ke bendahara</a>
-                    <?php
-                    }
-                  }else{
-                    ?>
-                     <a href="<?=base_url();?>/kasir/pemesanan/?id=<?php echo $u->id;?>&&jumlah_setor=<?php echo $u->nominal;?>" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Lihat detail"><i class="fa  fa-check" ></i> Setor ke bendahara</a>
-                    <?php
-                  }
-                  }
-                  ?>
-                 
-                </td>
                 </tr>
 				<?php } ?>
 
