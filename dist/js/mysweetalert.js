@@ -1,11 +1,11 @@
 const flashData = $('.flash-data').data('flashdata');
 
 if(flashData){
-	if(flashData=="Gagal"){
+	if(flashData=='Gagal'){
 	Swal.fire({
 	  position: 'top-end',
 	  icon: 'error',
-	  title: 'Data '+flashData+' Ditambahkan Karena Sudah Ada',
+	  title: 'Data ' +flashData+' Ditambahkan Karena sudah Ada',
 	  showConfirmButton: false,
 	  timer: 1500
 	})
@@ -18,6 +18,7 @@ if(flashData){
 	  timer: 1500
 	})
 	}
+
 	
 }
 

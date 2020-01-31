@@ -224,12 +224,9 @@ class Modul_general_manager extends CI_Controller {
 		$this->db->select('id_user_resto');
 		$this->db->where('id_user_resto', $id_user_resto);
 		$this->db->from('gaji');
-		$query=$this->db->get()->result;
+		$query=$this->db->get()->result();
 		
-			if(!isset($query)){
-				$this->session->set_flashdata('flash','Gagal');
-				redirect('modul_general_manager/gaji');
-			}else{
+			if(empty($query)){
 				$data = array(
 				'id_user_resto' => $id_user_resto,
 				'id_resto' => $id_resto,
@@ -238,6 +235,11 @@ class Modul_general_manager extends CI_Controller {
 				$this->m_modul_general_manager->input_data($data,'gaji');
 				$this->session->set_flashdata('flash','Ditambahkan');
 				redirect('modul_general_manager/gaji');
+				
+			}else{
+				$this->session->set_flashdata('flash','Gagal');
+				redirect('modul_general_manager/gaji');
+				
 			}
 
 			
