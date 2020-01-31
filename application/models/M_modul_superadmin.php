@@ -372,4 +372,13 @@ class M_modul_superadmin extends CI_Model{
 		JOIN user_resto ON user_resto.id = pendapatan_kas_masuk.id_user_kasir");
 		return $hasil;
 	}
+
+	public function join_kanwil($where)
+	{
+		$hasil=$this->db->query("SELECT user_kanwil.*,kanwil.*
+		FROM user_kanwil
+		JOIN kanwil ON kanwil.`id_kanwil`=user_kanwil.`id_kanwil`
+		WHERE user_kanwil.`id`=$where");
+		return $hasil;
+	}
 }

@@ -55,7 +55,7 @@ class Superadmin extends CI_Controller {
 	public function add_user()
 	{
 		if(isset($_GET['tipe'])){
-			echo $tipe=$_GET['tipe'];
+			$tipe=$_GET['tipe'];
 			if($tipe=="logistik" || $tipe=="bendahara" || $tipe=="general manajer"){
 				$this->load->view('modul_superadmin/add_user');
 		}else{
@@ -68,10 +68,11 @@ class Superadmin extends CI_Controller {
 	{
 		$id=$_GET['id'];
 		if(isset($_GET['tipe'])){
-			echo $tipe=$_GET['tipe'];
+			$tipe=$_GET['tipe'];
 			if($tipe=="logistik" || $tipe=="bendahara" || $tipe=="general manajer"){
 				$tabel='user_kanwil';
 				$where = array('id' => $id);
+				$data['data1'] = $this->m_modul_superadmin->join_kanwil($id)->result();
 				$data['data'] = $this->m_modul_superadmin->tampil_data_where($tabel,$where)->result();
 				$this->load->view('modul_superadmin/edit_user',$data);
 			}else{
@@ -88,6 +89,7 @@ class Superadmin extends CI_Controller {
 	{
 		 $session_id = $this->session->userdata('id');
 		 $id = $this->input->post('id');
+		 $id_kanwil = $this->input->post('id_kanwil');
 		$tipe = $this->input->post('tipe');
 		$nama = $this->input->post('nama');
 		$user = $this->input->post('user');
