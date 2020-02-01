@@ -11,7 +11,8 @@ class M_modul_kasir extends CI_Model{
 		$this->db->from('pemesanan');
 		$this->db->join('user_resto', 'user_resto.id = pemesanan.id_user_resto');
 		$this->db->join('resto', 'resto.id = user_resto.id_resto');
-    $this->db->join('pembayaran', 'pembayaran.id_pemesanan = pemesanan.id');
+    	$this->db->join('pembayaran', 'pembayaran.id_pemesanan = pemesanan.id');
+
 		$this->db->where('resto.id', $where);
 		return $this->db->get();
 	}
@@ -100,6 +101,28 @@ class M_modul_kasir extends CI_Model{
 		$this->db->join('paket', 'paket.id = '.$tabel.'.id_paket');
 		$result = $this->db->get();
 		return $result;
+	}
+
+	public function tampildatastor($jamawal,$jamakhir,$date)
+	{
+		$query = $this->db->query("
+		SELECT pembayaran.*,pemesanan.total_harga
+		FROM pembayaran
+		JOIN pemesanan ON pemesanan.`id` = pembayaran.`id_pemesanan`
+		WHERE SUBSTRING(pembayaran.tanggal, 1, 10) = '$date' AND HOUR(pembayaran.tanggal)
+		BETWEEN '$jamawal' AND '$jamakhir'");
+		return $query;
+	}
+
+	public function tampildatasum($jamawal,$jamakhir,$date)
+	{
+		$query = $this->db->query("
+		SELECT SUM(pemesanan.total_harga) AS nominalsetor
+		FROM pembayaran
+		JOIN pemesanan ON pemesanan.`id` = pembayaran.`id_pemesanan`
+		WHERE SUBSTRING(pembayaran.tanggal, 1, 10) = '$date' AND HOUR(pembayaran.tanggal)
+		BETWEEN '$jamawal' AND '$jamakhir'");
+		return $query;
 	}
 
 }

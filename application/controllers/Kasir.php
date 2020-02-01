@@ -110,14 +110,17 @@ class Kasir extends CI_Controller {
 	public function pemesanan()
 	{
 		$id_user_kasir=$this->session->userdata('id');
-		$query = $this->db->query("SELECT resto.id as id_resto FROM user_resto join resto on resto.id=user_resto.id_resto WHERE user_resto.id='$id_user_kasir'")->row();
+		// $query = $this->db->query("SELECT resto.id as id_resto FROM user_resto join resto on resto.id=user_resto.id_resto WHERE user_resto.id='$id_user_kasir'")->row();
 
 		/*$where = array(
 			'user_resto.id' => $id_user_kasir,
 		);*/
-		$id_resto=$query->id_resto;
-    	$x['data']=$this->m_modul_kasir->tampil_data_where_join($id_resto)->result();
-		$this->load->view('modul_kasir/pemesanan',$x);
+		// $id_resto=$query->id_resto;
+  //   	$x['data']=$this->m_modul_kasir->tampil_data_where_join($id_resto)->result();
+  //   	echo "data : ".$id_resto;
+		$data['tampildatastor'] = $this->m_modul_kasir->tampildatastor("00","00","2020-02-01")->result();
+		$data['tampildatasum'] = $this->m_modul_kasir->tampildatasum("00","00","2020-02-01")->result();
+		$this->load->view('modul_kasir/pemesanan',$data);
 	}
 	 function get_pemesan(){
         $no_meja=$this->input->get('meja');
@@ -259,4 +262,16 @@ class Kasir extends CI_Controller {
 
 
 	}
+
+	public function tampildatastor()
+	{
+		$date = date('Y-m-d');
+		$jamawal = $this->input->post('jamawal');
+		$jamakhir = $this->input->post('jamakhir');
+		$data['tampildatastor'] = $this->m_modul_kasir->tampildatastor($jamawal,$jamakhir,$date)->result();
+		$data['tampildatasum'] = $this->m_modul_kasir->tampildatasum($jamawal,$jamakhir,$date)->result();
+		$this->load->view('modul_kasir/pemesanan', $data);
+	}
+
+	
 }
