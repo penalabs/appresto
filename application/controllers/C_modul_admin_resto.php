@@ -693,4 +693,55 @@ class C_modul_admin_resto extends CI_Controller
 		}
 		redirect('C_modul_admin_resto/lihat_bahan_mentah/?id_permintaan='.$id_permintaan);
 	}
+	
+	function add_kinerja(){
+		$id_kanwil = $this->session->userdata('id_kanwil');
+		$id_resto = $this->session->userdata('id_resto');
+		$id_user = $this->input->post('nama_karyawan');
+		$status = $this->input->post('status');
+		$tgl_m = $this->input->post('tgl_mulai');
+		$tgl_a = $this->input->post('tgl_akhir');
+		$ket = $this->input->post('keterangan');
+		$data = array(
+			'id_kanwil' => $id_kanwil,
+			'id_resto' => $id_resto,
+			'id_user_resto' => $id_user,
+			'status' => $status,
+			'tgl_mulai' => $tgl_m,
+			'tgl_akhir' => $tgl_a,
+			'keterangan' => $ket,
+			);
+		$this->m_modul_admin_resto->input_data($data,'log_aktivitas');
+		$this->session->set_flashdata('flash','Ditambahkan');
+        redirect('superadmin/kinerja_karyawan');
+	}
+	function hapus_kinerja($id){
+		$where = array('id_log' => $id);
+		$this->m_modul_admin_resto->hapus_data($where,'log_aktivitas');
+		$this->session->set_flashdata('flash','Dihapuskan');
+		redirect('superadmin/kinerja_karyawan');
+	}
+	function edit_kinerja(){
+		$id_kanwil = $this->session->userdata('id_kanwil');
+		$id_resto = $this->session->userdata('id_resto');
+		$id_log = $this->input->post('idKin');
+		$id_user = $this->input->post('nama2');
+		$status = $this->input->post('statusEdit');
+		$tgl_m = $this->input->post('tgl_mulai2');
+		$tgl_a = $this->input->post('tgl_akhir2');
+		$ket = $this->input->post('keterangan2');
+		$data = array(
+			'id_kanwil' => $id_kanwil,
+			'id_resto' => $id_resto,
+			'id_user_resto' => $id_user,
+			'status' => $status,
+			'tgl_mulai' => $tgl_m,
+			'tgl_akhir' => $tgl_a,
+			'keterangan' => $ket,
+			);
+		$where = array('id_log' => $id_log);
+		$this->m_modul_admin_resto->update_data($where,$data,'log_aktivitas');
+		$this->session->set_flashdata('flash','Di Edit');
+        redirect('superadmin/kinerja_karyawan');
+	}
 }

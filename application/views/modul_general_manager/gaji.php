@@ -36,7 +36,7 @@
 			  <select name="resto_id" id="resto_id" class="form-control">
 					
 						  <?php
-						  $id_user_kanwil=$this->session->userdata('id');
+						  $id_user_kanwil=$this->session->userdata('id_kanwil');
 						  $sql = "SELECT * FROM resto where id_kanwil='$id_user_kanwil'";
 						  $data2=$this->db->query($sql)->result();
 						  foreach($data2 as $u2){ ?>
@@ -56,10 +56,7 @@
             <!-- /.box-header -->
             <div class="box-body">
 			<div class="flash-data" data-flashdata="<?php echo $this->session->flashdata('flash'); ?>"></div>
-			
-			  
-			
-			  
+
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -138,19 +135,21 @@
 						<select name="addid_resto" id="addid_resto" class="form-control" required>
 						  <option value="">--- Pilih Resto---</option>
 						  <?php
-						  $id_user_kanwil=$this->session->userdata('id');
+						  $id_user_kanwil=$this->session->userdata('id_kanwil');
 						  $sql = "SELECT * FROM resto where id_kanwil='$id_user_kanwil'";
 						  $data2=$this->db->query($sql)->result();
 						  foreach($data2 as $u2){ ?>
 							<option value="<?php echo $u2->id; ?>"><?php echo $u2->nama_resto; ?></option>
 						  <?php } ?>
 						  </select>
+						  
 						
 					</div>
 				</div>
 				<div class="form-group row">
 					
 					<div class="col-md-12">
+					
 					<label>Karyawan*</label>
 					  <select name="id_user_resto" id="id_user_resto" class="form-control" required>
 						  <option value="">--- Pilih Karyawan---</option>

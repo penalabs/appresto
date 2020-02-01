@@ -916,11 +916,34 @@ class Superadmin extends CI_Controller {
 	}
 
 	public function kinerja_karyawan(){
+		$session_id = $this->session->userdata('id_kanwil');
+		$tipe = $this->session->userdata('tipe');
 		$sql = "SELECT tbl_kinerja_karyawan.*, user_resto.*, pemesanan.* ,SUM(point) AS jml_point
 		FROM tbl_kinerja_karyawan
 		JOIN user_resto ON user_resto.id = tbl_kinerja_karyawan.id_user_resto
 		JOIN pemesanan ON pemesanan.id = tbl_kinerja_karyawan.pemesanan";
 		$data['data']=$this->db->query($sql)->result();
+		
+		$this->db->select('*');
+		$this->db->from('log_aktivitas');
+		$this->db->join('resto','log_aktivitas.id_resto=resto.id');
+		$this->db->join('user_resto','log_aktivitas.id_user_resto=user_resto.id');
+		if($tipe=="superadmin" || $tipe=="owner"){
+			//Tanpa Aksi
+		}else{
+			$this->db->where('log_aktivitas.id_kanwil',$session_id);
+		}
+		$data['hasil']=$this->db->get()->result();
+		
+		$this->db->select('*');
+		$this->db->from('user_resto');
+		if($tipe=="superadmin" || $tipe=="owner"){
+			//Tanpa Aksi
+		}else{
+			$this->db->where('id_kanwil',$session_id);
+		}
+		$data['user_resto']=$this->db->get()->result();
+		
 		$this->load->view('modul_superadmin/V_kinerja_karyawan',$data);
 	}
 

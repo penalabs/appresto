@@ -184,7 +184,7 @@ class Modul_general_manager extends CI_Controller {
 	// ................................
 	public function gaji()
 	{
-		$id_user_kanwil=$this->session->userdata('id');
+		$id_user_kanwil=$this->session->userdata('id_kanwil');
 		$sql = "SELECT gaji.id AS id_gaji, nama, nama_resto, jenis AS jabatan, SUM(jumlah_bonus)AS intensif, nominal_gaji  FROM gaji
 		JOIN user_resto ON user_resto.id=gaji.id_user_resto
 		JOIN resto ON resto.id=gaji.id_resto

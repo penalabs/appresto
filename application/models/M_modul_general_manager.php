@@ -61,7 +61,7 @@ function data_pengeluaran_invest_cabang_edit($where){
 		return $query;
 	}
 	function get_karyawan($id_resto){
-		$id_user_kanwil=$this->session->userdata('id');
+		$id_user_kanwil=$this->session->userdata('id_kanwil');
 		$this->db->select('*');
 		$this->db->where('id_resto', $id_resto);
 		$this->db->where('id_kanwil', $id_user_kanwil);
