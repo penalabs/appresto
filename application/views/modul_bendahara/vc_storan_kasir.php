@@ -59,7 +59,7 @@
                   <td><?php echo $u->nama_user_kanwil ?></td>
                   <td><?php echo $u->nama ?></td>
                   <td><?php echo "Rp. ".number_format($u->jumlah_setoran).",-"; ?></td>
-                  <td><?php echo $u->tanggal_awal ?> - <?php echo $u->tanggal_akhir ?></td>
+                  <td><?php echo $u->tanggal ?></td>
                 </tr>
         <?php } ?>
         
