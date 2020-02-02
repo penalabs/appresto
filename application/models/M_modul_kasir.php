@@ -103,24 +103,28 @@ class M_modul_kasir extends CI_Model{
 		return $result;
 	}
 
-	public function tampildatastor($jamawal,$jamakhir,$date)
+	public function tampildatastor($idresto,$jamawal,$jamakhir,$date)
 	{
 		$query = $this->db->query("
-		SELECT pembayaran.*,pemesanan.total_harga
-		FROM pembayaran
-		JOIN pemesanan ON pemesanan.`id` = pembayaran.`id_pemesanan`
-		WHERE SUBSTRING(pembayaran.tanggal, 1, 10) = '$date' AND HOUR(pembayaran.tanggal)
+		SELECT pemesanan.`id`,`nama_pemesan`,`no_meja`,`total_harga`, pembayaran.`status`,`nominal`,pembayaran.`tanggal`
+		FROM pemesanan
+		JOIN user_resto ON user_resto.`id` = pemesanan.`id_user_resto`
+		JOIN resto ON resto.id = user_resto.id_resto
+		JOIN pembayaran ON pembayaran.id_pemesanan = pemesanan.id
+		WHERE resto.`id` = '$idresto' AND SUBSTRING(pembayaran.tanggal, 1, 10) = '$date' AND HOUR(pembayaran.tanggal)
 		BETWEEN '$jamawal' AND '$jamakhir'");
 		return $query;
 	}
 
-	public function tampildatasum($jamawal,$jamakhir,$date)
+	public function tampildatasum($idresto,$jamawal,$jamakhir,$date)
 	{
 		$query = $this->db->query("
-		SELECT SUM(pemesanan.total_harga) AS nominalsetor
-		FROM pembayaran
-		JOIN pemesanan ON pemesanan.`id` = pembayaran.`id_pemesanan`
-		WHERE SUBSTRING(pembayaran.tanggal, 1, 10) = '$date' AND HOUR(pembayaran.tanggal)
+		SELECT SUM(pemesanan.total_harga) AS nominalsetor, pemesanan.`id`,`nama_pemesan`,`no_meja`,`total_harga`, pembayaran.`status`,`nominal`,pembayaran.`tanggal`
+		FROM pemesanan
+		JOIN user_resto ON user_resto.`id` = pemesanan.`id_user_resto`
+		JOIN resto ON resto.id = user_resto.id_resto
+		JOIN pembayaran ON pembayaran.id_pemesanan = pemesanan.id
+		WHERE resto.`id` = '$idresto' AND SUBSTRING(pembayaran.tanggal, 1, 10) = '$date' AND HOUR(pembayaran.tanggal)
 		BETWEEN '$jamawal' AND '$jamakhir'");
 		return $query;
 	}
