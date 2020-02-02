@@ -265,12 +265,33 @@ class Kasir extends CI_Controller {
 
 	public function tampildatastor()
 	{
+		echo $id_kanwil=$this->session->userdata('id_resto');
 		$date = date('Y-m-d');
 		$jamawal = $this->input->post('jamawal');
 		$jamakhir = $this->input->post('jamakhir');
 		$data['tampildatastor'] = $this->m_modul_kasir->tampildatastor($jamawal,$jamakhir,$date)->result();
 		$data['tampildatasum'] = $this->m_modul_kasir->tampildatasum($jamawal,$jamakhir,$date)->result();
-		$this->load->view('modul_kasir/pemesanan', $data);
+		//$this->load->view('modul_kasir/pemesanan', $data);
+	}
+
+	public function setorkebendahara()
+	{
+			$jumlah_pesan = $this->input->post('jumlah_pesan');
+			$id_user_bendahara = $this->input->post('id_user_bendahara');
+			$id_user_kasir = $this->input->post('id_user_kasir');
+			$nominalsetor = $this->input->post('nominalsetor');
+			$tanggal = $this->input->post('tanggal');
+
+			$data = array(
+				'id_user_bendahara' => $id_user_bendahara,
+				'id_user_kasir' => $id_user_kasir,
+				'jumlah_setoran' => $nominalsetor,
+				'tanggal' => $tanggal,
+				'tanggal_awal' => "",
+				'tanggal_akhir' => "",
+			);
+			$this->m_modul_kasir->input_data($data,'pendapatan_kas_masuk');
+			redirect('kasir/pemesanan');
 	}
 
 	

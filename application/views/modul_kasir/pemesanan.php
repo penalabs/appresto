@@ -144,7 +144,7 @@
           </div>
         </div>
         <div class="col-xs-3">
-          <form action="" method="">
+          <form action="<?php echo base_url(). 'kasir/setorkebendahara'; ?>" method="post">
             <?php
             $id_kasir=$this->session->userdata('id');
             ?>
@@ -152,7 +152,7 @@
             <input type="hidden" name="id_user_kasir" value="<?php echo $id_kasir; ?>">
             <input type="hidden" name="nominalsetor" value="<?php echo $nominalsetor; ?>">
             <input type="hidden" name="tanggal" value="<?php echo date('Y-m-d');?>">
-            <button type="submit" class="btnsetor btnsetor1"> SETOR </button>
+            <button type="submit" onClick="alert('Setor Berhasil!')" class="btnsetor btnsetor1"> SETOR </button>
           </form>
         </div>
         <div class="col-md-12">
