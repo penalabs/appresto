@@ -16,6 +16,23 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`db_siresto` /*!40100 DEFAULT CHARACTER 
 
 USE `db_siresto`;
 
+/*Table structure for table `bahan_jadi` */
+
+DROP TABLE IF EXISTS `bahan_jadi`;
+
+CREATE TABLE `bahan_jadi` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_masakan` varchar(100) NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `porsi` varchar(100) NOT NULL,
+  `status` enum('on','off') NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+/*Data for the table `bahan_jadi` */
+
+insert  into `bahan_jadi`(`id`,`nama_masakan`,`jumlah`,`porsi`,`status`) values (1,'Sambal Tomat',8,'mangkuk sambel 2MIli','off'),(3,'Ayam Geprek',1,'satu porsi','on');
+
 /*Table structure for table `bahan_mentah` */
 
 DROP TABLE IF EXISTS `bahan_mentah`;
@@ -170,6 +187,22 @@ CREATE TABLE `detail_pembelian_bahan_mentah` (
 
 insert  into `detail_pembelian_bahan_mentah`(`id`,`id_transaksi`,`id_bahan_mentah`,`jumlah`,`harga_beli`) values (2,'1','1','2','5000'),(3,'1','2','1','5000'),(4,'1','3','2','3000'),(5,'1','3','2','3000'),(6,'1','1','1','5000'),(7,'1','2','5','5000'),(8,'2','1','1','6000');
 
+/*Table structure for table `detil_bahan_mentah` */
+
+DROP TABLE IF EXISTS `detil_bahan_mentah`;
+
+CREATE TABLE `detil_bahan_mentah` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_bahan_mentah` int(11) NOT NULL,
+  `satuan_kecil` varchar(199) NOT NULL,
+  `stok` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+/*Data for the table `detil_bahan_mentah` */
+
+insert  into `detil_bahan_mentah`(`id`,`id_bahan_mentah`,`satuan_kecil`,`stok`) values (1,1,'paha',2),(2,2,'biji',50),(3,1,'dada',2);
+
 /*Table structure for table `gaji` */
 
 DROP TABLE IF EXISTS `gaji`;
@@ -188,6 +221,37 @@ CREATE TABLE `gaji` (
 /*Data for the table `gaji` */
 
 insert  into `gaji`(`id`,`id_resto`,`id_user_resto`,`tanggal_awal`,`tanggal_akhir`,`jenis_gaji`,`nominal_gaji`) values (5,4,23,'2020-01-01','2020-01-31','bulanan',2005000);
+
+/*Table structure for table `gaji_kanwil` */
+
+DROP TABLE IF EXISTS `gaji_kanwil`;
+
+CREATE TABLE `gaji_kanwil` (
+  `id_gaji_kanwil` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user_kanwil` int(11) DEFAULT NULL,
+  `nominal_gaji` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_gaji_kanwil`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+/*Data for the table `gaji_kanwil` */
+
+insert  into `gaji_kanwil`(`id_gaji_kanwil`,`id_user_kanwil`,`nominal_gaji`) values (1,1,3000000),(2,2,3000000),(3,3,3000000),(4,17,3000000),(5,18,3000000);
+
+/*Table structure for table `insentif` */
+
+DROP TABLE IF EXISTS `insentif`;
+
+CREATE TABLE `insentif` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_resto` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `total_orderan` int(11) NOT NULL,
+  `jumlah_insentif` int(11) NOT NULL,
+  `id_gaji` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `insentif` */
 
 /*Table structure for table `intensif_waiters` */
 
@@ -295,6 +359,26 @@ CREATE TABLE `kanwil` (
 /*Data for the table `kanwil` */
 
 insert  into `kanwil`(`id_kanwil`,`alamat_kantor`,`telp`) values (7,'Jawa Timur','085735144495'),(8,'Jawa Barat','085735144879'),(9,'Jawa Tengah','085735148165');
+
+/*Table structure for table `log_aktivitas` */
+
+DROP TABLE IF EXISTS `log_aktivitas`;
+
+CREATE TABLE `log_aktivitas` (
+  `id_log` int(11) NOT NULL AUTO_INCREMENT,
+  `id_kanwil` int(11) NOT NULL,
+  `id_resto` int(11) NOT NULL,
+  `id_user_resto` int(11) NOT NULL,
+  `tgl_mulai` date DEFAULT NULL,
+  `tgl_akhir` date DEFAULT NULL,
+  `status` varchar(25) DEFAULT NULL,
+  `keterangan` text DEFAULT NULL,
+  PRIMARY KEY (`id_log`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+
+/*Data for the table `log_aktivitas` */
+
+insert  into `log_aktivitas`(`id_log`,`id_kanwil`,`id_resto`,`id_user_resto`,`tgl_mulai`,`tgl_akhir`,`status`,`keterangan`) values (1,1,1,1,'2020-01-01','2020-01-31','Cuti','Cuti Kerja selama 1 Bulan'),(2,2,2,8,'2020-01-31','2020-01-31','Lembur','Lembur karena Shit tidak masuk'),(5,2,2,8,'2020-02-02','2020-02-19','Cuti','semangat');
 
 /*Table structure for table `logistik` */
 
@@ -573,6 +657,26 @@ CREATE TABLE `pendapatan_kas_masuk` (
 
 insert  into `pendapatan_kas_masuk`(`id`,`id_user_bendahara`,`id_user_kasir`,`jumlah_setoran`,`tanggal`,`tanggal_awal`,`tanggal_akhir`) values (10,32,22,'29000','2020-02-02','0000-00-00 00:00:00','0000-00-00 00:00:00');
 
+/*Table structure for table `pengeluaran_cabang` */
+
+DROP TABLE IF EXISTS `pengeluaran_cabang`;
+
+CREATE TABLE `pengeluaran_cabang` (
+  `id_pengeluaran_cabang` int(11) NOT NULL AUTO_INCREMENT,
+  `id_resto` int(11) NOT NULL,
+  `id_investasi_cabang` int(11) NOT NULL,
+  `id_alat` int(11) NOT NULL,
+  `jumlah` varchar(100) NOT NULL,
+  `masa_pemanfatan` varchar(100) NOT NULL,
+  `nominal` varchar(100) NOT NULL,
+  `nominal_penyusutan` int(11) NOT NULL,
+  PRIMARY KEY (`id_pengeluaran_cabang`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+/*Data for the table `pengeluaran_cabang` */
+
+insert  into `pengeluaran_cabang`(`id_pengeluaran_cabang`,`id_resto`,`id_investasi_cabang`,`id_alat`,`jumlah`,`masa_pemanfatan`,`nominal`,`nominal_penyusutan`) values (1,1,1,1,'2','2 bulan','10000',2000);
+
 /*Table structure for table `pengeluaran_cabang_operasional` */
 
 DROP TABLE IF EXISTS `pengeluaran_cabang_operasional`;
@@ -592,6 +696,22 @@ CREATE TABLE `pengeluaran_cabang_operasional` (
 /*Data for the table `pengeluaran_cabang_operasional` */
 
 insert  into `pengeluaran_cabang_operasional`(`id`,`id_admin_resto`,`id_resto`,`id_kanwil`,`tanggal`,`id_operasional`,`masa_sewa`,`nominal`) values (1,4,1,1,'2019-10-02',1,'1 bulan','5000'),(2,4,1,1,'2019-10-03',1,'2 bulan','90'),(3,4,1,1,'2019-10-19',0,'2 hari','10000'),(5,1,1,1,'2019-12-29',2,'1 bulan','70000');
+
+/*Table structure for table `pengeluaran_kanwil` */
+
+DROP TABLE IF EXISTS `pengeluaran_kanwil`;
+
+CREATE TABLE `pengeluaran_kanwil` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_kanwil` int(11) NOT NULL,
+  `id_operasional` int(11) NOT NULL,
+  `nominal` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+/*Data for the table `pengeluaran_kanwil` */
+
+insert  into `pengeluaran_kanwil`(`id`,`id_kanwil`,`id_operasional`,`nominal`) values (1,1,1,'5000');
 
 /*Table structure for table `pengeluaran_kanwil_operasional` */
 
