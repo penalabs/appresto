@@ -183,11 +183,11 @@ CREATE TABLE `gaji` (
   `jenis_gaji` enum('bulanan','THR','bonus','pesangon') NOT NULL,
   `nominal_gaji` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 /*Data for the table `gaji` */
 
-insert  into `gaji`(`id`,`id_resto`,`id_user_resto`,`tanggal_awal`,`tanggal_akhir`,`jenis_gaji`,`nominal_gaji`) values (5,4,23,'2020-01-01','2020-01-31','bulanan',2005000);
+insert  into `gaji`(`id`,`id_resto`,`id_user_resto`,`tanggal_awal`,`tanggal_akhir`,`jenis_gaji`,`nominal_gaji`) values (1,1,2,'2019-12-01','2019-12-31','bulanan',1004000),(2,1,5,'2019-12-01','2019-12-31','bulanan',1003000),(3,1,2,'2020-01-01','2020-01-31','bulanan',1500000);
 
 /*Table structure for table `intensif_waiters` */
 
@@ -199,11 +199,11 @@ CREATE TABLE `intensif_waiters` (
   `tanggal` varchar(100) DEFAULT NULL,
   `jumlah_bonus` varchar(100) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 /*Data for the table `intensif_waiters` */
 
-insert  into `intensif_waiters`(`id`,`id_user_resto`,`tanggal`,`jumlah_bonus`) values (30,'23','2020-01-30 21:35:00','1000'),(31,'23','2020-01-30 21:35:25','1000'),(32,'23','2020-01-30 21:49:42','1000'),(33,'23','2020-02-01 22:53:18','1000'),(34,'23','2020-02-01 22:53:42','1000');
+insert  into `intensif_waiters`(`id`,`id_user_resto`,`tanggal`,`jumlah_bonus`) values (21,'2','2019-12-23 20:10:44','1000'),(22,'2','2019-12-23 20:11:06','1000'),(23,'2','2020-01-03 19:58:16','1000'),(24,'5','2020-01-03 20:31:22','1000'),(25,'2','2020-01-14 21:46:24','1000');
 
 /*Table structure for table `investasi_cabang` */
 
@@ -344,7 +344,7 @@ CREATE TABLE `menu` (
 
 /*Data for the table `menu` */
 
-insert  into `menu`(`id`,`id_resto`,`menu`,`foto`,`harga`,`status`,`stok`,`mode`) values (1,1,'Ayam Geprek','default.jpg',10000,'tersedia',5,'insert'),(2,1,'Jamur Kripsi','default.jpg',10000,'tersedia',0,'insert'),(3,1,'Es Teh Anget','default.jpg',10000,'tersedia',10,'insert'),(4,1,'Kopi Susu','kopihitam.jpg',3000,'habis',6,'insert'),(5,1,'Nasi Goreng','default.jpg',3000,'tersedia',6,'insert'),(6,1,'Tahu Kripsi','default.jpg',6000,'tersedia',1,'insert'),(7,1,'teh pucuk','default.jpg',3000,'tersedia',1,'insert');
+insert  into `menu`(`id`,`id_resto`,`menu`,`foto`,`harga`,`status`,`stok`,`mode`) values (1,1,'Ayam Geprek','nasibebek.jpg',10000,'tersedia',5,'insert'),(2,1,'Jamur Kripsi','124789-mint-background-2560x1600-for-ios.jpg',10000,'tersedia',0,'insert'),(3,1,'Es Teh Anget','124789-mint-background-2560x1600-for-ios4.jpg',10000,'tersedia',10,'insert'),(4,1,'Kopi Susu','start4.jpg',3000,'tersedia',6,'insert'),(5,1,'Nasi Goreng','start2.png',3000,'tersedia',6,'insert'),(6,1,'Tahu Kripsi','wp2754931.jpg',6000,'tersedia',1,'insert'),(7,1,'teh pucuk','Struktur-Komite.png',3000,'tersedia',1,'insert');
 
 /*Table structure for table `omset_investasi_owner` */
 
@@ -418,7 +418,7 @@ CREATE TABLE `paket` (
 
 /*Data for the table `paket` */
 
-insert  into `paket`(`id`,`id_resto`,`nama_paket`,`jumlah`,`status`,`foto`,`harga`,`mode`) values (1,1,'Paket Bom',10,'tersedia','default.jpg','8000','insert'),(2,1,'Paket Granat',10,'tersedia','default.jpg','20000','insert'),(3,1,'Paket asoy',5,'habis','nasibebek.jpg','30000','insert');
+insert  into `paket`(`id`,`id_resto`,`nama_paket`,`jumlah`,`status`,`foto`,`harga`,`mode`) values (1,1,'Paket Bom',10,'tersedia','gepreksai3.jpg','8000','insert'),(2,1,'Paket Granat',10,'tersedia','','20000','insert'),(3,1,'Paket asoy',5,'tersedia','','30000','insert');
 
 /*Table structure for table `pembayaran` */
 
@@ -432,11 +432,11 @@ CREATE TABLE `pembayaran` (
   `status` enum('kredit','lunas') NOT NULL,
   `tanggal` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 /*Data for the table `pembayaran` */
 
-insert  into `pembayaran`(`id`,`id_user_kasir`,`id_pemesanan`,`nominal`,`status`,`tanggal`) values (34,23,2,15000,'lunas','2020-01-30 21:35:25'),(35,23,1,25000,'lunas','2020-01-30 15:42:30'),(36,23,3,20000,'lunas','2020-02-02 17:09:06'),(38,23,4,25000,'lunas','2020-02-02 20:42:38'),(39,22,5,15000,'lunas','2020-02-01 16:55:53');
+insert  into `pembayaran`(`id`,`id_user_kasir`,`id_pemesanan`,`nominal`,`status`,`tanggal`) values (18,2,1,50000,'lunas','2019-12-23 20:10:44'),(19,5,4,20000,'lunas','2020-01-03 20:31:22'),(20,1,3,63000,'lunas','2020-01-13 15:31:25'),(21,1,3,70000,'lunas','2020-01-13 15:58:29'),(22,1,3,63000,'lunas','2020-01-13 16:08:27'),(23,2,3,70000,'lunas','2020-01-13 16:18:48'),(24,1,5,55000,'lunas','2020-01-14 15:49:47');
 
 /*Table structure for table `pembelian_alat` */
 
@@ -512,11 +512,11 @@ CREATE TABLE `pemesanan` (
   `id_user_resto` int(11) NOT NULL,
   `status` enum('belum','kredit','lunas','produksi','siapsaji','selesai','siapsaji_lunas','produksi_lunas') NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 /*Data for the table `pemesanan` */
 
-insert  into `pemesanan`(`id`,`nama_pemesan`,`no_meja`,`keterangantambahan`,`tanggal`,`total_harga`,`id_user_resto`,`status`) values (1,'coba1',1,'','2020-01-30 21:35:00',24000,23,'lunas'),(2,'coba2',2,'','2020-01-30 21:35:25',13000,23,'lunas'),(3,'coba3',3,'ini pembayaran dilakukan di kasir','2020-02-02 21:49:42',16000,23,'lunas'),(4,'coba4',4,'','2020-02-01 21:58:05',13000,23,'lunas'),(5,'coba5',5,'','2020-02-01 22:53:18',13000,23,'lunas'),(6,'coba5',1,'','2020-02-01 22:53:42',0,23,'siapsaji');
+insert  into `pemesanan`(`id`,`nama_pemesan`,`no_meja`,`keterangantambahan`,`tanggal`,`total_harga`,`id_user_resto`,`status`) values (1,'irhas',1,'','2019-12-23 20:10:44',40000,2,'lunas'),(3,'rury',4,'sambal 2','2020-01-03 19:58:16',63000,2,'lunas'),(4,'joko',7,'kopi susu hangat','2020-01-03 20:31:22',19000,5,'selesai'),(5,'tony',5,'sambal level 1','2020-01-14 21:46:24',48000,2,'lunas');
 
 /*Table structure for table `pemesanan_menu` */
 
@@ -530,11 +530,11 @@ CREATE TABLE `pemesanan_menu` (
   `subharga` int(11) NOT NULL,
   `status` varchar(40) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 /*Data for the table `pemesanan_menu` */
 
-insert  into `pemesanan_menu`(`id`,`id_pemesanan`,`id_menu`,`jumlah_pesan`,`subharga`,`status`) values (58,1,1,1,10000,''),(59,1,7,2,6000,''),(60,2,3,1,10000,''),(61,2,5,1,3000,''),(62,3,2,1,10000,''),(63,3,6,1,6000,''),(64,5,2,1,10000,''),(65,5,5,1,3000,'');
+insert  into `pemesanan_menu`(`id`,`id_pemesanan`,`id_menu`,`jumlah_pesan`,`subharga`,`status`) values (40,1,1,1,10000,''),(41,2,5,1,3000,''),(42,3,1,1,10000,''),(43,3,2,1,10000,''),(44,3,3,1,10000,''),(45,3,4,1,3000,''),(46,4,2,1,10000,''),(47,4,4,1,3000,''),(48,4,6,1,6000,''),(49,5,1,1,10000,''),(50,5,2,1,10000,''),(51,5,3,2,20000,'');
 
 /*Table structure for table `pemesanan_paket` */
 
@@ -548,11 +548,11 @@ CREATE TABLE `pemesanan_paket` (
   `subharga` int(11) NOT NULL,
   `status` varchar(40) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 /*Data for the table `pemesanan_paket` */
 
-insert  into `pemesanan_paket`(`id`,`id_pemesanan`,`id_paket`,`jumlah_pesan`,`subharga`,`status`) values (35,1,1,1,8000,'');
+insert  into `pemesanan_paket`(`id`,`id_pemesanan`,`id_paket`,`jumlah_pesan`,`subharga`,`status`) values (29,1,3,1,30000,''),(30,3,3,1,30000,''),(31,5,1,1,8000,'');
 
 /*Table structure for table `pendapatan_kas_masuk` */
 
@@ -567,11 +567,11 @@ CREATE TABLE `pendapatan_kas_masuk` (
   `tanggal_awal` datetime NOT NULL,
   `tanggal_akhir` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 /*Data for the table `pendapatan_kas_masuk` */
 
-insert  into `pendapatan_kas_masuk`(`id`,`id_user_bendahara`,`id_user_kasir`,`jumlah_setoran`,`tanggal`,`tanggal_awal`,`tanggal_akhir`) values (10,32,22,'29000','2020-02-02','0000-00-00 00:00:00','0000-00-00 00:00:00');
+insert  into `pendapatan_kas_masuk`(`id`,`id_user_bendahara`,`id_user_kasir`,`jumlah_setoran`,`tanggal`,`tanggal_awal`,`tanggal_akhir`) values (2,1,1,'120000','2019-08-02','2019-07-02 00:00:00','2019-07-31 00:00:00'),(3,1,1,'12000000','2019-08-02','2019-07-02 00:00:00','2019-07-31 00:00:00'),(4,2,1,'9000000','2019-08-22','0000-00-00 00:00:00','0000-00-00 00:00:00');
 
 /*Table structure for table `pengeluaran_cabang_operasional` */
 
@@ -853,7 +853,7 @@ CREATE TABLE `superadmin` (
   `create_at` datetime DEFAULT current_timestamp(),
   `update_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 /*Data for the table `superadmin` */
 
@@ -869,11 +869,11 @@ CREATE TABLE `tbl_kinerja_karyawan` (
   `pemesanan` int(11) NOT NULL,
   `point` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tbl_kinerja_karyawan` */
 
-insert  into `tbl_kinerja_karyawan`(`id`,`id_user_resto`,`pemesanan`,`point`) values (16,23,2,1),(17,23,1,1),(18,23,3,1),(19,23,5,1);
+insert  into `tbl_kinerja_karyawan`(`id`,`id_user_resto`,`pemesanan`,`point`) values (6,2,1,1),(7,2,2,1),(8,5,4,1),(9,2,3,1),(10,2,3,1),(11,2,5,1);
 
 /*Table structure for table `user_kanwil` */
 
@@ -893,11 +893,11 @@ CREATE TABLE `user_kanwil` (
   `update_at` datetime NOT NULL DEFAULT current_timestamp(),
   `tipe` enum('general manajer','bendahara','logistik') NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 /*Data for the table `user_kanwil` */
 
-insert  into `user_kanwil`(`id`,`id_super_admin`,`id_kanwil`,`nama`,`user`,`pass`,`alamat`,`telp`,`email`,`create_at`,`update_at`,`tipe`) values (30,1,7,'irhassatu','irhassatu','irhassatu','sambirejo','085735144495','irhaskarumaf@gmail.com','2020-01-30 19:17:40','2020-01-30 19:17:40','general manajer'),(31,1,9,'indahdua','indahdua','indahdua','jogjakarta','085735144879','indah@gmail.com','2020-01-30 19:18:18','2020-01-30 19:18:18','general manajer'),(32,1,7,'fadilasatu','fadilasatu','fadilasatu','papar','085735144495','fadila@gmail.com','2020-01-30 19:49:51','2020-01-30 19:49:51','bendahara'),(33,1,9,'wiwindua','wiwindua','wiwindua','jogjakarta','085735144879','wiwin@gmial.com','2020-01-30 19:50:29','2020-01-30 19:50:29','bendahara'),(34,1,7,'risasatu','risasatu','risasatu','sambirejo','085735144495','risa@gmail.com','2020-01-30 19:51:55','2020-01-30 19:51:55','logistik'),(35,1,9,'triadua','triadua','triadua','jogjakarta','085735144879','tria@gmail.com','2020-01-30 19:52:18','2020-01-30 19:52:18','logistik');
+insert  into `user_kanwil`(`id`,`id_super_admin`,`id_kanwil`,`nama`,`user`,`pass`,`alamat`,`telp`,`email`,`create_at`,`update_at`,`tipe`) values (20,1,7,'tria','tria','tria','kediri','085735144495','tria@gmail.com','2020-01-20 20:00:44','2020-01-20 20:00:44','bendahara'),(21,1,7,'wiwin','wiwin','wiwin','kediri','085735144495','wiwin@gmial.com','2020-01-20 20:01:17','2020-01-20 20:01:17','logistik'),(25,1,9,'irhas','irhas','irhas','jogja','085735144495','irhaskarumaf@gmail.com','2020-01-26 20:51:53','2020-01-26 20:51:53','general manajer'),(27,1,9,'fadila','fadila','fadila','kediri','085735148165','fadila@gmail.com','2020-01-26 22:06:39','2020-01-26 22:06:39','bendahara'),(28,1,9,'risa','risa','risa','kediri','085735144879','risa@gmail.com','2020-01-26 22:07:17','2020-01-26 22:07:17','logistik'),(29,1,7,'indah','indah','indah','kediri','085735144879','indah@gmail.com','2020-01-26 22:22:50','2020-01-26 22:22:50','general manajer');
 
 /*Table structure for table `user_resto` */
 
@@ -916,11 +916,11 @@ CREATE TABLE `user_resto` (
   `update_at` datetime NOT NULL DEFAULT current_timestamp(),
   `jenis` enum('admin resto','kasir','waiters','produksi') NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 /*Data for the table `user_resto` */
 
-insert  into `user_resto`(`id`,`id_kanwil`,`id_resto`,`nama`,`user`,`pass`,`alamat`,`telp`,`create_at`,`update_at`,`jenis`) values (19,7,4,'adminrestosatu','adminrestosatu','adminrestosatu','kediri','085735144495','2020-01-30 19:54:38','2020-01-30 19:54:38','admin resto'),(20,7,4,'produksisatu','produksisatu','produksisatu','kediri','085735144495','2020-01-30 20:00:21','2020-01-30 20:00:21','produksi'),(22,7,4,'kasirsatu','kasirsatu','kasirsatu','kediri','085735144495','2020-01-30 20:01:29','2020-01-30 20:01:29','kasir'),(23,7,4,'waiterssatu','waiterssatu','waiterssatu','kediri','085735144495','2020-01-30 20:02:01','2020-01-30 20:02:01','waiters'),(24,9,7,'adminrestodua','adminrestodua','adminrestodua','jogjakarta','085735144879','2020-01-30 20:07:05','2020-01-30 20:07:05','admin resto'),(25,9,7,'produksidua','produksidua','produksidua','jogjakarta','085735144879','2020-01-30 20:07:54','2020-01-30 20:07:54','produksi'),(26,9,7,'kasirdua','kasirdua','kasirdua','jogjakarta','085735144879','2020-01-30 20:08:25','2020-01-30 20:08:25','kasir'),(27,9,7,'waitersdua','waitersdua','waitersdua','jogjakarta','085735144879','2020-01-30 20:08:47','2020-01-30 20:08:47','waiters');
+insert  into `user_resto`(`id`,`id_kanwil`,`id_resto`,`nama`,`user`,`pass`,`alamat`,`telp`,`create_at`,`update_at`,`jenis`) values (10,9,7,'sinta','sinta','sinta','jogjakarta','085735148165','2020-01-26 21:00:46','2020-01-26 21:00:46','waiters'),(11,9,7,'debi','debi','debi','nganjuk','085735148165','2020-01-26 21:10:49','2020-01-26 21:10:49','kasir'),(12,9,7,'fauzin','fauzin','fauzin','kediri','085735148165','2020-01-26 21:23:12','2020-01-26 21:23:12','produksi'),(13,9,7,'rifangi','rifangi','rifangi','kediri','085735148165','2020-01-26 21:24:09','2020-01-26 21:24:09','admin resto'),(15,7,4,'in','in','in','in','085735144879','2020-01-26 22:09:49','2020-01-26 22:09:49','admin resto');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
