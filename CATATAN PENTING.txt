@@ -113,3 +113,7 @@ laporan kunjungan / transaksi
 crud gaji
 laporan kinerja karyawan / intensif
 ngelink kan modul yang sama pada sidebar superadmin ke admin resto (kinerja karyawan / intensif dan laporan kunjungan transaksi)
+
+- insert diskon to database
+- pembenahan nota
+- import ulang database db_siresto.sql
