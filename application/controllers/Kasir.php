@@ -144,6 +144,7 @@ class Kasir extends CI_Controller {
 	public function action_pembayaran(){
 		$id_pemesanan = $this->input->post('id_pesan');
 		$nominal = $this->input->post('nominal');
+		$diskon = $this->input->post('diskon');
 		$kembali = $this->input->post('kembali');
 		$id_user_kasir = $this->input->post('id_user_kasir');
 
@@ -161,6 +162,7 @@ class Kasir extends CI_Controller {
 			'id_user_kasir' => $id_user_kasir,
 			'id_pemesanan' => $id_pemesanan,
 			'nominal' => $nominal,
+			'diskon' => $diskon,
 			'status' => $status,
 			'tanggal' => $date
 		);

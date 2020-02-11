@@ -219,7 +219,8 @@ function pajak(pajak,hargaAwal){
   var idd_pesan;
 
 	function save(){
-		bayar=$('#bayar').val();
+	bayar=$('#bayar').val();
+	diskon=$('#diskonrp_value').val();
     kembali=$('#kembali_value').val();
     var id_user_kasir=<?php echo $this->session->userdata('id'); ?>;
     no_meja=$('#meja').val();
@@ -227,7 +228,7 @@ function pajak(pajak,hargaAwal){
 			$.ajax({
                 type  : 'POST',
                 url   : '<?php echo base_url(). 'kasir/action_pembayaran'; ?>',
-				        data: {id_pesan:idd_pesan,nominal:bayar,id_user_kasir:id_user_kasir,kembali:kembali},
+				        data: {id_pesan:idd_pesan,nominal:bayar,id_user_kasir:id_user_kasir,kembali:kembali,diskon:diskon},
                 async : false,
                 dataType : 'json',
                 success : function(data){
@@ -253,7 +254,7 @@ function pajak(pajak,hargaAwal){
     bayar=$('#bayar').val();
     kembali=$('#kembali_value').val();
 
-    $('#cetak').attr('href', '<?php echo base_url('report/pdf/?no_meja=');?>'+no_meja);
+    $('#cetak').attr('href', '<?php echo base_url('report/pdf/?no_meja=');?>'+no_meja+'&&total='+total+'&&kembali='+kembali);
 
   }
   //fungsi tampil barang

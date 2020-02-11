@@ -7,20 +7,26 @@ class Report extends CI_Controller {
 	{
 
       $no_meja = $this->input->get('no_meja');
+	  $total = $this->input->get('total');
+	  $kembali = $this->input->get('kembali');
+	  $data['opsi_data']=$kembali;
+	  
 	  $this->load->library('pdfgenerator');
 
-      $sql = "SELECT pemesanan.id,menu.menu,pemesanan_menu.jumlah_pesan,pemesanan_menu.subharga FROM pemesanan_menu join menu on menu.id=pemesanan_menu.id_menu join pemesanan on pemesanan.id=pemesanan_menu.id_pemesanan where pemesanan.no_meja='$no_meja'";
-      $data['datamenu']=$this->db->query($sql)->result();
-
-      $sql = "SELECT pemesanan.id,paket.nama_paket,pemesanan_paket.jumlah_pesan,pemesanan_paket.subharga FROM pemesanan_paket join paket on paket.id=pemesanan_paket.id_paket join pemesanan on pemesanan.id=pemesanan_paket.id_pemesanan where pemesanan.no_meja='$no_meja'";
-      $data['datapaket']=$this->db->query($sql)->result();
-
-      $sql = "SELECT pemesanan.id,paket.nama_paket,pemesanan_paket.jumlah_pesan,pemesanan_paket.subharga FROM pemesanan_paket join paket on paket.id=pemesanan_paket.id_paket join pemesanan on pemesanan.id=pemesanan_paket.id_pemesanan where pemesanan.no_meja='$no_meja'";
+	  $sql = "SELECT pemesanan.id,paket.nama_paket,pemesanan_paket.jumlah_pesan,pemesanan_paket.subharga FROM pemesanan_paket join paket on paket.id=pemesanan_paket.id_paket join pemesanan on pemesanan.id=pemesanan_paket.id_pemesanan where pemesanan.no_meja='$no_meja' and pemesanan.status='lunas' and pemesanan.total_harga='$total'";
       $data['id_pemesanan']=$this->db->query($sql)->row();
       $pemesanan=$this->db->query($sql)->row();
       $id_pemesanan=$pemesanan->id;
+	  
+      $sql = "SELECT pemesanan.id,menu.menu,pemesanan_menu.jumlah_pesan,pemesanan_menu.subharga FROM pemesanan_menu join menu on menu.id=pemesanan_menu.id_menu join pemesanan on pemesanan.id=pemesanan_menu.id_pemesanan where pemesanan.no_meja='$no_meja' and pemesanan.status='lunas' and pemesanan.id='$id_pemesanan'";
+      $data['datamenu']=$this->db->query($sql)->result();
 
-      $sql = "SELECT * FROM pemesanan where no_meja='$no_meja'";
+      $sql = "SELECT pemesanan.id,paket.nama_paket,pemesanan_paket.jumlah_pesan,pemesanan_paket.subharga FROM pemesanan_paket join paket on paket.id=pemesanan_paket.id_paket join pemesanan on pemesanan.id=pemesanan_paket.id_pemesanan where pemesanan.no_meja='$no_meja' and pemesanan.status='lunas' and pemesanan.id='$id_pemesanan'";
+      $data['datapaket']=$this->db->query($sql)->result();
+
+      
+
+      $sql = "SELECT * FROM pemesanan where no_meja='$no_meja' and pemesanan.status='lunas' and pemesanan.status='lunas' and pemesanan.total_harga='$total'";
       $data['data_pemesanan']=$this->db->query($sql)->row();
 	  $id_user_resto=$this->db->query($sql)->row();
 	  $id_user_resto2=$id_user_resto->id_user_resto;

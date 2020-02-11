@@ -22,7 +22,7 @@
 			align-items:center;
 		}
 		table, th, td {
-		  border: 1px solid black;
+		  border: 0px solid black;
 		}
   </style>
 </head>
@@ -45,7 +45,10 @@
 	  	<tbody>
 
 
-  	  		<?php $no=1; ?>
+  	  		<?php 
+			$subharga=0;
+			$no=1;
+			?>
   	  		<?php foreach($datamenu as $d): ?>
   	  		  <tr>
 
@@ -53,9 +56,12 @@
   	  			<td><?php echo $d->menu; ?></td>
   	  			<td><?php echo $d->jumlah_pesan; ?> : </td>
   	  			<td><?php echo $d->subharga; ?></td>
-            <td><?php echo (int)$d->jumlah_pesan*(int)$d->subharga; ?></td>
+				<td><?php echo (int)$d->jumlah_pesan*(int)$d->subharga; ?></td>
   	  		  </tr>
-  	  		<?php $no++; ?>
+  	  		<?php 
+			$subharga+=(int)$d->jumlah_pesan*(int)$d->subharga;
+			$no++; 
+			?>
   	  		<?php endforeach; ?>
 
           <?php foreach($datapaket as $d): ?>
@@ -65,14 +71,21 @@
   	  			<td><?php echo $d->nama_paket; ?></td>
   	  			<td><?php echo $d->jumlah_pesan; ?> : </td>
   	  			<td><?php echo $d->subharga; ?></td>
-            <td><?php echo (int)$d->jumlah_pesan*(int)$d->subharga; ?></td>
+				<td><?php echo (int)$d->jumlah_pesan*(int)$d->subharga; ?></td>
   	  		  </tr>
-  	  		<?php $no++; ?>
+  	  		<?php 
+			$subharga+=(int)$d->jumlah_pesan*(int)$d->subharga;
+			$no++;
+			?>
   	  		<?php endforeach; ?>
 
+			<tr>
+			
+            <td colspan="5">-----------------------------------------------</td>
 
+            </tr>
             <tr>
-
+			
             <td colspan="3"></td>
             <td>Total bayar :</td>
 			<td><?php echo $data_pemesanan->total_harga; ?></td>
