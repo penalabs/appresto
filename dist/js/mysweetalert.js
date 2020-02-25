@@ -28,12 +28,31 @@ $('.deleteRecord').on('click',function(e){
 	const href = $(this).attr('href');
 	Swal.fire({
 		  title: 'Apakah Anda Yakin?',
-		  text: "Data Gaji Karyawan akan dihapus!",
+		  text: "Data akan dihapus!",
 		  icon: 'warning',
 		  showCancelButton: true,
 		  confirmButtonColor: '#3085d6',
 		  cancelButtonColor: '#d33',
 		  confirmButtonText: 'Hapus Data!'
+		}).then((result) => {
+		  if (result.value) {
+			document.location.href = href;
+		  }
+		})
+});
+
+//hapus
+$('.tolakData').on('click',function(e){
+	e.preventDefault();
+	const href = $(this).attr('href');
+	Swal.fire({
+		  title: 'Apakah Anda Yakin?',
+		  text: "Permintaan akan diTolak!",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: 'Tolak Permintaan!'
 		}).then((result) => {
 		  if (result.value) {
 			document.location.href = href;
