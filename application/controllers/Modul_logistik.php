@@ -283,7 +283,7 @@ class modul_logistik extends CI_Controller {
 	public function data_alat(){
 	  $id_logistik=$this->session->userdata('id');
 	  $id_transaksi = $this->input->post('id_transaksi');
-	  $sql = "SELECT detail_pembelian_alat.id as id_detail_pembelian_alat,peralatan.nama_peralatan,peralatan.satuan_besar,detail_pembelian_alat.harga_beli,detail_pembelian_alat.jumlah FROM peralatan join detail_pembelian_alat on detail_pembelian_alat.id_alat=peralatan.id where id_logistik='$id_logistik' and id_transaksi='$id_transaksi'";
+	  $sql = "SELECT detail_pembelian_alat.id as id_detail_pembelian_alat,peralatan.nama_peralatan,peralatan.satuan_besar,detail_pembelian_alat.harga_beli,detail_pembelian_alat.jumlah FROM peralatan join detail_pembelian_alat on detail_pembelian_alat.id_alat=peralatan.id where  detail_pembelian_alat.id_transaksi='$id_transaksi'";
 	  $data=$this->db->query($sql)->result();
 	  echo json_encode($data);
 	}
