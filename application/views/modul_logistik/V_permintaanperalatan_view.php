@@ -57,7 +57,7 @@
                   <th>Aksi</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="listRecords">
         <?php
           $no = 1;
           foreach($permintaanperalatan as $u){
@@ -71,24 +71,40 @@
                   <td><?php echo $u->status_permintaan ?></td>
                   <!-- <td><?php echo "Rp. ".number_format($u->nominal).",-"; ?></td>
                   <td><?php echo $u->nominal_penyusutan ?> %</td> -->
-          <td>
+				  <td>
 
 
 
-        <?php if($u->status_permintaan=="permintaan"){
-          ?>
-          <a href="<?php echo base_url('C_modul_admin_resto/permintaanperalatan_edit/'.$u->id_permintaan_alat); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
+						<?php if($u->status_permintaan == "permintaan"){
+						  ?>
+						  <a href="javascript:void(0);" class="btn btn-success btn-xs KirimForm"
+						  data-id_permintaan_alat="<?php echo $u->id_permintaan_alat ?>"
+						  data-resto1="<?php echo $u->nama_resto ?>"
+						  data-alat1="<?php echo $u->nama_peralatan ?>"
+						  data-jml1="<?php echo $u->jumlah ?>"
+						  data-masa1="<?php echo $u->masa_pemanfatan ?>"
+						  data-status1="<?php echo $u->status_permintaan ?>"
+						  data-tgl_permintaan1="<?php echo $u->tanggal ?>"
+						  >Kirimkan</a>
+						  <a href="<?php echo base_url()?>Modul_logistik/hapusRecordPermintaan/<?php echo $u->id_permintaan_alat?>" class="btn btn-danger btn-xs tolakData">Tolak</a>
 
-          <?php
-        }else if($u->status_permintaan!="diterima"){
-         ?>
-         <a href="<?php echo base_url('C_modul_admin_resto/permintaanperalatan_hapus/?id='.$u->id_permintaan_alat.'&&jumlah='.$u->jumlah.'&&id_alat='.$u->id); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
-          <a href="<?php echo base_url('C_modul_admin_resto/konfirmasi_alat/'.$u->id_permintaan_alat); ?>" class="btn btn-primary btn-xs"><i class="fa  fa-check" ></i></a>
-         <?php
-       } ?>
-                </tr>
-        <?php } ?>
-
+						  <?php
+						}else if($u->status_permintaan != "permintaan"){
+						 ?>
+						 <a href="javascript:void(0);" class="btn btn-info btn-xs showForm"
+						 data-resto="<?php echo $u->nama_resto ?>"
+						 data-alat="<?php echo $u->nama_peralatan ?>"
+						 data-jml="<?php echo $u->jumlah ?>"
+						 data-masa="<?php echo $u->masa_pemanfatan ?>"
+						 data-status="<?php echo $u->status_permintaan ?>"
+						 data-tgl_permintaan="<?php echo $u->tanggal ?>"
+						 >Lihat</i></a>
+						 <?php
+						}?>
+                
+					</td>
+					</tr>
+					<?php } ?>
                 </tbody>
 
               </table>
@@ -96,6 +112,123 @@
           </div>
     </div>
   </div>
+  
+<form id="showForm" method="post">
+	<div class="modal fade" id="showM" tabindex="-1" role="dialog" aria-labelledby="GajiLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+		    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+			<h3 class="modal-title text-center" id="GajiLabel">Detail</h3>
+			
+		  </div>
+		  <div class="modal-body">       
+			<div class="form-group row">
+				<div class="col-md-12">
+				<h5>Resto</h5>
+				<input type="text" name="resto" id="resto" readonly class="form-control text-uppercase" required>
+				</div>
+				
+				<div class="col-md-12">
+				<h5>Nama Alat</h5>
+				<input type="text" name="alat" id="alat" readonly class="form-control text-uppercase" required>
+				</div>
+				
+				<div class="col-md-6">
+				<h5>Jumlah</h5>
+				<input type="text" name="jml" id="jml" readonly class="form-control text-uppercase" required>
+				</div>
+				<div class="col-md-6">
+				<h5>Masa Pemanfaatan</h5>
+				<input type="text" name="masa" id="masa" readonly class="form-control text-uppercase" required>
+				</div>
+				
+				<div class="col-md-12">
+				<h5>Status</h5>
+				<input type="text" name="status" id="status" readonly class="form-control text-uppercase text-center" required>
+				</div>
+				
+				<div class="col-md-6">
+				<h5>Tanggal Permintaan</h5>
+				<input type="text" name="tgl_permintaan" id="tgl_permintaan" readonly class="form-control text-uppercase text-center" required>
+				</div>
+				
+				<div class="col-md-6 tglKirim">
+				<h5>Tanggal Pengiriman</h5>
+				<input type="text" name="tgl_kirim" id="tgl_kirim" readonly class="form-control text-uppercase text-center" required>
+				</div>
+				
+				<div class="col-md-12 tglTerima text-center">
+				<h5>Tanggal Terima</h5>
+				<input type="text" name="tgl_terima" id="tgl_terima" readonly class="form-control text-uppercase text-center" required>
+				</div>
+			</div>
+				
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+</form>
+
+<form id="KirimForm" method="post" action="<?php echo base_url().'modul_logistik/editRecordPermintaan'?>">
+	<div class="modal fade" id="showK" tabindex="-1" role="dialog" aria-labelledby="KirimLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+		    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+			<h3 class="modal-title text-center" id="KirimLabel">Detail</h3>
+			
+		  </div>
+		  <div class="modal-body">       
+			<div class="form-group row">
+				<div class="col-md-12">
+				<h5>Resto</h5>
+				<input type="text" name="resto1" id="resto1" class="form-control text-uppercase" required>
+				</div>
+				
+				<div class="col-md-12">
+				<h5>Nama Alat</h5>
+				<input type="text" name="alat1" id="alat1" class="form-control text-uppercase" required>
+				</div>
+				
+				<div class="col-md-6">
+				<h5>Jumlah</h5>
+				<input type="text" name="jml1" id="jml1" class="form-control text-uppercase" required>
+				</div>
+				<div class="col-md-6">
+				<h5>Masa Pemanfaatan</h5>
+				<input type="text" name="masa1" id="masa1" class="form-control text-uppercase" required>
+				</div>
+				
+				<div class="col-md-12">
+				<h5>Status</h5>
+				<input type="text" name="status1" id="status1" class="form-control text-uppercase text-center" required>
+				</div>
+				
+				<div class="col-md-12">
+				<h5>Tanggal Permintaan</h5>
+				<input type="text" name="tgl_permintaan1" id="tgl_permintaan1" class="form-control text-uppercase text-center" required>
+				</div>
+			</div>
+				
+		  </div>
+		  <div class="modal-footer">
+			<input type="hidden" name="idP" id="idP" class="form-control text-uppercase" required>
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cencel</button>
+			<button type="submit" class="btn btn-primary">Kirim</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+</form>
+
 </section>
 
 
@@ -123,6 +256,39 @@
       'info'        : true,
       'autoWidth'   : false
     })
+	
+	$('#listRecords').on('click','.showForm',function(){
+		$('#showM').modal('show');
+		$("#resto").val($(this).data('resto'));
+		$("#alat").val($(this).data('alat'));
+		$("#jml").val($(this).data('jml'));
+		$("#masa").val($(this).data('masa'));
+		$("#status").val($(this).data('status'));
+		$("#tgl_permintaan").val($(this).data('tgl_permintaan'));
+		$("#tgl_kirim").val($(this).data('status'));
+		$("#tgl_terima").val($(this).data('status'));
+		var stt = $(this).data('status');
+		if(stt=="diterima"){
+			$(".tglTerima").show();
+		}else{
+			$(".tglTerima").hide();
+		}
+		
+	});
+	
+	$('#listRecords').on('click','.KirimForm',function(){
+		$('#showK').modal('show');
+		
+		$("#resto1").attr('readonly','true').val($(this).data('resto1'));
+		$("#alat1").attr('readonly','true').val($(this).data('alat1'));
+		$("#jml1").val($(this).data('jml1'));
+		$("#masa1").attr('readonly','true').val($(this).data('masa1'));
+		$("#status1").attr('readonly','true').val($(this).data('status1'));
+		$("#tgl_permintaan1").attr('readonly','true').val($(this).data('tgl_permintaan1'));
+		$("#idP").val($(this).data('id_permintaan_alat'));
+		
+	});
+	
   })
 </script>
 </body>

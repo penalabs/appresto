@@ -283,7 +283,7 @@ class modul_logistik extends CI_Controller {
 	public function data_alat(){
 	  $id_logistik=$this->session->userdata('id');
 	  $id_transaksi = $this->input->post('id_transaksi');
-	  $sql = "SELECT detail_pembelian_alat.id as id_detail_pembelian_alat,peralatan.nama_peralatan,peralatan.satuan_besar,detail_pembelian_alat.harga_beli,detail_pembelian_alat.jumlah FROM peralatan join detail_pembelian_alat on detail_pembelian_alat.id_alat=peralatan.id where id_logistik='$id_logistik' and id_transaksi='$id_transaksi'";
+	  $sql = "SELECT detail_pembelian_alat.id as id_detail_pembelian_alat,peralatan.nama_peralatan,peralatan.satuan_besar,detail_pembelian_alat.harga_beli,detail_pembelian_alat.jumlah FROM peralatan join detail_pembelian_alat on detail_pembelian_alat.id_alat=peralatan.id where  detail_pembelian_alat.id_transaksi='$id_transaksi'";
 	  $data=$this->db->query($sql)->result();
 	  echo json_encode($data);
 	}
@@ -336,6 +336,27 @@ class modul_logistik extends CI_Controller {
 	  $this->load->view('modul_logistik/V_permintaanperalatan_view', $data);
 	}
 
+	public function hapusRecordPermintaan($id)
+	{
+		$where = array('id_permintaan_alat' => $id);
+		$this->m_modul_logistik->hapus_data($where,'permintaan_alat');
+		$this->session->set_flashdata('flash','Dihapuskan');
+		redirect('modul_logistik/permintaanperalatan_view');
+	}
+	
+	public function editRecordPermintaan()
+	{
+		$id 	= $this->input->post('idP');
+		$where	= array('id_permintaan_alat' => $id);
+		$jumlah	= $this->input->post('jml1');
+		$data = array(
+			'jumlah'				=> $jumlah,
+			'status_permintaan'		=> "proses pengiriman",
+		);
+		$this->m_modul_logistik->update_data($where,$data,'permintaan_alat');
+		//$this->session->set_flashdata('flash','Dihapuskan');
+		redirect('modul_logistik/permintaanperalatan_view');
+	}
 	public function permintaanperalatan_tambah()
 	{
 	  $data['data_cabang_resto'] = $this->m_modul_logistik->tampil_data('resto')->result();
