@@ -46,19 +46,24 @@
                 $idnya=$this->db->query($sql2)->row();
                 $id_kanwil=$idnya->id_kanwil;
                 $id_resto=$idnya->id_resto;
+
+                $sql3 = "SELECT * FROM resto where id_kanwil='$id_kanwil'";
+                $idresto=$this->db->query($sql3)->row();
+                $nama_resto=$idresto->nama_resto;
                  ?>
                  <input type="hidden" name="id_admin_resto"  value="<?=$id_admin_resto;?>" class="form-control" >
                  <input type="hidden" name="id_kanwil"  value="<?=$id_kanwil;?>" class="form-control" >
                  <input type="hidden" name="id_resto"  value="<?=$id_resto;?>" class="form-control" >
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Nama Cabang</label>
-                  <div class="col-sm-10">
-                    <select name="nama_cabang" class="form-control">
+                 <div class="col-sm-10">
+                  <input type="text" name="nama_cabang"  value="<?=$nama_resto;?>" class="form-control" readonly>
+                    <!-- <select name="nama_cabang" class="form-control">
                       <option value="">-- Pilihan --</option>
                       <?php foreach ($data_cabang_resto as $datacabangresto) { ?>
                         <option value="<?php echo $datacabangresto->id; ?>"><?php echo $datacabangresto->nama_resto; ?></option>
                       <?php } ?>
-                    </select>
+                    </select> -->
                   </div>
                 </div>
                 <div class="form-group">
