@@ -38,7 +38,6 @@
 
       <li><a href="<?php echo base_url('modul_bendahara_wilayah/data_kas_keluar_cabang');?>"><i class="fa fa-circle-o"></i> Laporan Kas Cabang</a></li>
 			<li><a href="<?php echo base_url('modul_labarugi/');?>"><i class="fa fa-circle-o"></i> Laporan Laba Rugi</a></li>
-			<li><a href="<?php echo base_url('/modul_bendahara/setoran_kasir');?>"><i class="fa fa-circle-o"></i> Setoran Kasir</a></li>
 			<li><a href="<?php echo base_url('/modul_bendahara/laporan_investasi_cabang');?>"><i class="fa fa-circle-o"></i> Laporan inves cabang</a></li>
           </ul>
         </li>

@@ -46,14 +46,14 @@ class M_bendahara extends CI_Model{
 		$this->db->delete($table);
 	}
 
-	function data_storan(){
-		$query = $this->db->query("
-		SELECT pendapatan_kas_masuk.*,user_kanwil.*,user_resto.*, user_kanwil.nama AS nama_user_kanwil
-		FROM pendapatan_kas_masuk
-		JOIN user_kanwil ON user_kanwil.id = pendapatan_kas_masuk.id_user_bendahara
-		JOIN user_resto ON user_resto.id = pendapatan_kas_masuk.id_user_kasir");
-		return $query;
-	}
+	// function data_storan(){
+	// 	$query = $this->db->query("
+	// 	SELECT pendapatan_kas_masuk.*,user_kanwil.*,user_resto.*, user_kanwil.nama AS nama_user_kanwil
+	// 	FROM pendapatan_kas_masuk
+	// 	JOIN user_kanwil ON user_kanwil.id = pendapatan_kas_masuk.id_user_bendahara
+	// 	JOIN user_resto ON user_resto.id = pendapatan_kas_masuk.id_user_kasir");
+	// 	return $query;
+	// }
 
 	/*function data_laporan_investasi_cabang($where){
 		$query = $this->db->query("

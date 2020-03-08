@@ -147,4 +147,13 @@ class M_modul_admin_resto extends CI_Model{
 		WHERE id_paket = '$where'");
 		return $query;
 	}
+
+	function data_storan($tanggal){
+		$query = $this->db->query("
+		SELECT pendapatan_kas_masuk_dari_kasir.*, user_resto.*
+		FROM pendapatan_kas_masuk_dari_kasir
+		JOIN user_resto ON user_resto.id = pendapatan_kas_masuk_dari_kasir.id_user_kasir
+		WHERE SUBSTRING(tanggal, 1, 10) = '$tanggal'");
+		return $query;
+	}
 }

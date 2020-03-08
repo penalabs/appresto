@@ -744,4 +744,11 @@ class C_modul_admin_resto extends CI_Controller
 		$this->session->set_flashdata('flash','Di Edit');
         redirect('superadmin/kinerja_karyawan');
 	}
+
+	public function setoran_kas_masuk(){
+		date_default_timezone_set('Asia/Jakarta');
+		$tanggal = date('Y-m-d');
+		$data['data_storan_kasir']=$this->m_modul_admin_resto->data_storan($tanggal)->result();
+		$this->load->view('modul_admin_resto/V_setorankebendahara',$data);
+	}
 }

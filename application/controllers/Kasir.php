@@ -109,9 +109,14 @@ class Kasir extends CI_Controller {
 	}
 	public function pemesanan()
 	{
+		$id_resto=$this->session->userdata('id_resto');
+		$date = date('Y-m-d');
+		$jmakr = date('H');
+		$jamawal = "07";
+		$jamakhir = $jmakr;
 		$data['tampildatastor'] = $this->m_modul_kasir->tampildatastor("0","00","00","2020-02-01")->result();
-		$data['tampildatasum'] = $this->m_modul_kasir->tampildatasum("0","00","00","2020-02-01")->result();
-		$this->load->view('modul_kasir/pemesanan',$data);
+		$data['tampildatasum'] = $this->m_modul_kasir->tampildatasum($id_resto,$jamawal,$jamakhir,$date)->result();
+		$this->load->view('modul_kasir/setor',$data);
 	}
 	 function get_pemesan(){
         $no_meja=$this->input->get('meja');
@@ -260,31 +265,45 @@ class Kasir extends CI_Controller {
 	{
 		$id_resto=$this->session->userdata('id_resto');
 		$date = date('Y-m-d');
-		$jamawal = $this->input->post('jamawal');
-		$jamakhir = $this->input->post('jamakhir');
+		$jmakr = date('H');
+		$jamawal = "07";
+		$jamakhir = $jmakr;
 		$data['tampildatastor'] = $this->m_modul_kasir->tampildatastor($id_resto,$jamawal,$jamakhir,$date)->result();
 		$data['tampildatasum'] = $this->m_modul_kasir->tampildatasum($id_resto,$jamawal,$jamakhir,$date)->result();
-		$this->load->view('modul_kasir/pemesanan', $data);
+		$this->load->view('modul_kasir/setor', $data);
 	}
 
+//setor ke admin resto bukan ke bendahara (males mengganti function)
 	public function setorkebendahara()
 	{
-			$jumlah_pesan = $this->input->post('jumlah_pesan');
-			$id_user_bendahara = $this->input->post('id_user_bendahara');
-			$id_user_kasir = $this->input->post('id_user_kasir');
-			$nominalsetor = $this->input->post('nominalsetor');
-			$tanggal = $this->input->post('tanggal');
+			$id_resto=$this->session->userdata('id_resto');
+			date_default_timezone_set('Asia/Jakarta');
+			$date = date('Y-m-d');
+			$jmakr = date('H');
+			$jamawal = "07";
+
+			$querynominal = "SELECT SUM(pemesanan.total_harga) AS nominalsetor, pemesanan.`id`,`nama_pemesan`,`no_meja`,`total_harga`, pembayaran.`status`,`nominal`,pembayaran.`tanggal`
+			FROM pemesanan
+			JOIN user_resto ON user_resto.`id` = pemesanan.`id_user_resto`
+			JOIN resto ON resto.id = user_resto.id_resto
+			JOIN pembayaran ON pembayaran.id_pemesanan = pemesanan.id
+			WHERE resto.`id` = $id_resto AND SUBSTRING(pembayaran.tanggal, 1, 10) = '$date' AND HOUR(pembayaran.tanggal)
+			BETWEEN $jamawal AND $jmakr";
+			$nominalsetorkasir=$this->db->query($querynominal)->row();
+
+			$date = date('Y-m-d H:i:s')."<br>";
+			$id_user_adminresto = $this->input->post('id_user_adminresto');
+			$id_user_kasir =$this->session->userdata('id');
+			$jumlah_setoran = $nominalsetorkasir->nominalsetor;
 
 			$data = array(
-				'id_user_bendahara' => $id_user_bendahara,
 				'id_user_kasir' => $id_user_kasir,
-				'jumlah_setoran' => $nominalsetor,
-				'tanggal' => $tanggal,
-				'tanggal_awal' => "",
-				'tanggal_akhir' => "",
+				'id_adminresto' => $id_user_adminresto,
+				'jumlah_setoran' => $jumlah_setoran,
+				'tanggal' => $date,
 			);
-			$this->m_modul_kasir->input_data($data,'pendapatan_kas_masuk');
-			redirect('kasir/pemesanan');
+			$this->m_modul_kasir->input_data($data,'pendapatan_kas_masuk_dari_kasir');
+			redirect('kasir/tampildatastor');
 	}
 
 	

@@ -112,10 +112,10 @@ class Modul_bendahara extends CI_Controller {
 		redirect('modul_bendahara/pengeluaran_investasi');
 	}
 
-	public function setoran_kasir(){
-		$data['data_storan_kasir']=$this->M_bendahara->data_storan()->result();
-		$this->load->view('modul_bendahara/vc_storan_kasir',$data);
-	}
+	// public function setoran_kasir(){
+	// 	$data['data_storan_kasir']=$this->M_bendahara->data_storan()->result();
+	// 	$this->load->view('modul_bendahara/vc_storan_kasir',$data);
+	// }
 
 	public function laporan_investasi_cabang(){
 		$cabang = $this->input->post('cabang_resto');
