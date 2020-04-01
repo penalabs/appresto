@@ -11,7 +11,7 @@
  Target Server Version : 100131
  File Encoding         : 65001
 
- Date: 31/03/2020 10:34:18
+ Date: 01/04/2020 12:05:46
 */
 
 SET NAMES utf8mb4;
@@ -438,8 +438,8 @@ CREATE TABLE `kas_jenis`  (
 -- ----------------------------
 -- Records of kas_jenis
 -- ----------------------------
-INSERT INTO `kas_jenis` VALUES (0, 'KAS CABANG');
-INSERT INTO `kas_jenis` VALUES (1, 'KAS INDUK');
+INSERT INTO `kas_jenis` VALUES (1, 'KAS BESAR CABANG');
+INSERT INTO `kas_jenis` VALUES (2, 'KAS INDUK');
 INSERT INTO `kas_jenis` VALUES (3, 'KAS OPERASIONAL');
 
 -- ----------------------------
@@ -448,11 +448,12 @@ INSERT INTO `kas_jenis` VALUES (3, 'KAS OPERASIONAL');
 DROP TABLE IF EXISTS `kas_mutasi_saldo`;
 CREATE TABLE `kas_mutasi_saldo`  (
   `id_mutasi` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `tanggal` date NULL DEFAULT NULL,
   `jenis mutasi` enum('pemasukan','pengeluaran') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `jenis transaksi` enum('gaji','setor investor') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `nominal` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `las_balance_kas` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `id_kas` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL
+  `id_kas_saldo` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL
 ) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
@@ -465,21 +466,21 @@ CREATE TABLE `kas_mutasi_saldo`  (
 DROP TABLE IF EXISTS `kas_owner`;
 CREATE TABLE `kas_owner`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `no_jurnal` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `id_kas_saldo` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `id_owner` int(255) NULL DEFAULT NULL,
   `tgl` date NULL DEFAULT NULL,
   `nominal` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `jenis` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `jenis` enum('pengeluaran','pemasukan') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of kas_owner
 -- ----------------------------
-INSERT INTO `kas_owner` VALUES (1, 'j2', 1, '2020-03-11', '100000', 'kredit');
-INSERT INTO `kas_owner` VALUES (2, 'j2', 2, '2020-03-11', '50000', 'kredit');
-INSERT INTO `kas_owner` VALUES (3, 'j4', 1, '2020-03-11', '50000', 'kredit');
-INSERT INTO `kas_owner` VALUES (4, 'j5', 1, '2020-03-11', '50000', 'debet');
+INSERT INTO `kas_owner` VALUES (1, '1', 1, '2020-03-11', '100000', 'pengeluaran');
+INSERT INTO `kas_owner` VALUES (2, '1', 2, '2020-03-11', '50000', 'pemasukan');
+INSERT INTO `kas_owner` VALUES (3, '1', 1, '2020-03-11', '50000', 'pemasukan');
+INSERT INTO `kas_owner` VALUES (4, '1', 1, '2020-03-11', '50000', 'pemasukan');
 
 -- ----------------------------
 -- Table structure for kas_saldo
@@ -487,14 +488,18 @@ INSERT INTO `kas_owner` VALUES (4, 'j5', 1, '2020-03-11', '50000', 'debet');
 DROP TABLE IF EXISTS `kas_saldo`;
 CREATE TABLE `kas_saldo`  (
   `id_saldo` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `id_bendahara` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `id_admin_resto` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `jenis_saldo` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `last_balance` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `id_kas` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL
+  `last_balance` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL
 ) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of kas_saldo
 -- ----------------------------
+INSERT INTO `kas_saldo` VALUES ('1', '32', '', 'KAS INDUK', '50000');
+INSERT INTO `kas_saldo` VALUES ('2', '', '19', 'KAS BESAR CABANG', '50000');
+INSERT INTO `kas_saldo` VALUES ('3', '', '19', 'KAS OPERASIONAL', '50000');
 
 -- ----------------------------
 -- Table structure for log_aktivitas
