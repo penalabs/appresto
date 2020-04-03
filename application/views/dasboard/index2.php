@@ -127,22 +127,22 @@
         <!-- ./col -->
 		<!-- ./col -->
 
-		<div class="col-lg-6 col-xs-6 hilangkan" >
+		<div class="col-lg-6 col-xs-6 saldo" >
           <!-- small box -->
-		  <a href="<?php echo base_url().'modul_owner/permintaan_investasi'?>">
+		  <a href="#">
           <div class="small-box bg-green" >
             <div class="inner">
               <?php
               $tgl=date("Y-m-d");
-			  $owner = $this->session->userdata('id');
-              $sqlOwner = "SELECT SUM(jumlah_investasi) AS investasi FROM investasi_owner WHERE id_owner='$owner'";
+			  $id_bend = $this->session->userdata('id');
+              $sqlOwner = "SELECT saldo_investasi_induk($id_bend) AS Saldo";
               $investasi=$this->db->query($sqlOwner)->row();
               ?>
 
               
-			  <h3><?php echo  "Rp " . number_format($investasi->investasi,0,',','.');?></h3>
+			  <h3><?php echo  "Rp " . number_format($investasi->Saldo,0,',','.');?></h3>
 			  
-              <p>Rincian Investasi</p>
+              <p>Rincian Saldo Kas</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
@@ -177,17 +177,11 @@
 
 <script>
 $( window ).on( 'load', function( e ) {
-	$( '.hilangkan' ).hide();
 	$( '.saldo' ).hide();
 	var tipe = "<?php echo $this->session->userdata('tipe')  ?>";
-	if(tipe == "owner"){
-		$( '.hilangkan' ).show();
-		$( '.saldo' ).hide();
-	}else if(tipe == "bendahara"){
-		$( '.hilangkan' ).hide();
+	if(tipe == "bendahara"){
 		$( '.saldo' ).show();
 	}else{
-		$( '.hilangkan' ).hide();
 		$( '.saldo' ).hide();
 	}
 	});

@@ -77,8 +77,12 @@ class Login extends CI_Controller {
 					);
 
 				$this->session->set_userdata($data_session);
-
-				redirect(base_url("master/dasboard"));
+				if($tipe=="bendahara"){
+					redirect(base_url("master/dasboard2"));
+				}else{
+					redirect(base_url("master/dasboard"));
+				}
+				
 				echo 3;
 			}else{
 				redirect(base_url("login?pesan=usernamesalah"));

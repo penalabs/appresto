@@ -399,8 +399,10 @@ class Superadmin extends CI_Controller {
 	public function setupowner()
 	{
 		$sql2 = "SELECT investasi_owner.id,owner.nama as nama_owner,user_kanwil.nama as nama_bendahara,investasi_owner.tanggal,investasi_owner.jumlah_investasi,investasi_owner.jangka_waktu,investasi_owner.persentase_omset FROM investasi_owner join user_kanwil on user_kanwil.id=investasi_owner.id_bendahara join owner on owner.id=investasi_owner.id_owner";
+		$sqlKanwil = "SELECT * FROM investasi_kanwil";
 
 		$data['data'] = $this->db->query($sql2)->result();
+		$data['data2'] = $this->db->query($sqlKanwil)->result();
 		$this->load->view('modul_superadmin/setupowner', $data);
 	}
 	public function add_investasi()

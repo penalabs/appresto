@@ -10,7 +10,7 @@
       <ul class="sidebar-menu" data-widget="tree">
 
 
-		<li><a href="<?php echo base_url('master/dasboard');?>"><i class="fa fa-circle-o"></i> Dashboard</a></li>
+		<li><a href="<?php echo base_url('master/dasboard2');?>"><i class="fa fa-circle-o"></i> Dashboard</a></li>
 		<li class="treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>Users</span>
