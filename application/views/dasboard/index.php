@@ -125,36 +125,6 @@
           </div>
         </div>
         <!-- ./col -->
-		<!-- ./col -->
-
-		<div class="col-lg-6 col-xs-6 hilangkan" >
-          <!-- small box -->
-		  <a href="<?php echo base_url().'modul_owner/permintaan_investasi'?>">
-          <div class="small-box bg-green" >
-            <div class="inner">
-              <?php
-              $tgl=date("Y-m-d");
-			  $owner = $this->session->userdata('id');
-              $sqlOwner = "SELECT SUM(jumlah_investasi) AS investasi FROM investasi_owner WHERE id_owner='$owner'";
-              $investasi=$this->db->query($sqlOwner)->row();
-              ?>
-
-              
-			  <h3><?php echo  "Rp " . number_format($investasi->investasi,0,',','.');?></h3>
-			  
-              <p>Rincian Investasi</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-pie-graph"></i>
-            </div>
-
-          </div></a>
-        </div>
-
-
-        
-		
-        
 		</div>
 
 
@@ -174,29 +144,12 @@
 </div>
 <!-- ./wrapper -->
   <?php include(APPPATH.'views/js.php');?>
-
 <script>
-$( window ).on( 'load', function( e ) {
-	$( '.hilangkan' ).hide();
-	$( '.saldo' ).hide();
-	var tipe = "<?php echo $this->session->userdata('tipe')  ?>";
-	if(tipe == "owner"){
-		$( '.hilangkan' ).show();
-		$( '.saldo' ).hide();
-	}else if(tipe == "bendahara"){
-		$( '.hilangkan' ).hide();
-		$( '.saldo' ).show();
-	}else{
-		$( '.hilangkan' ).hide();
-		$( '.saldo' ).hide();
-	}
-	});
   $(document).ready(function () {
     $('.sidebar-menu').tree()
   })
 </script>
 <script>
-
   $(function () {
     $('#example1').DataTable()
     $('#example2').DataTable({

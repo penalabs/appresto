@@ -17,9 +17,6 @@
 						  <?php
               $id_bendahara=$this->session->userdata('id');
               $id_kanwil=$this->session->userdata('id_kanwil');
-              $sqlsaldo = "SELECT saldo_investasi_induk($id_bendahara) AS saldo";
-              $saldo=$this->db->query($sqlsaldo)->row();
-
               $sql = "SELECT sum(nominal_kas_keluar) as saldo FROM pemberian_kaskeluar where id_bendahara='$id_bendahara'";
               $data_kas=$this->db->query($sql)->row();
 
@@ -45,7 +42,7 @@
               $saldo_akhir=(int)$nominal_investasi_kanwil->nominal_investasi_kanwil-(int)$data_kas->saldo+((int)$pengeluaran_alat->pengeluaran_alat+(int)$pengeluaran_bahan_mentah->pengeluaran_bahan_mentah+(int)$nominal_pengeluaran_kanwil_operasional->nominal_pengeluaran_kanwil_operasional);
               ?>
 
-							<input type="number" name="saldokas" value="<?php echo (int)$saldo->saldo; ?>" class="form-control" disabled>
+							<input type="number" name="saldokas" value="<?php echo $saldo_akhir; ?>" class="form-control" disabled>
 
 						</select>
 					  </div>

@@ -39,7 +39,11 @@
   						  //if(isset($_GET['user'])){
   							  //$user=$_GET['user'];
   						  ?>
-  						  
+  						  <a href="<?php echo base_url('superadmin/add_investasi');?>" type="button" class="btn btn-success" >
+
+
+                  Tambah
+                </a>
                 <?php
               // }
                ?>

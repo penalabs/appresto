@@ -35,10 +35,6 @@ class Master extends CI_Controller {
 	{
 		$this->load->view('dasboard/index');
 	}
-	public function dasboard2()
-	{
-		$this->load->view('dasboard/index2');
-	}
 	public function barang()
 	{
 		$this->load->view('master/barang');
