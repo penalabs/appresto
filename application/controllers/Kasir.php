@@ -273,7 +273,7 @@ class Kasir extends CI_Controller {
 		$this->load->view('modul_kasir/setor', $data);
 	}
 
-//setor ke admin resto bukan ke bendahara (males mengganti function)
+//setor ke admin resto bukan ke bendahara (males mengganti function) // kurang karena selain ID WAITER tidak bisa include
 	public function setorkebendahara()
 	{
 			$id_resto=$this->session->userdata('id_resto');
@@ -294,6 +294,9 @@ class Kasir extends CI_Controller {
 			$date = date('Y-m-d H:i:s')."<br>";
 			$id_user_adminresto = $this->input->post('id_user_adminresto');
 			$id_user_kasir =$this->session->userdata('id');
+
+			// belum di beri kondisi jika NOMINALSETOR kosong maka di view menampilkan error NULL NOMINALSETOR
+			// jadi harus diberi kondisi dulu
 			$jumlah_setoran = $nominalsetorkasir->nominalsetor;
 
 			$data = array(

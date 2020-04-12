@@ -156,4 +156,19 @@ class M_modul_admin_resto extends CI_Model{
 		WHERE SUBSTRING(tanggal, 1, 10) = '$tanggal'");
 		return $query;
 	}
+
+	public function tampildatastor($idresto,$tglawal,$tglakhir)
+	{
+		$query = $this->db->query("
+		SELECT pendapatan_kas_masuk_dari_kasir.* FROM pendapatan_kas_masuk_dari_kasir
+		WHERE id_resto = '$idresto' AND tanggal BETWEEN '$tglawal' AND '$tglakhir'");
+		return $query;
+	}
+
+	public function tampildatasum($idresto,$tglawal,$tglakhir)
+	{
+		$query = $this->db->query("SELECT pendapatan_kas_masuk_dari_kasir.*, SUM(jumlah_setoran) AS jmlstor FROM pendapatan_kas_masuk_dari_kasir
+		WHERE id_resto = '$idresto' AND tanggal BETWEEN '$tglawal' AND '$tglakhir'");
+		return $query;
+	}
 }

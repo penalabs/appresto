@@ -745,10 +745,52 @@ class C_modul_admin_resto extends CI_Controller
         redirect('superadmin/kinerja_karyawan');
 	}
 
-	public function setoran_kas_masuk(){
+	// public function setoran_kas_masuk(){
+	// 	$id_resto=$this->session->userdata('id_resto');
+	// 	$date = date('Y-m-d');
+	// 	$jmakr = date('H');
+	// 	$jamawal = "07";
+	// 	$jamakhir = $jmakr;
+	// 	$data['tampildatastor'] = $this->m_modul_admin_resto->tampildatastor("0","00","00","2020-02-01")->result();
+	// 	$data['tampildatasum'] = $this->m_modul_admin_resto->tampildatasum($id_resto,$jamawal,$jamakhir,$date)->result();
+	// 	$this->load->view('modul_admin_resto/V_setorankebendahara',$data);
+	// }
+
+	public function indexcarisetor()
+	{
+		$id_resto=$this->session->userdata('id_resto');
 		date_default_timezone_set('Asia/Jakarta');
-		$tanggal = date('Y-m-d');
-		$data['data_storan_kasir']=$this->m_modul_admin_resto->data_storan($tanggal)->result();
-		$this->load->view('modul_admin_resto/V_setorankebendahara',$data);
+		$tglawal = date('Y-m-d');
+		$tglakhir = date('Y-m-d');
+		$data['tampildatastor'] = $this->m_modul_admin_resto->tampildatastor($id_resto,$tglawal,$tglakhir)->result();
+		$data['tampildatasum'] = $this->m_modul_admin_resto->tampildatasum($id_resto,$tglawal,$tglakhir)->result();
+		$this->load->view('modul_admin_resto/V_setorankebendahara', $data);
+	}
+
+	public function carisetor()
+	{
+		$id_resto=$this->session->userdata('id_resto');
+		$tglawal = $this->input->post('tglawal');
+		$tglakhir = $this->input->post('tglakhir');
+		$data['tampildatastor'] = $this->m_modul_admin_resto->tampildatastor($id_resto,$tglawal,$tglakhir)->result();
+		$data['tampildatasum'] = $this->m_modul_admin_resto->tampildatasum($id_resto,$tglawal,$tglakhir)->result();
+		$this->load->view('modul_admin_resto/V_setorankebendahara', $data);
+	}
+
+	public function setorkebendahara()
+	{
+			$jmlstor = $this->input->post('jmlstor');
+			$id_user_bendahara =$this->input->post('id_user_bendahara');
+			$id_user_kasir =$this->input->post('id_user_kasir');
+			$tanggal =$this->input->post('tanggal');
+
+			$data = array(
+				'id_user_bendahara' => $id_user_bendahara,
+				'id_user_kasir' => $id_user_kasir,
+				'jumlah_setoran' => $jmlstor,
+				'tanggal' => $tanggal,
+			);
+			$this->m_modul_admin_resto->input_data($data,'pendapatan_kas_masuk');
+			redirect('C_modul_admin_resto/indexcarisetor');
 	}
 }
