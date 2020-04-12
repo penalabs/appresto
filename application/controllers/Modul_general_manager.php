@@ -35,9 +35,65 @@ class Modul_general_manager extends CI_Controller {
 		$id_kanwil=$data2->id_kanwil;
 
 		$sql2 = "SELECT investasi_kanwil.status,investasi_kanwil.id,investasi_kanwil.tanggal,investasi_kanwil.nominal_investasi,investasi_kanwil.penyusutan,investasi_kanwil.nominal_saldo FROM investasi_kanwil  WHERE investasi_kanwil.id_kanwil='$id_kanwil'";
+
+		$sqlResto = "SELECT * FROM investasi_buka_resto, (SELECT nama FROM user_kanwil WHERE id_kanwil='$id_kanwil' AND tipe='bendahara') AS temp1 WHERE investasi_buka_resto.id_kanwil ='$id_kanwil' GROUP BY investasi_buka_resto.id ORDER BY investasi_buka_resto.id DESC";
+		
 		$data['permintaaninvestasi'] = $this->db->query($sql2)->result();
+		$data['bukaResto'] = $this->m_modul_general_manager->tampilResto();
+		$data['historyResto'] = $this->m_modul_general_manager->tampilHistoryResto();
+		// $data['bukaResto'] = $this->db->query($sqlResto)->result();
+
 		$this->load->view('modul_general_manager/V_permintaaninvestasi', $data);
 	}
+
+	public function tampilBukaResto(){
+		$data=$this->m_modul_general_manager->tampilResto();
+        echo json_encode($data);
+
+	}
+
+	public function getDataResto(){
+		$id=$this->input->get('id');
+		$data=$this->m_modul_general_manager->getResto($id);
+        echo json_encode($data);
+
+	}
+	public function getTableResto(){
+		$id_bend=$this->input->post('getIdBend');
+		$id_resto=$this->input->post('getIdResto');
+		$data=$this->m_modul_general_manager->getRestoT($id_bend,$id_resto);
+        echo json_encode($data);
+
+	}
+
+
+	public function addBukaResto(){
+		//$id=$this->session->userdata('id');
+		$id_kanwil=$this->session->userdata('id_kanwil');
+		$id_bendahara;
+		$sqlIdBendahara="SELECT id FROM user_kanwil WHERE id_kanwil='$id_kanwil' AND tipe='bendahara'";
+		$data = $this->db->query($sqlIdBendahara)->result();
+		foreach($data as $u){
+      		$id_bendahara =$u->id;
+      	}
+      	$nama_resto=$this->input->post('nama_resto');
+      	$alamat=$this->input->post('alamat');
+      	$perkiraan_dana=$this->input->post('perkiraan_dana');
+      	$status="permintaan";
+      	$data1 = array(
+      		'id_bendahara' =>$id_bendahara , 
+      		'id_kanwil' =>$id_kanwil , 
+      		'nama_resto' =>$nama_resto , 
+      		'alamat' =>$alamat , 
+      		'perkiraan_dana' =>$perkiraan_dana , 
+      		'status' =>$status , 
+      	);
+      	$this->m_modul_general_manager->input_data($data1, 'investasi_buka_resto');
+      	redirect('modul_general_manager/permintaan_investasi');
+
+	}
+
+
 	public function permintaaninvestasi_tambah()
 	{
 		$this->load->view('modul_general_manager/V_permintaaninvestasi_tambah');
