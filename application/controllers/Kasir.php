@@ -300,6 +300,7 @@ class Kasir extends CI_Controller {
 			$jumlah_setoran = $nominalsetorkasir->nominalsetor;
 
 			$data = array(
+				'id_resto' => $id_resto,
 				'id_user_kasir' => $id_user_kasir,
 				'id_adminresto' => $id_user_adminresto,
 				'jumlah_setoran' => $jumlah_setoran,
