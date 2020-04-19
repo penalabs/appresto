@@ -83,4 +83,50 @@ function data_pengeluaran_invest_cabang_edit($where){
 		return $result;
 	}
 
+	function tampilResto(){
+		$id_kanwil=$this->session->userdata('id_kanwil');
+
+
+		$this->db->select("*");
+		$this->db->from("investasi_buka_resto");
+		$this->db->from("(SELECT nama FROM user_kanwil WHERE id_kanwil='$id_kanwil' AND tipe='bendahara') AS temp1");
+		$this->db->group_by('investasi_buka_resto.id');
+		$this->db->order_by('investasi_buka_resto.id', 'DESC');
+		return $this->db->get()->result();
+
+		// $sql="SELECT * FROM investasi_buka_resto, (SELECT nama FROM user_kanwil WHERE id_kanwil='$id_kanwil' AND tipe='bendahara') AS temp1 WHERE investasi_buka_resto.id_kanwil ='$id_kanwil' GROUP BY investasi_buka_resto.id ORDER BY investasi_buka_resto.id DESC";
+		// $result=$this->db->query($sql);
+		// return $result->result();
+	}
+
+	function tampilHistoryResto(){
+		$id_kanwil=$this->session->userdata('id_kanwil');
+
+
+		$this->db->select("*");
+		$this->db->from("investasi_owner");
+		$this->db->from("(SELECT id AS id_bend FROM user_kanwil WHERE id_kanwil='7' AND tipe='bendahara') AS temp1");
+		$this->db->join('owner', 'owner.id = investasi_owner.id_owner');
+		$this->db->join('resto', 'resto.id = investasi_owner.id_ref_resto');
+		return $this->db->get()->result();
+	}
+
+
+	function getResto($id){
+		$id_kanwil=$this->session->userdata('id_kanwil');
+		$sql="SELECT * FROM investasi_buka_resto, (SELECT nama FROM user_kanwil WHERE id_kanwil='$id_kanwil' AND tipe='bendahara') AS temp1 WHERE investasi_buka_resto.id_kanwil ='$id_kanwil' AND id='$id' GROUP BY investasi_buka_resto.id ORDER BY investasi_buka_resto.id DESC";
+		$result=$this->db->query($sql);
+		return $result->result();
+	}
+
+	function getRestoT($idBend,$idResto){
+		$id_kanwil=$this->session->userdata('id_kanwil');
+		$this->db->select('*');
+		$this->db->from('investasi_owner');
+		$this->db->join('owner', 'owner.id = investasi_owner.id_owner');
+		$this->db->where('id_bendahara',$idBend);
+		$this->db->where('id_ref_resto',$idResto);
+		$result=$this->db->get();
+		return $result->result();
+	}
 }

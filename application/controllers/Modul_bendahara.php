@@ -126,4 +126,87 @@ class Modul_bendahara extends CI_Controller {
 		//$data['data_lp_ic']=$this->M_bendahara->data_lp_ic($cabang)->result();
 		$this->load->view('modul_bendahara/vc_investasi_cabang',$data);
 	}
+	public function management_investasi(){
+		//$id_kanwil=$this->session->userdata('id_kanwil');
+		//$sqlResto = "SELECT * FROM investasi_buka_resto, (SELECT nama FROM user_kanwil WHERE id_kanwil='$id_kanwil' AND tipe='bendahara') AS temp1 WHERE investasi_buka_resto.id_kanwil ='$id_kanwil' GROUP BY investasi_buka_resto.id ORDER BY investasi_buka_resto.id DESC";
+		//$data['bukaResto'] = $this->db->query($sqlResto)->result();
+		$data['bukaResto'] = $this->M_bendahara->tampilResto();
+		$data['historyResto'] = $this->M_bendahara->tampilHistoryResto();
+		$data['laporanResto']=$this->M_bendahara->tampilLaporanResto();
+		$this->load->view('modul_bendahara/management_investasi',$data);
+	}
+
+	public function getDataResto(){
+		$id=$this->input->get('id');
+		$data=$this->M_bendahara->getResto($id);
+        echo json_encode($data);
+	}
+
+	public function getTableResto(){
+		$id_bend=$this->input->post('getIdBend');
+		$id_resto=$this->input->post('getIdResto');
+		$data=$this->M_bendahara->getRestoT($id_bend,$id_resto);
+        echo json_encode($data);
+
+	}
+
+	public function laporanResto(){
+		$data=$this->M_bendahara->tampilLaporanResto();
+        echo json_encode($data);
+	}
+
+	public function danaResto(){
+		$data=$this->M_bendahara->tampilDanaResto();
+        echo json_encode($data);
+	}
+
+	public function addLaporanResto(){
+		$dana=$this->input->post('dana');
+		$biaya=$this->input->post('biaya');
+		
+		if($dana>$biaya){
+
+		}else{
+			$data=$this->M_bendahara->aksiLaporanResto();
+		}
+		redirect('modul_bendahara/management_investasi');
+        //echo json_encode($data);
+	}
+
+	public function getTableLaporanResto(){
+		$id_resto=$this->input->post('getIdResto');
+		$data=$this->M_bendahara->getRestoL($id_resto);
+        echo json_encode($data);
+
+	}
+
+	public function selesaiResto(){
+		$id_ref=$this->input->post('id_ref');
+		$nominaldana=$this->input->post('nominaldana');
+		$tanggal=date('Y-m-d');
+		$id_bend=$this->session->userdata('id');
+		$dataUpdate = array('status' =>  'selesai');
+		$where = array('id' =>  $id_ref);
+		$data=$this->M_bendahara->update_data($where,$dataUpdate,'investasi_buka_resto');
+
+		//update Kas
+		$dataInput = array(
+			'id_ref_kas' => $id_ref, 
+			'jenis_kas' => 'kas induk', 
+			'tipe_kas' => 'Masuk', 
+			'tanggal' => $tanggal, 
+			'id_user' => $id_bend, 
+			'nominal' => $nominaldana,
+			'tipe_user' => 'Sisa Investasi Buka Resto'
+		);
+		$this->M_bendahara->input_data($dataInput,'detail_kas');
+        //echo json_encode($data);
+        redirect('modul_bendahara/management_investasi');
+
+	}
+
+
+	public function management_kas(){
+		$this->load->view('modul_bendahara/management_kas');
+	}
 }
