@@ -129,4 +129,63 @@ class M_modul_kasir extends CI_Model{
 		return $query;
 	}
 
+	public function tampil_data_pemesanan_menu($id){
+		$query = $this->db->query("
+		SELECT pemesanan_menu.*, menu.*
+		FROM pemesanan_menu
+		JOIN menu ON menu.id = pemesanan_menu.id_menu
+					where pemesanan_menu.id_pemesanan = $id
+          ");
+          return $query->result();
+	}
+
+	public function tampil_data_pemesanan_paket($id){
+		$query = $this->db->query("
+          SELECT pemesanan_paket.*,paket.*
+					from pemesanan_paket
+					JOIN paket ON paket.id = pemesanan_paket.id_paket
+					where pemesanan_paket.id_pemesanan = $id
+          ");
+          return $query->result();
+	}
+
+	public function tampil_data_pemesanan($id){
+		$query = $this->db->query("
+          SELECT pemesanan.*
+					from pemesanan
+					where id = $id
+          ");
+          return $query->result();
+	}
+
+	public function tambah_data_pemesanan($nama_pemesan,$no_meja,$keterangan,$id_resto){
+		$date = date("Y-m-d H:i:s");
+		$hasil=$this->db->query("INSERT INTO pemesanan (nama_pemesan,no_meja,keterangantambahan,tanggal,id_user_resto)
+          VALUES ('$nama_pemesan','$no_meja','$keterangan','$date','$id_resto')");
+
+          return $hasil;
+	}
+
+	public function tambah_data_pemesanan_menu($id_pemesanan,$menu,$jumlah_pesan_menu,$harga_per_menu){
+		$hasil=$this->db->query("INSERT INTO pemesanan_menu (id_pemesanan,id_menu,jumlah_pesan,subharga)
+          VALUES ('$id_pemesanan','$menu','$jumlah_pesan_menu','$harga_per_menu')");
+
+          return $hasil;
+	}
+
+	public function tambah_data_pemesanan_paket($id_pemesanan,$paket,$jumlah_pesan_paket,$harga_per_paket){
+		$hasil=$this->db->query("INSERT INTO pemesanan_paket (id_pemesanan,id_paket,jumlah_pesan,subharga)
+          VALUES ('$id_pemesanan','$paket','$jumlah_pesan_paket','$harga_per_paket')");
+
+          return $hasil;
+	}
+
+	function update_status_pemesanan($id_pemesanan){
+		$hasil=$this->db->query("UPDATE pemesanan
+			SET pemesanan.`status`  = 'produksi'
+			WHERE `pemesanan`.`id` = '$id_pemesanan' ");
+
+		return $hasil;
+	}
+
 }
