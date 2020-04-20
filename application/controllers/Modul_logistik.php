@@ -343,7 +343,7 @@ class modul_logistik extends CI_Controller {
 		$this->session->set_flashdata('flash','Dihapuskan');
 		redirect('modul_logistik/permintaanperalatan_view');
 	}
-	
+
 	public function editRecordPermintaan()
 	{
 		$id 	= $this->input->post('idP');

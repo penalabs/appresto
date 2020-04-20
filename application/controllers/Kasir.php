@@ -311,5 +311,151 @@ class Kasir extends CI_Controller {
 			redirect('kasir/tampildatastor');
 	}
 
-	
+	public function pemesanan_kasir(){
+
+		$id_resto=$this->session->userdata('id_resto');
+		$data_pemesanan = $this->db->query("SELECT pemesanan.*
+			FROM pemesanan
+			where pemesanan.id_user_resto = $id_resto
+			order by pemesanan.id DESC
+			")
+			->result();
+
+		$data['data_pemesanan'] = $data_pemesanan;
+
+		$this->load->view('modul_kasir/pemesanan_kasir',$data);
+	}
+
+	public function pemesanan_kasir_tambah(){
+
+		$id_resto=$this->session->userdata('id_resto');
+		$nama_pemesan = $this->input->post('nama_pemesan');
+		$no_meja = $this->input->post('no_meja');
+		$keterangan = $this->input->post('keterangan');
+
+		$this->m_modul_kasir->tambah_data_pemesanan($nama_pemesan,$no_meja,$keterangan,$id_resto);
+		redirect('kasir/pemesanan_kasir');
+		// $this->load->view('modul_kasir/pemesanan_kasir');
+	}
+
+	public function pemesanan_detail_pemesanan($id){
+
+		$id_pemesanan = $id;
+
+		$data_menu = $this->db->query("SELECT menu.*
+			FROM menu
+			")
+			->result();
+
+		$data_paket = $this->db->query("SELECT paket.*
+			FROM paket
+			")
+			->result();
+
+		$total_pesanan_menu = $this->db->query("SELECT SUM(pemesanan_menu.subharga*pemesanan_menu.jumlah_pesan) as subharga_menu
+					FROM pemesanan_menu
+					WHERE pemesanan_menu.id_pemesanan = '$id'
+			")
+			->result();
+
+		$total_pesanan_paket = $this->db->query("SELECT SUM(pemesanan_paket.subharga*pemesanan_paket.jumlah_pesan) as subharga_paket
+					FROM pemesanan_paket
+					WHERE pemesanan_paket.id_pemesanan = '$id'
+			")
+		->result();
+
+		$total_subharga_menu = $total_pesanan_menu[0]->subharga_menu;
+		$total_subharga_paket = $total_pesanan_paket[0]->subharga_paket;
+		// print_r($total_pesanan_menu);
+
+		$data['data_pemesanan_menu'] = $this->m_modul_kasir->tampil_data_pemesanan_menu($id);
+		$data['data_pemesanan_paket'] = $this->m_modul_kasir->tampil_data_pemesanan_paket($id);
+		$data['data_pemesanan'] = $this->m_modul_kasir->tampil_data_pemesanan($id);
+		$data['tampil_id_pemesanan'] = $id_pemesanan;
+		$data['data_menu'] = $data_menu;
+		$data['data_paket'] = $data_paket;
+		$data['total_subharga_menu'] = $total_subharga_menu;
+		$data['total_subharga_paket'] = $total_subharga_paket;
+
+		$this->load->view('modul_kasir/pemesanan_kasir_detail',$data);
+	}
+
+	public function pemesanan_detail_pemesanan_tambah(){
+
+		$id_pemesanan = $id;
+
+		$data['data_pemesanan_menu'] = $this->m_modul_kasir->tampil_data_pemesanan_menu($id);
+		$data['data_pemesanan_paket'] = $this->m_modul_kasir->tampil_data_pemesanan_paket($id);
+		$data['data_pemesanan'] = $this->m_modul_kasir->tampil_data_pemesanan($id);
+		$data['tampil_id_pemesanan'] = $id_pemesanan;
+
+		$this->load->view('modul_kasir/pemesanan_kasir_detail',$data);
+	}
+
+	public function ambil_data_harga_per_menu(){
+
+		// $id_resto=$this->session->userdata('id_resto');
+		$id = $this->input->post('id',TRUE);
+		$data_ambil_menu = $this->db->query("SELECT menu.*
+			FROM menu
+			where menu.id = '$id';
+			")
+			->result();
+
+		echo json_encode($data_ambil_menu);
+
+
+	}
+
+	public function ambil_data_harga_per_paket(){
+
+		// $id_resto=$this->session->userdata('id_resto');
+		$id = $this->input->post('id',TRUE);
+		$data_ambil_menu = $this->db->query("SELECT paket.*
+			FROM paket
+			where paket.id = '$id';
+			")
+			->result();
+
+		echo json_encode($data_ambil_menu);
+
+
+	}
+
+	public function pemesanan_kasir_menu_tambah(){
+
+		$id_pemesanan = $this->input->post('id_pemesanan');
+		$menu = $this->input->post('menu');
+		// $harga_per_menu = $this->input->post('harga_per_menu');
+		$jumlah_pesan_menu = $this->input->post('jumlah_pesan_menu');
+		$harga_per_menu = $this->input->post('harga_per_menu');
+
+		$this->m_modul_kasir->tambah_data_pemesanan_menu($id_pemesanan,$menu,$jumlah_pesan_menu,$harga_per_menu);
+		redirect(base_url()."kasir/pemesanan_detail_pemesanan/".$id_pemesanan);
+		// $this->load->view('modul_kasir/pemesanan_kasir');
+	}
+
+	public function pemesanan_kasir_paket_tambah(){
+
+		$id_pemesanan = $this->input->post('id_pemesanan');
+		$paket = $this->input->post('paket');
+		// $harga_per_menu = $this->input->post('harga_per_menu');
+		$jumlah_pesan_paket = $this->input->post('jumlah_pesan_paket');
+		$harga_per_paket = $this->input->post('harga_per_paket');
+
+		$this->m_modul_kasir->tambah_data_pemesanan_paket($id_pemesanan,$paket,$jumlah_pesan_paket,$harga_per_paket);
+		redirect(base_url()."kasir/pemesanan_detail_pemesanan/".$id_pemesanan);
+		// $this->load->view('modul_kasir/pemesanan_kasir');
+	}
+
+	public function pemesanan_kasir_final($id){
+
+		$id_pemesanan = $id;
+
+		$this->m_modul_kasir->update_status_pemesanan($id_pemesanan);
+		redirect(base_url()."kasir/pemesanan_kasir");
+		// $this->load->view('modul_kasir/pemesanan_kasir');
+	}
+
+
 }
