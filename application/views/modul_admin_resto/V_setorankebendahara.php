@@ -104,10 +104,10 @@
             <div class="box-body">
               <form action="<?php echo base_url(). 'C_modul_admin_resto/carisetor'; ?>" method="post">
               <div class="col-xs-5 form-group">
-                  <input type="date" name="tglawal" class="form-control" required>
+                  <input type="text" name="tglawal" id="tglawal" class="form-control" required>
                 </div>
                 <div class="col-xs-5 form-group">
-                 <input type="date" name="tglakhir" class="form-control" required>
+                 <input type="text" name="tglakhir" id="tglakhir" class="form-control" required>
                 </div>
                 <div class="col-xs-2 form-group">
                    <button type="submit" class="warnaahref warna">C A R I</button>
@@ -221,7 +221,13 @@ foreach($tampildatasum as $jmlsetor){
   <?php include(APPPATH.'views/js.php');?>
 <script>
   $(document).ready(function () {
-    $('.sidebar-menu').tree()
+    $('.sidebar-menu').tree();
+    $('#tglawal').datepicker({
+       format: 'yyyy-mm-dd'
+    });
+    $('#tglakhir').datepicker({
+       format: 'yyyy-mm-dd'
+    });
   })
 </script>
 <script>

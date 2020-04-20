@@ -307,6 +307,7 @@ class Kasir extends CI_Controller {
 				'tanggal' => $date,
 			);
 			$this->m_modul_kasir->input_data($data,'pendapatan_kas_masuk_dari_kasir');
+			$this->session->set_flashdata('flash','Berhasil');
 			redirect('kasir/tampildatastor');
 	}
 
