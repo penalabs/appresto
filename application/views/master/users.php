@@ -81,24 +81,22 @@
                   <td><?php echo $u->user ?></td>
                   <td><?php echo $u->pass ?></td>
                   <td><?php echo $u->telp ?></td>
-				          <td>
-            
+				  <td>
+					<?php
+					if(!empty($this->session->userdata('tipe'))){
+					$user=$_GET['user'];
+					  if($user=="logistik" || $user=="bendahara" || $user=="general manajer"){
+						//kosong
+					  }else{
+						$user=$_GET['user'];
+					  ?>
+					  <a href="<?php echo base_url('master/edit_user?tipe='.$user);?>&&id=<?php echo $u->id ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
 
-            <?php
-            if(!empty($this->session->userdata('tipe'))){
-            $user=$_GET['user'];
-              if($user=="logistik" || $user=="bendahara" || $user=="general manajer"){
-                //kosong
-              }else{
-                $user=$_GET['user'];
-              ?>
-              <a href="<?php echo base_url('master/edit_user?tipe='.$user);?>&&id=<?php echo $u->id ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
-
-                    <a href="<?php echo base_url('master/hapus_user?tipe='.$user);?>&&id=<?php echo $u->id ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a>
-              <?php
-              }
-            }
-               ?>
+					  <a onclick="return confirm('apakah anda yakin ingin menghapus ?');" href="<?php echo base_url('master/hapus_user?tipe='.$user);?>&&id=<?php echo $u->id ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a>
+					  <?php
+					  }
+					}
+					   ?>
 
                   </td>
                 </tr>

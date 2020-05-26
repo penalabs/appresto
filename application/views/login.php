@@ -14,6 +14,11 @@
   <div class="login-logo">
     <a href="<?php echo base_url();?>"><b>SI</b>Restoran</a>
   </div>
+  <?php
+  if(isset($_GET['pesan']) && $_GET['pesan']=='usernamesalah'){
+	  echo "<script>alert('username dan password tidak cocok / tidak ada');</script>";
+  }
+  ?>
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>

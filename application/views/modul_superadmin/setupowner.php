@@ -188,8 +188,8 @@
                                 <td><?php echo $u->jangka_waktu ?></td>
                                 <td><?php echo $u->persentase_omset ?></td>
                                 <td><?php echo (int)$u->persentase_omset/100*(int)$u->jumlah_investasi+$u->jumlah_investasi; ?></td>
-              				          <td> <a href="<?php echo base_url('superadmin/edit_investasi/?');?>id=<?php echo $u->id ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
-                                   <a href="<?php echo base_url('superadmin/hapus_investasi/?');?>id=<?php echo $u->id ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a>
+              				    <td><a href="<?php echo base_url('superadmin/edit_investasi/?');?>id=<?php echo $u->id ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
+                                   <a onclick="return confirm('apakah anda yakin ingin menghapus?');" href="<?php echo base_url('superadmin/hapus_investasi/?');?>id=<?php echo $u->id ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a>
                                    <a href="<?php echo base_url('superadmin/setupowner/?');?>id=<?php echo $u->id ?>" class="btn btn-primary btn-xs"><i class="fa  fa-eye" ></i></a>
                                  </td>
                               </tr>

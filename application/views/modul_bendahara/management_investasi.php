@@ -155,7 +155,7 @@
                       <td><?php echo $u->tanggal_mulai ?></td>
                       <td><?php echo $u->tanggal_selesai ?></td>
                       <td><?php echo $u->jumlah_pengeluaran ?></td>
-                      <td class="pull-right"><a href="#;" class="btn btn-info btn-xs">Edit</a> &nbsp <a href="#;" class="btn btn-danger btn-xs">Hapus</a></td>
+                      <td class="pull-right"><a href="#;" class="btn btn-info btn-xs">Edit</a> &nbsp <a onclick="return confirm('apakah anda yakin ingin menghapus ?');" href="#;" class="btn btn-danger btn-xs">Hapus</a></td>
                     </tr>
                   <?php } ?>
                 </tbody>

@@ -91,7 +91,7 @@
       						  ?>
                     <a href="<?php echo base_url('superadmin/edit_user?tipe='.$user);?>&&id=<?php echo $u->id ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
 
-                    <a href="<?php echo base_url('superadmin/hapus_user?tipe='.$user);?>&&id=<?php echo $u->id ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a>
+                    <a onclick="return confirm('apakah anda yakin ingin menghapus?');" href="<?php echo base_url('superadmin/hapus_user?tipe='.$user);?>&&id=<?php echo $u->id ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a>
                     <?php
                     }
                     ?>

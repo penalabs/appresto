@@ -55,8 +55,10 @@
                 <tr>
                   <td><?php echo $no;?></td>
                   <td><?php echo $u->alamat_kantor;?></td>
-        				  <td><?php echo $u->telp;?></td>
-        				  <td>  <a href="<?php echo base_url('superadmin/');?>manajemen_kanwil?id=<?php echo  $u->id_kanwil;?>&&mode=edit" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>  <a href="<?php echo base_url('superadmin/');?>hapus_kanwil?id=<?php echo  $u->id_kanwil;?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
+        		  <td><?php echo $u->telp;?></td>
+        		  <td>  
+						  <a href="<?php echo base_url('superadmin/');?>manajemen_kanwil?id=<?php echo  $u->id_kanwil;?>&&mode=edit" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a> 
+						  <a onclick="return confirm('apakah anda yakin ingin menghapus?');" href="<?php echo base_url('superadmin/');?>hapus_kanwil?id=<?php echo  $u->id_kanwil;?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
                 </tr>
                 <?php
                 $no++;

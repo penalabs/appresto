@@ -265,9 +265,9 @@
                 <thead>
                 <tr>
                   <th>No</th>
-				          <th>nama kanwil</th>
+				  <th>nama kanwil</th>
                   <th>nama pengeluaran Operasional</th>
-				          <th>Nominal</th>
+				  <th>Nominal</th>
                   <th>Aksi</th>
                 </tr>
                 </thead>
@@ -280,12 +280,12 @@
                 <tbody>
                 <tr id = <?php echo $data->id_pengeluaran_kanwil ?>>
                       <td><?php echo $no;?></td>
-				              <td><?php echo $data->alamat_kantor;?></td>
-				              <td><?php echo $data->nama_pengeluaran;?></td>
+				      <td><?php echo $data->alamat_kantor;?></td>
+				      <td><?php echo $data->nama_pengeluaran;?></td>
                       <td><?php
                        echo $hasil_rupiah = "Rp " . number_format($data->nominal,2,',','.');
                        ?></td>
-				              <td>
+				       <td>
                         <button type="submit" class="btn btn-success btn-xs edit" data-toggle="modal" data-target="#myModalEdit" data-toggle="tooltip" title="Detail"> <i class="fa  fa-edit" ></i></button>
                         <a href="<?php echo site_url('modul_bendahara_wilayah/delete_data_pengeluaran_kanwil/?id='.$data->id_pengeluaran_kanwil) ?>" class="btn btn-danger btn-xs" onclick="return confirm('apakah anda yakin ingin menghapus data \n<?php echo $data->alamat_kantor;?>?')"><i class="fa  fa-close" ></i></a></td>
                 </tr>
