@@ -7,7 +7,7 @@ class M_modul_superadmin extends CI_Model{
 		$this->db->from('pemesanan');
 		$this->db->join('user_resto', 'user_resto.id = pemesanan.id_user_resto');
 		$this->db->join('resto', 'resto.id = user_resto.id_resto');
-    $this->db->join('pembayaran', 'pembayaran.id_pemesanan = pemesanan.id');
+    	$this->db->join('pembayaran', 'pembayaran.id_pemesanan = pemesanan.id');
 		$this->db->where('resto.id', $where);
 		return $this->db->get();
 	}

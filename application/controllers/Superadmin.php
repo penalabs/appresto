@@ -777,15 +777,17 @@ GROUP BY owner.id";
 
 	public function pemesanan()
 	{
-		$id_user_kasir=$this->session->userdata('id');
+		//$id_user_kasir=$this->session->userdata('id');
 
-		$query = $this->db->query("SELECT resto.id as id_resto FROM user_resto join resto on resto.id=user_resto.id_resto WHERE user_resto.id='$id_user_kasir'")->row();
+		$query = $this->db->query("SELECT resto.id as id_resto FROM user_resto join resto on resto.id=user_resto.id_resto")->row();
 
 		/*$where = array(
 			'user_resto.id' => $id_user_kasir,
 		);*/
+		
+
 		$id_resto=$query->id_resto;
-    $x['data']=$this->m_modul_superadmin->tampil_data_where_join($id_resto)->result();
+    	$x['data']=$this->db->query("SELECT resto.nama_resto,pemesanan.id,nama_pemesan,no_meja,pembayaran.tanggal,total_harga,pembayaran.nominal,pembayaran.status FROM pemesanan join user_resto on user_resto.id=pemesanan.id_user_resto join resto on resto.id=user_resto.id_resto left join pembayaran on pembayaran.id_pemesanan=pemesanan.id where resto.id='$id_resto'")->result();
 		$this->load->view('modul_superadmin/pemesanan',$x);
 	}
 	public function transaksi($id)
@@ -1053,22 +1055,40 @@ GROUP BY owner.id";
 		JOIN pemesanan ON pemesanan.id = tbl_kinerja_karyawan.pemesanan";
 		$data['data']=$this->db->query($sql)->result();
 		
-		$this->db->select('*');
-		$this->db->from('log_aktivitas');
-		$this->db->join('resto','log_aktivitas.id_resto=resto.id');
-		$this->db->join('user_resto','log_aktivitas.id_user_resto=user_resto.id');
+		
 		if($tipe=="superadmin" || $tipe=="owner"){
 			//Tanpa Aksi
+			$this->db->select('*');
+			$this->db->from('log_aktivitas');
+			$this->db->join('resto','log_aktivitas.id_resto=resto.id');
+			$this->db->join('user_resto','log_aktivitas.id_user_resto=user_resto.id');
+		}else if($tipe=="general manajer"){
+			$this->db->select('id_log,id_user_resto,alamat_kantor as nama_resto,nama,tgl_mulai,tgl_akhir,status,keterangan');
+			$this->db->from('log_aktivitas');
+			$this->db->join('kanwil','log_aktivitas.id_kanwil=kanwil.id_kanwil');
+			$this->db->join('user_kanwil','log_aktivitas.id_user_resto=user_kanwil.id');
+			$this->db->where('log_aktivitas.id_kanwil',$session_id);
 		}else{
+			$this->db->select('*');
+			$this->db->from('log_aktivitas');
+			$this->db->join('resto','log_aktivitas.id_resto=resto.id');
+			$this->db->join('user_resto','log_aktivitas.id_user_resto=user_resto.id');
 			$this->db->where('log_aktivitas.id_kanwil',$session_id);
 		}
 		$data['hasil']=$this->db->get()->result();
 		
-		$this->db->select('*');
-		$this->db->from('user_resto');
+		
 		if($tipe=="superadmin" || $tipe=="owner"){
 			//Tanpa Aksi
+			$this->db->select('*');
+			$this->db->from('user_resto');
+		}else if($tipe=="general manajer"){
+			$this->db->select('*');
+			$this->db->from('user_kanwil');
+			$this->db->where('id_kanwil',$session_id);
 		}else{
+			$this->db->select('*');
+			$this->db->from('user_resto');
 			$this->db->where('id_kanwil',$session_id);
 		}
 		$data['user_resto']=$this->db->get()->result();

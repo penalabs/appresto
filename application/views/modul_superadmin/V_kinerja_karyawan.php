@@ -99,7 +99,16 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Kinerja Karyawan </h3><br>
-			  <a href="#" class="btn btn-success addKinerja" data-toggle="modal" data-target="#addEmpModal"><span class="fa fa-plus"></span> Tambah </a>
+              	<?php 
+              	$superadmin = $this->session->userdata('tipe');
+              	if($superadmin=="superadmin"){
+              		//tidak ada aksi
+              	}else{
+              		echo '<a href="#" class="btn btn-success addKinerja" data-toggle="modal" data-target="#addEmpModal"><span class="fa fa-plus"></span> Tambah </a>';
+              	}?>
+			  	
+            	
+            	
             </div>
             <!-- /.box-header -->
 			<div class="flash-data" data-flashdata="<?php echo $this->session->flashdata('flash'); ?>"></div>
