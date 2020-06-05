@@ -77,7 +77,7 @@
 
           <td>
           <a href="<?php echo base_url('modul_bendahara/edit_bendahara_pengeluaran_investasi/'.$u->id); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
-          <a href="<?php echo base_url('modul_bendahara/hapus_bendahara_pengeluaran_investasi/'.$u->id); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a>
+          <a onclick="return confirm('Apakah anda yakin ingin menghapus ?');" href="<?php echo base_url('modul_bendahara/hapus_bendahara_pengeluaran_investasi/'.$u->id); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a>
           <a href="<?php echo base_url('modul_bendahara/bendahara_pengeluaran_investasi/?id_invest_cabang='.$u->id); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a></td>
 
                 </tr>

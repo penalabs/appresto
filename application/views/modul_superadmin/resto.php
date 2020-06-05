@@ -42,11 +42,10 @@
                   <th>#</th>
                   <th>Nama Resto</th>
                   <th>Wilayah</th>
-
-				          <th>Alamat</th>
+				  <th>Alamat</th>
                   <th>Telp</th>
-                    <th>Pajak</th>
-				          <th>Aksi</th>
+                  <th>Pajak</th>
+				  <th>Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -66,8 +65,9 @@
                   <td><?php echo $u->alamat;?></td>
                   <td><?php echo $u->no_telp;?></td>
                   <td><?php echo $u->pajak;?></td>
-
-				          <td> <a href="<?php echo base_url();?>/superadmin/restos/?id=<?php echo $u->id; ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>  <a href="<?php echo base_url(); ?>/superadmin/hapus_manajemen_resto/?id=<?php echo $u->id;?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
+				  <td> 
+				  <a href="<?php echo base_url();?>/superadmin/restos/?id=<?php echo $u->id; ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>  
+				  <a onclick="return confirm('apakah anda yakin ingin menghapus ?');" href="<?php echo base_url(); ?>/superadmin/hapus_manajemen_resto/?id=<?php echo $u->id;?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
                 </tr>
                 <?php
                     }

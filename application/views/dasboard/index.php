@@ -22,6 +22,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
+	<?php echo "<script>alert('berhasil login');</script>"; ?>
       <h1>
         <?php
         $tipe = $this->session->userdata('tipe');

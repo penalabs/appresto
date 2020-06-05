@@ -109,7 +109,7 @@ class Modul_bendahara extends CI_Controller {
 	{
 		$where = array('id' => $id);
 		$this->M_bendahara->hapus_data($where,'investasi_cabang');
-		redirect('modul_bendahara/pengeluaran_investasi');
+		redirect('modul_bendahara/bendahara_pengeluaran_investasi');
 	}
 
 	// public function setoran_kasir(){

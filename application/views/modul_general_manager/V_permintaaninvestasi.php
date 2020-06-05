@@ -77,7 +77,7 @@
                     <!-- <a href="<?php echo base_url('C_modul_admin_resto/konfirmasi_alat/'.$u->id); ?>" class="btn btn-primary btn-xs"><i class="fa  fa-check" ></i></a> -->
                     <a href="<?php echo base_url('modul_general_manager/permintaaninvestasi_edit/?id='.$u->id); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
 
-                    <a href="<?php echo base_url('modul_general_manager/permintaaninvestasi_hapus/?id='.$u->id); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
+                    <a onclick="return confirm('apakah anda yakin ingin menghapus ?');" href="<?php echo base_url('modul_general_manager/permintaaninvestasi_hapus/?id='.$u->id); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
 
                           </tr>
                   <?php } ?>

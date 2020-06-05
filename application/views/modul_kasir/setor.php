@@ -78,6 +78,7 @@
   </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+<div class="flash-data" data-flashdata="<?php echo $this->session->flashdata('flash'); ?>"></div>
 <!-- Site wrapper -->
 <div class="wrapper">
 
