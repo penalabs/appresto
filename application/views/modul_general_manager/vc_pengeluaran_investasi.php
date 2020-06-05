@@ -61,11 +61,11 @@
                 </tr>
                 </thead>
                 <tbody>
-        <?php
-          $no = 1;
-          $id_bendahara=$this->session->userdata('id');
-          foreach($data_pengeluaran_investasi_cabang as $u){
-        ?>
+                  <?php
+                    $no = 1;
+                    $id_bendahara=$this->session->userdata('id');
+                    foreach($data_pengeluaran_investasi_cabang as $u){
+                  ?>
                 <tr>
                   <td><?php echo $no++ ?>.</td>
                   <td><?php echo $u->nama_resto ?></td>
@@ -77,13 +77,13 @@
                   <td><?php echo $u->status ?></td>
 
 
-          <td>
-          <a href="<?php echo base_url('modul_general_manager/bendahara_pengeluaran_investasi_editaksi/?id='.$u->id); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
-          <!-- <a href="<?php echo base_url('modul_general_managerss/hapus_bendahara_pengeluaran_investasi/'.$u->id); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a> -->
-          <!-- <a href="<?php echo base_url('modul_bendahara/bendahara_pengeluaran_investasi/?id_invest_cabang='.$u->id); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a></td> -->
+                    <td>
+                    <a href="<?php echo base_url('modul_general_manager/bendahara_pengeluaran_investasi_editaksi/?id='.$u->id); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
+                    <!-- <a href="<?php echo base_url('modul_general_managerss/hapus_bendahara_pengeluaran_investasi/'.$u->id); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a> -->
+                    <!-- <a href="<?php echo base_url('modul_bendahara/bendahara_pengeluaran_investasi/?id_invest_cabang='.$u->id); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a></td> -->
 
-                </tr>
-        <?php } ?>
+                          </tr>
+                  <?php } ?>
 
                 </tbody>
 
@@ -91,6 +91,7 @@
             </div>
           </div>
     </div>
+
     <?php
     if(isset($_GET['id_invest_cabang'])){
     $id_invest_cabang=$this->input->get('id_invest_cabang');
@@ -151,6 +152,8 @@
     <?php
     }
    ?>
+
+    
   </div>
 </section>
 

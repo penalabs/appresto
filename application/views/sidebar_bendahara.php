@@ -31,7 +31,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-			<li><a href="<?php echo base_url('/modul_bendahara/bendahara_pengeluaran_investasi');?>"><i class="fa fa-circle-o"></i> Pengeluaran inves Cabang</a></li>
+			<li><a href="<?php echo base_url('/modul_bendahara/management_investasi');?>"><i class="fa fa-circle-o"></i> Management Investasi</a></li>
+      <li><a href="<?php echo base_url('/modul_bendahara/management_kas');?>"><i class="fa fa-circle-o"></i> Management Kas</a></li>
+      <li><a href="<?php echo base_url('/modul_bendahara/bendahara_pengeluaran_investasi');?>"><i class="fa fa-circle-o"></i> Pengeluaran inves Cabang</a></li>
 			<li><a href="<?php echo base_url('modul_bendahara_wilayah/data_pengeluaran_kanwil');?>"><i class="fa fa-circle-o"></i> Pengeluaran Kanwil</a></li>
       <li><a href="<?php echo base_url('/modul_bendahara_wilayah/anggaranbiayaoprasional_view');?>"><i class="fa fa-circle-o"></i> Pemberian Biaya OP. Cabang</a></li>
 

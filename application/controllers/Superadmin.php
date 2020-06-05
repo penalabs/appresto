@@ -398,10 +398,139 @@ class Superadmin extends CI_Controller {
 
 	public function setupowner()
 	{
-		$sql2 = "SELECT investasi_owner.id,owner.nama as nama_owner,user_kanwil.nama as nama_bendahara,investasi_owner.tanggal,investasi_owner.jumlah_investasi,investasi_owner.jangka_waktu,investasi_owner.persentase_omset FROM investasi_owner join user_kanwil on user_kanwil.id=investasi_owner.id_bendahara join owner on owner.id=investasi_owner.id_owner";
+		$sql2 = "SELECT investasi_owner.id,owner.nama as nama_owner,user_kanwil.nama as nama_bendahara,investasi_owner.tanggal,investasi_owner.jumlah_investasi,investasi_owner.jangka_waktu,investasi_owner.persentase_omset FROM investasi_owner join user_kanwil on user_kanwil.id=investasi_owner.id_bendahara join owner on owner.id=investasi_owner.id_owner ORDER BY investasi_owner.id DESC";
+		
+		$sqlTotalInvestasi = "SELECT owner.id, nama, SUM(jumlah_investasi) AS investasi FROM investasi_owner
+JOIN OWNER ON id_owner = owner.id
+GROUP BY owner.id";
+
+		$sqlResto = "SELECT * FROM investasi_buka_resto WHERE id_owner IS NULL ORDER BY id DESC";
 
 		$data['data'] = $this->db->query($sql2)->result();
+		$data['data1'] = $this->db->query($sqlTotalInvestasi)->result();
+		$data['data2'] = $this->db->query($sqlResto)->result();
 		$this->load->view('modul_superadmin/setupowner', $data);
+	}
+	public function detailInvestasi(){
+		$id_owner = $this->input->post('getDetail',TRUE);
+		$sqlDetail="SELECT id, id_owner, tanggal, jumlah_investasi FROM investasi_owner
+					WHERE id_owner ='$id_owner'";
+		$data = $this->db->query($sqlDetail)->result();
+		echo json_encode($data);
+
+	}
+	public function detailBukaResto(){
+		$id_buka_resto = $this->input->post('getDetail',TRUE);
+		$sqlDetail="SELECT * FROM investasi_buka_resto
+		JOIN kanwil ON investasi_buka_resto.id_kanwil=kanwil.id_kanwil
+		WHERE investasi_buka_resto.id='$id_buka_resto'";
+		$data = $this->db->query($sqlDetail)->result();
+		echo json_encode($data);
+
+	}
+	public function addBukaResto(){
+		$id_ref = $this->input->post('id_ref');
+		$id_kanwil = $this->input->post('id_ref_kanwil');
+		$nama_resto= $this->input->post('nama_resto');
+		$alamat= $this->input->post('alamat');
+		$telp= $this->input->post('telp');
+		$pajak= $this->input->post('pajak');
+		$data= array(
+			'id_kanwil' => $id_kanwil,
+			'nama_resto' => $nama_resto,
+			'alamat' => $alamat,
+			'no_telp' => $telp,
+			'pajak' => $pajak,
+		 );
+		$this->m_modul_superadmin->input_data($data,'resto');
+
+		redirect('superadmin/setupowner');
+		
+	}
+	public function kurangBukaResto(){
+		$id_ref = $this->input->post('getDetail',TRUE);
+		// $this->db->select("perkiraan_dana-investasi AS kurang, perkiraan_dana, investasi");
+		// $this->db->from("(SELECT investasi_buka_resto.perkiraan_dana, SUM(jumlah_investasi) AS investasi, id_resto FROM investasi_buka_resto JOIN investasi_owner ON investasi_buka_resto.id_resto=investasi_owner. id_ref_resto WHERE id_resto='$id_ref') AS sisa");
+		// $this->db->where('id_resto',$id_ref);
+
+		$sqlInves="SELECT perkiraan_dana-investasi AS kurang, perkiraan_dana,investasi FROM (SELECT investasi_buka_resto.perkiraan_dana, SUM(jumlah_investasi) AS investasi, id_resto FROM `investasi_buka_resto` JOIN investasi_owner ON investasi_buka_resto.id_resto=investasi_owner.`id_ref_resto` WHERE id_resto='$id_ref') AS sisa WHERE id_resto='$id_ref'";
+		$data = $this->db->query($sqlInves)->result();
+		//$data = $this->db->get()->result();
+		echo json_encode($data);
+		
+	}
+	public function listInvestorBukaResto(){
+		$id_ref = $this->input->post('getDetail',TRUE);
+		$sqlResto="SELECT nama_resto,nama, tanggal, SUM(jumlah_investasi) AS jumlah_investasi FROM investasi_owner JOIN resto ON investasi_owner.id_ref_resto=resto.id JOIN OWNER ON investasi_owner.id_owner=owner.id WHERE id_ref_resto='$id_ref' GROUP BY owner.id";
+      	$data = $this->db->query($sqlResto)->result();
+		echo json_encode($data);
+		
+	}
+	public function onChangeModal(){
+		$id_ref = $this->input->post('id',TRUE);
+		if($id_ref=="1"){
+			$sqlResto="SELECT resto.id ,resto.nama_resto FROM investasi_buka_resto JOIN resto ON investasi_buka_resto.id_resto=resto.id WHERE STATUS='menunggu investor' GROUP BY resto.id";
+		}else if($id_ref=="2"){
+			$sqlResto="SELECT resto.id ,resto.nama_resto FROM resto";
+		}
+		
+      	$data = $this->db->query($sqlResto)->result();
+		echo json_encode($data);
+		
+	}
+	public function onChangeResto(){
+		$id_ref = $this->input->post('id',TRUE);
+			$sqlResto="SELECT resto.`alamat`,nama,user_kanwil.`id` FROM resto JOIN user_kanwil ON resto.`id_kanwil`=user_kanwil.`id_kanwil` WHERE tipe='bendahara' AND resto.id='$id_ref'";
+		
+      	$data = $this->db->query($sqlResto)->result();
+		echo json_encode($data);
+		
+	}
+	public function tambahInvestasi(){
+		$tipe = $this->input->post('tipe_inves');
+		$id_superadmin=$this->session->userdata('id');
+		$id_owner = $this->input->post('owner');
+		$id_bendahara = $this->input->post('id_bend');
+		$id_ref_resto= $this->input->post('resto');
+		$tanggal= date("Y-m-d");
+		$jumlah_investasi= $this->input->post('jumlah_investasi');
+		$jangka_waktu= $this->input->post('jangka_waktu');
+		$persentase_omset= $this->input->post('omset');
+		$keterangan="";
+		if($tipe=="1"){
+			$keterangan="Modal Awal";
+		}else if($tipe=="2"){
+			$keterangan="Modal Tambahan";
+		}
+		$data = array(
+			'id_super_admin' => $id_superadmin, 
+			'id_owner' => $id_owner, 
+			'id_bendahara' => $id_bendahara, 
+			'id_ref_resto' => $id_ref_resto, 
+			'tanggal' => $tanggal, 
+			'jumlah_investasi' => $jumlah_investasi, 
+			'jangka_waktu' => $jangka_waktu, 
+			'persentase_omset' => $persentase_omset, 
+			'keterangan' => $keterangan, 
+		);
+      	$this->m_modul_superadmin->input_data($data,'investasi_owner');
+
+      	$sqlResto="SELECT jumlah_investasi,perkiraan_dana FROM (SELECT SUM(jumlah_investasi) AS jumlah_investasi FROM investasi_owner WHERE id_ref_resto='$id_ref_resto') AS temp1, investasi_buka_resto WHERE id_resto='$id_ref_resto'";
+      	$data1 = $this->db->query($sqlResto)->result();
+      	foreach($data1 as $u){
+      		$pdana =$u->perkiraan_dana;
+      		$kdana =$u->jumlah_investasi;
+      	}
+      	// echo "<script>alert('$pdana');</script>";
+      	// echo "<script>alert('$kdana');</script>";
+      	if($pdana <= $kdana){
+      		$sqlUpdateResto="UPDATE investasi_buka_resto SET tanggal_pengerjaan='$tanggal', STATUS='pengerjaan' WHERE id_resto='$id_ref_resto'";
+      		$data2 = $this->db->query($sqlUpdateResto);
+      	}else{
+
+      	}
+		redirect('superadmin/setupowner');
+		
 	}
 	public function add_investasi()
 	{

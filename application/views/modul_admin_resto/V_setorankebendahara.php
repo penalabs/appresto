@@ -88,9 +88,6 @@
                 $kalimat_new = ucfirst($u2->nama);
               }
 
-              // foreach ($tampildatasum as $key) {
-              //   $nominalsetor = $key->nominalsetor;
-              // }
             ?>
             <input type="hidden" name="id_user_bendahara" value="<?php echo $u2->id; ?>">
             <input type="hidden" name="id_user_kasir" value="<?php echo $id_kasir; ?>">
@@ -105,21 +102,48 @@
             <h5>Setor ke bendahara</h5>
             </div>
             <div class="box-body">
-              <form action="<?php echo base_url(). 'kasir/tampildatastor'; ?>" method="post">
+              <form action="<?php echo base_url(). 'C_modul_admin_resto/carisetor'; ?>" method="post">
               <div class="col-xs-5 form-group">
-                  <input type="date" name="tanggalawal" class="form-control" required>
+                  <input type="date" name="tglawal" class="form-control" required>
                 </div>
                 <div class="col-xs-5 form-group">
-                 <input type="date" name="tanggalakhir" class="form-control" required>
+                 <input type="date" name="tglakhir" class="form-control" required>
                 </div>
                 <div class="col-xs-2 form-group">
-                   <button type="submit" class="warnaahref warna">SETOR</button>
+                   <button type="submit" class="warnaahref warna">C A R I</button>
                 </div>
               </form>
             </div>
               
           </div>
         </div>
+<?php 
+foreach($tampildatasum as $jmlsetor){
+  $jmlstor =$jmlsetor->jmlstor;
+  }
+?>
+
+        <div class="col-md-12">
+          <div class="box box-default">
+            <div class="box-header with-border">
+              <h5>Nominal yang akan disetor ke Bendahara</h5>
+            </div>
+            <div class="box-body">
+              <form action="<?php echo base_url(). 'C_modul_admin_resto/setorkebendahara'; ?>" method="post">
+                <h1><?php echo $jmlstor; ?></h1>
+                <input type="hidden" name="jmlstor" value='<?php echo $jmlstor; ?>' class="form-control" required>
+                <input type="hidden" name="id_user_bendahara" value="<?php echo $u2->id; ?>">
+                <input type="hidden" name="id_user_kasir" value="<?php echo $id_kasir; ?>">
+                <input type="hidden" name="tanggal" value="<?php echo date('Y-m-d');?>">
+                <div class="col-xs-2 form-group">
+                   <button type="submit" class="warnaahref warna">S E T O R</button>
+                </div>
+              </form>
+            </div>
+              
+          </div>
+        </div>
+
 	   <div class="col-md-12">
           <div class="box">
             <div class="box-header">
@@ -131,21 +155,19 @@
                 <thead>
                 <tr>
                   <th>#</th>
-                  <th>Nama Kasir</th>
-                  <th>Jumlah Setoran</th>
                   <th>Tanggal | Jam</th>
+                  <th>Nominal</th>
                 </tr>
                 </thead>
                 <tbody>
         <?php 
           $no = 1;
-          foreach($data_storan_kasir as $u){ 
+          foreach($tampildatastor as $u){ 
         ?>
                 <tr>
                   <td><?php echo $no++ ?>.</td>
-                  <td><?php echo $u->nama ?></td>
-                  <td><?php echo "Rp. ".number_format($u->jumlah_setoran).",-"; ?></td>
                   <td><?php echo $u->tanggal ?></td>
+                  <td><?php echo "Rp. ".number_format($u->jumlah_setoran).",-"; ?></td>
                 </tr>
         <?php } ?>
         
