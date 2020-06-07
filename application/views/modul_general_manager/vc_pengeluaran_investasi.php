@@ -33,6 +33,7 @@
 
      <section class="content">
   <div class="row">
+    <div class="flash-data" data-flashdata="<?php echo $this->session->flashdata('flash'); ?>"></div>
     <div class="col-md-12">
           <!-- Horizontal Form -->
           <div class="box box-info">
@@ -78,7 +79,17 @@
 
 
                     <td>
-                    <a href="<?php echo base_url('modul_general_manager/bendahara_pengeluaran_investasi_editaksi/?id='.$u->id); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
+                  <?php 
+                    if($u->status=="permintaan"){
+                  ?>
+                      <a href="<?php echo base_url('modul_general_manager/bendahara_pengeluaran_investasi_editaksi/?id='.$u->id); ?>" class="btn btn-success btn-xs">Setuju</a>
+                  <?php
+                    }else{
+
+                    }
+                  ?>
+                    
+                    <!-- <a href="<?php echo base_url('modul_general_manager/bendahara_pengeluaran_investasi_editaksi/?id='.$u->id); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a> -->
                     <!-- <a href="<?php echo base_url('modul_general_managerss/hapus_bendahara_pengeluaran_investasi/'.$u->id); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a> -->
                     <!-- <a href="<?php echo base_url('modul_bendahara/bendahara_pengeluaran_investasi/?id_invest_cabang='.$u->id); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a></td> -->
 

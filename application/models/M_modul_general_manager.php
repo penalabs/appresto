@@ -24,6 +24,14 @@ function data_pengeluaran_invest_cabang($id_bendahara){
 	return $query;
 }
 
+function data_pengeluaran_invest_cabang2($id_bendahara){
+	$id_kanwil=$this->session->userdata('id_kanwil');
+	$query = $this->db->query("select resto.id as id_resto,resto.nama_resto,investasi_cabang.id,investasi_cabang.nama_investasi
+	,investasi_cabang.tanggal_mulai,investasi_cabang.tanggal_selesai
+	,investasi_cabang.jumlah_pengeluaran,investasi_cabang.persen_penyusutan,investasi_cabang.status from investasi_cabang join resto on resto.id=investasi_cabang.id_resto where status='permintaan' or status='disetujui' or id_kanwil='$id_kanwil'");
+	return $query;
+}
+
 function data_pengeluaran_invest_cabang_edit($where){
 	$query = $this->db->query("select resto.id as id_resto,resto.nama_resto,investasi_cabang.id,investasi_cabang.nama_investasi
 	,investasi_cabang.tanggal_mulai,investasi_cabang.tanggal_selesai

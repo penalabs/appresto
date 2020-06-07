@@ -170,7 +170,7 @@ class Modul_general_manager extends CI_Controller {
 	public function bendahara_pengeluaran_investasi()
 	{
 		$id_bendahara=$this->session->userdata('id');
-		$data['data_pengeluaran_investasi_cabang']=$this->M_modul_general_manager->data_pengeluaran_invest_cabang('')->result();
+		$data['data_pengeluaran_investasi_cabang']=$this->M_modul_general_manager->data_pengeluaran_invest_cabang2('')->result();
 		$this->load->view('modul_general_manager/vc_pengeluaran_investasi',$data);
 	}
 
@@ -219,16 +219,16 @@ class Modul_general_manager extends CI_Controller {
 
 	public function bendahara_pengeluaran_investasi_editaksi()
 	{
-
-
 		$id	= $this->input->get('id');
 		$datainput = array(
 			'status'				=> 'disetujui',
 		);
 		$where = array('id' => $id);
 		$this->M_modul_general_manager->update_data($where,$datainput,'investasi_cabang');
-		//redirect('modul_general_manager/bendahara_pengeluaran_investasi');
+		$this->session->set_flashdata('flash','Disetujui');
+		redirect('modul_general_manager/bendahara_pengeluaran_investasi');
 	}
+
 
 	public function hapus_bendahara_pengeluaran_investasi($id)
 	{

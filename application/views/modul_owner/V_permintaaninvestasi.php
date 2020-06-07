@@ -55,7 +55,7 @@
                   <th>Total Omset</th>
                   <!-- <th>Nominal</th>
                   <th>Penyusutan %</th> -->
-                  <th>Aksi</th>
+                  <!-- <th>Aksi</th> -->
                 </tr>
                 </thead>
                 <tbody>
@@ -75,12 +75,12 @@
                   <td><?php echo $u->persentase_omset ?></td>
                   <td><?php echo (int)$u->persentase_omset/100*(int)$u->jumlah_investasi+$u->jumlah_investasi; ?></td>
 
-                  <td>
+                  <!-- <td> -->
 
           <!-- <a href="<?php echo base_url('C_modul_admin_resto/konfirmasi_alat/'.$u->id); ?>" class="btn btn-primary btn-xs"><i class="fa  fa-check" ></i></a> -->
           <!-- <a href="<?php echo base_url('modul_general_manager/permintaaninvestasi_edit/?id='.$u->id); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a> -->
 
-          <a href="<?php echo base_url('modul_owner/permintaan_investasi/?id='.$u->id); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-eye" ></i></a></td>
+          <!-- <a href="<?php echo base_url('modul_owner/permintaan_investasi/?id='.$u->id); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-eye" ></i></a></td> -->
 
                 </tr>
         <?php } ?>
