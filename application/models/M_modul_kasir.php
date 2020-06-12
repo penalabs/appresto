@@ -11,12 +11,12 @@ class M_modul_kasir extends CI_Model{
 		$this->db->from('pemesanan');
 		$this->db->join('user_resto', 'user_resto.id = pemesanan.id_user_resto');
 		$this->db->join('resto', 'resto.id = user_resto.id_resto');
-    	$this->db->join('pembayaran', 'pembayaran.id_pemesanan = pemesanan.id');
+		$this->db->join('pembayaran', 'pembayaran.id_pemesanan = pemesanan.id');
 
 		$this->db->where('resto.id', $where);
 		return $this->db->get();
 	}
-  function detail_transaksi_paket($tabel,$where){
+	function detail_transaksi_paket($tabel,$where){
 
 		$this->db->select('pemesanan_paket.jumlah_pesan,paket.nama_paket,pemesanan_paket.subharga');
 		$this->db->from($tabel);
@@ -35,7 +35,7 @@ class M_modul_kasir extends CI_Model{
 	function tampil_data($tabel){
 		return $this->db->get($tabel);
 	}
- 	function sum_pembayaran($id_user_kasir,$tgl1,$tgl2){
+	function sum_pembayaran($id_user_kasir,$tgl1,$tgl2){
 		return $this->db->query("SELECT sum(nominal) as cek_jumlah_setor FROM pembayaran WHERE id_user_kasir='$id_user_kasir' AND tanggal >= '$tgl1' AND tanggal <= '$tgl2'");
 	}
 	function input_data($data,$table){
@@ -106,78 +106,78 @@ class M_modul_kasir extends CI_Model{
 	public function tampildatastor($idresto,$jamawal,$jamakhir,$date)
 	{
 		$query = $this->db->query("
-		SELECT pemesanan.`id`,`nama_pemesan`,`no_meja`,`total_harga`, pembayaran.`status`,`nominal`,pembayaran.`tanggal`
-		FROM pemesanan
-		JOIN user_resto ON user_resto.`id` = pemesanan.`id_user_resto`
-		JOIN resto ON resto.id = user_resto.id_resto
-		JOIN pembayaran ON pembayaran.id_pemesanan = pemesanan.id
-		WHERE resto.`id` = '$idresto' AND SUBSTRING(pembayaran.tanggal, 1, 10) = '$date' AND HOUR(pembayaran.tanggal)
-		BETWEEN '$jamawal' AND '$jamakhir'");
+			SELECT pemesanan.`id`,`nama_pemesan`,`no_meja`,`total_harga`, pembayaran.`status`,`nominal`,pembayaran.`tanggal`
+			FROM pemesanan
+			JOIN user_resto ON user_resto.`id` = pemesanan.`id_user_resto`
+			JOIN resto ON resto.id = user_resto.id_resto
+			JOIN pembayaran ON pembayaran.id_pemesanan = pemesanan.id
+			WHERE resto.`id` = '$idresto' AND SUBSTRING(pembayaran.tanggal, 1, 10) = '$date' AND HOUR(pembayaran.tanggal)
+			BETWEEN '$jamawal' AND '$jamakhir'");
 		return $query;
 	}
 
 	public function tampildatasum($idresto,$jamawal,$jamakhir,$date)
 	{
 		$query = $this->db->query("
-		SELECT SUM(pemesanan.total_harga) AS nominalsetor, pemesanan.`id`,`nama_pemesan`,`no_meja`,`total_harga`, pembayaran.`status`,`nominal`,pembayaran.`tanggal`
-		FROM pemesanan
-		JOIN user_resto ON user_resto.`id` = pemesanan.`id_user_resto`
-		JOIN resto ON resto.id = user_resto.id_resto
-		JOIN pembayaran ON pembayaran.id_pemesanan = pemesanan.id
-		WHERE resto.`id` = '$idresto' AND SUBSTRING(pembayaran.tanggal, 1, 10) = '$date' AND HOUR(pembayaran.tanggal)
-		BETWEEN '$jamawal' AND '$jamakhir'");
+			SELECT SUM(pemesanan.total_harga) AS nominalsetor, pemesanan.`id`,`nama_pemesan`,`no_meja`,`total_harga`, pembayaran.`status`,`nominal`,pembayaran.`tanggal`
+			FROM pemesanan
+			JOIN user_resto ON user_resto.`id` = pemesanan.`id_user_resto`
+			JOIN resto ON resto.id = user_resto.id_resto
+			JOIN pembayaran ON pembayaran.id_pemesanan = pemesanan.id
+			WHERE resto.`id` = '$idresto' AND SUBSTRING(pembayaran.tanggal, 1, 10) = '$date' AND HOUR(pembayaran.tanggal)
+			BETWEEN '$jamawal' AND '$jamakhir'");
 		return $query;
 	}
 
 	public function tampil_data_pemesanan_menu($id){
 		$query = $this->db->query("
-		SELECT pemesanan_menu.*, menu.*
-		FROM pemesanan_menu
-		JOIN menu ON menu.id = pemesanan_menu.id_menu
-					where pemesanan_menu.id_pemesanan = $id
-          ");
-          return $query->result();
+			SELECT pemesanan_menu.*, menu.*
+			FROM pemesanan_menu
+			JOIN menu ON menu.id = pemesanan_menu.id_menu
+			where pemesanan_menu.id_pemesanan = $id
+			");
+		return $query->result();
 	}
 
 	public function tampil_data_pemesanan_paket($id){
 		$query = $this->db->query("
-          SELECT pemesanan_paket.*,paket.*
-					from pemesanan_paket
-					JOIN paket ON paket.id = pemesanan_paket.id_paket
-					where pemesanan_paket.id_pemesanan = $id
-          ");
-          return $query->result();
+			SELECT pemesanan_paket.*,paket.*
+			from pemesanan_paket
+			JOIN paket ON paket.id = pemesanan_paket.id_paket
+			where pemesanan_paket.id_pemesanan = $id
+			");
+		return $query->result();
 	}
 
 	public function tampil_data_pemesanan($id){
 		$query = $this->db->query("
-          SELECT pemesanan.*
-					from pemesanan
-					where id = $id
-          ");
-          return $query->result();
+			SELECT pemesanan.*
+			from pemesanan
+			where id = $id
+			");
+		return $query->result();
 	}
 
 	public function tambah_data_pemesanan($nama_pemesan,$no_meja,$keterangan,$id_resto){
 		$date = date("Y-m-d H:i:s");
 		$hasil=$this->db->query("INSERT INTO pemesanan (nama_pemesan,no_meja,keterangantambahan,tanggal,id_user_resto)
-          VALUES ('$nama_pemesan','$no_meja','$keterangan','$date','$id_resto')");
+			VALUES ('$nama_pemesan','$no_meja','$keterangan','$date','$id_resto')");
 
-          return $hasil;
+		return $hasil;
 	}
 
 	public function tambah_data_pemesanan_menu($id_pemesanan,$menu,$jumlah_pesan_menu,$harga_per_menu){
 		$hasil=$this->db->query("INSERT INTO pemesanan_menu (id_pemesanan,id_menu,jumlah_pesan,subharga)
-          VALUES ('$id_pemesanan','$menu','$jumlah_pesan_menu','$harga_per_menu')");
+			VALUES ('$id_pemesanan','$menu','$jumlah_pesan_menu','$harga_per_menu')");
 
-          return $hasil;
+		return $hasil;
 	}
 
 	public function tambah_data_pemesanan_paket($id_pemesanan,$paket,$jumlah_pesan_paket,$harga_per_paket){
 		$hasil=$this->db->query("INSERT INTO pemesanan_paket (id_pemesanan,id_paket,jumlah_pesan,subharga)
-          VALUES ('$id_pemesanan','$paket','$jumlah_pesan_paket','$harga_per_paket')");
+			VALUES ('$id_pemesanan','$paket','$jumlah_pesan_paket','$harga_per_paket')");
 
-          return $hasil;
+		return $hasil;
 	}
 
 	function update_status_pemesanan($id_pemesanan){
@@ -185,6 +185,26 @@ class M_modul_kasir extends CI_Model{
 			SET pemesanan.`status`  = 'produksi'
 			WHERE `pemesanan`.`id` = '$id_pemesanan' ");
 
+		return $hasil;
+	}
+
+	public function tampil_menu_tersedia(){
+		$hasil=$this->db->query("SELECT * FROM menu WHERE status = 'tersedia'");
+		return $hasil;
+	}
+
+	public function tampil_menu_habis(){
+		$hasil=$this->db->query("SELECT * FROM menu WHERE status = 'habis'");
+		return $hasil;
+	}
+
+	public function tampil_paket_tersedia(){
+		$hasil=$this->db->query("SELECT * FROM paket WHERE status = 'tersedia'");
+		return $hasil;
+	}
+
+	public function tampil_paket_habis(){
+		$hasil=$this->db->query("SELECT * FROM paket WHERE status = 'habis'");
 		return $hasil;
 	}
 

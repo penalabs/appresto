@@ -22,7 +22,7 @@
 			       <!-- <li><a href="<?php echo base_url('kasir/pemesanan');?>"><i class="fa fa-circle-o"></i> Transaksi pembayaran</a></li> -->
             <li><a href="<?php echo base_url('kasir/pemesanan');?>"><i class="fa fa-circle-o"></i> Setor</a></li>
             <!-- <li><a href="<?php echo base_url('kasir/pendapatan');?>"><i class="fa fa-circle-o"></i> Setoran ke bendahara</a></li> -->
-            <li><a href="<?php echo base_url('kasir/pemesanan_kasir');?>"><i class="fa fa-circle-o"></i> pemesanan</a></li>
+            <!-- <li><a href="<?php echo base_url('kasir/pemesanan_kasir');?>"><i class="fa fa-circle-o"></i> pemesanan</a></li> -->
           </ul>
         </li>
 

@@ -18,7 +18,7 @@ class Kasir extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	 function __construct(){
+	function __construct(){
 		parent::__construct();
 		$this->load->model('m_modul_kasir');
 		$this->load->helper('url');
@@ -33,7 +33,11 @@ class Kasir extends CI_Controller {
 	}
 	public function penjualan()
 	{
-		$this->load->view('modul_kasir/penjualan');
+		$data['tampil_menu_tersedia'] = $this->m_modul_kasir->tampil_menu_tersedia()->result();
+		$data['tampil_menu_habis'] = $this->m_modul_kasir->tampil_menu_habis()->result();
+		$data['tampil_paket_tersedia'] = $this->m_modul_kasir->tampil_paket_tersedia()->result();
+		$data['tampil_paket_habis'] = $this->m_modul_kasir->tampil_paket_habis()->result();
+		$this->load->view('modul_kasir/penjualan', $data);
 	}
 	public function add_setor()
 	{
@@ -68,9 +72,9 @@ class Kasir extends CI_Controller {
 			$cek=$this->db->query($sql)->num_rows();
 			if($cek==0){
 
-			$this->m_modul_kasir->input_data($data2,'pendapatan_kas_masuk');
-			redirect('kasir/pendapatan?pesan=sukses');
-			echo 2;
+				$this->m_modul_kasir->input_data($data2,'pendapatan_kas_masuk');
+				redirect('kasir/pendapatan?pesan=sukses');
+				echo 2;
 			}else{
 				$sql2 = "SELECT * FROM pendapatan_kas_masuk where tanggal_awal>'$tanggal_awal' and tanggal_akhir>'$tanggal_akhir'";
 				$cek2=$this->db->query($sql2)->num_rows();
@@ -95,7 +99,7 @@ class Kasir extends CI_Controller {
 			'id_user_kasir' => $id_user_kasir,
 		);
 		$sql4 = "select user_kanwil.nama as nama_bendahara,pendapatan_kas_masuk.*,user_resto.nama as nama_kasir from pendapatan_kas_masuk join user_kanwil on user_kanwil.id=pendapatan_kas_masuk.id_user_bendahara join user_resto on user_resto.id=pendapatan_kas_masuk.id_user_kasir where id_user_kasir='$id_user_kasir'";
-        $x['data']=$this->db->query($sql4)->result();
+		$x['data']=$this->db->query($sql4)->result();
         // $x['data']=$this->m_modul_kasir->tampil_data_where('pendapatan_kas_masuk',$where)->result();
 		$this->load->view('modul_kasir/pendapatan',$x);
 	}
@@ -103,7 +107,7 @@ class Kasir extends CI_Controller {
 	{
 		$id_pemesanan=$this->session->userdata('id');
 
-    $x['data']=$this->m_modul_kasir->detail_transaksi_paket('pemesanan_paket',$id_pemesanan)->result();
+		$x['data']=$this->m_modul_kasir->detail_transaksi_paket('pemesanan_paket',$id_pemesanan)->result();
 		$x['data2']=$this->m_modul_kasir->detail_transaksi_menu('pemesanan_menu',$id_pemesanan)->result();
 		$this->load->view('modul_kasir/pembayaran',$x);
 	}
@@ -118,34 +122,34 @@ class Kasir extends CI_Controller {
 		$data['tampildatasum'] = $this->m_modul_kasir->tampildatasum($id_resto,$jamawal,$jamakhir,$date)->result();
 		$this->load->view('modul_kasir/setor',$data);
 	}
-	 function get_pemesan(){
-        $no_meja=$this->input->get('meja');
-				$where = array(
-					'no_meja' => $no_meja,
-					'status' => 'siapsaji',
-				);
+	function get_pemesan(){
+		$no_meja=$this->input->get('meja');
+		$where = array(
+			'no_meja' => $no_meja,
+			'status' => 'siapsaji',
+		);
         //$data=$this->m_modul_kasir->tampil_data_where('pemesanan',$where)->result();
 		$sql = "SELECT * from pemesanan where no_meja='$no_meja' and status='selesai' limit 1";
-        $data=$this->db->query($sql)->result();
-        echo json_encode($data);
-    }
+		$data=$this->db->query($sql)->result();
+		echo json_encode($data);
+	}
 	function get_menu(){
-        $kobar=$this->input->get('id_pesan');
-				$where = array(
-					'id_pemesanan' => $kobar,
-				);
-        $data=$this->m_modul_kasir->tampil_pesan_menu_where('pemesanan_menu',$where)->result();
-        echo json_encode($data);
-    }
+		$kobar=$this->input->get('id_pesan');
+		$where = array(
+			'id_pemesanan' => $kobar,
+		);
+		$data=$this->m_modul_kasir->tampil_pesan_menu_where('pemesanan_menu',$where)->result();
+		echo json_encode($data);
+	}
 	function get_paket(){
-        $kobar=$this->input->get('id_pesan');
-				$where = array(
-					'id_pemesanan' => $kobar,
+		$kobar=$this->input->get('id_pesan');
+		$where = array(
+			'id_pemesanan' => $kobar,
 
-				);
-        $data=$this->m_modul_kasir->tampil_pesan_paket_where('pemesanan_paket',$where)->result();
-        echo json_encode($data);
-    }
+		);
+		$data=$this->m_modul_kasir->tampil_pesan_paket_where('pemesanan_paket',$where)->result();
+		echo json_encode($data);
+	}
 	public function action_pembayaran(){
 		$id_pemesanan = $this->input->post('id_pesan');
 		$nominal = $this->input->post('nominal');
@@ -175,7 +179,7 @@ class Kasir extends CI_Controller {
 			'status' => $status,
 		);
 		if($this->m_modul_kasir->input_data($data2,'pembayaran')){
-		$this->session->set_flashdata('pesan', 'pembayaran berhasil');
+			$this->session->set_flashdata('pesan', 'pembayaran berhasil');
 
 			$data = array(
 				'pesan' => "gagal"
@@ -184,7 +188,7 @@ class Kasir extends CI_Controller {
 		}else{
 			$this->m_modul_kasir->update_data($where,$data3,'pemesanan');
 			$data = array(
-			'pesan' => "berhasil"
+				'pesan' => "berhasil"
 			);
 			echo json_encode($data);
 		}
@@ -192,71 +196,71 @@ class Kasir extends CI_Controller {
 	}
 
 	public function update_pesanan_menu(){
-			$jumlah_pesan = $this->input->post('jumlah_pesan');
-			$subharga = $this->input->post('sub_harga');
-			$id = $this->input->post('id_pesan_menu');
+		$jumlah_pesan = $this->input->post('jumlah_pesan');
+		$subharga = $this->input->post('sub_harga');
+		$id = $this->input->post('id_pesan_menu');
 
 
 
-			$where = array(
-				'id' => $id
-			);
-			$data = array(
-				'jumlah_pesan' => $jumlah_pesan,
-				'subharga' => $subharga,
-			);
+		$where = array(
+			'id' => $id
+		);
+		$data = array(
+			'jumlah_pesan' => $jumlah_pesan,
+			'subharga' => $subharga,
+		);
 
 
-			$this->m_modul_kasir->update_data($where,$data,'pemesanan_menu');
-			$data = array(
+		$this->m_modul_kasir->update_data($where,$data,'pemesanan_menu');
+		$data = array(
 			'pesan' => "berhasil"
-			);
-			echo json_encode($data);
+		);
+		echo json_encode($data);
 
 
 	}
 	public function update_pesanan_paket(){
-			$jumlah_pesan = $this->input->post('jumlah_pesan');
-			$subharga = $this->input->post('sub_harga');
-			$id = $this->input->post('id_pesan_paket');
+		$jumlah_pesan = $this->input->post('jumlah_pesan');
+		$subharga = $this->input->post('sub_harga');
+		$id = $this->input->post('id_pesan_paket');
 
-			$where = array(
-				'id' => $id
-			);
-			$data = array(
-				'jumlah_pesan' => $jumlah_pesan,
-				'subharga' => $subharga,
-			);
+		$where = array(
+			'id' => $id
+		);
+		$data = array(
+			'jumlah_pesan' => $jumlah_pesan,
+			'subharga' => $subharga,
+		);
 
 
-			$this->m_modul_kasir->update_data($where,$data,'pemesanan_paket');
+		$this->m_modul_kasir->update_data($where,$data,'pemesanan_paket');
 
-			$data = array(
+		$data = array(
 			'pesan' => "berhasil"
-			);
-			echo json_encode($data);
+		);
+		echo json_encode($data);
 
 
 	}
 	public function update_pemesanan(){
-			$id_pesan = $this->input->post('id_pesan');
-			$tot_sub_harga = $this->input->post('tot_sub_harga');
+		$id_pesan = $this->input->post('id_pesan');
+		$tot_sub_harga = $this->input->post('tot_sub_harga');
 
 
-			$where = array(
-				'id' => $id_pesan
-			);
-			$data = array(
-				'total_harga' => $tot_sub_harga,
-			);
+		$where = array(
+			'id' => $id_pesan
+		);
+		$data = array(
+			'total_harga' => $tot_sub_harga,
+		);
 
 
-			$this->m_modul_kasir->update_data($where,$data,'pemesanan');
+		$this->m_modul_kasir->update_data($where,$data,'pemesanan');
 
-			$data = array(
+		$data = array(
 			'pesan' => "berhasil"
-			);
-			echo json_encode($data);
+		);
+		echo json_encode($data);
 
 
 	}
@@ -276,39 +280,39 @@ class Kasir extends CI_Controller {
 //setor ke admin resto bukan ke bendahara (males mengganti function) // kurang karena selain ID WAITER tidak bisa include
 	public function setorkebendahara()
 	{
-			$id_resto=$this->session->userdata('id_resto');
-			date_default_timezone_set('Asia/Jakarta');
-			$date = date('Y-m-d');
-			$jmakr = date('H');
-			$jamawal = "07";
+		$id_resto=$this->session->userdata('id_resto');
+		date_default_timezone_set('Asia/Jakarta');
+		$date = date('Y-m-d');
+		$jmakr = date('H');
+		$jamawal = "07";
 
-			$querynominal = "SELECT SUM(pemesanan.total_harga) AS nominalsetor, pemesanan.`id`,`nama_pemesan`,`no_meja`,`total_harga`, pembayaran.`status`,`nominal`,pembayaran.`tanggal`
-			FROM pemesanan
-			JOIN user_resto ON user_resto.`id` = pemesanan.`id_user_resto`
-			JOIN resto ON resto.id = user_resto.id_resto
-			JOIN pembayaran ON pembayaran.id_pemesanan = pemesanan.id
-			WHERE resto.`id` = $id_resto AND SUBSTRING(pembayaran.tanggal, 1, 10) = '$date' AND HOUR(pembayaran.tanggal)
-			BETWEEN $jamawal AND $jmakr";
-			$nominalsetorkasir=$this->db->query($querynominal)->row();
+		$querynominal = "SELECT SUM(pemesanan.total_harga) AS nominalsetor, pemesanan.`id`,`nama_pemesan`,`no_meja`,`total_harga`, pembayaran.`status`,`nominal`,pembayaran.`tanggal`
+		FROM pemesanan
+		JOIN user_resto ON user_resto.`id` = pemesanan.`id_user_resto`
+		JOIN resto ON resto.id = user_resto.id_resto
+		JOIN pembayaran ON pembayaran.id_pemesanan = pemesanan.id
+		WHERE resto.`id` = $id_resto AND SUBSTRING(pembayaran.tanggal, 1, 10) = '$date' AND HOUR(pembayaran.tanggal)
+		BETWEEN $jamawal AND $jmakr";
+		$nominalsetorkasir=$this->db->query($querynominal)->row();
 
-			$date = date('Y-m-d H:i:s')."<br>";
-			$id_user_adminresto = $this->input->post('id_user_adminresto');
-			$id_user_kasir =$this->session->userdata('id');
+		$date = date('Y-m-d H:i:s')."<br>";
+		$id_user_adminresto = $this->input->post('id_user_adminresto');
+		$id_user_kasir =$this->session->userdata('id');
 
 			// belum di beri kondisi jika NOMINALSETOR kosong maka di view menampilkan error NULL NOMINALSETOR
 			// jadi harus diberi kondisi dulu
-			$jumlah_setoran = $nominalsetorkasir->nominalsetor;
+		$jumlah_setoran = $nominalsetorkasir->nominalsetor;
 
-			$data = array(
-				'id_resto' => $id_resto,
-				'id_user_kasir' => $id_user_kasir,
-				'id_adminresto' => $id_user_adminresto,
-				'jumlah_setoran' => $jumlah_setoran,
-				'tanggal' => $date,
-			);
-			$this->m_modul_kasir->input_data($data,'pendapatan_kas_masuk_dari_kasir');
-			$this->session->set_flashdata('flash','Berhasil');
-			redirect('kasir/tampildatastor');
+		$data = array(
+			'id_resto' => $id_resto,
+			'id_user_kasir' => $id_user_kasir,
+			'id_adminresto' => $id_user_adminresto,
+			'jumlah_setoran' => $jumlah_setoran,
+			'tanggal' => $date,
+		);
+		$this->m_modul_kasir->input_data($data,'pendapatan_kas_masuk_dari_kasir');
+		$this->session->set_flashdata('flash','Berhasil');
+		redirect('kasir/tampildatastor');
 	}
 
 	public function pemesanan_kasir(){
@@ -319,7 +323,7 @@ class Kasir extends CI_Controller {
 			where pemesanan.id_user_resto = $id_resto
 			order by pemesanan.id DESC
 			")
-			->result();
+		->result();
 
 		$data['data_pemesanan'] = $data_pemesanan;
 
@@ -345,22 +349,22 @@ class Kasir extends CI_Controller {
 		$data_menu = $this->db->query("SELECT menu.*
 			FROM menu
 			")
-			->result();
+		->result();
 
 		$data_paket = $this->db->query("SELECT paket.*
 			FROM paket
 			")
-			->result();
+		->result();
 
 		$total_pesanan_menu = $this->db->query("SELECT SUM(pemesanan_menu.subharga*pemesanan_menu.jumlah_pesan) as subharga_menu
-					FROM pemesanan_menu
-					WHERE pemesanan_menu.id_pemesanan = '$id'
+			FROM pemesanan_menu
+			WHERE pemesanan_menu.id_pemesanan = '$id'
 			")
-			->result();
+		->result();
 
 		$total_pesanan_paket = $this->db->query("SELECT SUM(pemesanan_paket.subharga*pemesanan_paket.jumlah_pesan) as subharga_paket
-					FROM pemesanan_paket
-					WHERE pemesanan_paket.id_pemesanan = '$id'
+			FROM pemesanan_paket
+			WHERE pemesanan_paket.id_pemesanan = '$id'
 			")
 		->result();
 
@@ -400,7 +404,7 @@ class Kasir extends CI_Controller {
 			FROM menu
 			where menu.id = '$id';
 			")
-			->result();
+		->result();
 
 		echo json_encode($data_ambil_menu);
 
@@ -415,7 +419,7 @@ class Kasir extends CI_Controller {
 			FROM paket
 			where paket.id = '$id';
 			")
-			->result();
+		->result();
 
 		echo json_encode($data_ambil_menu);
 
@@ -457,5 +461,45 @@ class Kasir extends CI_Controller {
 		// $this->load->view('modul_kasir/pemesanan_kasir');
 	}
 
+
+	// --------------------------irhas---------------------
+
+	public function tambah_menu_pesan(){
+
+		$id_pesan = $this->input->post('id_pesan');
+		$no_meja = $this->input->post('no_meja');
+		$nama_pemesan = $this->input->post('nama_pemesan');
+		$totalharga_awal = $this->input->post('total_harga');
+		$id_user_resto = $this->input->post('id_user_resto');
+		$checkedValuemenu = $this->input->post('languages');
+		$count = count($this->input->post('languages'));
+
+		$where = array(
+			'id' => $id_pesan
+		);
+
+		$data = array(
+			'no_meja' => $no_meja,
+			'nama_pemesan' => $nama_pemesan,
+			'total_harga' => $totalharga_awal,
+			'id_user_resto' => $id_user_resto
+			);
+
+		for($i=0; $i < $count; $i++) {
+			$cok=$checkedValuemenu[$i];
+			$this->m_modul_kasir->tambah_data_pemesanan_menu($id_pesan,$cok,"1","10");
+ 		}
+		$pesan=array();
+		 
+		$this->m_modul_kasir->update_data($where,$data,'pemesanan');
+		
+		if($this->db->trans_status() === FALSE){
+			$pesan=array('pesan'=>'gagal');
+		}else{
+			$pesan=array('pesan'=>'berhasil');
+		};
+
+		echo json_encode($pesan);
+	}
 
 }
