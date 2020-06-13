@@ -126,10 +126,10 @@
                     if ($menu_sedia->foto == "") {
                       $foto = "";
                       ?>
-                       <img src='../gambar/default.jpg' width='60px' height='50px' />
+                      <img src='../gambar/default.jpg' width='60px' height='50px' />
                       <input type='checkbox' name='get_value' class='get_value' value='<?php echo $menu_sedia->id;?>'> <?php echo $menu_sedia->menu; ?><br>
-                    <?php
-                  }else{
+                      <?php
+                    }else{
                       echo " <img src='' width='60px' height='50px' />
                       <input type='checkbox' name='get_value' class='get_value' value='$menu_sedia->id'> ".$menu_sedia->menu."<br>";
                     }
@@ -152,9 +152,9 @@
                   <label>
                    <?php foreach ($tampil_menu_habis as $menu_habis) {
                     if ($menu_sedia->foto == "") {
-                      echo " <img src='../../gambar/default.jpg' width='60px' height='50px' /> <input disabled type='checkbox' name='menu[]' value='$menu_sedia->id'> $menu_sedia->menu<br>";
+                      echo " <img src='../../gambar/default.jpg' width='60px' height='50px' /> <input disabled type='checkbox'> $menu_sedia->menu<br>";
                     }else{
-                      echo " <img src='' width='60px' height='50px' /> <input disabled type='checkbox' name='menu[]' value='$menu_sedia->id'> $menu_sedia->menu<br>";
+                      echo " <img src='' width='60px' height='50px' /> <input disabled type='checkbox' value='$menu_sedia->id'> $menu_sedia->menu<br>";
                     }
                   }
                   ?>
@@ -197,11 +197,13 @@
                    <?php foreach ($tampil_paket_tersedia as $paket_sedia) {
                     if ($paket_sedia->foto == "") {
                       $foto = "";
-                      echo " <img src='../gambar/default.jpg' width='60px' height='50px' />
-                      <input type='checkbox' name='paket[]' value='$paket_sedia->id'> $paket_sedia->nama_paket<br>";
+                      ?>
+                      <img src='../gambar/default.jpg' width='60px' height='50px' />
+                      <input type='checkbox' name='get_value_paket' class='get_value_paket' value='<?php echo $paket_sedia->id;?>'> <?php echo $paket_sedia->nama_paket; ?><br>
+                      <?php
                     }else{
                       echo " <img src='' width='60px' height='50px' />
-                      <input type='checkbox' name='paket[]' value='$paket_sedia->id'> $paket_sedia->nama_paket<br>";
+                      <input type='checkbox' name='get_value_paket' class='get_value_paket' value='$paket_sedia->id'> ".$paket_sedia->nama_paket."<br>";
                     }
                   }
                   ?>
@@ -222,9 +224,9 @@
                   <label>
                    <?php foreach ($tampil_paket_habis as $paket_habis) {
                     if ($menu_sedia->foto == "") {
-                      echo " <img src='../gambar/default.jpg' width='60px' height='50px' /> <input disabled type='checkbox' name='paket[]' value='$paket_sedia->id'> $paket_sedia->nama_paket<br>";
+                      echo " <img src='../gambar/default.jpg' width='60px' height='50px' /> <input disabled type='checkbox' value='$paket_habis->id'> $paket_habis->nama_paket<br>";
                     }else{
-                      echo " <img src='' width='60px' height='50px' /> <input disabled type='checkbox' name='paket[]' value='$paket_sedia->id'> $paket_sedia->nama_paket<br>";
+                      echo " <img src='' width='60px' height='50px' /> <input disabled type='checkbox' value='$paket_habis->id'> $paket_habis->nama_paket<br>";
                     }
                   }
                   ?>
@@ -236,7 +238,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-        <button type="button" onclick="add_pesan()" class="btn btn-primary">List</button>
+        <button type="button" onclick="add_pesan_paket()" class="btn btn-primary">List</button>
       </div>
     </form>
 
@@ -382,16 +384,16 @@
       success : function(data){
 
         if(data.pesan=="gagal"){
-                  alert(data.pesan);
-                }else{
-                  alert(data.pesan);
+          alert(data.pesan);
+        }else{
+          alert(data.pesan);
 
-                }
+        }
 
 
-              }
+      }
 
-            });
+    });
 
   }
 
@@ -771,7 +773,7 @@ function edit_menu(id_pesan,id){
         totalharga_awal=$('#total').val();
         var id_pemesanan = idd_pesan;
         var id_resto = id_user_resto;
-       
+
         //console.log("ID"+testval);
         // console.log("No Meja : "+no_meja);
         // console.log("Nama Pemesan : "+atasnama);
@@ -780,13 +782,13 @@ function edit_menu(id_pesan,id){
         // console.log("Total Awal : "+totalharga_awal);
 
         var languages = [];  
-           $('.get_value').each(function(){  
-                if($(this).is(":checked"))  
-                {  
-                     languages.push($(this).val());  
-                }  
-           });  
-           
+        $('.get_value').each(function(){  
+          if($(this).is(":checked"))  
+          {  
+           languages.push($(this).val());  
+         }  
+       });  
+
         $.ajax({
           type  : 'POST',
           url   : '<?php echo base_url(). 'kasir/tambah_menu_pesan'; ?>',
@@ -796,9 +798,49 @@ function edit_menu(id_pesan,id){
           success : function(data){
             alert(data);
             if(data.pesan=="gagal"){
-              alert("Gagal tambah broo!!");
+              alert("Gagal tambah menu broo!!");
             }else{
-              alert("Berhasil tambah broo!!");
+              alert("Berhasil tambah menu broo!!");
+            }
+          }
+        });
+      }
+
+      function add_pesan_paket(){
+
+        no_meja=$('#meja').val();
+        atasnama=$('#atasnama').val();
+        totalharga_awal=$('#total').val();
+        var id_pemesanan = idd_pesan;
+        var id_resto = id_user_resto;
+
+        //console.log("ID"+testval);
+        // console.log("No Meja : "+no_meja);
+        // console.log("Nama Pemesan : "+atasnama);
+        // console.log("ID Pesanan : "+id_pemesanan);
+        // console.log("ID User Resto : "+id_user_resto);
+        // console.log("Total Awal : "+totalharga_awal);
+
+        var languages = [];  
+        $('.get_value_paket').each(function(){  
+          if($(this).is(":checked"))  
+          {  
+           languages.push($(this).val());  
+         }  
+       });  
+
+        $.ajax({
+          type  : 'POST',
+          url   : '<?php echo base_url(). 'kasir/tambah_paket_pesan'; ?>',
+          data: {id_pesan:id_pemesanan,no_meja:no_meja,nama_pemesan:atasnama,total_harga:totalharga_awal,id_user_resto:id_resto,'languages[]':languages},
+          async : false,
+          dataType : 'html',
+          success : function(data){
+            alert(data);
+            if(data.pesan=="gagal"){
+              alert("Gagal tambah paket broo!!");
+            }else{
+              alert("Berhasil tambah paket broo!!");
             }
           }
         });

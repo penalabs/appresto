@@ -474,6 +474,26 @@ class Kasir extends CI_Controller {
 		$checkedValuemenu = $this->input->post('languages');
 		$count = count($this->input->post('languages'));
 
+		for($i=0; $i < $count; $i++) {
+			$id_menu=$checkedValuemenu[$i];
+
+			$query_menu = "SELECT * FROM menu WHERE id='$id_menu'";
+			$menu_harga=$this->db->query($query_menu)->row();
+			$harga_menu_satuan = $menu_harga->harga;
+
+			$this->m_modul_kasir->tambah_data_pemesanan_menu($id_pesan,$id_menu,"1",$harga_menu_satuan);
+		}
+
+		$query_menu_sum_harga = "SELECT SUM(subharga) AS total_harga_menu FROM pemesanan_menu WHERE id_pemesanan='$id_pesan'";
+		$menu_harga_total=$this->db->query($query_menu_sum_harga)->row();
+		$total_harga_yang_dipesan = $menu_harga_total->total_harga_menu;
+
+		$query_pemesanan = "SELECT * FROM pemesanan WHERE id='$id_pesan'";
+		$pemesanan_value=$this->db->query($query_pemesanan)->row();
+		$total_harga_pemesanan_sebelum_update = $pemesanan_value->total_harga;
+
+		$total_penambahan_harga = $total_harga_pemesanan_sebelum_update+$total_harga_yang_dipesan;
+
 		$where = array(
 			'id' => $id_pesan
 		);
@@ -481,17 +501,67 @@ class Kasir extends CI_Controller {
 		$data = array(
 			'no_meja' => $no_meja,
 			'nama_pemesan' => $nama_pemesan,
-			'total_harga' => $totalharga_awal,
+			'total_harga' => $total_penambahan_harga,
 			'id_user_resto' => $id_user_resto
-			);
+		);
+
+		$this->m_modul_kasir->update_data($where,$data,'pemesanan');
+
+		$pesan=array();
+		
+		if($this->db->trans_status() === FALSE){
+			$pesan=array('pesan'=>'gagal');
+		}else{
+			$pesan=array('pesan'=>'berhasil');
+		};
+
+		echo json_encode($pesan);
+	}
+
+	public function tambah_paket_pesan(){
+
+		$id_pesan = $this->input->post('id_pesan');
+		$no_meja = $this->input->post('no_meja');
+		$nama_pemesan = $this->input->post('nama_pemesan');
+		$totalharga_awal = $this->input->post('total_harga');
+		$id_user_resto = $this->input->post('id_user_resto');
+		$checkedValuepaket = $this->input->post('languages');
+		$count = count($this->input->post('languages'));
 
 		for($i=0; $i < $count; $i++) {
-			$cok=$checkedValuemenu[$i];
-			$this->m_modul_kasir->tambah_data_pemesanan_menu($id_pesan,$cok,"1","10");
- 		}
-		$pesan=array();
-		 
+			$id_paket=$checkedValuepaket[$i];
+
+			$query_paket = "SELECT * FROM paket WHERE id='$id_paket'";
+			$paket_harga=$this->db->query($query_paket)->row();
+			$harga_paket_satuan = $paket_harga->harga;
+
+			$this->m_modul_kasir->tambah_data_pemesanan_paket($id_pesan,$id_paket,"1",$harga_paket_satuan);
+		}
+
+		$query_paket_sum_harga = "SELECT SUM(subharga) AS total_harga_paket FROM pemesanan_paket WHERE id_pemesanan='$id_pesan'";
+		$menu_harga_total=$this->db->query($query_paket_sum_harga)->row();
+		$total_harga_paket_yang_dipesan = $menu_harga_total->total_harga_paket;
+
+		$query_pemesanan = "SELECT * FROM pemesanan WHERE id='$id_pesan'";
+		$pemesanan_value=$this->db->query($query_pemesanan)->row();
+		$total_harga_pemesanan_sebelum_update = $pemesanan_value->total_harga;
+
+		$total_penambahan_harga = $total_harga_pemesanan_sebelum_update+$total_harga_paket_yang_dipesan;
+
+		$where = array(
+			'id' => $id_pesan
+		);
+
+		$data = array(
+			'no_meja' => $no_meja,
+			'nama_pemesan' => $nama_pemesan,
+			'total_harga' => $total_penambahan_harga,
+			'id_user_resto' => $id_user_resto
+		);
+
 		$this->m_modul_kasir->update_data($where,$data,'pemesanan');
+
+		$pesan=array();
 		
 		if($this->db->trans_status() === FALSE){
 			$pesan=array('pesan'=>'gagal');
