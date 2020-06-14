@@ -9,6 +9,7 @@
   <?php include(APPPATH.'views/css.php');?>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+  <!-- <div class="flash-data" data-flashdata="<?php echo $this->session->flashdata('flash'); ?>"></div> -->
   <!-- Site wrapper -->
   <div class="wrapper">
 
@@ -126,12 +127,14 @@
                     if ($menu_sedia->foto == "") {
                       $foto = "";
                       ?>
-                      <img src='../gambar/default.jpg' width='60px' height='50px' />
-                      <input type='checkbox' name='get_value' class='get_value' value='<?php echo $menu_sedia->id;?>'> <?php echo $menu_sedia->menu; ?><br>
+                      <img src="<?php echo base_url('../../gambar/default.jpg')?>" width='60px' height='50px' />
+                      <input type='checkbox' name='get_value' class='get_value' value='<?php echo $menu_sedia->id;?>'><?php echo $menu_sedia->menu; ?><br>
                       <?php
                     }else{
-                      echo " <img src='' width='60px' height='50px' />
-                      <input type='checkbox' name='get_value' class='get_value' value='$menu_sedia->id'> ".$menu_sedia->menu."<br>";
+                      ?>
+                      <img src='<?php echo base_url('../../gambar/default.jpg') ?>' width='60px' height='50px' />
+                      <input type='checkbox' name='get_value' class='get_value' value='<?php echo $menu_sedia->id;?>'><?php echo $menu_sedia->menu; ?><br>
+                      <?php
                     }
                   }
                   ?>
@@ -384,17 +387,13 @@
       success : function(data){
 
         if(data.pesan=="gagal"){
-          alert(data.pesan);
+          alert("gagal");
         }else{
-          alert(data.pesan);
-
+          alert("Pembayaran Berhasil");
+          location.reload();
         }
-
-
       }
-
     });
-
   }
 
   function cetak(no_meja){
@@ -565,15 +564,10 @@ function edit_menu(id_pesan,id){
             data: {id_pesan_menu:id,jumlah_pesan:qty,sub_harga:sub_harga} ,
             async : false,
             dataType : 'json',
-            success : function(response){
-              window.location.href = response.redirect;
-              if(data.pesan=="gagal"){
-                        //alert(data.pesan);
-                      }else{
-                        alert("Berhasil Save");
-                        location.reload();
-                      }
+            success : function(data){
                       update_pemesanan(id_pesan);
+                      tampil_pesan_menu(id_pesan);
+                      tampil_pesan_paket(id_pesan);
 
                     }
 
@@ -641,15 +635,9 @@ function edit_menu(id_pesan,id){
             async : false,
             dataType : 'json',
             success : function(data){
-
-              if(data.pesan=="gagal"){
-                        //alert(data.pesan);
-                      }else{
-                        alert("Berhasil Save");
-                        location.reload();
-
-                      }
                       update_pemesanan(id_pesan);
+                      tampil_pesan_menu(id_pesan);
+                      tampil_pesan_paket(id_pesan);
 
                     }
 
@@ -796,11 +784,13 @@ function edit_menu(id_pesan,id){
           async : false,
           dataType : 'html',
           success : function(data){
-            alert(data);
+            //alert(data);
             if(data.pesan=="gagal"){
               alert("Gagal tambah menu broo!!");
             }else{
-              alert("Berhasil tambah menu broo!!");
+              alert("Berhasil tambah menu!");
+              location.reload();
+              //tampil_pesan_menu(id_pemesanan);
             }
           }
         });
@@ -836,11 +826,13 @@ function edit_menu(id_pesan,id){
           async : false,
           dataType : 'html',
           success : function(data){
-            alert(data);
+            //alert(data);
             if(data.pesan=="gagal"){
               alert("Gagal tambah paket broo!!");
             }else{
-              alert("Berhasil tambah paket broo!!");
+              alert("Berhasil tambah paket!");
+              location.reload();
+              //tampil_pesan_paket(id_pemesanan);
             }
           }
         });
