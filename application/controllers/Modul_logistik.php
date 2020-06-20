@@ -624,6 +624,43 @@ class modul_logistik extends CI_Controller {
 		$batas_kembali=(int)$jumlah_dikirim-(int)$jumlah_permintaan;
 
 		$tanggal=date('Y-m-d');
+		$hasilsql2=$this->db->query("select * from pengiriman_bahan_olahan where id='$id_pengiriman'")->row();
+	  $jumlah_dikirim2=$hasilsql2->jumlah_dikirim;
+	  $id_bahan_olahan2=$hasilsql2->id_bahan_olahan;
+	  if($jumlah_dikirim>$jumlah_dikirim2){
+		$stokku=(int)$jumlah_dikirim-(int)$jumlah_dikirim2;
+		
+		
+		$data5=$this->db->query("SELECT stok FROM bahan_olahan WHERE id='$id_bahan_olahan2'")->row();
+		echo $stok_bahan_olahan2=$data5->stok;
+
+		$stok_akhir=(int)$stok_bahan_olahan2-(int)$stokku;
+
+			 $sql = "UPDATE bahan_olahan SET stok = '$stok_akhir' WHERE id='$id_bahan_olahan2'";
+			 if($this->db->query($sql)){
+				 $data_session = array(
+					 'pesan' => 'berhasil update stok bahan mentah !',
+				 );
+				 $this->session->set_userdata($data_session);
+			 }
+	  }else if($jumlah_dikirim<$jumlah_dikirim2){
+		  echo "posisi 2";
+		$stokku=$jumlah_dikirim2-$jumlah_dikirim;
+		  
+		$sql5 = "SELECT stok FROM bahan_olahan WHERE id='$id_bahan_olahan2'";
+		$data5=$this->db->query($sql5)->row();
+		echo $stok_bahan_olahan2=$data5->stok;
+
+		$stok_akhir=(int)$stok_bahan_olahan2+(int)$stokku;
+
+			 $sql = "UPDATE bahan_olahan SET stok = '$stok_akhir' WHERE id='$id_bahan_olahan2'";
+			 if($this->db->query($sql)){
+				 $data_session = array(
+					 'pesan' => 'berhasil update stok bahan mentah !',
+				 );
+				 $this->session->set_userdata($data_session);
+			 }
+	  }
 
 		$sql = "UPDATE pengiriman_bahan_olahan SET jumlah_dikirim = '$jumlah_dikirim', status='tidak',tanggal_pengiriman='$tanggal' WHERE id='$id_pengiriman'";
 		$this->db->query($sql);
@@ -737,11 +774,50 @@ class modul_logistik extends CI_Controller {
 	  $id_pengiriman = $this->input->post('id');
 	  $jumlah_dikembalikan = $this->input->post('jumlah_dikembalikan');
 	  $jumlah_permintaan = $this->input->post('jumlah_permintaan');
-	  $jumlah_dikirim = $this->input->post('jumlah_dikirim');
+	  echo $jumlah_dikirim = $this->input->post('jumlah_dikirim');
 	  $id_permintaan = $this->input->post('id_permintaan');
 	  $batas_kembali=(int)$jumlah_dikirim-(int)$jumlah_permintaan;
 
-		$tanggal=date('Y-m-d');
+	  $tanggal=date('Y-m-d');
+		
+	  $hasilsql2=$this->db->query("select * from pengiriman_bahan_mentah where id='$id_pengiriman'")->row();
+	  $jumlah_dikirim2=$hasilsql2->jumlah_dikirim;
+	  $id_bahan_mentah2=$hasilsql2->id_bahan_mentah;
+	  if($jumlah_dikirim>$jumlah_dikirim2){
+		$stokku=(int)$jumlah_dikirim-(int)$jumlah_dikirim2;
+		
+		
+		$data5=$this->db->query("SELECT stok FROM bahan_mentah WHERE id='$id_bahan_mentah2'")->row();
+		echo $stok_bahan_mentah2=$data5->stok;
+
+		$stok_akhir=(int)$stok_bahan_mentah2-(int)$stokku;
+
+			 $sql = "UPDATE bahan_mentah SET stok = '$stok_akhir' WHERE id='$id_bahan_mentah2'";
+			 if($this->db->query($sql)){
+				 $data_session = array(
+					 'pesan' => 'berhasil update stok bahan mentah !',
+				 );
+				 $this->session->set_userdata($data_session);
+			 }
+	  }else if($jumlah_dikirim<$jumlah_dikirim2){
+		  echo "posisi 2";
+		$stokku=$jumlah_dikirim2-$jumlah_dikirim;
+		  
+		$sql5 = "SELECT stok FROM bahan_mentah WHERE id='$id_bahan_mentah2'";
+		$data5=$this->db->query($sql5)->row();
+		echo $stok_bahan_mentah2=$data5->stok;
+
+		$stok_akhir=(int)$stok_bahan_mentah2+(int)$stokku;
+
+			 $sql = "UPDATE bahan_mentah SET stok = '$stok_akhir' WHERE id='$id_bahan_mentah2'";
+			 if($this->db->query($sql)){
+				 $data_session = array(
+					 'pesan' => 'berhasil update stok bahan mentah !',
+				 );
+				 $this->session->set_userdata($data_session);
+			 }
+	  }
+	  
 	  if((int)$jumlah_permintaan!=(int)$jumlah_dikirim){
 			 $sql = "UPDATE pengiriman_bahan_mentah SET jumlah_dikirim = '$jumlah_dikirim', status='tidak',tanggal_pengiriman='$tanggal' WHERE id='$id_pengiriman'";
 			 if($this->db->query($sql)){
@@ -750,7 +826,7 @@ class modul_logistik extends CI_Controller {
 				 );
 
 				 $this->session->set_userdata($data_session);
-				 echo 1;
+				
 			 }
 	  }else{
 	    $sql = "UPDATE pengiriman_bahan_mentah SET jumlah_dikirim = '$jumlah_dikirim', status='sesuai',tanggal_pengiriman='$tanggal' WHERE id='$id_pengiriman'";
@@ -760,9 +836,11 @@ class modul_logistik extends CI_Controller {
 	      );
 
 	      $this->session->set_userdata($data_session);
-	      echo 1;
+	      
 	    }
 	  }
+	  
+	  
 	  redirect('modul_logistik/lihat_bahan_mentah/?id_permintaan='.$id_permintaan);
 	}
 	function aksi_kirim_ke_produksi_bahan_mentah(){

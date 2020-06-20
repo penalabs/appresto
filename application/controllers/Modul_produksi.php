@@ -420,8 +420,8 @@ class modul_produksi extends CI_Controller {
 
 	public function produksi_masakan()
 	{
-		$this->session->set_userdata("");
-		$sql = "SELECT * FROM produksi_masakan join menu on menu.id=produksi_masakan.id_menu";
+		$id_resto=$this->session->userdata('id_resto');
+		$sql = "SELECT * FROM produksi_masakan join menu on menu.id=produksi_masakan.id_menu where produksi_masakan.id_resto='$id_resto'";
 		$data['data']=$this->db->query($sql)->result();
 		$this->load->view('modul_produksi/produksi_masakan',$data);
 	}

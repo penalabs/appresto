@@ -62,7 +62,8 @@
                              <select class="form-control" name="nama_menu">
                              <?php
                   					 //$sql = "SELECT * FROM bahan_mentah join permintaan_bahan_detail on permintaan_bahan_detail.id_bahan_mentah=bahan_mentah.id";
-                  					 $sql = "SELECT * FROM menu";
+                  					 $id_resto=$this->session->userdata('id_resto');
+									 $sql = "SELECT * FROM menu where id_resto='$id_resto'";
                   					 $data2=$this->db->query($sql)->result();
                                         foreach($data2 as $u2){
                                         ?>

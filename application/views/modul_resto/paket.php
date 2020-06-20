@@ -64,7 +64,7 @@
             <!-- /.box-header -->
             <div class="box-body">
               
-					 <img src="<?php echo base_url('uploads/paketnasibebek.jpg');?>" class="user-image" alt="User Image" width="100%" height="150">
+					 <img src="<?php echo base_url('gambar/');?><?php echo $u->foto;?>" class="user-image" alt="User Image" width="100%" height="150">
 					  <div class="info-box">
 					 
 					  <div class="pull-right">

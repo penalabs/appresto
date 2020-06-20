@@ -147,7 +147,7 @@
                           <?php
                             }
                            ?> -->
-                           <a href="<?php echo base_url('modul_logistik/aksi_kirim_ke_produksi_bahan_olahan/?');?>id=<?php echo $u->id ?>&&id_permintaan=<?=$_GET['id_permintaan'];?>&&id_bahan_olahan=<?=$u->id_bahan_olahan;?>&&jumlah_bahan_dikirim=<?=$u->jumlah_dikirim;?>" class="btn btn-success btn-xs"><i class="fa   fa-edit" ></i>Kurangi Stok Bahan</a>
+                           <!--<a href="<?php echo base_url('modul_logistik/aksi_kirim_ke_produksi_bahan_olahan/?');?>id=<?php echo $u->id ?>&&id_permintaan=<?=$_GET['id_permintaan'];?>&&id_bahan_olahan=<?=$u->id_bahan_olahan;?>&&jumlah_bahan_dikirim=<?=$u->jumlah_dikirim;?>" class="btn btn-success btn-xs"><i class="fa   fa-edit" ></i>Kurangi Stok Bahan</a>-->
                         </td>
                     </tr>
                     <?php

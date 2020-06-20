@@ -125,7 +125,8 @@
             <!-- /.box-header -->
             <!-- form start -->
 			<div class="box-body">
-            <form class="form-horizontal" action="<?php echo base_url(). 'modul_resto/action_edit_paket'; ?>" method="post" role="form">
+            <form class="form-horizontal" action="<?php echo base_url(). 'modul_resto/action_edit_paket'; ?>" method="post" role="form" enctype="multipart/form-data">
+			 <input type="hidden" class="form-control" value="<?php echo $_GET['id'];?>" name="id_paket" id="inputEmail3" >
 			<?php
                       foreach($paket as $u3){ 
                       ?> 

@@ -367,7 +367,7 @@ class Modul_resto extends CI_Controller {
 		$this->load->view('modul_resto/add_paket',$data);
 	}
 	public function action_add_menu_paket(){
-		$id_last_paket = $this->input->post('id_last_paket');
+		$id_paket = $this->input->post('id_paket');
 		$id_menu = $this->input->post('menu');
 		$jumlah = $this->input->post('jumlah');
 
@@ -385,7 +385,7 @@ class Modul_resto extends CI_Controller {
 
 				$data = array(
 				'id_menu' => $id_menu,
-				'id_paket' => $id_last_paket,
+				'id_paket' => $id_paket,
 				'jumlah' => $jumlah,
 				'total_harga' => $harga,
 				);
@@ -474,13 +474,17 @@ class Modul_resto extends CI_Controller {
 
 	public function edit_paket()
 	{
+		$id_resto=$this->session->userdata('id_resto');
 		$id_paket=$_GET['id'];
 		$data['id_paket']=$_GET['id'];
 		$where = array(
 			'id' => $id_paket
 		);
+		$where2 = array(
+			'id_resto' => $id_resto
+		);
 		$data['paket'] = $this->m_modul_resto->tampil_data_where('paket',$where)->result();
-		$data['menu'] = $this->m_modul_resto->tampil_data('menu')->result();
+		$data['menu'] = $this->m_modul_resto->tampil_data_where('menu',$where2)->result();
 
 		$where2 = array(
 			'id_paket' => $id_paket
@@ -489,7 +493,7 @@ class Modul_resto extends CI_Controller {
 		$this->load->view('modul_resto/edit_paket',$data);
 	}
 	public function action_edit_paket(){
-		$id_paket = $this->input->post('id_paket');
+		echo $id_paket = $this->input->post('id_paket');
 		$nama_paket = $this->input->post('nama_paket');
 		$status = $this->input->post('status');
 		$harga_jual = $this->input->post('harga_jual');
@@ -507,31 +511,33 @@ class Modul_resto extends CI_Controller {
 
 		$this->load->library('upload', $config);
 		if ( ! $this->upload->do_upload('berkas')){
-			$error = array('error' => $this->upload->display_errors());
+			echo json_encode($error = array('error' => $this->upload->display_errors()));
 			$this->session->set_flashdata('pesan', $this->upload->display_errors());
 			$data = array(
 					'status' => $status,
 					'harga' => $harga_jual,
-					'jumlah' => $stok,
+					'jumlah' => $jumlah,
 					);
-			$this->m_modul_resto->update_data($where,$data,'menu');
-			$this->session->set_flashdata('pesan', 'data menu disimpan');
+			$this->m_modul_resto->update_data($where,$data,'paket');
+			$this->session->set_flashdata('pesan', 'data paket disimpan');
+			echo 1;
 		}else{
 			$data = array('upload_data' => $this->upload->data());
 
 			$berkas = $this->upload->data();
-			$foto = $berkas['file_name'];
+			echo $foto = $berkas['file_name'];
 
 			$data = array(
 					'status' => $status,
 					'harga' => $harga_jual,
-					'jumlah' => $stok,
+					'jumlah' => $jumlah,
 					'foto' => $foto,
 					);
-			$this->m_modul_resto->update_data($where,$data,'menu');
-			$this->session->set_flashdata('pesan', 'data menu disimpan');
+			$this->m_modul_resto->update_data($where,$data,'paket');
+			$this->session->set_flashdata('pesan', 'data paket disimpan');
+			echo 2;
 		}
-		redirect('modul_resto/edit_paket/?id='.$id_paket);
+		//redirect('modul_resto/edit_paket/?id='.$id_paket);
 	}
 	public function meja()
 	{

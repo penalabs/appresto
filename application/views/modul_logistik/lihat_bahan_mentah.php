@@ -74,6 +74,7 @@
                 <input type="hidden" value="<?php echo $id_permintaan; ?>"  name="id_permintaan" class="form-control" id="inputEmail3" >
                 <input type="hidden" value="<?php echo $data4->jumlah_permintaan; ?>" name="jumlah_permintaan" class="form-control" id="inputEmail3" >
                 <input type="hidden" value="<?php echo $data4->id_bahan_mentah; ?>" name="id_bahan_mentah" class="form-control" id="inputEmail3" >
+				<input type="hidden" value="<?php echo $data4->jumlah_dikembalikan; ?>" name="jumlah_dikembalikan" class="form-control" id="inputEmail3" >
                 <!-- <div class="form-group">
                          <label for="inputEmail3" class="col-sm-4 control-label">Jumlah Permintaan</label>
                          <div class="col-sm-8">
@@ -121,7 +122,7 @@
   				          <th>Jumlah permintaan</th>
                     <th>Jumlah dikirm</th>
                     <th>Jumlah dikembalikan</th>
-                    <th>Status</th>
+                    <th>Sesuai pengiriman ?</th>
                     <th>Aksi</th>
                   </tr>
                   </thead>
@@ -140,10 +141,10 @@
                         <td><?=$u->status;?></td>
                         <td>
 
-                          <a href="<?php echo base_url('modul_logistik/lihat_bahan_mentah/?');?>id_bahan_mentah=<?php echo $u->id_bahan_mentah ?>&&edit=edit&&id_permintaan=<?=$_GET['id_permintaan'];?>&&id=<?php echo $u->id; ?>&&jumlah_dikirim=<?php echo $u->jumlah_dikirim; ?>&&jumlah_permintaan=<?php echo $u->jumlah_permintaan; ?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Input Jumlah Kirim</a><br>
+                          <a href="<?php echo base_url('modul_logistik/lihat_bahan_mentah/?');?>id_bahan_mentah=<?php echo $u->id_bahan_mentah ?>&&edit=edit&&id_permintaan=<?=$_GET['id_permintaan'];?>&&id=<?php echo $u->id; ?>&&jumlah_dikirim=<?php echo $u->jumlah_dikirim; ?>&&jumlah_permintaan=<?php echo $u->jumlah_permintaan; ?>&&jumlah_dikembalikan=<?=$u->jumlah_dikembalikan;?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Input Jumlah Kirim</a><br>
                           <!-- <a href="<?php echo base_url('modul_logistik/hapus_list_bahan_mentah/?');?>id=<?php echo $u->id ?>&&id_permintaan=<?=$_GET['id_permintaan'];?>" class="btn btn-danger btn-xs"><i class="fa   fa-close" ></i>Hapus</a> -->
 
-                          <a href="<?php echo base_url('modul_logistik/aksi_kirim_ke_produksi_bahan_mentah/?');?>id=<?php echo $u->id ?>&&id_permintaan=<?=$_GET['id_permintaan'];?>&&id_bahan_mentah=<?=$u->id_bahan_mentah;?>&&jumlah_bahan_dikirim=<?=$u->jumlah_dikirim;?>" class="btn btn-success btn-xs"><i class="fa   fa-edit" ></i>Kurangi Stok Bahan</a>
+                          <!-- <a href="<?php echo base_url('modul_logistik/aksi_kirim_ke_produksi_bahan_mentah/?');?>id=<?php echo $u->id ?>&&id_permintaan=<?=$_GET['id_permintaan'];?>&&id_bahan_mentah=<?=$u->id_bahan_mentah;?>&&jumlah_bahan_dikirim=<?=$u->jumlah_dikirim;?>" class="btn btn-success btn-xs"><i class="fa   fa-edit" ></i>Kurangi Stok Bahan</a> -->
 
                         </td>
                     </tr>
