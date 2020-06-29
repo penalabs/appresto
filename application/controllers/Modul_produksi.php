@@ -308,9 +308,6 @@ class modul_produksi extends CI_Controller {
 		$id_menu = $this->uri->segment('3');
 		$id_resto = $this->session->userdata('id_resto');
 
-
-
-
 		$ambil_menu_stok = $this->db->query("SELECT menu.*
 			FROM menu
 			WHERE menu.id = '$id_menu'
@@ -362,9 +359,6 @@ class modul_produksi extends CI_Controller {
 		$id_paket = $this->uri->segment('3');
 		$id_resto = $this->session->userdata('id_resto');
 
-
-
-
 		$ambil_paket_stok = $this->db->query("SELECT paket.*
 			FROM paket
 			WHERE paket.id = '$id_paket'
@@ -403,6 +397,115 @@ class modul_produksi extends CI_Controller {
 
 		echo $id_resto.'ini datanya';
 	}
+
+	public function ambil_produksi_menu()
+	{
+
+		$id_pemesanan=$_GET['id_pemesanan'];
+		$id_pemesanan_menu=$_GET['id_pemesanan_menu'];
+		$id_menu=$_GET['id_menu'];
+		$jumlah_pesan=$_GET['jumlah_pesan'];
+		$sql = "UPDATE pemesanan_menu set status='diambil' WHERE id='$id_pemesanan_menu'";
+		$data_status=$this->db->query($sql);
+
+		$sql2 = "SELECT stok FROM menu WHERE id='$id_menu'";
+		$data_stok=$this->db->query($sql2)->row();
+		$stok_menu=(int)$data_stok->stok-(int)$jumlah_pesan;
+
+		$sql = "UPDATE menu set stok='$stok_menu' WHERE id='$id_menu'";
+		$data_status=$this->db->query($sql);
+
+		if($data_status==true)
+		{
+		    $this->session->set_flashdata('success', "sukses mengambil makanan dan jumlah masakan stok dikurangi");
+		}else{
+		    $this->session->set_flashdata('error', "terjadi kesalahan pada aplikasi mengambil makanan dan jumlah masakan stok tidak dikurangi");
+		}
+		redirect('modul_produksi/index_produksi_pesanan/?id_pemesanan='.$id_pemesanan,'refresh');
+
+	}
+
+	public function kembali_produksi_menu()
+	{
+
+		$id_pemesanan=$_GET['id_pemesanan'];
+		$id_pemesanan_menu=$_GET['id_pemesanan_menu'];
+		$id_menu=$_GET['id_menu'];
+		$jumlah_pesan=$_GET['jumlah_pesan'];
+		$sql = "UPDATE pemesanan_menu set status='dikembalikan' WHERE id='$id_pemesanan_menu'";
+		$data_status=$this->db->query($sql);
+
+		$sql2 = "SELECT stok FROM menu WHERE id='$id_menu'";
+		$data_stok=$this->db->query($sql2)->row();
+		$stok_menu=(int)$data_stok->stok+(int)$jumlah_pesan;
+
+		$sql = "UPDATE menu set stok='$stok_menu' WHERE id='$id_menu'";
+		$data_status=$this->db->query($sql);
+
+		if($data_status==true)
+		{
+				$this->session->set_flashdata('success', "sukses mengambil makanan dan jumlah masakan stok kembalikan");
+		}else{
+				$this->session->set_flashdata('error', "terjadi kesalahan pada aplikasi mengambil makanan dan jumlah masakan stok tidak dikembalikan");
+		}
+		redirect('modul_produksi/index_produksi_pesanan/?id_pemesanan='.$id_pemesanan,'refresh');
+
+	}
+
+	public function ambil_produksi_paket()
+	{
+
+	  $id_pemesanan=$_GET['id_pemesanan'];
+	  $id_pemesanan_paket=$_GET['id_pemesanan_paket'];
+	  $id_paket=$_GET['id_paket'];
+	  $jumlah_pesan=$_GET['jumlah_pesan'];
+	  $sql = "UPDATE pemesanan_paket set status='diambil' WHERE id='$id_pemesanan_paket'";
+	  $data_status=$this->db->query($sql);
+
+	  $sql2 = "SELECT jumlah FROM paket WHERE id='$id_paket'";
+	  $data_stok=$this->db->query($sql2)->row();
+	  $stok_paket=(int)$data_stok->jumlah-(int)$jumlah_pesan;
+
+	  $sql = "UPDATE paket set jumlah='$stok_paket' WHERE id='$id_paket'";
+	  $data_status=$this->db->query($sql);
+
+	  if($data_status==true)
+	  {
+	      $this->session->set_flashdata('success', "sukses mengambil makanan dan jumlah masakan stok dikurangi");
+	  }else{
+	      $this->session->set_flashdata('error', "terjadi kesalahan pada aplikasi mengambil makanan dan jumlah masakan stok tidak dikurangi");
+	  }
+	  redirect('modul_produksi/index_produksi_pesanan/?id_pemesanan='.$id_pemesanan,'refresh');
+
+	}
+
+	public function kembali_produksi_paket()
+	{
+
+	  $id_pemesanan=$_GET['id_pemesanan'];
+	  $id_pemesanan_paket=$_GET['id_pemesanan_paket'];
+	  $id_paket=$_GET['id_paket'];
+	  $jumlah_pesan=$_GET['jumlah_pesan'];
+	  $sql = "UPDATE pemesanan_paket set status='dikembalikan' WHERE id='$id_pemesanan_paket'";
+	  $data_status=$this->db->query($sql);
+
+	  $sql2 = "SELECT jumlah FROM paket WHERE id='$id_paket'";
+	  $data_stok=$this->db->query($sql2)->row();
+	  $stok_paket=(int)$data_stok->jumlah+(int)$jumlah_pesan;
+
+	  $sql = "UPDATE paket set jumlah='$stok_paket' WHERE id='$id_paket'";
+	  $data_status=$this->db->query($sql);
+
+	  if($data_status==true)
+	  {
+	      $this->session->set_flashdata('success', "sukses mengambil paket dan jumlah masakan stok dikembalikan");
+	  }else{
+	      $this->session->set_flashdata('error', "terjadi kesalahan pada aplikasi mengambil paket dan jumlah masakan stok tidak dikembalikan");
+	  }
+	  redirect('modul_produksi/index_produksi_pesanan/?id_pemesanan='.$id_pemesanan,'refresh');
+
+	}
+
 
 	//----------------------
 

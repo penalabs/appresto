@@ -11,7 +11,7 @@
  Target Server Version : 100131
  File Encoding         : 65001
 
- Date: 30/06/2020 00:59:35
+ Date: 28/06/2020 14:58:17
 */
 
 SET NAMES utf8mb4;
@@ -782,7 +782,7 @@ CREATE TABLE `menu`  (
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
-INSERT INTO `menu` VALUES (1, 4, 'Ayam Geprek', 'default.jpg', 10000, 'tersedia', 3, 'insert');
+INSERT INTO `menu` VALUES (1, 4, 'Ayam Geprek', 'default.jpg', 10000, 'tersedia', 4, 'insert');
 INSERT INTO `menu` VALUES (2, 4, 'Jamur Kripsi', 'default.jpg', 10000, 'tersedia', 0, 'insert');
 INSERT INTO `menu` VALUES (3, 4, 'Es Teh Anget', 'default.jpg', 10000, 'tersedia', 10, 'insert');
 INSERT INTO `menu` VALUES (4, 4, 'Kopi Susu', 'kopihitam.jpg', 3000, 'habis', 6, 'insert');
@@ -888,7 +888,6 @@ CREATE TABLE `pembayaran`  (
   `id_user_kasir` int(11) NOT NULL,
   `id_pemesanan` int(11) NOT NULL,
   `nominal` int(11) NOT NULL,
-  `diskon` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `status` enum('kredit','lunas') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `tanggal` datetime(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
@@ -897,11 +896,11 @@ CREATE TABLE `pembayaran`  (
 -- ----------------------------
 -- Records of pembayaran
 -- ----------------------------
-INSERT INTO `pembayaran` VALUES (34, 23, 2, 15000, NULL, 'lunas', '2020-01-30 21:35:25');
-INSERT INTO `pembayaran` VALUES (35, 23, 1, 25000, NULL, 'lunas', '2020-01-30 15:42:30');
-INSERT INTO `pembayaran` VALUES (36, 23, 3, 20000, NULL, 'lunas', '2020-02-02 17:09:06');
-INSERT INTO `pembayaran` VALUES (38, 23, 4, 25000, NULL, 'lunas', '2020-02-02 20:42:38');
-INSERT INTO `pembayaran` VALUES (39, 22, 5, 15000, NULL, 'lunas', '2020-02-01 16:55:53');
+INSERT INTO `pembayaran` VALUES (34, 23, 2, 15000, 'lunas', '2020-01-30 21:35:25');
+INSERT INTO `pembayaran` VALUES (35, 23, 1, 25000, 'lunas', '2020-01-30 15:42:30');
+INSERT INTO `pembayaran` VALUES (36, 23, 3, 20000, 'lunas', '2020-02-02 17:09:06');
+INSERT INTO `pembayaran` VALUES (38, 23, 4, 25000, 'lunas', '2020-02-02 20:42:38');
+INSERT INTO `pembayaran` VALUES (39, 22, 5, 15000, 'lunas', '2020-02-01 16:55:53');
 
 -- ----------------------------
 -- Table structure for pembelian_alat
@@ -994,8 +993,8 @@ INSERT INTO `pemesanan` VALUES (1, 'coba1', 1, '', '2020-01-30 21:35:00', 24000,
 INSERT INTO `pemesanan` VALUES (2, 'coba2', 2, '', '2020-01-30 21:35:25', 13000, 23, 'lunas');
 INSERT INTO `pemesanan` VALUES (3, 'coba3', 3, 'ini pembayaran dilakukan di kasir', '2020-02-02 21:49:42', 16000, 23, 'lunas');
 INSERT INTO `pemesanan` VALUES (4, 'coba4', 4, '', '2020-02-01 21:58:05', 13000, 23, 'lunas');
-INSERT INTO `pemesanan` VALUES (5, 'coba5', 5, '', '2020-02-01 22:53:18', 13000, 23, 'siapsaji_lunas');
-INSERT INTO `pemesanan` VALUES (6, 'coba5', 1, '', '2020-02-01 22:53:42', 0, 23, 'produksi_lunas');
+INSERT INTO `pemesanan` VALUES (5, 'coba5', 5, '', '2020-02-01 22:53:18', 13000, 23, 'lunas');
+INSERT INTO `pemesanan` VALUES (6, 'coba5', 1, '', '2020-02-01 22:53:42', 0, 23, 'siapsaji');
 
 -- ----------------------------
 -- Table structure for pemesanan_menu
@@ -1014,7 +1013,7 @@ CREATE TABLE `pemesanan_menu`  (
 -- ----------------------------
 -- Records of pemesanan_menu
 -- ----------------------------
-INSERT INTO `pemesanan_menu` VALUES (58, 1, 1, 1, 10000, 'diambil');
+INSERT INTO `pemesanan_menu` VALUES (58, 1, 1, 1, 10000, '');
 INSERT INTO `pemesanan_menu` VALUES (59, 1, 7, 2, 6000, '');
 INSERT INTO `pemesanan_menu` VALUES (60, 2, 3, 1, 10000, '');
 INSERT INTO `pemesanan_menu` VALUES (61, 2, 5, 1, 3000, '');
@@ -1040,7 +1039,7 @@ CREATE TABLE `pemesanan_paket`  (
 -- ----------------------------
 -- Records of pemesanan_paket
 -- ----------------------------
-INSERT INTO `pemesanan_paket` VALUES (35, 1, 1, 1, 8000, 'dikembalikan');
+INSERT INTO `pemesanan_paket` VALUES (35, 1, 1, 1, 8000, '');
 
 -- ----------------------------
 -- Table structure for pendapatan_kas_masuk

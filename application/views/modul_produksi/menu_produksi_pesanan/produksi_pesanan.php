@@ -37,18 +37,24 @@
     <section class="content">
       <div class="row">
         <div class="col-md-12">
+          <a href="<?=base_url();?>/modul_produksi/produksi_masakan" class="btn btn-primary" >Produksi masakan</a>
+          <br>
+          <br>
+        </div>
+        <div class="col-md-12">
+          <?php if($responce = $this->session->flashdata('success')): ?>
           <div class="alert alert-success alert-dismissible">
                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                  <h4><i class="icon fa fa-check"></i> Alert!</h4>
-                 <?php echo $user_data = $this->session->userdata('pesan'); ?>
-         </div>
-
-
+                 <?= $responce;?>
+          </div>
+          <?php endif;?>
        </div>
+
       <div class="col-md-8">
               <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Daftar Produksi Menu Masakan</h3>
+                  <h3 class="box-title">Daftar Pesanan Masakan</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -78,23 +84,24 @@
                           <td><?=$u->status;?></td>
                           <td>
 
-                            <?php 
+                            <?php
                             $prosuksi_to_siapsaji = $u->status;
+
                             if ($prosuksi_to_siapsaji == "produksi") {
                             ?>
                             <a class="btn btn-success btn-xs" href="<?php echo base_url('modul_produksi/konfirm_siap_saji/?id_pemesanan=');?><?=$u->id;?>">Konfirm siap saji</a>
 
-                            <a onClick="selesai(<?=$u->id;?>)" href="#" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Lihat Pesanan</a>
+
                             <?php
                             }elseif ($prosuksi_to_siapsaji == "produksi_lunas") {
                             ?>
                             <a class="btn btn-success btn-xs" href="<?php echo base_url('modul_produksi/konfirm_siap_saji_lunas/?id_pemesanan=');?><?=$u->id;?>">Konfirm siap saji</a>
 
-                            <a onClick="selesai(<?=$u->id;?>)" href="#" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Lihat Pesanan</a>
+
                             <?php
                             }
                             ?>
-
+                            <a href="<?=base_url();?>/modul_produksi/index_produksi_pesanan/?id_pemesanan=<?=$u->id;?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Lihat Pesanan</a>
                             </td>
                       </tr>
                       <?php
@@ -123,12 +130,48 @@
                   <thead>
                   <tr>
                     <th>No</th>
-  				          <th>menu</th>
-                    <th>jumlah pesan</th>
+  				          <th>Menu</th>
+                    <th>Jumlah pesan</th>
+                    <th>Status</th>
                     <th>Aksi</th>
                   </tr>
                   </thead>
                   <tbody id="data_pesanan_menu">
+                    <?php
+                     $no = 1;
+                     if(isset($_GET['id_pemesanan'])){
+                     $id_pemesanan=$_GET['id_pemesanan'];
+                     $sql = "SELECT pemesanan_menu.id,menu.id as 'id_menu',menu.menu,pemesanan_menu.jumlah_pesan,pemesanan_menu.subharga,pemesanan_menu.status FROM pemesanan_menu join menu on menu.id=pemesanan_menu.id_menu where pemesanan_menu.id_pemesanan='$id_pemesanan'";
+                     $data2=$this->db->query($sql)->result();
+                     foreach($data2 as $u2){
+                    ?>
+                    <tr>
+                        <td><?=$no;?></td>
+                        <td><?=$u2->menu;?></td>
+                        <td><?=$u2->jumlah_pesan;?></td>
+                        <td>
+                        <?php
+                        if($u2->status=="diambil"){
+                        ?>
+                        makanan diambil
+                        <?php
+                        }else if($u2->status=="dikembalikan"){
+                        ?>
+                        makanan tidak jadi diambil
+                        <?php
+                        }
+                        ?>
+                        </td>
+                        <td>
+                          <a href="<?=base_url();?>/modul_produksi/ambil_produksi_menu/?id_pemesanan_menu=<?=$u2->id;?>&&id_menu=<?=$u2->id_menu;?>&&jumlah_pesan=<?=$u2->jumlah_pesan;?>&&id_pemesanan=<?=$id_pemesanan;?>" class="btn btn-success btn-xs"><i class="fa   fa-check" ></i>Ambil maasakan</a> <br>
+                          <a href="<?=base_url();?>/modul_produksi/kembali_produksi_menu/?id_pemesanan_menu=<?=$u2->id;?>&&id_menu=<?=$u2->id_menu;?>&&jumlah_pesan=<?=$u2->jumlah_pesan;?>&&id_pemesanan=<?=$id_pemesanan;?>" class="btn btn-danger btn-xs"><i class="fa   fa-close" ></i>Kembalikan maasakan</a>
+                        </td>
+                    </tr>
+                    <?php
+                      $no++;
+                        }
+                      }
+                    ?>
                   </tbody>
                 </table>
               </div>
@@ -136,11 +179,6 @@
             </div>
             <!-- /.box -->
           </div>
-
-
-
-
-
 
           <div class="col-md-6">
             <div class="box">
@@ -153,12 +191,48 @@
                   <thead>
                   <tr>
                     <th>No</th>
-        				    <th>paket</th>
-                    <th>jumlah pesan</th>
+        				    <th>Paket</th>
+                    <th>Jumlah pesan</th>
+                    <th>Status</th>
                     <th>Aksi</th>
                   </tr>
                   </thead>
                   <tbody id="data_pesanan_paket">
+                    <?php
+                     $no = 1;
+                     if(isset($_GET['id_pemesanan'])){
+                     $id_pemesanan=$_GET['id_pemesanan'];
+                     $sql3 = "SELECT pemesanan_paket.id,paket.id as 'id_paket',paket.nama_paket,pemesanan_paket.jumlah_pesan,pemesanan_paket.subharga, pemesanan_paket.status FROM pemesanan_paket join paket on paket.id=pemesanan_paket.id_paket where pemesanan_paket.id_pemesanan='$id_pemesanan'";
+                     $data3=$this->db->query($sql3)->result();
+                      foreach($data3 as $u3){
+                    ?>
+                    <tr>
+                        <td><?=$no;?></td>
+                        <td><?=$u3->nama_paket;?></td>
+                        <td><?=$u3->jumlah_pesan;?></td>
+                        <td>
+                        <?php
+                        if($u3->status=="diambil"){
+                        ?>
+                        makanan diambil
+                        <?php
+                        }else if($u3->status=="dikembalikan"){
+                        ?>
+                        makanan tidak jadi diambil
+                        <?php
+                        }
+                        ?>
+                        </td>
+                        <td>
+                          <a href="<?=base_url();?>/modul_produksi/ambil_produksi_paket/?id_pemesanan_paket=<?=$u3->id;?>&&id_paket=<?=$u3->id_paket;?>&&jumlah_pesan=<?=$u3->jumlah_pesan;?>&&id_pemesanan=<?=$id_pemesanan;?>" class="btn btn-success btn-xs"><i class="fa   fa-check" ></i>Ambil maasakan</a> <br>
+                          <a href="<?=base_url();?>/modul_produksi/kembali_produksi_paket/?id_pemesanan_paket=<?=$u3->id;?>&&id_paket=<?=$u3->id_paket;?>&&jumlah_pesan=<?=$u3->jumlah_pesan;?>&&id_pemesanan=<?=$id_pemesanan;?>" class="btn btn-danger btn-xs"><i class="fa   fa-close" ></i>Kembalikan maasakan</a>
+                        </td>
+                    </tr>
+                    <?php
+                      $no++;
+                        }
+                      }
+                    ?>
                   </tbody>
                 </table>
               </div>
@@ -168,9 +242,6 @@
           </div>
             <!-- /.box -->
   	</div>
-
-
-
 
 
 		<div class="modal fade" id="modal-default">
