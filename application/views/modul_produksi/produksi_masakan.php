@@ -36,14 +36,16 @@
     <!-- Main content -->
     <section class="content">
   	<div class="row">
+      <?php if($user_data = $this->session->userdata('pesan')){ ?>
       <div class="col-md-12">
         <div class="alert alert-success alert-dismissible">
                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                <h4><i class="icon fa fa-check"></i> Alert!</h4>
-               <?php echo $user_data = $this->session->userdata('pesan'); ?>
+               <?php echo $user_data; ?>
        </div>
-
-
+       <?php
+        }
+        ?>
      </div>
       <div class="col-md-4">
             <!-- Horizontal Form -->
@@ -63,7 +65,7 @@
                              <?php
                   					 //$sql = "SELECT * FROM bahan_mentah join permintaan_bahan_detail on permintaan_bahan_detail.id_bahan_mentah=bahan_mentah.id";
                   					 $id_resto=$this->session->userdata('id_resto');
-									 $sql = "SELECT * FROM menu where id_resto='$id_resto'";
+									           $sql = "SELECT * FROM menu where id_resto='$id_resto'";
                   					 $data2=$this->db->query($sql)->result();
                                         foreach($data2 as $u2){
                                         ?>
@@ -150,8 +152,7 @@
                   <!-- form start -->
                   <form action="<?php echo base_url(). 'modul_produksi/aksi_tambah_bahan_mentah_produksi'; ?>" method="post" class="form-horizontal">
                     <div class="box-body">
-
-                        <input type="hidden" name="menu" class="form-control" id="inputEmail3" value="<?=$_GET['menu'];?>" >
+                      <input type="hidden" name="menu" class="form-control" id="inputEmail3" value="<?=$_GET['menu'];?>" >
                       <input type="hidden" name="id_produksi_masakan" class="form-control" id="inputEmail3" value="<?=$_GET['id'];?>" >
 
                       <div class="form-group">
@@ -171,16 +172,12 @@
                                    </select>
                                 </div>
                         </div>
-
-
-                      <div class="form-group">
-                               <label for="inputEmail3" class="col-sm-3 control-label">Jumlah bahan</label>
-                               <div class="col-sm-9">
-                                 <input type="text" name="jumlah_bahan" class="form-control" id="inputEmail3" >
-                               </div>
-                      </div>
-
-
+                        <div class="form-group">
+                                 <label for="inputEmail3" class="col-sm-3 control-label">Jumlah bahan</label>
+                                 <div class="col-sm-9">
+                                   <input type="text" name="jumlah_bahan" class="form-control" id="inputEmail3" >
+                                 </div>
+                        </div>
                       </div>
 
                     <!-- /.box-body -->
@@ -222,16 +219,12 @@
                                  </select>
                               </div>
                       </div>
-
-
-                    <div class="form-group">
-                             <label for="inputEmail3" class="col-sm-3 control-label">Jumlah bahan</label>
-                             <div class="col-sm-9">
-                               <input type="text" name="jumlah_bahan" class="form-control" id="inputEmail3" >
-                             </div>
-                    </div>
-
-
+                      <div class="form-group">
+                               <label for="inputEmail3" class="col-sm-3 control-label">Jumlah bahan</label>
+                               <div class="col-sm-9">
+                                 <input type="text" name="jumlah_bahan" class="form-control" id="inputEmail3" >
+                               </div>
+                      </div>
                     </div>
 
                     <!-- /.box-body -->
@@ -246,7 +239,13 @@
             <h3 class="box-title"><?php echo $_GET['menu'];?> MEMBUTUHKAN BAHAN <i class="fa  fa-hand-lizard-o" ></i></h3>
           </div>
           <div class="col-md-6">
-
+            <?php if($responce = $this->session->flashdata('success')): ?>
+            <div class="alert alert-success alert-dismissible">
+                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                   <h4><i class="icon fa fa-check"></i> Alert!</h4>
+                   <?= $responce;?>
+            </div>
+            <?php endif;?>
             <div class="box">
               <div class="box-header">
                 <h3 class="box-title">Bahan mentah</h3>
@@ -266,7 +265,7 @@
                   <tbody>
                     <?php
                     $no=1;
-                    $sql = "SELECT * FROM bahan_mentah_masakan join bahan_mentah on bahan_mentah.id=bahan_mentah_masakan.id_bahan_mentah where bahan_mentah_masakan.id_produksi_masakan='$id_produksi_masakan'";
+                    $sql = "SELECT bahan_mentah_masakan.id,bahan_mentah_masakan.id_produksi_masakan,bahan_mentah_masakan.id_bahan_mentah,bahan_mentah_masakan.jumlah,bahan_mentah.nama_bahan,bahan_mentah.satuan_besar,bahan_mentah.stok FROM bahan_mentah_masakan join bahan_mentah on bahan_mentah.id=bahan_mentah_masakan.id_bahan_mentah where bahan_mentah_masakan.id_produksi_masakan='$id_produksi_masakan'";
                 		$data2=$this->db->query($sql)->result();
                     foreach($data2 as $u){
                     ?>
@@ -275,7 +274,9 @@
                         <td><?= $u->nama_bahan;?></td>
                         <td><?= $u->jumlah;?></td>
                         <td><?= $u->satuan_besar;?></td>
-                      <td><a href="<?php echo base_url('modul_produksi/hapus_produksi_masakan_bahan_mentah/?');?>id=<?php echo $u->id ?>&&menu=<?=$_GET['menu'];?>&&jumlah=<?=$u->jumlah;?>&&id_produksi_masakan=<?=$id_produksi_masakan;?>&&id_bahan_mentah=<?=$u->id_bahan_mentah;?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Hapus bahan</a></td>
+                        <td>
+                        <a href="<?php echo base_url('modul_produksi/hapus_produksi_masakan_bahan_mentah/?');?>id=<?php echo $u->id ?>&&menu=<?=$_GET['menu'];?>&&jumlah=<?=$u->jumlah;?>&&id_produksi_masakan=<?=$id_produksi_masakan;?>&&id_bahan_mentah=<?=$u->id_bahan_mentah;?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Hapus bahan</a>
+                      </td>
                     </tr>
                     <?php
                     $no++;
@@ -290,7 +291,14 @@
           </div>
             <!-- /.box -->
 
-            <div class="col-md-6">
+          <div class="col-md-6">
+              <?php if($responce = $this->session->flashdata('success2')): ?>
+              <div class="alert alert-success alert-dismissible">
+                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                     <h4><i class="icon fa fa-check"></i> Alert!</h4>
+                     <?= $responce;?>
+              </div>
+              <?php endif;?>
               <div class="box">
                 <div class="box-header">
                   <h3 class="box-title">Bahan olahan</h3>
@@ -310,16 +318,16 @@
                     <tbody>
                       <?php
                       $no=1;
-                      $sql3 = "SELECT * FROM bahan_olahan_masakan join bahan_olahan on bahan_olahan.id=bahan_olahan_masakan.id_bahan_olahan where bahan_olahan_masakan.id_produksi_masakan='$id_produksi_masakan'";
+                      $sql3 = "SELECT bahan_olahan_masakan.id,bahan_olahan_masakan.id_produksi_masakan,bahan_olahan_masakan.id_bahan_olahan,bahan_olahan_masakan.jumlah,bahan_olahan.nama_bahan,bahan_olahan.satuan_kecil,bahan_olahan.stok FROM bahan_olahan_masakan join bahan_olahan on bahan_olahan.id=bahan_olahan_masakan.id_bahan_olahan where bahan_olahan_masakan.id_produksi_masakan='$id_produksi_masakan'";
                       $data3=$this->db->query($sql3)->result();
-                      foreach($data3 as $u){
+                      foreach($data3 as $u3){
                       ?>
                       <tr>
                           <td><?= $no;?></td>
-                          <td><?= $u->nama_bahan;?></td>
-                          <td><?= $u->jumlah;?></td>
-                          <td><?= $u->satuan_kecil;?></td>
-                          <td><a href="<?php echo base_url('modul_produksi/hapus_produksi_masakan_bahan_olahan/?');?>id=<?php echo $u->id ?>&&menu=<?=$_GET['menu'];?>&&jumlah=<?=$u->jumlah;?>&&id_produksi_masakan=<?=$id_produksi_masakan;?>&&id_bahan_olahan=<?=$u->id_bahan_olahan;?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Hapus bahan</a></td>
+                          <td><?= $u3->nama_bahan;?></td>
+                          <td><?= $u3->jumlah;?></td>
+                          <td><?= $u3->satuan_kecil;?></td>
+                          <td><a href="<?php echo base_url('modul_produksi/hapus_produksi_masakan_bahan_olahan/?');?>id=<?php echo $u3->id ?>&&menu=<?=$_GET['menu'];?>&&jumlah=<?=$u3->jumlah;?>&&id_produksi_masakan=<?=$id_produksi_masakan;?>&&id_bahan_olahan=<?=$u3->id_bahan_olahan;?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Hapus bahan</a></td>
                       </tr>
                       <?php
                       $no++;
@@ -335,33 +343,9 @@
             <?php
             }
             ?>
-  	</div>
+  	   </div>
 
 
-
-
-
-		<div class="modal fade" id="modal-default">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">EDIT</h4>
-              </div>
-              <div class="modal-body">
-
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-        <!-- /.modal -->
 
 
 
@@ -397,95 +381,8 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-      selesai();
+    
   });
-
-  function selesai() {
-    setTimeout(function() {
-      SelectDataPemesananMenu();
-      SelectDataPemesananPaket();
-      selesai();
-    }, 700);
-  }
-
-  SelectDataPemesananMenu();
-  function SelectDataPemesananMenu(){
-    $.ajax({
-      type:'POST',
-      url:'<?php echo base_url().'modul_produksi/data_pemesanan_menu' ?>',
-      dataType:'json',
-      success: function(data){
-        var no = 0;
-        var baris = '';
-        for(var i=0;i<data.length;i++){
-          no++;
-          baris +=
-                '<tr>'+
-                    '<td> '+ no +' </td>' +
-                    '<td> '+ data[i].menu +' </td>' +
-                    '<td> '+ data[i].jumlahPesan +' </td>' +
-                    '<td> '+'<a href="#myModalEdit" onclick="edit('+data[i].id+')" class="btn btn-success btn-xs" data-toggle="modal" > <i class="fa  fa-edit" ></i></a>'+
-                    '</td>'
-                +'<tr>';
-        }
-        $('#data_pesanan_menu').html(baris)
-      }
-    });
-  }
-
-
-
-
-
-
-
-  SelectDataPemesananPaket();
-  function SelectDataPemesananPaket(){
-    $.ajax({
-      type:'POST',
-      url:'<?php echo base_url().'modul_produksi/data_pemesanan_paket' ?>',
-      dataType:'json',
-      success: function(data){
-        var no = 0;
-        var baris = '';
-        for(var i=0;i<data.length;i++){
-          no++;
-          baris +=
-                '<tr>'+
-                    '<td> '+ no +' </td>' +
-                    '<td> '+ data[i].nama_paket +' </td>' +
-                    '<td> '+ data[i].jumlahPesanPaket +' </td>' +
-                    '<td> '+'<a href="#myModalEdit" onclick="edit('+data[i].id+')" class="btn btn-success btn-xs" data-toggle="modal" > <i class="fa  fa-edit" ></i></a>'+
-                    '</td>'
-                +'<tr>';
-        }
-        $('#data_pesanan_paket').html(baris)
-      }
-    });
-  }
-
-
-
-  function get_stok_bahan_mentah(id_bahan_mentah)[
-    $.ajax({
-              type  : 'POST',
-              url   : '<?php echo base_url(). 'modul_produksi/get_stok_bahan_mentah'; ?>',
-              data: {id_bahan_mentah:id_bahan_mentah} ,
-              async : false,
-              dataType : 'json',
-              success : function(data){
-
-                if(data.pesan=="gagal"){
-                  alert(data.pesan);
-                }else{
-                  alert(data.pesan);
-                }
-                update_pemesanan(id_pesan);
-
-              }
-
-          });
-  ]
 </script>
 
 </body>

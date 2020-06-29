@@ -733,31 +733,33 @@ class modul_produksi extends CI_Controller {
 			$jumlah = $this->input->get('jumlah');
 
 			$where = array('id' => $id_produksi_masakan);
-
 			$this->m_modul_produksi->hapus_data($where,'bahan_olahan_masakan');
-
 
 			$sql = "SELECT stok FROM stok_bahan_olahan_produksi where id_bahan_olahan='$id_bahan_olahan'";
 			$jumlah_bahan_olahan_masakan=$this->db->query($sql)->row();
-
 			$stok_bahan_olahan_produksi=$jumlah_bahan_olahan_masakan->stok+$jumlah;
 
 			$data4 = array(
 				'stok' => $stok_bahan_olahan_produksi,
 			);
-
 			$where4 = array(
 				'id_bahan_olahan' => $id_bahan_olahan
 			);
-
 			$this->m_modul_produksi->update_data($where4,$data4,'stok_bahan_olahan_produksi');
-			$data_session = array(
-				'pesan' => 'berhasil hapus data',
-			);
 
-			$this->session->set_userdata($data_session);
-			redirect('modul_produksi/produksi_masakan/?id='.$id_produksi_masakan.'&&menu='.$menu);
+			$sql2 = "DELETE FROM bahan_olahan_masakan WHERE id='$id_bahan_olahan_masakan'";
+			$query_delete=$this->db->query($sql2);
+
+			if($query_delete==true)
+			{
+			    $this->session->set_flashdata('success2', "berhasil menghapus daftar bahan olahan pada masakan");
+			}else{
+			    $this->session->set_flashdata('error2', "terjadi kesalahan pada aplikasi enghapus daftar bahan olahan pada masakan");
+			}
+
+			redirect('modul_produksi/produksi_masakan/?id='.$id_produksi_masakan.'&&menu='.$menu,'refresh');
 		}
+		
 		function hapus_produksi_masakan_bahan_mentah(){
 		  $id_bahan_mentah_masakan = $this->input->get('id');
 		  $id_bahan_mentah = $this->input->get('id_bahan_mentah');
@@ -766,9 +768,7 @@ class modul_produksi extends CI_Controller {
 		  $jumlah = $this->input->get('jumlah');
 
 		  $where = array('id' => $id_produksi_masakan);
-
 		  $this->m_modul_produksi->hapus_data($where,'bahan_mentah_masakan');
-
 
 		  $sql = "SELECT stok FROM stok_bahan_mentah_produksi where id_bahan_mentah='$id_bahan_mentah'";
 		  $jumlah_bahan_mentah_masakan=$this->db->query($sql)->row();
@@ -784,27 +784,27 @@ class modul_produksi extends CI_Controller {
 		  );
 
 		  $this->m_modul_produksi->update_data($where4,$data4,'stok_bahan_mentah_produksi');
-		  $data_session = array(
-		    'pesan' => 'berhasil hapus data',
-		  );
 
-		  $this->session->set_userdata($data_session);
-		  redirect('modul_produksi/produksi_masakan/?id='.$id_produksi_masakan.'&&menu='.$menu);
+			$sql2 = "DELETE FROM bahan_mentah_masakan WHERE id='$id_bahan_mentah_masakan'";
+			$query_delete=$this->db->query($sql2);
+
+			if($query_delete==true)
+			{
+			    $this->session->set_flashdata('success', "berhasil menghapus daftar bahan mentah pada masakan");
+			}else{
+			    $this->session->set_flashdata('error', "terjadi kesalahan pada aplikasi enghapus daftar bahan mentah pada masakan");
+			}
+
+			redirect('modul_produksi/produksi_masakan/?id='.$id_produksi_masakan.'&&menu='.$menu,'refresh');
 		}
 
 		function konfirm_siap_saji(){
 		  $id_pemesanan = $this->input->get('id_pemesanan');
-
-
 		  $where = array('id' => $id_pemesanan);
-
-
 
 		  $data = array(
 		    'status' => 'siapsaji',
 		  );
-
-
 
 		  $this->m_modul_produksi->update_data($where,$data,'pemesanan');
 		  $data_session = array(
@@ -817,17 +817,11 @@ class modul_produksi extends CI_Controller {
 
 		function konfirm_siap_saji_lunas(){
 			$id_pemesanan = $this->input->get('id_pemesanan');
-
-
 			$where = array('id' => $id_pemesanan);
-
-
 
 			$data = array(
 			'status' => 'siapsaji_lunas',
 			);
-
-
 
 			$this->m_modul_produksi->update_data($where,$data,'pemesanan');
 			$data_session = array(

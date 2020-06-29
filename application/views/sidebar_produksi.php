@@ -31,9 +31,9 @@
           </a>
           <ul class="treeview-menu">
 
-             <li><a href="<?php echo base_url('modul_produksi/produksi_masakan');?>"><i class="fa fa-circle-o"></i> Produksi makanan</a></li>
+             <li><a href="<?php echo base_url('modul_produksi/produksi_masakan');?>"><i class="fa fa-circle-o"></i> Produksi Menu</a></li>
             <li><a href="<?php echo base_url('modul_resto/menu_masakan');?>"><i class="fa fa-circle-o"></i> Menu</a></li>
-            <li><a href="<?php echo base_url('modul_resto/paket');?>"><i class="fa fa-circle-o"></i> Paket</a></li>
+            <li><a href="<?php echo base_url('modul_resto/paket');?>"><i class="fa fa-circle-o"></i>Paket</a></li>
           </ul>
         </li>
       </ul>
