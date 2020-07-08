@@ -66,22 +66,19 @@
               <div class="box-header with-border">
                 <h3 class="box-title">Update list Bahan Mentah<i class="fa  fa-hand-lizard-o" ></i></h3>
               </div>
-              <!-- /.box-header -->
-              <!-- form start -->
               <form action="<?php echo base_url(). 'modul_logistik/aksi_kirim_bahan_mentah'; ?>" method="post" class="form-horizontal">
                 <div class="box-body">
                 <input type="hidden" value="<?php echo $id; ?>"  name="id" class="form-control" id="inputEmail3" >
                 <input type="hidden" value="<?php echo $id_permintaan; ?>"  name="id_permintaan" class="form-control" id="inputEmail3" >
                 <input type="hidden" value="<?php echo $data4->jumlah_permintaan; ?>" name="jumlah_permintaan" class="form-control" id="inputEmail3" >
                 <input type="hidden" value="<?php echo $data4->id_bahan_mentah; ?>" name="id_bahan_mentah" class="form-control" id="inputEmail3" >
-				<input type="hidden" value="<?php echo $data4->jumlah_dikembalikan; ?>" name="jumlah_dikembalikan" class="form-control" id="inputEmail3" >
+				        <input type="hidden" value="<?php echo $data4->jumlah_dikembalikan; ?>" name="jumlah_dikembalikan" class="form-control" id="inputEmail3" >
                 <!-- <div class="form-group">
                          <label for="inputEmail3" class="col-sm-4 control-label">Jumlah Permintaan</label>
                          <div class="col-sm-8">
                            <input type="text" value="<?php echo $data4->jumlah_permintaan; ?>" name="jumlah_permintaan" class="form-control" id="inputEmail3" >
                          </div>
                 </div> -->
-
                 <div class="form-group">
                          <label for="inputEmail3" class="col-sm-4 control-label">Jumlah Dikirim</label>
                          <div class="col-sm-8">
@@ -90,14 +87,10 @@
                 </div>
 
 
-
                 </div>
-
-                <!-- /.box-body -->
                 <div class="box-footer">
                   <button type="submit" class="btn btn-info pull-right">Update</button>
                 </div>
-                <!-- /.box-footer -->
               </form>
             </div>
   		</div>
@@ -111,7 +104,6 @@
               <div class="box-header">
                 <h3 class="box-title">List Permintaan Bahan Mentah</h3>
               </div>
-              <!-- /.box-header -->
               <div class="box-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
@@ -140,12 +132,10 @@
                         <td><?=$u->jumlah_dikembalikan;?></td>
                         <td><?=$u->status;?></td>
                         <td>
-
                           <a href="<?php echo base_url('modul_logistik/lihat_bahan_mentah/?');?>id_bahan_mentah=<?php echo $u->id_bahan_mentah ?>&&edit=edit&&id_permintaan=<?=$_GET['id_permintaan'];?>&&id=<?php echo $u->id; ?>&&jumlah_dikirim=<?php echo $u->jumlah_dikirim; ?>&&jumlah_permintaan=<?php echo $u->jumlah_permintaan; ?>&&jumlah_dikembalikan=<?=$u->jumlah_dikembalikan;?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Input Jumlah Kirim</a><br>
                           <!-- <a href="<?php echo base_url('modul_logistik/hapus_list_bahan_mentah/?');?>id=<?php echo $u->id ?>&&id_permintaan=<?=$_GET['id_permintaan'];?>" class="btn btn-danger btn-xs"><i class="fa   fa-close" ></i>Hapus</a> -->
 
                           <!-- <a href="<?php echo base_url('modul_logistik/aksi_kirim_ke_produksi_bahan_mentah/?');?>id=<?php echo $u->id ?>&&id_permintaan=<?=$_GET['id_permintaan'];?>&&id_bahan_mentah=<?=$u->id_bahan_mentah;?>&&jumlah_bahan_dikirim=<?=$u->jumlah_dikirim;?>" class="btn btn-success btn-xs"><i class="fa   fa-edit" ></i>Kurangi Stok Bahan</a> -->
-
                         </td>
                     </tr>
                     <?php
@@ -156,9 +146,7 @@
                   </tbody>
                 </table>
               </div>
-              <!-- /.box-body -->
             </div>
-            <!-- /.box -->
           </div>
 
 

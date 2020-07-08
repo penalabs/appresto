@@ -180,7 +180,7 @@
   				          <th>Jumlah permintaan</th>
                     <th>Jumlah dikirm</th>
                     <th>Jumlah dikembalikan</th>
-                    <th>Status</th>
+                    <th>Sesuai pengiriman ?</th>
                     <th>Aksi</th>
                   </tr>
                   </thead>
@@ -201,7 +201,7 @@
                           <a href="<?php echo base_url('modul_produksi/lihat_bahan_olahan/?');?>id_bahan_olahan=<?php echo $u->id_bahan_olahan ?>&&edit=edit&&id_permintaan=<?=$_GET['id_permintaan'];?>&&id=<?php echo $u->id; ?>&&jumlah_dikirim=<?php echo $u->jumlah_dikirim; ?>&&jumlah_permintaan=<?php echo $u->jumlah_permintaan; ?>" class="btn btn-primary btn-xs"><i class="fa   fa-edit" ></i>Return</a><br>
                           <a href="<?php echo base_url('modul_produksi/hapus_list_bahan_olahan/?');?>id=<?php echo $u->id ?>&&id_permintaan=<?=$_GET['id_permintaan'];?>" class="btn btn-danger btn-xs"><i class="fa   fa-close" ></i>Hapus</a>
                           <?php
-                          if($u->status!="diterima"){
+                          if($u->status_bahan!="diterima"){
                            ?>
                           <a href="<?php echo base_url('modul_produksi/terima_list_bahan_olahan/?');?>id=<?php echo $u->id ?>&&id_permintaan=<?=$_GET['id_permintaan'];?>&&id_bahan_olahan=<?=$u->id_bahan_olahan;?>&&jumlah_bahan_diterima=<?=$u->jumlah_dikirim;?>" class="btn btn-success btn-xs"><i class="fa   fa-close" ></i>Terima</a>
                           <?php

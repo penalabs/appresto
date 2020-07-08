@@ -11,7 +11,7 @@
  Target Server Version : 100131
  File Encoding         : 65001
 
- Date: 09/07/2020 00:49:53
+ Date: 08/07/2020 20:06:47
 */
 
 SET NAMES utf8mb4;
@@ -35,8 +35,8 @@ CREATE TABLE `bahan_mentah`  (
 -- ----------------------------
 -- Records of bahan_mentah
 -- ----------------------------
-INSERT INTO `bahan_mentah` VALUES (1, '1', 3, 'ayam kampung', 'ekor', 28, 1);
-INSERT INTO `bahan_mentah` VALUES (2, '1', 3, 'tomat', 'kg', 8, 1);
+INSERT INTO `bahan_mentah` VALUES (1, '1', 3, 'ayam kampung', 'ekor', 30, 1);
+INSERT INTO `bahan_mentah` VALUES (2, '1', 3, 'tomat', 'kg', 9, 1);
 INSERT INTO `bahan_mentah` VALUES (3, '1', 3, 'tepung', 'kg', 7, 0);
 
 -- ----------------------------
@@ -49,13 +49,12 @@ CREATE TABLE `bahan_mentah_masakan`  (
   `id_bahan_mentah` int(11) NOT NULL,
   `jumlah` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of bahan_mentah_masakan
 -- ----------------------------
 INSERT INTO `bahan_mentah_masakan` VALUES (4, 1, 1, 1);
-INSERT INTO `bahan_mentah_masakan` VALUES (6, 6, 2, 1);
 
 -- ----------------------------
 -- Table structure for bahan_olahan
@@ -74,7 +73,7 @@ CREATE TABLE `bahan_olahan`  (
 -- ----------------------------
 -- Records of bahan_olahan
 -- ----------------------------
-INSERT INTO `bahan_olahan` VALUES (1, 3, 'ayam kampung paha', 'buah', 6, 1);
+INSERT INTO `bahan_olahan` VALUES (1, 3, 'ayam kampung paha', 'buah', 7, 1);
 INSERT INTO `bahan_olahan` VALUES (3, 3, 'ayam kampung dada', 'buah', 1, 1);
 
 -- ----------------------------
@@ -87,13 +86,12 @@ CREATE TABLE `bahan_olahan_masakan`  (
   `id_bahan_olahan` int(11) NOT NULL,
   `jumlah` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of bahan_olahan_masakan
 -- ----------------------------
 INSERT INTO `bahan_olahan_masakan` VALUES (1, 1, 1, 1);
-INSERT INTO `bahan_olahan_masakan` VALUES (2, 6, 1, 1);
 
 -- ----------------------------
 -- Table structure for biaya_lain
@@ -341,15 +339,13 @@ CREATE TABLE `detail_paket`  (
   `total_harga` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `diskon` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of detail_paket
 -- ----------------------------
+INSERT INTO `detail_paket` VALUES (11, 4, 1, 1, '10000', '');
 INSERT INTO `detail_paket` VALUES (12, 1, 1, 1, '10000', '');
-INSERT INTO `detail_paket` VALUES (13, 1, 3, 1, '10000', '');
-INSERT INTO `detail_paket` VALUES (15, 4, 8, 1, '1000', '');
-INSERT INTO `detail_paket` VALUES (22, 5, 1, 1, '15000', '');
 
 -- ----------------------------
 -- Table structure for detail_pembelian_alat
@@ -783,12 +779,12 @@ CREATE TABLE `menu`  (
 -- ----------------------------
 INSERT INTO `menu` VALUES (1, 4, 'Ayam Geprek', 'ss2.PNG', 15000, 'tersedia', 3, 'insert');
 INSERT INTO `menu` VALUES (2, 4, 'Jamur Kripsi', 'ss5.PNG', 10000, 'tersedia', 0, 'insert');
-INSERT INTO `menu` VALUES (3, 4, 'Es Teh Anget', 'woodz.PNG', 10000, 'tersedia', 9, 'insert');
+INSERT INTO `menu` VALUES (3, 4, 'Es Teh Anget', 'woodz.PNG', 10000, 'tersedia', 10, 'insert');
 INSERT INTO `menu` VALUES (4, 4, 'Kopi Susu', 'kopihitam.jpg', 3000, 'habis', 6, 'insert');
 INSERT INTO `menu` VALUES (5, 4, 'Nasi Goreng', 'proyek.PNG', 3000, 'tersedia', 6, 'insert');
 INSERT INTO `menu` VALUES (6, 4, 'Tahu Kripsi', 'ss7.PNG', 6000, 'tersedia', 1, 'insert');
 INSERT INTO `menu` VALUES (7, 1, 'teh pucuk', 'default.jpg', 3000, 'tersedia', 1, 'insert');
-INSERT INTO `menu` VALUES (8, 4, 'es degan', 'ss4.PNG', 1000, 'tersedia', 3, 'insert');
+INSERT INTO `menu` VALUES (8, 4, 'es degan', 'ss4.PNG', 1000, 'tersedia', 0, 'insert');
 
 -- ----------------------------
 -- Table structure for omset_investasi_owner
@@ -870,7 +866,7 @@ CREATE TABLE `paket`  (
   `harga` varchar(500) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `mode` enum('insert','draft') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of paket
@@ -878,8 +874,6 @@ CREATE TABLE `paket`  (
 INSERT INTO `paket` VALUES (1, 4, 'Paket Bom', 55, 'tersedia', 'images1.jpg', '8000', 'insert');
 INSERT INTO `paket` VALUES (2, 4, 'Paket Granat', 10, 'tersedia', 'ss.PNG', '20000', 'insert');
 INSERT INTO `paket` VALUES (3, 4, 'Paket asoy', 5, 'habis', 'nasibebek.jpg', '30000', 'insert');
-INSERT INTO `paket` VALUES (4, 4, 'PAKET ROKET', 1, 'tersedia', 'Captureerte.PNG', '80000', 'insert');
-INSERT INTO `paket` VALUES (5, 4, 'Paket Ayam Gejoh', 1, 'tersedia', 'ss1.PNG', '1000', 'insert');
 
 -- ----------------------------
 -- Table structure for pembayaran
@@ -1009,14 +1003,14 @@ CREATE TABLE `pemesanan_menu`  (
   `id_menu` int(11) NOT NULL,
   `jumlah_pesan` int(11) NOT NULL,
   `subharga` int(11) NOT NULL,
-  `status` enum('','diambil','dikembalikan') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `status` varchar(40) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 66 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of pemesanan_menu
 -- ----------------------------
-INSERT INTO `pemesanan_menu` VALUES (58, 1, 1, 1, 10000, '');
+INSERT INTO `pemesanan_menu` VALUES (58, 1, 1, 1, 10000, 'diambil');
 INSERT INTO `pemesanan_menu` VALUES (59, 1, 7, 2, 6000, '');
 INSERT INTO `pemesanan_menu` VALUES (60, 2, 3, 1, 10000, '');
 INSERT INTO `pemesanan_menu` VALUES (61, 2, 5, 1, 3000, '');
@@ -1035,14 +1029,14 @@ CREATE TABLE `pemesanan_paket`  (
   `id_paket` int(11) NOT NULL,
   `jumlah_pesan` int(11) NOT NULL,
   `subharga` int(11) NOT NULL,
-  `status` enum('','diambil','dikembalikan') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `status` varchar(40) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 36 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of pemesanan_paket
 -- ----------------------------
-INSERT INTO `pemesanan_paket` VALUES (35, 1, 1, 1, 8000, 'diambil');
+INSERT INTO `pemesanan_paket` VALUES (35, 1, 1, 1, 8000, 'dikembalikan');
 
 -- ----------------------------
 -- Table structure for pendapatan_kas_masuk
@@ -1185,16 +1179,14 @@ CREATE TABLE `pengiriman_bahan_mentah`  (
   `jumlah_dikirim` int(11) NOT NULL,
   `jumlah_dikembalikan` int(11) NOT NULL,
   `status` enum('sesuai','tidak') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `status_bahan` enum('diterima','belum diterima') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of pengiriman_bahan_mentah
 -- ----------------------------
-INSERT INTO `pengiriman_bahan_mentah` VALUES (0, 5, 2, '2020-07-08', 1, 1, 0, 'sesuai', 'belum diterima');
-INSERT INTO `pengiriman_bahan_mentah` VALUES (1, 3, 1, '2019-10-22', 2, 4, 2, 'tidak', NULL);
-INSERT INTO `pengiriman_bahan_mentah` VALUES (2, 4, 1, '2020-07-08', 1, 1, 0, '', 'diterima');
+INSERT INTO `pengiriman_bahan_mentah` VALUES (1, 3, 1, '2019-10-22', 2, 4, 2, 'tidak');
+INSERT INTO `pengiriman_bahan_mentah` VALUES (2, 4, 1, '2020-06-14', 1, 0, 0, 'tidak');
 
 -- ----------------------------
 -- Table structure for pengiriman_bahan_olahan
@@ -1209,16 +1201,15 @@ CREATE TABLE `pengiriman_bahan_olahan`  (
   `jumlah_dikirim` int(11) NOT NULL,
   `jumlah_dikembalikan` int(11) NOT NULL,
   `status` enum('sesuai','tidak','diterima') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `status_bahan` enum('diterima','belum diterima') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of pengiriman_bahan_olahan
 -- ----------------------------
-INSERT INTO `pengiriman_bahan_olahan` VALUES (2, 2, 3, '2019-10-22', 4, 4, 0, 'diterima', NULL);
-INSERT INTO `pengiriman_bahan_olahan` VALUES (4, 1, 3, '2019-10-25', 1, 1, 0, 'sesuai', NULL);
-INSERT INTO `pengiriman_bahan_olahan` VALUES (5, 3, 1, '2020-06-14', 1, 1, 0, 'sesuai', 'diterima');
+INSERT INTO `pengiriman_bahan_olahan` VALUES (2, 2, 3, '2019-10-22', 4, 4, 0, 'diterima');
+INSERT INTO `pengiriman_bahan_olahan` VALUES (4, 1, 3, '2019-10-25', 1, 1, 0, 'sesuai');
+INSERT INTO `pengiriman_bahan_olahan` VALUES (5, 3, 1, '2020-06-14', 1, 1, 0, 'sesuai');
 
 -- ----------------------------
 -- Table structure for penyusutan_investasi_cabang
@@ -1306,14 +1297,13 @@ CREATE TABLE `permintaan_bahan_mentah`  (
   `tanggal` date NOT NULL,
   `status` enum('permintaan','pengiriman','diterima') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of permintaan_bahan_mentah
 -- ----------------------------
 INSERT INTO `permintaan_bahan_mentah` VALUES (3, 1, 3, 'permintaan 3', '2019-11-04', 'pengiriman');
-INSERT INTO `permintaan_bahan_mentah` VALUES (4, 4, 20, 'permintaan 1', '2020-06-30', 'pengiriman');
-INSERT INTO `permintaan_bahan_mentah` VALUES (5, 4, 20, 'permintaan 2', '2020-07-01', 'permintaan');
+INSERT INTO `permintaan_bahan_mentah` VALUES (4, 4, 20, 'permintaan 1', '2020-06-30', 'permintaan');
 
 -- ----------------------------
 -- Table structure for permintaan_bahan_olahan
@@ -1383,7 +1373,7 @@ CREATE TABLE `produksi_masakan`  (
   `tanggal` date NOT NULL,
   `jumlah_masakan` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of produksi_masakan
@@ -1393,7 +1383,6 @@ INSERT INTO `produksi_masakan` VALUES (2, 4, 2, '2019-10-14', 1);
 INSERT INTO `produksi_masakan` VALUES (3, 4, 2, '2020-01-03', 1);
 INSERT INTO `produksi_masakan` VALUES (4, 4, 4, '2020-01-03', 1);
 INSERT INTO `produksi_masakan` VALUES (5, 4, 6, '2020-01-03', 1);
-INSERT INTO `produksi_masakan` VALUES (6, 4, 8, '2020-07-08', 5);
 
 -- ----------------------------
 -- Table structure for resto
@@ -1432,8 +1421,9 @@ CREATE TABLE `stok_bahan_mentah_produksi`  (
 -- ----------------------------
 -- Records of stok_bahan_mentah_produksi
 -- ----------------------------
-INSERT INTO `stok_bahan_mentah_produksi` VALUES (1, 1, 27);
-INSERT INTO `stok_bahan_mentah_produksi` VALUES (2, 2, 59);
+INSERT INTO `stok_bahan_mentah_produksi` VALUES (1, 1, 21);
+INSERT INTO `stok_bahan_mentah_produksi` VALUES (2, 2, 60);
+INSERT INTO `stok_bahan_mentah_produksi` VALUES (3, 3, 9);
 
 -- ----------------------------
 -- Table structure for stok_bahan_olahan_produksi

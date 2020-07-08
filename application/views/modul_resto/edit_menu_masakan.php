@@ -54,12 +54,7 @@
                           <input type="text" class="form-control" value="<?php echo $u2->menu;?>"  name="nama_menu">
                         </div>
                       </div>
-      				<div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Stok</label>
-                        <div class="col-sm-10">
-                          <input type="number" class="form-control" value="<?php echo $u2->stok;?>" name="porsi">
-                        </div>
-              </div>
+      			
                 <div class="form-group">
                   <label for="inputPassword3" class="col-sm-2 control-label">Status</label>
                   <div class="col-sm-10">
