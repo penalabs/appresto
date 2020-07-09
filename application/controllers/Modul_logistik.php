@@ -136,86 +136,131 @@ class modul_logistik extends CI_Controller {
 
 		$this->load->view('modul_logistik/produksi_bahan/produksi_bahan_olahan');
 	}
-	public function rubah_status(){
+	public function rubah_status_produksi_bahan_olahan(){
 		$id = $this->input->get('id');
-		$status = $this->input->get('status');
-
-		if($status==1){
-			$status=0;
-		}elseif($status==0){
-			$status=1;
-		}
 		$data = array(
-			'status' => $status,
+			'status' => 'selesai produksi',
 		);
 
 		$where = array(
 			'id' => $id
 		);
 
-		$this->m_modul_logistik->update_data($where,$data,'bahan_mentah');
+		$this->m_modul_logistik->update_data($where,$data,'produksi_bahan_olahan');
 		redirect('modul_logistik/produksi_bahan_olahan');
 	}
-	public function rubah_status_bahan_olahan(){
+
+	public function hapus_produksi_bahan_olahan(){
 		$id = $this->input->get('id');
-		$status = $this->input->get('status');
-
-		if($status==1){
-			$status=0;
-		}elseif($status==0){
-			$status=1;
+		$sql2 = "SELECT id FROM produksi_bahan_olahan.detail where id_produksi_bahan_olahan='$id'";
+		$cek_data=$this->db->query($sql2)->num_rows();
+		if($cek_data<=0){
+		$sql2 = "DELETE FROM produksi_bahan_olahan where id='$id'";
+		$status_delete=$this->db->query($sql2);
 		}
-		$data = array(
-			'status' => $status,
-		);
-
-		$where = array(
-			'id' => $id
-		);
-
-		$this->m_modul_logistik->update_data($where,$data,'bahan_olahan');
 		redirect('modul_logistik/produksi_bahan_olahan');
 	}
-	function aksi_produksi_bahan_olahan(){
 
+	// public function rubah_status_bahan_olahan(){
+	// 	$id = $this->input->get('id');
+	// 	$status = $this->input->get('status');
+	//
+	// 	if($status==1){
+	// 		$status=0;
+	// 	}elseif($status==0){
+	// 		$status=1;
+	// 	}
+	// 	$data = array(
+	// 		'status' => $status,
+	// 	);
+	//
+	// 	$where = array(
+	// 		'id' => $id
+	// 	);
+	//
+	// 	$this->m_modul_logistik->update_data($where,$data,'bahan_olahan');
+	// 	redirect('modul_logistik/produksi_bahan_olahan');
+	// }
+ function aksi_produksi_bahan_olahan(){
+		$id_logistik=$this->session->userdata('id');
+		$id_produksi_bahan_olahan = $this->input->post('id_produksi_bahan_olahan');
 		$id_bahan_mentah = $this->input->post('id_bahan_mentah');
 		$id_bahan_olahan = $this->input->post('id_bahan_olahan');
 		$jumlah = $this->input->post('jumlah');
-
+		$tanggal=date("Y-m-d");
 
 		$data = array(
-			'id_bahan_mentah' => $id_bahan_mentah,
+			'id_logistik' => $id_logistik,
+			'id_produksi_bahan_olahan' => $id_produksi_bahan_olahan,
 			'id_bahan_olahan' => $id_bahan_olahan,
-			'jumlah' => $jumlah
+			'jumlah_bahan_olahan' => $jumlah,
+			'tanggal' => $tanggal,
 			);
-		$this->m_modul_logistik->input_data($data,'produksi_bahan_olahan');
+		$this->m_modul_logistik->input_data($data,'produksi_bahan_olahan_detail');
 
+		// $sql = "SELECT sum(jumlah_bahan_olahan) as jum_bahan_olahan FROM produksi_bahan_olahan where id_produksi_bahan_olahan='$id_produksi_bahan_olahan'";
+		// $hasiljumlahbahanolahan=$this->db->query($sql)->row();
+		// $jum_bahan_olahan=$hasiljumlahbahanolahan->jum_bahan_olahan;
 
+		$sql2 = "SELECT stok FROM bahan_olahan where id='$id_bahan_olahan'";
+		$stok_bahan_olahan=$this->db->query($sql2)->row();
+		$cek_stok_bahan_olahan=$stok_bahan_olahan->stok;
 
-		$sql = "SELECT sum(jumlah) as jum_bahan_olahan FROM produksi_bahan_olahan where id_bahan_mentah='$id_bahan_mentah' and id_bahan_olahan='$id_bahan_olahan'";
-		$hasiljumlah=$this->db->query($sql)->row();
-		$jum_bahan_olahan=$hasiljumlah->jum_bahan_olahan;
+		$stok_akhir_bahan_olahan=(int)$cek_stok_bahan_olahan+(int)$jumlah;
 
 		// update stok bahan olahan
 		$data2 = array(
-			'stok' => $jum_bahan_olahan,
+			'stok' => $stok_akhir_bahan_olahan,
 		);
-
 		$where2 = array(
 			'id' => $id_bahan_olahan
 		);
 
 		$this->m_modul_logistik->update_data($where2,$data2,'bahan_olahan');
+		redirect('modul_logistik/produksi_bahan_olahan?id='.$id_produksi_bahan_olahan.'&&id_bahan_mentah='.$id_bahan_mentah);
+	}
+
+	function aksi_hapus_produksi_bahan_olahan(){
+		$id_logistik=$this->session->userdata('id');
+		$id_produksi_bahan_olahan_detail = $this->input->get('id_produksi_bahan_olahan_detail');
+		$id_produksi_bahan_olahan = $this->input->get('id');
+		$id_bahan_mentah= $this->input->get('id_bahan_mentah');
+		$id_bahan_olahan = $this->input->get('id_bahan_olahan');
+		$jumlah_bahan_olahan = $this->input->get('jumlah_bahan_olahan');
 
 
-		redirect('modul_logistik/produksi_bahan_olahan');
+		$sql2 = "DELETE from produksi_bahan_olahan_detail where id='$id_produksi_bahan_olahan_detail'";
+		$delete_status=$this->db->query($sql2);
+
+		// $sql = "SELECT sum(jumlah_bahan_olahan) as jum_bahan_olahan FROM produksi_bahan_olahan where id_produksi_bahan_olahan='$id_produksi_bahan_olahan'";
+		// $hasiljumlahbahanolahan=$this->db->query($sql)->row();
+		// $jum_bahan_olahan=$hasiljumlahbahanolahan->jum_bahan_olahan;
+
+		$sql2 = "SELECT stok FROM bahan_olahan where id='$id_bahan_olahan'";
+		$stok_bahan_olahan=$this->db->query($sql2)->row();
+		$cek_stok_bahan_olahan=$stok_bahan_olahan->stok;
+
+		$stok_akhir_bahan_olahan=(int)$cek_stok_bahan_olahan-(int)$jumlah_bahan_olahan;
+
+		// update stok bahan olahan
+		$data2 = array(
+			'stok' => $stok_akhir_bahan_olahan,
+		);
+		$where2 = array(
+			'id' => $id_bahan_olahan
+		);
+
+		$this->m_modul_logistik->update_data($where2,$data2,'bahan_olahan');
+		redirect('modul_logistik/produksi_bahan_olahan?id='.$id_produksi_bahan_olahan.'&&id_bahan_mentah='.$id_bahan_mentah);
 	}
 
 
 	function aksi_update_stok_bahan_mentah(){
 		// update stok bahan mentah
+		$id_logistik=$this->session->userdata('id');
 		$id_bahan_mentah = $this->input->post('id_bahan_mentah');
 		$stok_bahan_mentah = $this->input->post('stok_bahan_mentah');
+		$tanggal=date("Y-m-d");
 
 		$sql2 = "SELECT stok FROM bahan_mentah where id='$id_bahan_mentah'";
 		$cek_stok_bahan_mentah=$this->db->query($sql2)->row();
@@ -224,12 +269,14 @@ class modul_logistik extends CI_Controller {
 		$data3 = array(
 			'stok' => $pengurangan_bahan_mentah,
 		);
-
 		$where3 = array(
 			'id' => $id_bahan_mentah
 		);
-
 		$this->m_modul_logistik->update_data($where3,$data3,'bahan_mentah');
+
+		$sql2 = "INSERT INTO produksi_bahan_olahan VALUES('','$id_logistik','$id_bahan_mentah','$stok_bahan_mentah','$tanggal','produksi ')";
+		$insert_status=$this->db->query($sql2);
+
 		redirect('modul_logistik/produksi_bahan_olahan');
 	}
 
@@ -629,8 +676,8 @@ class modul_logistik extends CI_Controller {
 	  $id_bahan_olahan2=$hasilsql2->id_bahan_olahan;
 	  if($jumlah_dikirim>$jumlah_dikirim2){
 		$stokku=(int)$jumlah_dikirim-(int)$jumlah_dikirim2;
-		
-		
+
+
 		$data5=$this->db->query("SELECT stok FROM bahan_olahan WHERE id='$id_bahan_olahan2'")->row();
 		echo $stok_bahan_olahan2=$data5->stok;
 
@@ -646,7 +693,7 @@ class modul_logistik extends CI_Controller {
 	  }else if($jumlah_dikirim<$jumlah_dikirim2){
 		  echo "posisi 2";
 		$stokku=$jumlah_dikirim2-$jumlah_dikirim;
-		  
+
 		$sql5 = "SELECT stok FROM bahan_olahan WHERE id='$id_bahan_olahan2'";
 		$data5=$this->db->query($sql5)->row();
 		echo $stok_bahan_olahan2=$data5->stok;
@@ -779,14 +826,14 @@ class modul_logistik extends CI_Controller {
 	  $batas_kembali=(int)$jumlah_dikirim-(int)$jumlah_permintaan;
 
 	  $tanggal=date('Y-m-d');
-		
+
 	  $hasilsql2=$this->db->query("select * from pengiriman_bahan_mentah where id='$id_pengiriman'")->row();
 	  $jumlah_dikirim2=$hasilsql2->jumlah_dikirim;
 	  $id_bahan_mentah2=$hasilsql2->id_bahan_mentah;
 	  if($jumlah_dikirim>$jumlah_dikirim2){
 		$stokku=(int)$jumlah_dikirim-(int)$jumlah_dikirim2;
-		
-		
+
+
 		$data5=$this->db->query("SELECT stok FROM bahan_mentah WHERE id='$id_bahan_mentah2'")->row();
 		echo $stok_bahan_mentah2=$data5->stok;
 
@@ -802,7 +849,7 @@ class modul_logistik extends CI_Controller {
 	  }else if($jumlah_dikirim<$jumlah_dikirim2){
 		  echo "posisi 2";
 		$stokku=$jumlah_dikirim2-$jumlah_dikirim;
-		  
+
 		$sql5 = "SELECT stok FROM bahan_mentah WHERE id='$id_bahan_mentah2'";
 		$data5=$this->db->query($sql5)->row();
 		echo $stok_bahan_mentah2=$data5->stok;
@@ -817,7 +864,7 @@ class modul_logistik extends CI_Controller {
 				 $this->session->set_userdata($data_session);
 			 }
 	  }
-	  
+
 	  if((int)$jumlah_permintaan!=(int)$jumlah_dikirim){
 			 $sql = "UPDATE pengiriman_bahan_mentah SET jumlah_dikirim = '$jumlah_dikirim', status='tidak',tanggal_pengiriman='$tanggal' WHERE id='$id_pengiriman'";
 			 if($this->db->query($sql)){
@@ -826,7 +873,7 @@ class modul_logistik extends CI_Controller {
 				 );
 
 				 $this->session->set_userdata($data_session);
-				
+
 			 }
 	  }else{
 	    $sql = "UPDATE pengiriman_bahan_mentah SET jumlah_dikirim = '$jumlah_dikirim', status='sesuai',tanggal_pengiriman='$tanggal' WHERE id='$id_pengiriman'";
@@ -836,11 +883,11 @@ class modul_logistik extends CI_Controller {
 	      );
 
 	      $this->session->set_userdata($data_session);
-	      
+
 	    }
 	  }
-	  
-	  
+
+
 	  redirect('modul_logistik/lihat_bahan_mentah/?id_permintaan='.$id_permintaan);
 	}
 	function aksi_kirim_ke_produksi_bahan_mentah(){
