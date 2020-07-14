@@ -80,7 +80,6 @@
             <div class="box-body">
 
                 <div class="box-body">
-
                 <div class="form-group">
                          <label for="inputEmail3" class="col-sm-4 control-label">Nama Bahan</label>
                          <div class="col-sm-8">
@@ -105,8 +104,6 @@
                            <input type="number" name="qty" class="form-control" id="qty" >
                          </div>
                 </div>
-
-
                 </div>
 
                 <!-- /.box-body -->
@@ -379,7 +376,7 @@
                     '<td> '+ data[i].harga_beli +' </td>' +
                     '<td> '+ data[i].jumlah +' </td>' +
                     '<td> '+ data[i].jumlah*data[i].harga_beli +' </td>' +
-                    '<td> '+'<a href="#" onclick="hapus_cart('+data[i].id_detail_pembelian_bahan_mentah+')" class="btn btn-success btn-xs" data-toggle="modal" > <i class="fa  fa-edit" ></i></a>'+
+                    '<td> '+'<a href="#" onclick="hapus_cart('+data[i].id_detail_pembelian_bahan_mentah+')" class="btn btn-danger btn-xs" data-toggle="modal" > <i class="fa  fa-close" ></i></a>'+
                     '</td>'
                 +'<tr>';
           total_pembelian+=data[i].jumlah*data[i].harga_beli;

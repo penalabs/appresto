@@ -187,6 +187,7 @@ class modul_logistik extends CI_Controller {
 		$id_bahan_mentah = $this->input->post('id_bahan_mentah');
 		$id_bahan_olahan = $this->input->post('id_bahan_olahan');
 		$jumlah = $this->input->post('jumlah');
+		$status_olahan = $this->input->post('status_olahan');
 		$tanggal=date("Y-m-d");
 
 		$data = array(
@@ -217,7 +218,7 @@ class modul_logistik extends CI_Controller {
 		);
 
 		$this->m_modul_logistik->update_data($where2,$data2,'bahan_olahan');
-		redirect('modul_logistik/produksi_bahan_olahan?id='.$id_produksi_bahan_olahan.'&&id_bahan_mentah='.$id_bahan_mentah);
+		redirect('modul_logistik/produksi_bahan_olahan?id='.$id_produksi_bahan_olahan.'&&id_bahan_mentah='.$id_bahan_mentah.'&&status_olahan='.$status_olahan);
 	}
 
 	function aksi_hapus_produksi_bahan_olahan(){
@@ -227,6 +228,7 @@ class modul_logistik extends CI_Controller {
 		$id_bahan_mentah= $this->input->get('id_bahan_mentah');
 		$id_bahan_olahan = $this->input->get('id_bahan_olahan');
 		$jumlah_bahan_olahan = $this->input->get('jumlah_bahan_olahan');
+		$status_olahan = $this->input->get('status_olahan');
 
 
 		$sql2 = "DELETE from produksi_bahan_olahan_detail where id='$id_produksi_bahan_olahan_detail'";
@@ -251,7 +253,69 @@ class modul_logistik extends CI_Controller {
 		);
 
 		$this->m_modul_logistik->update_data($where2,$data2,'bahan_olahan');
-		redirect('modul_logistik/produksi_bahan_olahan?id='.$id_produksi_bahan_olahan.'&&id_bahan_mentah='.$id_bahan_mentah);
+		redirect('modul_logistik/produksi_bahan_olahan?id='.$id_produksi_bahan_olahan.'&&id_bahan_mentah='.$id_bahan_mentah.'&&status_olahan='.$status_olahan);
+	}
+
+	function hapus_salah_data_produksi_bahan_olahan(){
+		$id_logistik=$this->session->userdata('id');
+		$id_produksi_bahan_olahan = $this->input->get('id');
+		$id_bahan_mentah= $this->input->get('id_bahan_mentah');
+		$jumlah_bahan_mentah= $this->input->get('jumlah_bahan_mentah');
+
+		$sql1 = "SELECT * FROM produksi_bahan_olahan_detail where id_produksi_bahan_olahan='$id_produksi_bahan_olahan'";
+		$cekdata_bahan_olahan=$this->db->query($sql1)->num_rows();
+
+		if($cekdata_bahan_olahan>0){
+			$this->session->set_flashdata('error', "bahan mentah sudah diolah");
+		}
+
+		// $sql = "SELECT sum(jumlah_bahan_olahan) as jum_bahan_olahan FROM produksi_bahan_olahan where id_produksi_bahan_olahan='$id_produksi_bahan_olahan'";
+		// $hasiljumlahbahanolahan=$this->db->query($sql)->row();
+		// $jum_bahan_olahan=$hasiljumlahbahanolahan->jum_bahan_olahan;
+
+		$sql3 = "SELECT * FROM produksi_bahan_olahan_detail where id_produksi_bahan_olahan='$id_produksi_bahan_olahan'";
+		$data_bahan_olahan_details=$this->db->query($sql3)->result();
+
+		foreach($data_bahan_olahan_details as $data_bahan_olahan_detail) {
+				$id_bahan_olahan=$data_bahan_olahan_detail->id_bahan_olahan;
+				$jumlah_bahan_olahan=$data_bahan_olahan_detail->jumlah_bahan_olahan;
+
+				$sql2 = "SELECT stok FROM bahan_olahan where id='$id_bahan_olahan'";
+				$stok_bahan_olahan=$this->db->query($sql2)->row();
+				$cek_stok_bahan_olahan=$stok_bahan_olahan->stok;
+				$stok_akhir_bahan_olahan=(int)$cek_stok_bahan_olahan-(int)$jumlah_bahan_olahan;
+				// update stok bahan olahan
+				$data2 = array(
+					'stok' => $stok_akhir_bahan_olahan,
+				);
+				$where2 = array(
+					'id' => $id_bahan_olahan
+				);
+				$this->m_modul_logistik->update_data($where2,$data2,'bahan_olahan');
+				echo 1;
+		}
+
+		// $sql4 = "SELECT * FROM produksi_bahan_olahan_detail where id_produksi_bahan_olahan='$id_produksi_bahan_olahan'";
+		// $cekdata_bahan_olahan=$this->db->query($sql4);
+
+		$sql2 = "SELECT stok FROM bahan_mentah where id='$id_bahan_mentah'";
+		$cek_stok_bahan_mentah=$this->db->query($sql2)->row();
+		$cek_stok_bahan_mentah=$cek_stok_bahan_mentah->stok;
+		$pengembalian_bahan_mentah=$cek_stok_bahan_mentah+$jumlah_bahan_mentah;
+		$data3 = array(
+			'stok' => $pengembalian_bahan_mentah,
+		);
+		$where3 = array(
+			'id' => $id_bahan_mentah
+		);
+		$this->m_modul_logistik->update_data($where3,$data3,'bahan_mentah');
+
+		$sql4 = "DELETE from produksi_bahan_olahan_detail where id_produksi_bahan_olahan='$id_produksi_bahan_olahan'";
+		$delete_status1=$this->db->query($sql4);
+		$sql5 = "DELETE from produksi_bahan_olahan where id='$id_produksi_bahan_olahan'";
+		$delete_status1=$this->db->query($sql5);
+
+		redirect('modul_logistik/produksi_bahan_olahan');
 	}
 
 

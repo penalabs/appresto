@@ -108,14 +108,15 @@
                       </td>
                       <td>
                       <?php
-                       if($u->status!='selesai produksi'){
+                       if($u->status=='selesai produksi'){
                        ?>
-                       <a href="<?php echo base_url('modul_logistik/produksi_bahan_olahan/?');?>id=<?php echo $u->id ?>&&id_bahan_mentah=<?php echo $u->id_bahan_mentah;?>" class="btn btn-danger btn-xs"><i class="fa   fa-edit" ></i>Tambah bahan olahan</a>
-                       <a href="<?php echo base_url('modul_logistik/rubah_status_produksi_bahan_olahan/?');?>id=<?php echo $u->id ?>" class="btn btn-danger btn-xs"><i class="fa   fa-close" ></i> Hapus</a>
+                       <a href="<?php echo base_url('modul_logistik/produksi_bahan_olahan/?');?>id=<?php echo $u->id ?>&&id_bahan_mentah=<?php echo $u->id_bahan_mentah;?>&&status_olahan=<?=$u->status;?>" class="btn btn-warning btn-xs"><i class="fa   fa-edit" ></i>Lihat bahan olahan</a>
+                       <a href="<?php echo base_url('modul_logistik/hapus_salah_data_produksi_bahan_olahan/?');?>id=<?php echo $u->id ?>&&id_bahan_mentah=<?php echo $u->id_bahan_mentah;?>&&jumlah_bahan_mentah=<?php echo $u->jumlah_bahan_mentah; ?>" class="btn btn-danger btn-xs"><i class="fa   fa-close" ></i> Hapus</a>
                        <?php
                       }else{
                       ?>
-                      <a href="<?php echo base_url('modul_logistik/produksi_bahan_olahan/?');?>id=<?php echo $u->id ?>&&id_bahan_mentah=<?php echo $u->id_bahan_mentah;?>" class="btn btn-warning btn-xs"><i class="fa   fa-edit" ></i>Lihat bahan olahan</a>
+                      <a href="<?php echo base_url('modul_logistik/produksi_bahan_olahan/?');?>id=<?php echo $u->id ?>&&id_bahan_mentah=<?php echo $u->id_bahan_mentah;?>&&status_olahan=<?=$u->status;?>" class="btn btn-danger btn-xs"><i class="fa   fa-edit" ></i>Tambah bahan olahan</a>
+
                       <a href="<?php echo base_url('modul_logistik/rubah_status_produksi_bahan_olahan/?');?>id=<?php echo $u->id ?>" class="btn btn-success btn-xs"><i class="fa   fa-check" ></i> Selesai produksi</a>
                       <?php
                       }
@@ -148,6 +149,7 @@
                 <!-- form start -->
                 <form action="<?php echo base_url(). 'modul_logistik/aksi_produksi_bahan_olahan'; ?>" method="post" class="form-horizontal">
                   <input type="hidden" name="id_produksi_bahan_olahan" value="<?php echo $_GET['id'];?>" class="form-control" id="inputEmail3" >
+                  <input type="hidden" name="status_olahan" value="<?php echo $_GET['status_olahan'];?>" class="form-control" id="inputEmail3" >
                   <div class="box-body">
           				<div class="form-group">
                             <label for="inputPassword3" class="col-sm-3 control-label">Bahan Mentah</label>
@@ -246,10 +248,13 @@
                   <?php echo $u->jumlah_bahan_olahan; ?>
                   </td>
                   <td>
-
-                  <a href="<?php echo base_url('modul_logistik/aksi_hapus_produksi_bahan_olahan/?');?>id=<?php echo $id_produksi_bahan_olahan;?>&&id_bahan_mentah=<?php echo $id_bahan_mentah;?>&&id_produksi_bahan_olahan_detail=<?php echo $u->id ?>&&id_bahan_olahan=<?php echo $u->id_bahan_olahan ?>&&jumlah_bahan_olahan=<?php echo $u->jumlah_bahan_olahan; ?>" class="btn btn-danger btn-xs"><i class="fa   fa-close" ></i></a>
                   <?php
+                  if($_GET['status_olahan']!='selesai produksi'){
 
+                   ?>
+                  <a href="<?php echo base_url('modul_logistik/aksi_hapus_produksi_bahan_olahan/?');?>id=<?php echo $id_produksi_bahan_olahan;?>&&id_bahan_mentah=<?php echo $id_bahan_mentah;?>&&id_produksi_bahan_olahan_detail=<?php echo $u->id ?>&&id_bahan_olahan=<?php echo $u->id_bahan_olahan ?>&&jumlah_bahan_olahan=<?php echo $u->jumlah_bahan_olahan; ?>&&status_olahan=<?php echo $_GET['status_olahan'];?>" class="btn btn-danger btn-xs"><i class="fa   fa-close" ></i></a>
+                  <?php
+                  }
                   ?>
                   </td>
                 </tr>
