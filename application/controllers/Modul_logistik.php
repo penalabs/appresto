@@ -369,6 +369,18 @@ class modul_logistik extends CI_Controller {
 		    echo "TRUE";
 		}
 	}
+	public function hapus_cart_data_bahan(){
+		$id_logistik=$this->session->userdata('id');
+		$id_detail_pembelian_bahan_mentah= $this->input->post('id_detail_pembelian_bahan_mentah');
+
+		$sql = "DELETE FROM detail_pembelian_bahan_mentah  WHERE id='$id_detail_pembelian_bahan_mentah'";
+		if (!$this->db->query($sql)) {
+	    echo "FALSE";
+		}
+		else {
+		    echo "TRUE";
+		}
+	}
 	public function konfirmasi_pembelian(){
 		$id_logistik=$this->session->userdata('id');
 		$no_transaksi = $this->input->post('no_transaksi');
@@ -383,8 +395,27 @@ class modul_logistik extends CI_Controller {
 			echo "FALSE";
 		}
 		else {
+
+
+				$sql2 = "SELECT * FROM detail_pembelian_bahan_mentah WHERE id_transaksi='$no_transaksi'";
+				$data_item_carts=$this->db->query($sql2)->result();
+				foreach($data_item_carts as $data_item_cart) {
+					$jumlah_bahan_dibeli=$data_item_cart->jumlah;
+					$id_bahan_mentah=$data_item_cart->id_bahan_mentah;
+
+					$sql3 = "SELECT stok FROM bahan_mentah WHERE id='$id_bahan_mentah'";
+					$data_stok_bahan_mentah=$this->db->query($sql3)->row();
+					$jumlah_stok_masuk=(int)$data_stok_bahan_mentah->stok+(int)$jumlah_bahan_dibeli;
+
+					$sql4 = "UPDATE bahan_mentah SET stok='$jumlah_stok_masuk' WHERE id='$id_bahan_mentah'";
+					$this->db->query($sql4);
+
+				}
 				echo "TRUE";
+
 		}
+
+
 	}
 
 	public function pembelian_alat(){
@@ -406,12 +437,12 @@ class modul_logistik extends CI_Controller {
 	  $harga_beli = $this->input->post('harga_beli');
 	  $sql = "INSERT INTO detail_pembelian_alat  VALUES ('', '$no_transaksi', '$id_alat', '$qty', '$harga_beli');";
 
-		$sql2 = "SELECT jumlah_stok FROM peralatan WHERE id='$id_alat'";
-		$data2=$this->db->query($sql2)->row();
-		$jumlah_stok=(int)$data2->jumlah_stok+(int)$qty;
-
-		$sql3 = "UPDATE peralatan SET jumlah_stok='$jumlah_stok' WHERE id='$id_alat'";
-		$this->db->query($sql3);
+		// $sql2 = "SELECT jumlah_stok FROM peralatan WHERE id='$id_alat'";
+		// $data2=$this->db->query($sql2)->row();
+		// $jumlah_stok=(int)$data2->jumlah_stok+(int)$qty;
+		//
+		// $sql3 = "UPDATE peralatan SET jumlah_stok='$jumlah_stok' WHERE id='$id_alat'";
+		// $this->db->query($sql3);
 
 	  if (!$this->db->query($sql)) {
 	    echo "FALSE";
@@ -420,6 +451,20 @@ class modul_logistik extends CI_Controller {
 	      echo "TRUE";
 	  }
 	}
+
+	public function hapus_cart_data_alat(){
+		$id_logistik=$this->session->userdata('id');
+		$id_detail_pembelian_alat= $this->input->post('id_detail_pembelian_alat');
+
+		$sql = "DELETE FROM detail_pembelian_alat  WHERE id='$id_detail_pembelian_alat'";
+		if (!$this->db->query($sql)) {
+	    echo "FALSE";
+		}
+		else {
+		    echo "TRUE";
+		}
+	}
+
 	public function konfirmasi_pembelian_alat(){
 	  $id_logistik=$this->session->userdata('id');
 	  $no_transaksi = $this->input->post('no_transaksi');
@@ -433,9 +478,24 @@ class modul_logistik extends CI_Controller {
 	    echo "FALSE";
 	  }
 	  else {
+				$sql2 = "SELECT * FROM detail_pembelian_alat WHERE id_transaksi='$no_transaksi'";
+				$data_item_carts=$this->db->query($sql2)->result();
+				foreach($data_item_carts as $data_item_cart) {
+					$jumlah_alat_dibeli=$data_item_cart->jumlah;
+					$id_alat=$data_item_cart->id_alat;
+
+					$sql3 = "SELECT jumlah_stok FROM peralatan WHERE id='$id_alat'";
+					$data_stok_alat=$this->db->query($sql3)->row();
+					$jumlah_stok_masuk=(int)$data_stok_alat->jumlah_stok+(int)$jumlah_alat_dibeli;
+
+					$sql4 = "UPDATE peralatan SET jumlah_stok='$jumlah_stok_masuk' WHERE id='$id_alat'";
+					$this->db->query($sql4);
+
+				}
 	      echo "TRUE";
 	  }
 	}
+
 
 
 

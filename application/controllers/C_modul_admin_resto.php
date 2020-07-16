@@ -45,6 +45,12 @@ class C_modul_admin_resto extends CI_Controller
 
 	public function permintaanperalatan_tambahaksi()
 	{
+		// $id_admin_resto=$this->session->userdata('id');
+		// $sql = "SELECT id_resto FROM user_resto where id='$id_admin_resto'";
+		// $cek_id_resto=$this->db->query($sql)->row();
+		// $id_resto=$cek_id_resto->id_resto;
+		$id_admin_resto=$this->input->post('id_admin_resto');
+		$id_resto=$this->input->post('id_resto');
 		$nama_cabang		= $this->input->post('nama_cabang');
 		$alat				= $this->input->post('alat');
 		$jumlah				= $this->input->post('jumlah');
@@ -53,7 +59,7 @@ class C_modul_admin_resto extends CI_Controller
 		// $nominal			= $this->input->post('nominal');
 		// $penyusutan			= $this->input->post('penyusutan');
 		$datainput = array(
-			'id_resto'				=> $nama_cabang,
+			'id_resto'				=> $id_resto,
 			'id_kanwil'				=> $id_kanwil,
 			'id_alat'				=> $alat,
 			'jumlah'				=> $jumlah,
@@ -64,13 +70,13 @@ class C_modul_admin_resto extends CI_Controller
 		);
 		$this->m_modul_admin_resto->input_data($datainput, 'permintaan_alat');
 
-		$sql2 = "SELECT jumlah_stok FROM peralatan where id='$alat'";
-		$jumlah_stok_alat=$this->db->query($sql2)->row();
-
-		$stok_akhir=$jumlah_stok_alat->jumlah_stok-$jumlah;
-
-		$sql3 = "UPDATE peralatan set jumlah_stok='$stok_akhir' where id='$alat'";
-		$this->db->query($sql3);
+		// $sql2 = "SELECT jumlah_stok FROM peralatan where id='$alat'";
+		// $jumlah_stok_alat=$this->db->query($sql2)->row();
+		//
+		// $stok_akhir=$jumlah_stok_alat->jumlah_stok-$jumlah;
+		//
+		// $sql3 = "UPDATE peralatan set jumlah_stok='$stok_akhir' where id='$alat'";
+		// $this->db->query($sql3);
 
 
 		redirect('C_modul_admin_resto/permintaanperalatan_view');
@@ -693,7 +699,7 @@ class C_modul_admin_resto extends CI_Controller
 		}
 		redirect('C_modul_admin_resto/lihat_bahan_mentah/?id_permintaan='.$id_permintaan);
 	}
-	
+
 	function add_kinerja(){
 		$id_kanwil = $this->session->userdata('id_kanwil');
 		$id_resto = $this->session->userdata('id_resto');
