@@ -230,7 +230,13 @@ class C_modul_admin_resto extends CI_Controller
 
 	//menu anggaran biaya oprasioanl
 	public function anggaranbiayaoprasional_view(){
-		$data['anggaranbiayaoprasional'] = $this->m_modul_admin_resto->tampil_data_anggaranbiayaoprasional()->result();
+		$sql = "SELECT pemberian_kaskeluar.*,resto.*,user_kanwil.*
+		FROM pemberian_kaskeluar
+		JOIN resto ON resto.id = pemberian_kaskeluar.id_resto
+		JOIN user_kanwil ON user_kanwil.id = pemberian_kaskeluar.id_bendahara
+		WHERE pemberian_kaskeluar.status='pengajuan'";
+
+		$data['anggaranbiayaoprasional'] = $this->db->query($sql)->result();
 		$this->load->view('modul_admin_resto/V_anggaranbiayaoprasional_view', $data);
 	}
 
@@ -244,11 +250,11 @@ class C_modul_admin_resto extends CI_Controller
 		$date 				= date('Y-m-d H:i:s');
 		$nama_cabang		= $this->input->post('nama_cabang');
 		$nominal_kas_keluar	= $this->input->post('nominal_kas_keluar');
-		
+
 		$sql = "SELECT user_kanwil.id FROM user_resto join user_kanwil on user_kanwil.id_kanwil=user_resto.id_kanwil where user_resto.id='$id_admin_resto' AND user_kanwil.tipe='bendahara'";
 		$dataidkanwil=$this->db->query($sql)->row();
-		
-		
+
+
 		$datainput = array(
 			'id_bendahara'			=> $dataidkanwil->id,
 			'id_resto'				=> $nama_cabang,
@@ -256,7 +262,7 @@ class C_modul_admin_resto extends CI_Controller
 			'nominal_kas_keluar'	=> $nominal_kas_keluar,
 			'status'				=> "Pengajuan"
 		);
-		
+
 		$this->m_modul_admin_resto->input_data($datainput, 'pemberian_kaskeluar');
 		redirect('C_modul_admin_resto/anggaranbiayaoprasional_view');
 	}
@@ -297,14 +303,20 @@ class C_modul_admin_resto extends CI_Controller
 
 	//penerimaan biaya oprasional
 	public function penerimaanbiayaoprasional_view(){
-		$data['penerimaanbiayaoprasional'] = $this->m_modul_admin_resto->tampil_penerimaan_biaya_oprasional_where()->result();
+		$sql = "SELECT pemberian_kaskeluar.*,resto.*,user_kanwil.*
+		FROM pemberian_kaskeluar
+		JOIN resto ON resto.id = pemberian_kaskeluar.id_resto
+		JOIN user_kanwil ON user_kanwil.id = pemberian_kaskeluar.id_bendahara
+		WHERE pemberian_kaskeluar.status='pemberian' OR pemberian_kaskeluar.status='diterima'";
+
+		$data['penerimaanbiayaoprasional'] = $this->db->query($sql)->result();
 		$this->load->view('modul_admin_resto/V_penerimaanbiayaoprasional_view', $data);
 	}
 
 	public function penerimaanbiayaoprasional_updatestatus($id){
 		$where = array('id_pengeluaran' => $id);
 		$datainput = array(
-			'status'	=> "pemberian"
+			'status'	=> "diterima"
 		);
 		$this->m_modul_admin_resto->update_data($where, $datainput, 'pemberian_kaskeluar');
 		redirect('C_modul_admin_resto/penerimaanbiayaoprasional_view');

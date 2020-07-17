@@ -348,5 +348,15 @@ class modul_bendahara_wilayah extends CI_Controller {
 		redirect('modul_bendahara_wilayah/anggaranbiayaoprasional_view');
 	}
 
+	public function anggaranbiayaoprasional_berikan($id)
+	{
+		$where = array('id_pengeluaran' => $id);
+		$datainput = array(
+			'status'	=> 'pemberian'
+		);
+		$this->m_modul_bendahara_wilayah->update_data($where, $datainput, 'pemberian_kaskeluar');
+		redirect('modul_bendahara_wilayah/anggaranbiayaoprasional_view');
+	}
+
 
 }

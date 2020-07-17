@@ -46,6 +46,7 @@
                   <th>Nama Resto</th>
                   <th>Tanggal</th>
                   <th>Nominal KAS</th>
+                  <th>Status</th>
                   <th>Konfrimasi</th>
                 </tr>
                 </thead>
@@ -60,17 +61,17 @@
                   <td><?php echo $u->nama_resto ?></td>
                   <td><?php echo $u->tanggal ?></td>
                   <td><?php echo "Rp. ".number_format($u->nominal_kas_keluar).",-"; ?></td>
-          <td>
-          <?php if ($u->status == "pemberian"){?>
-          <a class="btn btn-primary btn-md"><i class="fa fa-check-square-o" ></i> Sudah Dikonfrimasi</a>
-          <?php }
-          else{ ?>
-          <a href="<?php echo base_url('C_modul_admin_resto/penerimaanbiayaoprasional_updatestatus/'.$u->id_pengeluaran); ?>" class="btn btn-success btn-md"><i class="fa  fa-square-o" ></i> Belum Dikonfrimasi</a>
-          <?php }?>
-          </td>
+                  <td><?php echo $u->status ?></td>
+                  <td>
+                  <?php if ($u->status == "diterima"){?>
+                  <a class="btn btn-primary btn-md"><i class="fa fa-check-square-o" ></i> Sudah Dikonfrimasi</a>
+                  <?php }
+                  else{ ?>
+                  <a href="<?php echo base_url('C_modul_admin_resto/penerimaanbiayaoprasional_updatestatus/'.$u->id_pengeluaran); ?>" class="btn btn-success btn-md"><i class="fa  fa-square-o" ></i> Belum Dikonfrimasi</a>
+                  <?php }?>
+                  </td>
                 </tr>
-        <?php } ?>
-
+                  <?php } ?>
                 </tbody>
 
               </table>
