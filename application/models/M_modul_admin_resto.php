@@ -59,12 +59,11 @@ class M_modul_admin_resto extends CI_Model{
 
 	function tampil_data_anggaranbiayaoprasional(){
 		$query = $this->db->query("
-		SELECT pemberian_kaskeluar.*,resto.*,user_kanwil.*
+		SELECT pemberian_kaskeluar.*,resto.*,user_kanwil.nama
 		FROM pemberian_kaskeluar
 		JOIN resto ON resto.id = pemberian_kaskeluar.id_resto
-		JOIN user_kanwil ON user_kanwil.id = pemberian_kaskeluar.`id_bendahara`
-		WHERE pemberian_kaskeluar.`status` = 'pemberian'
-		ORDER BY pemberian_kaskeluar.`id_pengeluaran` DESC");
+		JOIN user_kanwil ON user_kanwil.id=pemberian_kaskeluar.id_bendahara
+		WHERE pemberian_kaskeluar.`status` = 'pengajuan'");
 		return $query;
 	}
 

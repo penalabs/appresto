@@ -240,16 +240,23 @@ class C_modul_admin_resto extends CI_Controller
 	}
 
 	public function anggaranbiayaoprasional_tambahaksi(){
+		$id_admin_resto=$this->session->userdata('id');
 		$date 				= date('Y-m-d H:i:s');
 		$nama_cabang		= $this->input->post('nama_cabang');
-		$nominal_kas_keluar				= $this->input->post('nominal_kas_keluar');
+		$nominal_kas_keluar	= $this->input->post('nominal_kas_keluar');
+		
+		$sql = "SELECT user_kanwil.id FROM user_resto join user_kanwil on user_kanwil.id_kanwil=user_resto.id_kanwil where user_resto.id='$id_admin_resto' AND user_kanwil.tipe='bendahara'";
+		$dataidkanwil=$this->db->query($sql)->row();
+		
+		
 		$datainput = array(
-			'id_bendahara'			=> "2",
+			'id_bendahara'			=> $dataidkanwil->id,
 			'id_resto'				=> $nama_cabang,
 			'tanggal'				=> $date,
 			'nominal_kas_keluar'	=> $nominal_kas_keluar,
 			'status'				=> "Pengajuan"
 		);
+		
 		$this->m_modul_admin_resto->input_data($datainput, 'pemberian_kaskeluar');
 		redirect('C_modul_admin_resto/anggaranbiayaoprasional_view');
 	}

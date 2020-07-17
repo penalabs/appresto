@@ -75,7 +75,7 @@
                   </div>
                 </div>
                 <?php
-                $sql3 = "SELECT sum(nominal_kas_keluar) as saldo_kas FROM pemberian_kaskeluar where id_resto='$id_resto'";
+                $sql3 = "SELECT sum(nominal_kas_keluar) as saldo_kas FROM pemberian_kaskeluar where id_resto='$id_resto' AND status='pemberian'";
                 $saldo_kas=$this->db->query($sql3)->row();
 
                 $sql4 = "SELECT sum(nominal) as jumlah_pengeluaran FROM pengeluaran_cabang_operasional where id_resto='$id_resto'";
