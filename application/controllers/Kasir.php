@@ -200,8 +200,6 @@ class Kasir extends CI_Controller {
 		$subharga = $this->input->post('sub_harga');
 		$id = $this->input->post('id_pesan_menu');
 
-
-
 		$where = array(
 			'id' => $id
 		);
@@ -210,11 +208,23 @@ class Kasir extends CI_Controller {
 			'subharga' => $subharga,
 		);
 
+		$query_menu_master = "SELECT * FROM menu WHERE id='$id'";
+		$menu_master=$this->db->query($query_menu_master)->row();
+		$stok_menu_master = $menu_master->stok;
+
+		$rumus_stok_kurang = $stok_menu_master - $jumlah_pesan;
+		echo "jml :".$id;
+
+		$data_update = array(
+			'stok' => $rumus_stok_kurang
+		);
+
+		$this->m_modul_kasir->udpate_stok_menu($where,$data_update);
 
 		$this->m_modul_kasir->update_data($where,$data,'pemesanan_menu');
-		$data = array(
-			'pesan' => "berhasil"
-		);
+		// $data = array(
+		// 	'pesan' => "berhasil"
+		// );
 		echo json_encode($data);
 
 

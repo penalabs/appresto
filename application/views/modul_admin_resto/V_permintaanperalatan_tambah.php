@@ -57,13 +57,12 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Nama Cabang</label>
                  <div class="col-sm-10">
-                  <input type="text" name="nama_cabang"  value="<?=$nama_resto;?>" class="form-control" readonly>
-                    <!-- <select name="nama_cabang" class="form-control">
-                      <option value="">-- Pilihan --</option>
-                      <?php foreach ($data_cabang_resto as $datacabangresto) { ?>
-                        <option value="<?php echo $datacabangresto->id; ?>"><?php echo $datacabangresto->nama_resto; ?></option>
-                      <?php } ?>
-                    </select> -->
+                   <select name="nama_cabang" class="form-control">
+                     <option value="">--Pilih cabang resto--</option>
+                     <?php foreach ($data_cabang_resto as $datacabangresto) { ?>
+                       <option value="<?php echo $datacabangresto->id; ?>"><?php echo $datacabangresto->nama_resto; ?></option>
+                     <?php } ?>
+                   </select>
                   </div>
                 </div>
                 <div class="form-group">

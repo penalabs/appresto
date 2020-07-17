@@ -49,7 +49,7 @@ class M_modul_admin_resto extends CI_Model{
 
 	function tampil_data_permintaan_peralatan_where($where){
 		$query = $this->db->query("
-		SELECT permintaan_alat.*,resto.*,peralatan.*
+		SELECT permintaan_alat.*,resto.id as 'id_resto2',resto.nama_resto,peralatan.*
 		FROM permintaan_alat
 		JOIN resto ON resto.id = permintaan_alat.id_resto
 		JOIN peralatan ON peralatan.id = permintaan_alat.id_alat
@@ -59,12 +59,11 @@ class M_modul_admin_resto extends CI_Model{
 
 	function tampil_data_anggaranbiayaoprasional(){
 		$query = $this->db->query("
-		SELECT pemberian_kaskeluar.*,resto.*,user_kanwil.*
+		SELECT pemberian_kaskeluar.*,resto.*,user_kanwil.nama
 		FROM pemberian_kaskeluar
 		JOIN resto ON resto.id = pemberian_kaskeluar.id_resto
-		JOIN user_kanwil ON user_kanwil.id = pemberian_kaskeluar.`id_bendahara`
-		WHERE pemberian_kaskeluar.`status` = 'pemberian'
-		ORDER BY pemberian_kaskeluar.`id_pengeluaran` DESC");
+		JOIN user_kanwil ON user_kanwil.id=pemberian_kaskeluar.id_bendahara
+		WHERE pemberian_kaskeluar.`status` = 'pengajuan'");
 		return $query;
 	}
 

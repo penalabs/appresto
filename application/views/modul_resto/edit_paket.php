@@ -12,7 +12,7 @@
 <!-- Site wrapper -->
 <div class="wrapper">
 
-  
+
 	<?php include(APPPATH.'views/header.php');?>
 	<?php include(APPPATH.'views/menu.php');?>
   <!-- Content Wrapper. Contains page content -->
@@ -21,18 +21,15 @@
     <section class="content-header">
       <h1>
         Edit Paket
-       
+
       </h1>
-      
+
     </section>
 
     <!-- Main content -->
     <section class="content">
-	<div class="row">
-	
-	
-		
-		
+	  <div class="row">
+
 		<div class="col-md-4">
           <!-- Horizontal Form -->
           <div class="box box-info">
@@ -49,15 +46,14 @@
 
                   <div class="col-sm-10">
                      <select class="form-control" name="menu">
-					 <?php
-                      foreach($menu as $u){ 
-                      ?>  
-						<option value="<?= $u->id?>"><?= $u->menu?></option>
-						
-						<?php
-					  }
-					  ?>
-					  </select>
+					           <?php
+                      foreach($menu as $u){
+                      ?>
+            						<option value="<?= $u->id?>"><?= $u->menu?></option>
+            						<?php
+            					  }
+            					  ?>
+					           </select>
                   </div>
 
                 </div>
@@ -70,14 +66,14 @@
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                
+
                 <button type="submit" class="btn btn-info pull-right">Simpan</button>
               </div>
               <!-- /.box-footer -->
             </form>
           </div>
-		  
-		  <div class="box">
+
+		        <div class="box">
             <div class="box-header with-border">
               <h3 class="box-title">DAFTAR MENU DALAM PAKET</h3>
             </div>
@@ -87,35 +83,34 @@
                 <tr>
                   <th style="width: 10px">#</th>
                   <th>Nama Menu</th>
-				  <th>Jumlah</th>
-				  <th>Sub Harga</th>
+				          <th>Jumlah</th>
+				          <th>Sub Harga</th>
                   <th style="width: 40px">Aksi</th>
                 </tr>
-				 <?php
+				        <?php
                     $no=1;
                     $total=0;
-                    foreach($daftar_menu_paket as $u3){ 
-					 
+                    foreach($daftar_menu_paket as $u3){
                 ?>
-				<?=$u3->id;?>
+				            <?=$u3->id;?>
                 <tr>
                   <td><?=$no;?>.</td>
                   <td><?=$u3->menu;?></td>
-				  <td><?=$u3->jumlah;?></td>
-				  <td><?=$u3->total_harga;?></td>
+				          <td><?=$u3->jumlah;?></td>
+				          <td><?=$u3->total_harga;?></td>
                   <td><a href="<?php echo base_url(). 'modul_resto/hapus_item_paket'; ?>/?id=<?=$u3->id;?>&&tb=detail_paket&&id_menu=<?=$u3->id_menu;?>&&jumlah=<?=$u3->jumlah;?>&&id_paket=<?php echo $id_paket;?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
                 </tr>
                <?php
-			   $no++;
-					}
-					?>
+        			   $no++;
+        					}
+        			  ?>
               </table>
             </div>
             <!-- /.box-body -->
-           
+
           </div>
 		</div>
-		
+
 		<div class="col-md-4">
           <!-- Horizontal Form -->
           <div class="box box-info">
@@ -124,25 +119,25 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-			<div class="box-body">
+			    <div class="box-body">
             <form class="form-horizontal" action="<?php echo base_url(). 'modul_resto/action_edit_paket'; ?>" method="post" role="form" enctype="multipart/form-data">
-			 <input type="hidden" class="form-control" value="<?php echo $_GET['id'];?>" name="id_paket" id="inputEmail3" >
-			<?php
-                      foreach($paket as $u3){ 
-                      ?> 
-				<div class="form-group">
+			      <input type="hidden" class="form-control" value="<?php echo $_GET['id'];?>" name="id_paket" id="inputEmail3" >
+			          <?php
+                      foreach($paket as $u3){
+                ?>
+				         <div class="form-group">
                   <label for="inputEmail3" class="col-sm-2 control-label">Harga</label>
                   <div class="col-sm-10">
                     <input type="number" class="form-control" value="<?=$u3->harga?>" name="harga_jual" id="inputEmail3" >
                   </div>
                 </div>
-				<div class="form-group">
+				        <div class="form-group">
                   <label for="inputEmail3" class="col-sm-2 control-label">Jumlah</label>
                   <div class="col-sm-10">
                     <input type="number" class="form-control" value="<?=$u3->jumlah?>" id="inputEmail3"  min="1" name="jumlah" >
                   </div>
                 </div>
-				<div class="form-group">
+				        <div class="form-group">
                   <label for="inputEmail3" class="col-sm-2 control-label">Nama Paket</label>
 
                   <div class="col-sm-10">
@@ -152,24 +147,23 @@
                 <div class="form-group">
                   <label for="inputPassword3" class="col-sm-2 control-label">Status</label>
                   <div class="col-sm-10">
-                    <?php 
-				 if($u3->status=="tersedia"){
-					 
-				 ?>
+                    <?php
+          				 if($u3->status=="tersedia"){
+          				 ?>
                     <input type="radio" name="status" id="optionsRadios1" value="tersedia" checked>
                       Tersedia
-					  <input type="radio" name="status" id="optionsRadios1" value="habis" >
+					          <input type="radio" name="status" id="optionsRadios1" value="habis" >
                       Habis
-				<?php
-				 }else{
-				 ?>
-				 <input type="radio" name="status" id="optionsRadios1" value="tersedia" >
-                      Tersedia
-					  <input type="radio" name="status" id="optionsRadios1" value="habis" checked>
+            				<?php
+            				 }else{
+            				 ?>
+            				 <input type="radio" name="status" id="optionsRadios1" value="tersedia" >
+                                  Tersedia
+            				 <input type="radio" name="status" id="optionsRadios1" value="habis" checked>
                       Habis
-				<?php
-				 }
-				 ?>
+              		  <?php
+              			 }
+              			?>
                   </div>
                 </div>
                 <div class="form-group">
@@ -179,13 +173,13 @@
                     <p class="help-block">max 1MB.</p>
                   </div>
                 </div>
-              
-			  <?php
-					  }
-					  ?>
+
+        			  <?php
+        					  }
+        				?>
               <!-- /.box-body -->
               <div class="box-footer">
-                
+
                 <button type="submit" class="btn btn-info pull-right">Simpan</button>
               </div>
               <!-- /.box-footer -->
@@ -197,14 +191,14 @@
 
           <!-- /.box -->
 		</div>
-		  
-		  
+
+
 	</div>
 
 
-	
-   
-	
+
+
+
 
 
     </section>

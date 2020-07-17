@@ -61,6 +61,46 @@ if(isset($_POST["submit"])) {
 	$queryupdate = "UPDATE gaji SET nominal_gaji='$hasilpenambahan' WHERE id_user_resto='$waiters'";
 	$hasilupdate = mysqli_query($koneksi,$queryupdate);
 
+	//update stok menu
+	$query_update_menu ="SELECT id_menu,jumlah_pesan FROM pemesanan_menu";
+	$hasil_query_menu = mysqli_query($koneksi,$query_update_menu);
+	while ($data_menu_query=mysqli_fetch_array($hasil_query_menu)) {
+		$vlu_menu = $data_menu_query['jumlah_pesan'];
+		$vlu_id_menu = $data_menu_query['id_menu'];
+
+		//mengambil stok saat ini pada menu
+		$query_master_menu ="SELECT stok FROM menu";
+		$hasil_query_master = mysqli_query($koneksi,$query_master_menu);
+		$data_master_query=mysqli_fetch_array($hasil_query_master);
+		$vlu_menu_master = $data_master_query['stok'];
+
+		$rumus_update_stok = $vlu_menu_master-$vlu_menu;
+
+		//update stok master menu
+		$queryupdate_master = "UPDATE menu SET stok='$rumus_update_stok' WHERE id='$vlu_id_menu'";
+		$hasilupdate_master = mysqli_query($koneksi,$queryupdate_master);
+	}
+
+	//update stok paket
+	$query_update_paket ="SELECT id_paket,jumlah_pesan FROM pemesanan_paket";
+	$hasil_query_paket = mysqli_query($koneksi,$query_update_paket);
+	while ($data_paket_query=mysqli_fetch_array($hasil_query_paket)) {
+		$vlu_paket = $data_paket_query['jumlah_pesan'];
+		$vlu_id_paket = $data_paket_query['id_paket'];
+
+		//mengambil stok saat ini pada menu
+		$query_master_paket ="SELECT jumlah FROM paket";
+		$hasil_query_master_paket = mysqli_query($koneksi,$query_master_paket);
+		$data_master_paket_query=mysqli_fetch_array($hasil_query_master_paket);
+		$vlu_paket_master = $data_master_paket_query['jumlah'];
+
+		$rumus_update_stok_paket = $vlu_paket_master-$vlu_paket;
+
+		//update stok master menu
+		$queryupdate_master_paket = "UPDATE paket SET jumlah='$rumus_update_stok_paket' WHERE id='$vlu_id_paket'";
+		$hasilupdate_master_paket = mysqli_query($koneksi,$queryupdate_master_paket);
+	}
+
 	header("location:pesan.php");
 }elseif(isset($_POST["submitbayar"])){
 	$konsumen = $_POST['konsumen'];

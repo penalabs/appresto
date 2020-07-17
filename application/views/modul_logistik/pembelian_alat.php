@@ -379,7 +379,7 @@
                     '<td> '+ data[i].harga_beli +' </td>' +
                     '<td> '+ data[i].jumlah +' </td>' +
                     '<td> '+ data[i].jumlah*data[i].harga_beli +' </td>' +
-                    '<td> '+'<a href="#" onclick="hapus_cart('+data[i].id_detail_pembelian_alat+')" class="btn btn-success btn-xs" data-toggle="modal" > <i class="fa  fa-edit" ></i></a>'+
+                    '<td> '+'<a href="#" onclick="hapus_item_cart('+data[i].id_detail_pembelian_alat+')" class="btn btn-danger btn-xs" data-toggle="modal" > <i class="fa  fa-close" ></i></a>'+
                     '</td>'
                 +'<tr>';
           total_pembelian+=data[i].jumlah*data[i].harga_beli;
@@ -413,6 +413,28 @@
       }
     });
   }
+
+  function hapus_item_cart(id_detail_pembelian_alat){
+    var id_detail_pembelian_alat2=id_detail_pembelian_alat;
+    alert(id_detail_pembelian_alat);
+    $.ajax({
+      type:'POST',
+      url:'<?php echo base_url().'modul_logistik/hapus_cart_data_alat/'?>',
+      data:{id_detail_pembelian_alat:id_detail_pembelian_alat2},
+      dataType:'html',
+      success: function(data){
+        alert(data);
+        if(data=="TRUE"){
+            SelectDataBahan();
+            alert(data);
+        }else{
+          alert(data);
+        }
+
+      }
+    });
+  }
+
   function konfirmasi_pembelian(){
     var tanggal=$('#tanggal').val();
     var id_logistik=$('#id_logistik').val();

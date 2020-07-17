@@ -42,7 +42,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-                  <div class="box-body">
+            <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -73,16 +73,24 @@
                   <td><?php echo $u->nominal_penyusutan ?> %</td> -->
           <td>
 
-          <a href="<?php echo base_url('C_modul_admin_resto/konfirmasi_alat/'.$u->id_permintaan_alat); ?>" class="btn btn-primary btn-xs"><i class="fa  fa-check" ></i></a>
-          <a href="<?php echo base_url('C_modul_admin_resto/permintaanperalatan_edit/'.$u->id_permintaan_alat); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
+
+
           <?php if($u->status_permintaan=="permintaan"){
-
-
           ?>
+          <a href="<?php echo base_url('C_modul_admin_resto/permintaanperalatan_edit/'.$u->id_permintaan_alat); ?>" class="btn btn-success btn-xs"><i class="fa  fa-edit" ></i></a>
           <a href="<?php echo base_url('C_modul_admin_resto/permintaanperalatan_hapus/?id='.$u->id_permintaan_alat.'&&jumlah='.$u->jumlah.'&&id_alat='.$u->id); ?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
           <?php
+          }else if($u->status_permintaan=="dikirim"){
+          ?>
+          <a href="<?php echo base_url('C_modul_admin_resto/konfirmasi_alat/?id='.$u->id_permintaan_alat.'&&jumlah='.$u->jumlah.'&&id_alat='.$u->id); ?>" class="btn btn-primary btn-xs"><i class="fa  fa-check" ></i></a>
+
+          <?php
+          }else if($u->status_permintaan=="diterima"){
+          ?>
+          <a href="<?php echo base_url('C_modul_admin_resto/kembalikan_alat/?id='.$u->id_permintaan_alat.'&&jumlah='.$u->jumlah.'&&id_alat='.$u->id); ?>" class="btn btn-warning btn-xs"><i class="fa   fa-rotate-left " ></i></a>
+         <?php
           }
-         ?>
+          ?>
                 </tr>
         <?php } ?>
 

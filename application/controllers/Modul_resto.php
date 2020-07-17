@@ -175,7 +175,6 @@ class Modul_resto extends CI_Controller {
 		$nama_menu = $this->input->post('nama_menu');
 		$status = $this->input->post('status');
 		$harga_jual = $this->input->post('harga_jual');
-		$stok = $this->input->post('porsi');
 
 		$config['upload_path']          = './gambar/';
 		$config['allowed_types']        = 'gif|jpg|png';
@@ -188,6 +187,15 @@ class Modul_resto extends CI_Controller {
 			$error = array('error' => $this->upload->display_errors());
 			echo json_encode($error);
 			$this->session->set_flashdata('pesan', $this->upload->display_errors());
+			$data = array(
+					'id' => $id_last_menu,
+					'id_resto' => $id_resto,
+					'menu' => $nama_menu,
+					'status' => $status,
+					'harga' => $harga_jual,
+					);
+			$this->m_modul_resto->input_data($data,'menu');
+			$this->session->set_flashdata('pesan', 'data menu disimpan');
 		}else{
 			$data = array('upload_data' => $this->upload->data());
 			echo 2;
@@ -200,7 +208,6 @@ class Modul_resto extends CI_Controller {
 					'menu' => $nama_menu,
 					'status' => $status,
 					'harga' => $harga_jual,
-					'stok' => $stok,
 					'foto' => $foto,
 					);
 			$this->m_modul_resto->input_data($data,'menu');
@@ -213,7 +220,7 @@ class Modul_resto extends CI_Controller {
 		//$nama_menu = $this->input->post('nama_menu');
 		$status = $this->input->post('status');
 		$harga_jual = $this->input->post('harga_jual');
-		$stok = $this->input->post('porsi');
+
 		$where = array(
 			'id' => $id_menu
 		);
@@ -232,7 +239,6 @@ class Modul_resto extends CI_Controller {
 			$data = array(
 					'status' => $status,
 					'harga' => $harga_jual,
-					'stok' => $stok,
 					);
 			$this->m_modul_resto->update_data($where,$data,'menu');
 			$this->session->set_flashdata('pesan', 'data menu disimpan');
@@ -245,14 +251,13 @@ class Modul_resto extends CI_Controller {
 			$data = array(
 					'status' => $status,
 					'harga' => $harga_jual,
-					'stok' => $stok,
 					'foto' => $foto,
 					);
 			$this->m_modul_resto->update_data($where,$data,'menu');
 			$this->session->set_flashdata('pesan', 'data menu disimpan');
 
 		}
-		redirect('modul_resto/edit_menu_masakan/?id='.$id_menu);
+		redirect('modul_resto/menu_masakan/');
 	}
 
 	public function edit_menu_masakan()
@@ -353,24 +358,21 @@ class Modul_resto extends CI_Controller {
 	public function add_paket()
 	{
 		$data['menu'] = $this->m_modul_resto->tampil_data('menu')->result();
-		$where = array(
-			'mode' => 'insert',
-		);
-		$id_last_paket=$this->m_modul_resto->get_last_id_paket($where)->row();
-		$data['id_last_paket']=$id_last_paket;
 
+		$sql = "SELECT max(id) as id FROM paket where mode='insert'";
+		$data_id_last_paket=$this->db->query($sql)->row();
+		$data['id_last_paket']=$data_id_last_paket;
+		$id_last_paket=$data_id_last_paket->id+1;
 
-		$where2 = array(
-			'id_paket' => $id_last_paket->id+1
-		);
-		$data['daftar_menu_paket'] = $this->m_modul_resto->tampil_data_daftar_menu_paket($where2)->result();
+		$sql2 = "SELECT detail_paket.id,detail_paket.id_paket,detail_paket.id_menu,menu.menu,detail_paket.jumlah,detail_paket.total_harga FROM detail_paket join menu on menu.id=detail_paket.id_menu where detail_paket.id_paket='$id_last_paket'";
+		$data['daftar_menu_paket']=$this->db->query($sql2)->result();
+
 		$this->load->view('modul_resto/add_paket',$data);
 	}
 	public function action_add_menu_paket(){
-		$id_paket = $this->input->post('id_paket');
+		$id_paket = $this->input->post('id_last_paket');
 		$id_menu = $this->input->post('menu');
 		$jumlah = $this->input->post('jumlah');
-
 
 		$where = array(
 			'id' => $id_menu
@@ -382,7 +384,6 @@ class Modul_resto extends CI_Controller {
 		$har=$cek_jum_menu->harga;
 		$harga=$har*$jumlah;
 		if($jum2>=0){
-
 				$data = array(
 				'id_menu' => $id_menu,
 				'id_paket' => $id_paket,
@@ -397,12 +398,48 @@ class Modul_resto extends CI_Controller {
 					'stok' => $jum2
 				);
 				$this->m_modul_resto->update_data($where2,$data2,'menu');
-			$this->session->set_flashdata('pesan', 'masakan ditambahkan ke menu');
+				$this->session->set_flashdata('pesan', 'masakan ditambahkan ke menu');
 		}else{
 			$this->session->set_flashdata('pesan', 'menu tidak mencukupi');
 		}
 
-		redirect('modul_resto/add_paket');
+		redirect('modul_resto/edit_paket/?id='.$id_paket);
+	}
+	public function action_add_menu_paket2(){
+		$id_paket = $this->input->post('id_last_paket');
+		$id_menu = $this->input->post('menu');
+		$jumlah = $this->input->post('jumlah');
+
+		$where = array(
+			'id' => $id_menu
+		);
+		$cek_jum_menu=$this->m_modul_resto->tampil_data_where('menu',$where)->row();
+		$jum=$cek_jum_menu->stok;
+		$jum2=$jum-$jumlah;
+
+		$har=$cek_jum_menu->harga;
+		$harga=$har*$jumlah;
+		if($jum2>=0){
+				$data = array(
+				'id_menu' => $id_menu,
+				'id_paket' => $id_paket,
+				'jumlah' => $jumlah,
+				'total_harga' => $harga,
+				);
+				$this->m_modul_resto->input_data($data,'detail_paket');
+				$where2 = array(
+					'id' => $id_menu
+				);
+				$data2 = array(
+					'stok' => $jum2
+				);
+				$this->m_modul_resto->update_data($where2,$data2,'menu');
+				$this->session->set_flashdata('pesan', 'masakan ditambahkan ke menu');
+		}else{
+			$this->session->set_flashdata('pesan', 'menu tidak mencukupi');
+		}
+
+		redirect('modul_resto/add_paket/?id='.$id_paket);
 	}
 	public function action_add_paket(){
 		$id_resto=$this->session->userdata('id_resto');
@@ -443,6 +480,36 @@ class Modul_resto extends CI_Controller {
 		redirect('modul_resto/add_paket');
 	}
 	public function hapus_item_paket(){
+		$id=$_GET['id'];
+		$id_menu=$_GET['id_menu'];
+		$id_paket=$_GET['id_paket'];
+		$jumlah=$_GET['jumlah'];
+
+
+		$where = array(
+			'id' => $id_menu
+		);
+		$sql = "SELECT stok as jumlah FROM menu where id='$id_menu'";
+		$cek_jum_menu=$this->db->query($sql)->row();
+		$jum=$cek_jum_menu->jumlah;
+
+
+		$jum2=$jum+$jumlah;
+		$where3 = array('id' => $id_menu);
+		$data = array(
+					'stok' => $jum2,
+					);
+		$this->m_modul_resto->update_data($where3,$data,'menu');
+
+
+		$tabel=$_GET['tb'];
+		$where2 = array('id' => $id);
+		$this->m_modul_resto->hapus_data($where2,$tabel);
+
+		redirect('modul_resto/edit_paket/?id='.$id_paket);
+	}
+
+	public function hapus_item_paket2(){
 		$id=$_GET['id'];
 		$id_menu=$_GET['id_menu'];
 		$id_paket=$_GET['id_paket'];
@@ -857,5 +924,5 @@ class Modul_resto extends CI_Controller {
 
 
 
-	
+
 }

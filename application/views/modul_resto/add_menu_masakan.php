@@ -42,16 +42,10 @@
             <form class="form-horizontal" action="<?php echo base_url(). 'modul_resto/action_add_menu'; ?>" method="post" role="form" enctype="multipart/form-data">
                <input type="hidden" value="<?php echo $id_last_menu->id+1;?>" name="id_last_menu" class="form-control" id="inputEmail3" >
               <div class="box-body">
-				<div class="form-group">
+				        <div class="form-group">
                   <label for="inputEmail3" class="col-sm-2 control-label">Nama Menu</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control"  name="nama_menu">
-                  </div>
-                </div>
-				<div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">Stok</label>
-                  <div class="col-sm-10">
-                    <input type="number" class="form-control"  name="porsi">
                   </div>
                 </div>
                 <div class="form-group">

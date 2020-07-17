@@ -208,4 +208,9 @@ class M_modul_kasir extends CI_Model{
 		return $hasil;
 	}
 
+	public function udpate_stok_menu($where,$value){
+		$hasil=$this->db->query("UPDATE menu SET stok = '$value' WHERE id = '$where'");
+		return $hasil;
+	}
+
 }

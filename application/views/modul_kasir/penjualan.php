@@ -562,8 +562,9 @@ function edit_menu(id_pesan,id){
             url   : '<?php echo base_url(). 'kasir/update_pesanan_menu'; ?>',
             data: {id_pesan_menu:id,jumlah_pesan:qty,sub_harga:sub_harga} ,
             async : false,
-            dataType : 'json',
+            dataType : 'html',
             success : function(data){
+              alert(data);
                       update_pemesanan(id_pesan);
                       tampil_pesan_menu(id_pesan);
                       tampil_pesan_paket(id_pesan);

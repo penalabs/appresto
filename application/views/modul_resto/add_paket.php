@@ -12,7 +12,7 @@
 <!-- Site wrapper -->
 <div class="wrapper">
 
-  
+
 	<?php include(APPPATH.'views/header.php');?>
 	<?php include(APPPATH.'views/menu.php');?>
   <!-- Content Wrapper. Contains page content -->
@@ -21,15 +21,15 @@
     <section class="content-header">
       <h1>
         Add Paket
-       
+
       </h1>
-      
+
     </section>
 
     <!-- Main content -->
     <section class="content">
 	<div class="row">
-	
+
 		<div class="col-md-4">
 		    <div class="alert alert-danger alert-dismissible">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -43,7 +43,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form class="form-horizontal" action="<?php echo base_url(). 'modul_resto/action_add_menu_paket'; ?>" method="post">
+            <form class="form-horizontal" action="<?php echo base_url(). 'modul_resto/action_add_menu_paket2'; ?>" method="post">
               <div class="box-body">
                <input type="hidden" value="<?php echo $id_last_paket->id+1;?>" name="id_last_paket" class="form-control" id="inputEmail3" >
                 <div class="form-group">
@@ -51,15 +51,15 @@
 
                   <div class="col-sm-10">
                      <select class="form-control" name="menu">
-					 <?php
-                      foreach($menu as $u){ 
-                      ?>  
-						<option value="<?= $u->id?>"><?= $u->menu?></option>
-						
-						<?php
-					  }
-					  ?>
-					  </select>
+					            <?php
+                      foreach($menu as $u){
+                      ?>
+						                <option value="<?= $u->id?>"><?= $u->menu?></option>
+
+          						<?php
+          					  }
+          					  ?>
+					          </select>
                   </div>
 
                 </div>
@@ -72,13 +72,13 @@
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                
+
                 <button type="submit" class="btn btn-info pull-right">Simpan</button>
               </div>
               <!-- /.box-footer -->
             </form>
           </div>
-		  
+
 		  <div class="box">
             <div class="box-header with-border">
               <h3 class="box-title">DAFTAR MENU DALAM PAKET</h3>
@@ -89,33 +89,33 @@
                 <tr>
                   <th style="width: 10px">#</th>
                   <th>Nama Menu</th>
-				  <th>Jumlah</th>
-				  <th>Sub Harga</th>
+        				  <th>Jumlah</th>
+        				  <th>Sub Harga</th>
                   <th style="width: 40px">Aksi</th>
                 </tr>
-				 <?php
+				        <?php
                     $no=1;
                     $total=0;
-                    foreach($daftar_menu_paket as $u3){ 
+                    foreach($daftar_menu_paket as $u3){
                 ?>
                 <tr>
                   <td><?=$no;?>.</td>
                   <td><?=$u3->menu;?></td>
-				  <td><?=$u3->jumlah;?></td>
-				  <td><?=$u3->total_harga;?></td>
-                  <td><a href="<?php echo base_url(). 'modul_resto/hapus_item_paket'; ?>/?id=<?=$u3->id;?>&&tb=detail_paket&&id_menu=<?=$u3->id_menu;?>&&jumlah=<?=$u3->jumlah;?>&&id_paket=<?php echo $id_last_paket->id+1;?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
+        				  <td><?=$u3->jumlah;?></td>
+        				  <td><?=$u3->total_harga;?></td>
+                  <td><a href="<?php echo base_url(). 'modul_resto/hapus_item_paket2'; ?>/?id=<?=$u3->id;?>&&tb=detail_paket&&id_menu=<?=$u3->id_menu;?>&&jumlah=<?=$u3->jumlah;?>&&id_paket=<?php echo $id_last_paket->id+1;?>" class="btn btn-danger btn-xs"><i class="fa  fa-close" ></i></a></td>
                 </tr>
                <?php
-			   $no++;
-					}
-					?>
+      			   $no++;
+      					}
+      					?>
               </table>
             </div>
             <!-- /.box-body -->
-           
+
           </div>
 		</div>
-		
+
 		<div class="col-md-4">
           <!-- Horizontal Form -->
           <div class="box box-info">
@@ -165,7 +165,7 @@
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                
+
                 <button type="submit" class="btn btn-info pull-right">Simpan</button>
               </div>
               <!-- /.box-footer -->
@@ -176,14 +176,14 @@
 
           <!-- /.box -->
 		</div>
-		  
-		  
+
+
 	</div>
 
 
-	
-   
-	
+
+
+
 
 
     </section>

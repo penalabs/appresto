@@ -43,21 +43,18 @@
                <h4><i class="icon fa fa-check"></i> Alert!</h4>
                <?php echo $user_data; ?>
        </div>
+        </div>
        <?php
         }
         ?>
-     </div>
+
       <div class="col-md-4">
-            <!-- Horizontal Form -->
             <div class="box box-info">
               <div class="box-header with-border">
                 <h3 class="box-title">Tambah produksi <i class="fa  fa-hand-lizard-o" ></i></h3>
               </div>
-              <!-- /.box-header -->
-              <!-- form start -->
               <form action="<?php echo base_url(). 'modul_produksi/aksi_tambah_produksi'; ?>" method="post" class="form-horizontal">
                 <div class="box-body">
-
         				<div class="form-group">
                           <label for="inputPassword3" class="col-sm-3 control-label">Nama Menu</label>
                           <div class="col-sm-9">
@@ -76,27 +73,22 @@
                              </select>
                           </div>
                   </div>
-
-
                 <div class="form-group">
                          <label for="inputEmail3" class="col-sm-3 control-label">Jumlah produksi</label>
                          <div class="col-sm-9">
                            <input type="text" name="jumlah_produksi" class="form-control" id="inputEmail3" >
                          </div>
                 </div>
-
-
                 </div>
-
-                <!-- /.box-body -->
                 <div class="box-footer">
                   <button type="submit" class="btn btn-info pull-right">Simpan</button>
                 </div>
-                <!-- /.box-footer -->
               </form>
             </div>
   		</div>
-  	<div class="col-md-8">
+
+
+  	   <div class="col-md-8">
             <div class="box">
               <div class="box-header">
                 <h3 class="box-title">Daftar Produksi Menu Masakan</h3>
@@ -129,39 +121,33 @@
                       $no++;
                       }
                     ?>
-
                   </tbody>
                 </table>
               </div>
-              <!-- /.box-body -->
             </div>
-            <!-- /.box -->
           </div>
 
           <?php
           if(isset($_GET['id'])){
             $id_produksi_masakan=$_GET['id'];
            ?>
+
           <div class="col-md-6">
-                <!-- Horizontal Form -->
                 <div class="box box-info">
                   <div class="box-header with-border">
                     <h3 class="box-title">Tambah bahan mentah <i class="fa  fa-hand-lizard-o" ></i></h3>
                   </div>
-                  <!-- /.box-header -->
-                  <!-- form start -->
                   <form action="<?php echo base_url(). 'modul_produksi/aksi_tambah_bahan_mentah_produksi'; ?>" method="post" class="form-horizontal">
                     <div class="box-body">
                       <input type="hidden" name="menu" class="form-control" id="inputEmail3" value="<?=$_GET['menu'];?>" >
                       <input type="hidden" name="id_produksi_masakan" class="form-control" id="inputEmail3" value="<?=$_GET['id'];?>" >
-
                       <div class="form-group">
                                 <label for="inputPassword3" class="col-sm-3 control-label">Bahan Mentah</label>
                                 <div class="col-sm-9">
                                    <select class="form-control" name="id_bahan_mentah">
                                    <?php
                                    //$sql = "SELECT * FROM bahan_mentah join permintaan_bahan_detail on permintaan_bahan_detail.id_bahan_mentah=bahan_mentah.id";
-                                   $sql = "SELECT * FROM bahan_mentah";
+                                   $sql = "SELECT * FROM stok_bahan_mentah_produksi join bahan_mentah on bahan_mentah.id=stok_bahan_mentah_produksi.id_bahan_mentah";
                                    $data2=$this->db->query($sql)->result();
                                               foreach($data2 as $u2){
                                               ?>
@@ -179,25 +165,20 @@
                                  </div>
                         </div>
                       </div>
-
-                    <!-- /.box-body -->
                     <div class="box-footer">
                       <button type="submit" class="btn btn-info pull-right">Simpan</button>
                     </div>
-
-                    <!-- /.box-footer -->
                   </form>
                 </div>
           </div>
 
+
+
           <div class="col-md-6">
-                <!-- Horizontal Form -->
                 <div class="box box-info">
                   <div class="box-header with-border">
                     <h3 class="box-title">Tambah bahan olahan <i class="fa  fa-hand-lizard-o" ></i></h3>
                   </div>
-                  <!-- /.box-header -->
-                  <!-- form start -->
                   <form action="<?php echo base_url(). 'modul_produksi/aksi_tambah_bahan_olahan_produksi'; ?>" method="post" class="form-horizontal">
                     <div class="box-body">
                     <input type="hidden" name="menu" class="form-control" id="inputEmail3" value="<?=$_GET['menu'];?>" >
@@ -208,7 +189,7 @@
                                  <select class="form-control" name="id_bahan_olahan">
                                  <?php
                       					 //$sql = "SELECT * FROM bahan_mentah join permintaan_bahan_detail on permintaan_bahan_detail.id_bahan_mentah=bahan_mentah.id";
-                      					 $sql = "SELECT * FROM bahan_olahan";
+                      					 $sql = "SELECT * FROM stok_bahan_olahan_produksi join bahan_olahan on bahan_olahan.id=stok_bahan_olahan_produksi.id_bahan_olahan";
                       					 $data2=$this->db->query($sql)->result();
                                             foreach($data2 as $u2){
                                             ?>
@@ -226,18 +207,19 @@
                                </div>
                       </div>
                     </div>
-
-                    <!-- /.box-body -->
                     <div class="box-footer">
                       <button type="submit" class="btn btn-info pull-right">Simpan</button>
                     </div>
-                    <!-- /.box-footer -->
                   </form>
                 </div>
       		</div>
+
+
           <div class="col-md-12">
             <h3 class="box-title"><?php echo $_GET['menu'];?> MEMBUTUHKAN BAHAN <i class="fa  fa-hand-lizard-o" ></i></h3>
           </div>
+
+
           <div class="col-md-6">
             <?php if($responce = $this->session->flashdata('success')): ?>
             <div class="alert alert-success alert-dismissible">
@@ -285,11 +267,11 @@
                   </tbody>
                 </table>
               </div>
-                    <!-- /.box-body -->
             </div>
-                  <!-- /.box -->
           </div>
-            <!-- /.box -->
+
+
+
 
           <div class="col-md-6">
               <?php if($responce = $this->session->flashdata('success2')): ?>
@@ -336,10 +318,11 @@
                     </tbody>
                   </table>
                 </div>
-                      <!-- /.box-body -->
               </div>
-                    <!-- /.box -->
             </div>
+
+
+
             <?php
             }
             ?>
@@ -381,7 +364,7 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    
+
   });
 </script>
 
