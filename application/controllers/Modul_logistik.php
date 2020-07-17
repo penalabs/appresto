@@ -507,6 +507,48 @@ class modul_logistik extends CI_Controller {
 	  $this->load->view('modul_logistik/V_permintaanperalatan_view', $data);
 	}
 
+	public function KirimPermintaanAlat()
+	{
+		$id_permintaan_alat		= $this->input->get('id_permintaan_alat');
+	  echo $id_alat				= $this->input->get('id_alat');
+	  $jumlah_permintaan				= $this->input->get('jumlah_permintaan');
+
+	  $sql2 = "SELECT jumlah_stok FROM peralatan where id='$id_alat'";
+	  $jumlah_stok_alat=$this->db->query($sql2)->row();
+
+	  $stok_akhir=(int)$jumlah_stok_alat->jumlah_stok-(int)$jumlah_permintaan;
+
+	  $sql3 = "UPDATE peralatan set jumlah_stok='$stok_akhir' where id='$id_alat'";
+	  $this->db->query($sql3);
+
+		$sql4 = "UPDATE permintaan_alat set status_permintaan='dikirim' where id_permintaan_alat='$id_permintaan_alat'";
+	  $this->db->query($sql4);
+
+
+	  redirect('modul_logistik/permintaanperalatan_view');
+	}
+
+	public function TolakPermintaanAlat()
+	{
+		$id_permintaan_alat		= $this->input->get('id_permintaan_alat');
+	  echo $id_alat				= $this->input->get('id_alat');
+	  $jumlah_permintaan				= $this->input->get('jumlah_permintaan');
+
+	  // $sql2 = "SELECT jumlah_stok FROM peralatan where id='$id_alat'";
+	  // $jumlah_stok_alat=$this->db->query($sql2)->row();
+		//
+	  // $stok_akhir=(int)$jumlah_stok_alat->jumlah_stok-(int)$jumlah_permintaan;
+		//
+	  // $sql3 = "UPDATE peralatan set jumlah_stok='$stok_akhir' where id='$id_alat'";
+	  // $this->db->query($sql3);
+
+		$sql4 = "UPDATE permintaan_alat set status_permintaan='permintaan ditolak' where id_permintaan_alat='$id_permintaan_alat'";
+	  $this->db->query($sql4);
+
+
+	  redirect('modul_logistik/permintaanperalatan_view');
+	}
+
 	public function hapusRecordPermintaan($id)
 	{
 		$where = array('id_permintaan_alat' => $id);

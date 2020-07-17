@@ -55,7 +55,7 @@
                   <label class="col-sm-2 control-label">Nama Cabang</label>
                   <div class="col-sm-10">
                     <select name="nama_cabang" class="form-control">
-                      <option value="<?php echo $dataedit->id; ?>"><?php echo $dataedit->nama_resto; ?></option>
+                      <option value="<?php echo $dataedit->id_resto2; ?>"><?php echo $dataedit->nama_resto; ?></option>
                       <?php foreach ($data_cabang_resto as $datacabangresto) { ?>
                         <option value="<?php echo $datacabangresto->id; ?>"><?php echo $datacabangresto->nama_resto; ?></option>
                       <?php } ?>

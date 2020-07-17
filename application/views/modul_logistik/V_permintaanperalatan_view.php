@@ -77,8 +77,8 @@
 
 						<?php if($u->status_permintaan == "permintaan"){
 						  ?>
-						  <a href="javascript:void(0);" class="btn btn-success btn-xs KirimForm">Kirimkan</a>
-						  <a href="<?php echo base_url()?>Modul_logistik/hapusRecordPermintaan/<?php echo $u->id_permintaan_alat?>" class="btn btn-danger btn-xs tolakData">Tolak</a>
+						  <a href="<?php echo base_url()?>Modul_logistik/KirimPermintaanAlat/?id_permintaan_alat=<?php echo $u->id_permintaan_alat?>&&id_alat=<?php echo $u->id_alat?>&&jumlah_permintaan=<?php echo $u->jumlah; ?>" class="btn btn-success btn-xs KirimForm">Kirimkan</a>
+						  <a href="<?php echo base_url()?>Modul_logistik/TolakPermintaanAlat/?id_permintaan_alat=<?php echo $u->id_permintaan_alat?>&&id_alat=<?php echo $u->id_alat?>&&jumlah_permintaan=<?php echo $u->jumlah; ?>" class="btn btn-danger btn-xs tolakData">Tolak</a>
 						  <?php
 						}else if($u->status_permintaan != "permintaan"){
 						 ?>
@@ -103,8 +103,8 @@
           </div>
     </div>
   </div>
-<!--
-<form id="showForm" method="post">
+
+<!-- <form id="showForm" method="post">
 	<div class="modal fade" id="showM" tabindex="-1" role="dialog" aria-labelledby="GajiLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-sm" role="document">
 		<div class="modal-content">
@@ -164,9 +164,9 @@
 		</div>
 	  </div>
 	</div>
-</form>
+</form> -->
 
-<form id="KirimForm" method="post" action="<?php echo base_url().'modul_logistik/editRecordPermintaan'?>">
+<!-- <form id="KirimForm" method="post" action="<?php echo base_url().'modul_logistik/editRecordPermintaan'?>">
 	<div class="modal fade" id="showK" tabindex="-1" role="dialog" aria-labelledby="KirimLabel" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -267,18 +267,18 @@
   //
 	// });
   //
-	// $('#listRecords').on('click','.KirimForm',function(){
-	// 	$('#showK').modal('show');
-  //
-	// 	$("#resto1").attr('readonly','true').val($(this).data('resto1'));
-	// 	$("#alat1").attr('readonly','true').val($(this).data('alat1'));
-	// 	$("#jml1").val($(this).data('jml1'));
-	// 	$("#masa1").attr('readonly','true').val($(this).data('masa1'));
-	// 	$("#status1").attr('readonly','true').val($(this).data('status1'));
-	// 	$("#tgl_permintaan1").attr('readonly','true').val($(this).data('tgl_permintaan1'));
-	// 	$("#idP").val($(this).data('id_permintaan_alat'));
-  //
-	// });
+	$('#listRecords').on('click','.KirimForm',function(){
+		$('#showK').modal('show');
+
+		$("#resto1").attr('readonly','true').val($(this).data('resto1'));
+		$("#alat1").attr('readonly','true').val($(this).data('alat1'));
+		$("#jml1").val($(this).data('jml1'));
+		$("#masa1").attr('readonly','true').val($(this).data('masa1'));
+		$("#status1").attr('readonly','true').val($(this).data('status1'));
+		$("#tgl_permintaan1").attr('readonly','true').val($(this).data('tgl_permintaan1'));
+		$("#idP").val($(this).data('id_permintaan_alat'));
+
+	});
 
   })
 </script>

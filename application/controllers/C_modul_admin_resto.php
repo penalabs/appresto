@@ -38,7 +38,14 @@ class C_modul_admin_resto extends CI_Controller
 
 	public function permintaanperalatan_tambah()
 	{
-		$data['data_cabang_resto'] = $this->m_modul_admin_resto->tampil_data('resto')->result();
+		$id_admin_resto=$this->session->userdata('id');
+		$sql1 = "SELECT id_kanwil FROM user_resto WHERE id='$id_admin_resto'";
+		$data_id_kanwil=$this->db->query($sql1)->row();
+		$id_kanwil=$data_id_kanwil->id_kanwil;
+
+		$sql2 = "SELECT * FROM resto WHERE id_kanwil='$id_kanwil'";
+
+		$data['data_cabang_resto'] =$this->db->query($sql2)->result();
 		$data['data_peralatan'] = $this->m_modul_admin_resto->tampil_data('peralatan')->result();
 		$this->load->view('modul_admin_resto/V_permintaanperalatan_tambah', $data);
 	}
@@ -50,7 +57,7 @@ class C_modul_admin_resto extends CI_Controller
 		// $cek_id_resto=$this->db->query($sql)->row();
 		// $id_resto=$cek_id_resto->id_resto;
 		$id_admin_resto=$this->input->post('id_admin_resto');
-		$id_resto=$this->input->post('id_resto');
+		$id_resto=$this->input->post('nama_cabang');
 		$nama_cabang		= $this->input->post('nama_cabang');
 		$alat				= $this->input->post('alat');
 		$jumlah				= $this->input->post('jumlah');
@@ -62,6 +69,7 @@ class C_modul_admin_resto extends CI_Controller
 			'id_resto'				=> $id_resto,
 			'id_kanwil'				=> $id_kanwil,
 			'id_alat'				=> $alat,
+			'tanggal'				=> date("Y-m-d"),
 			'jumlah'				=> $jumlah,
 			'masa_pemanfatan'		=> $masapemanfaatan,
 			'status_permintaan'		=> 'permintaan',
@@ -82,11 +90,18 @@ class C_modul_admin_resto extends CI_Controller
 		redirect('C_modul_admin_resto/permintaanperalatan_view');
 	}
 
-	public function permintaanperalatan_edit($id_pengeluaran_cabang)
+	public function permintaanperalatan_edit($id_permintaan_alat)
 	{
-		$data['data_cabang_resto'] = $this->m_modul_admin_resto->tampil_data('resto')->result();
+		$id_admin_resto=$this->session->userdata('id');
+		$sql1 = "SELECT id_kanwil FROM user_resto WHERE id='$id_admin_resto'";
+		$data_id_kanwil=$this->db->query($sql1)->row();
+		$id_kanwil=$data_id_kanwil->id_kanwil;
+
+		$sql2 = "SELECT * FROM resto WHERE id_kanwil='$id_kanwil'";
+
+		$data['data_cabang_resto'] =$this->db->query($sql2)->result();
 		$data['data_peralatan'] = $this->m_modul_admin_resto->tampil_data('peralatan')->result();
-		$data['permintaanperalatan'] = $this->m_modul_admin_resto->tampil_data_permintaan_peralatan_where($id_pengeluaran_cabang)->result();
+		$data['permintaanperalatan'] = $this->m_modul_admin_resto->tampil_data_permintaan_peralatan_where($id_permintaan_alat)->result();
 		$this->load->view('modul_admin_resto/V_permintaanperalatan_edit', $data);
 	}
 
@@ -101,31 +116,32 @@ class C_modul_admin_resto extends CI_Controller
 		// $nominal			= $this->input->post('nominal');
 		// $penyusutan			= $this->input->post('penyusutan');
 
-		$sql2 = "SELECT jumlah_stok FROM peralatan where id='$alat'";
-		$jumlah_stok_alat=$this->db->query($sql2)->row();
-
-		$sql3 = "SELECT jumlah FROM permintaan_alat where id_permintaan_alat='$id'";
-		$stok_permintaan=$this->db->query($sql3)->row();
-	  (int)$stok_permintaan->jumlah;
-
-		if((int)$stok_permintaan->jumlah<(int)$jumlah){
-			echo 1;
-			echo 	$stok_akhir=(int)$jumlah_stok_alat->jumlah_stok+((int)$stok_permintaan->jumlah-(int)$jumlah);
-		}else if((int)$stok_permintaan->jumlah>(int)$jumlah){
-
-			echo 	$stok_akhir=(int)$jumlah_stok_alat->jumlah_stok- ((int)$jumlah-(int)$stok_permintaan->jumlah);
-		}
-
-
-
-		$sql4 = "UPDATE peralatan set jumlah_stok='$stok_akhir' where id='$alat'";
-		$this->db->query($sql4);
+		// $sql2 = "SELECT jumlah_stok FROM peralatan where id='$alat'";
+		// $jumlah_stok_alat=$this->db->query($sql2)->row();
+		//
+		// $sql3 = "SELECT jumlah FROM permintaan_alat where id_permintaan_alat='$id'";
+		// $stok_permintaan=$this->db->query($sql3)->row();
+	  // (int)$stok_permintaan->jumlah;
+		//
+		// if((int)$stok_permintaan->jumlah<(int)$jumlah){
+		// 	echo 1;
+		// 	echo 	$stok_akhir=(int)$jumlah_stok_alat->jumlah_stok+((int)$stok_permintaan->jumlah-(int)$jumlah);
+		// }else if((int)$stok_permintaan->jumlah>(int)$jumlah){
+		//
+		// 	echo 	$stok_akhir=(int)$jumlah_stok_alat->jumlah_stok- ((int)$jumlah-(int)$stok_permintaan->jumlah);
+		// }
+		//
+		//
+		//
+		// $sql4 = "UPDATE peralatan set jumlah_stok='$stok_akhir' where id='$alat'";
+		// $this->db->query($sql4);
 
 		$where = array('id_permintaan_alat' => $id);
 		$datainput = array(
 			'id_resto'				=> $nama_cabang,
 			'id_kanwil'				=> $id_kanwil,
 			'id_alat'				=> $alat,
+			'tanggal'				=> date("Y-m-d"),
 			'jumlah'				=> $jumlah,
 			'masa_pemanfatan'		=> $masapemanfaatan,
 			'status_permintaan'		=> 'permintaan',
@@ -145,6 +161,28 @@ class C_modul_admin_resto extends CI_Controller
 
 
 
+		// $sql2 = "SELECT jumlah_stok FROM peralatan where id='$id_alat'";
+		// $jumlah_stok_alat=$this->db->query($sql2)->row();
+		//
+		// $stok_akhir=$jumlah_stok_alat->jumlah_stok+$jumlah;
+		//
+		// $sql3 = "UPDATE peralatan set jumlah_stok='$stok_akhir' where id='$id_alat'";
+		// $this->db->query($sql3);
+
+		$where = array('id_permintaan_alat' => $id_permintaan_alat);
+		$this->m_modul_admin_resto->hapus_data($where, 'permintaan_alat');
+
+		redirect('C_modul_admin_resto/permintaanperalatan_view');
+	}
+
+	public function kembalikan_alat()
+	{
+		echo $id_alat=$this->input->get('id_alat');
+		echo $id_permintaan_alat=$this->input->get('id');
+		echo $jumlah=$this->input->get('jumlah');
+
+
+
 		$sql2 = "SELECT jumlah_stok FROM peralatan where id='$id_alat'";
 		$jumlah_stok_alat=$this->db->query($sql2)->row();
 
@@ -153,13 +191,34 @@ class C_modul_admin_resto extends CI_Controller
 		$sql3 = "UPDATE peralatan set jumlah_stok='$stok_akhir' where id='$id_alat'";
 		$this->db->query($sql3);
 
-		$where = array('id_permintaan_alat' => $id_permintaan_alat);
-		$this->m_modul_admin_resto->hapus_data($where, 'permintaan_alat');
+		// $where = array('id_permintaan_alat' => $id_permintaan_alat);
+		// $this->m_modul_admin_resto->hapus_data($where, 'permintaan_alat');
+		$sql4 = "UPDATE permintaan_alat set status_permintaan='dikembalikan' where id_permintaan_alat='$id_permintaan_alat'";
+	  $this->db->query($sql4);
 
 		redirect('C_modul_admin_resto/permintaanperalatan_view');
 	}
 
+	public function konfirmasi_alat()
+	{
+		echo $id_alat=$this->input->get('id_alat');
+		echo $id_permintaan_alat=$this->input->get('id');
+		echo $jumlah=$this->input->get('jumlah');
 
+	  // $sql2 = "SELECT jumlah_stok FROM peralatan where id='$id_alat'";
+	  // $jumlah_stok_alat=$this->db->query($sql2)->row();
+		//
+	  // $stok_akhir=(int)$jumlah_stok_alat->jumlah_stok-(int)$jumlah_permintaan;
+		//
+	  // $sql3 = "UPDATE peralatan set jumlah_stok='$stok_akhir' where id='$id_alat'";
+	  // $this->db->query($sql3);
+
+		$sql4 = "UPDATE permintaan_alat set status_permintaan='diterima' where id_permintaan_alat='$id_permintaan_alat'";
+	  $this->db->query($sql4);
+
+
+	  redirect('C_modul_admin_resto/permintaanperalatan_view');
+	}
 
 
 

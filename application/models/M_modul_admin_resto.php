@@ -49,7 +49,7 @@ class M_modul_admin_resto extends CI_Model{
 
 	function tampil_data_permintaan_peralatan_where($where){
 		$query = $this->db->query("
-		SELECT permintaan_alat.*,resto.*,peralatan.*
+		SELECT permintaan_alat.*,resto.id as 'id_resto2',resto.nama_resto,peralatan.*
 		FROM permintaan_alat
 		JOIN resto ON resto.id = permintaan_alat.id_resto
 		JOIN peralatan ON peralatan.id = permintaan_alat.id_alat
