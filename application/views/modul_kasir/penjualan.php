@@ -316,10 +316,9 @@
   <input type="hidden" name="service_charge_rate" value="" autocomplete="off">
   <input type="hidden" name="vat_charge_rate" value="13" autocomplete="off">
   <button type="button" class="btn btn-primary" onclick="save()">Create / Simpan</button>
-  <a href="<?php echo base_url('kasir/pemesanan');?>" class="btn btn-warning">KEMBALI KE TRANSAKSI</a>
 
-  <a id="cetak" href="" target="_blank" class="btn btn-primary" >CETAK STRUK</a>
-  <a href="<?php echo base_url('kasir/penjualan/');?>" class="btn btn-success">ENTER TRANSAKSI BARU</a>
+  <a id="cetak" href="" target="_blank" class="btn btn-warning" >CETAK STRUK</a>
+  <a href="<?php echo base_url('kasir/penjualan/');?>" class="btn btn-success">RELOAD</a>
 
 </div>
 </form>
