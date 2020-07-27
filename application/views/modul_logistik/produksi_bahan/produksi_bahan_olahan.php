@@ -30,7 +30,7 @@
     <section class="content">
 	  <div class="row">
 
-		<?php  $id_logistik=$this->session->userdata('id'); ?>
+		<?php  echo $id_logistik=$this->session->userdata('id'); ?>
 
 		<div class="col-md-12"></div>
 
@@ -91,7 +91,7 @@
                     <?php
                       $no = 1;
 
-                      $sql = "SELECT bahan_mentah.nama_bahan,bahan_mentah.satuan_besar,produksi_bahan_olahan.jumlah_bahan_mentah,produksi_bahan_olahan.id,produksi_bahan_olahan.id_bahan_mentah,produksi_bahan_olahan.status FROM produksi_bahan_olahan join bahan_mentah on bahan_mentah.id=produksi_bahan_olahan.id_bahan_mentah where bahan_mentah.id_logistik='$id_logistik'";
+                      $sql = "SELECT bahan_mentah.nama_bahan,bahan_mentah.satuan_besar,produksi_bahan_olahan.jumlah_bahan_mentah,produksi_bahan_olahan.id,produksi_bahan_olahan.id_bahan_mentah,produksi_bahan_olahan.status FROM produksi_bahan_olahan join bahan_mentah on bahan_mentah.id=produksi_bahan_olahan.id_bahan_mentah where produksi_bahan_olahan.id_logistik='$id_logistik'";
                       $data=$this->db->query($sql)->result();
                       foreach($data as $u){
                     ?>

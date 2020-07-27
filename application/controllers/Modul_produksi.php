@@ -993,18 +993,20 @@ class modul_produksi extends CI_Controller {
 		}
 		function aksi_kembalikan_bahan_olahan(){
 			$id_pengiriman = $this->input->post('id');
+			$id_bahan_olahan = $this->input->post('id_bahan_olahan');
 			$jumlah_dikembalikan = $this->input->post('jumlah_dikembalikan');
 			$jumlah_permintaan = $this->input->post('jumlah_permintaan');
 			$jumlah_dikirim = $this->input->post('jumlah_dikirim');
 			$id_permintaan = $this->input->post('id_permintaan');
 			$batas_kembali=(int)$jumlah_dikirim-(int)$jumlah_permintaan;
 
-			if((int)$batas_kembali==0){
+			if((int)$batas_kembali<0){
 				$data_session = array(
 					'pesan' => 'jumlah dikembalikan melebihi',
 				);
 
 				$this->session->set_userdata($data_session);
+				echo 1;
 			}else{
 				$sql = "UPDATE pengiriman_bahan_olahan SET jumlah_dikembalikan = '$jumlah_dikembalikan' WHERE id='$id_pengiriman'";
 				if($this->db->query($sql)){
@@ -1014,6 +1016,31 @@ class modul_produksi extends CI_Controller {
 
 				  $this->session->set_userdata($data_session);
 					echo 1;
+				}
+
+				$sql2 = "SELECT stok FROM stok_bahan_olahan_produksi WHERE id_bahan_olahan='$id_bahan_olahan'";
+				$cek_stok=$this->db->query($sql2)->row();
+				$stok_akhir=(int)$cek_stok->stok-(int)$jumlah_dikembalikan;
+				$sql = "UPDATE stok_bahan_olahan_produksi SET stok = '$stok_akhir' WHERE id_bahan_olahan='$id_bahan_olahan'";
+				if($this->db->query($sql)){
+					$data_session = array(
+						'pesan' => 'berhasil komfirmasi bahan diterima',
+					);
+
+					$this->session->set_userdata($data_session);
+				}
+
+				$sql7 = "SELECT stok FROM bahan_olahan WHERE id='$id_bahan_olahan'";
+				$cek_stok_bahan_olahan=$this->db->query($sql7)->row();
+				$stok_bahan_olahan=$cek_stok_bahan_olahan->stok;
+				$stok_akhir_bahan_olahan=(int)$stok_bahan_olahan+$jumlah_dikembalikan;
+
+				$sql6 = "UPDATE bahan_olahan SET stok = '$stok_akhir_bahan_olahan' WHERE id='$id_bahan_olahan'";
+				if($this->db->query($sql6)){
+				  $data_session = array(
+				    'pesan' => 'berhasil komfirmasi bahan diterima',
+				  );
+				  $this->session->set_userdata($data_session);
 				}
 			}
 			redirect('modul_produksi/lihat_bahan_olahan/?id_permintaan='.$id_permintaan);
@@ -1068,18 +1095,18 @@ class modul_produksi extends CI_Controller {
 		           $this->session->set_userdata($data_session);
 		         }
 
-		         $sql7 = "SELECT stok FROM bahan_olahan WHERE id='$id_bahan_olahan'";
-		         $cek_stok_bahan_olahan=$this->db->query($sql7)->row();
-		         $stok_bahan_olahan=$cek_stok_bahan_olahan->stok;
-		         $stok_akhir_bahan_olahan=(int)$stok_bahan_olahan-$jumlah_bahan_diterima;
-
-		         $sql6 = "UPDATE bahan_olahan SET stok = '$stok_akhir_bahan_olahan' WHERE id='$id_bahan_olahan'";
-		         if($this->db->query($sql6)){
-		           $data_session = array(
-		             'pesan' => 'berhasil komfirmasi bahan diterima',
-		           );
-		           $this->session->set_userdata($data_session);
-		         }
+		         // $sql7 = "SELECT stok FROM bahan_olahan WHERE id='$id_bahan_olahan'";
+		         // $cek_stok_bahan_olahan=$this->db->query($sql7)->row();
+		         // $stok_bahan_olahan=$cek_stok_bahan_olahan->stok;
+		         // $stok_akhir_bahan_olahan=(int)$stok_bahan_olahan-$jumlah_bahan_diterima;
+						 //
+		         // $sql6 = "UPDATE bahan_olahan SET stok = '$stok_akhir_bahan_olahan' WHERE id='$id_bahan_olahan'";
+		         // if($this->db->query($sql6)){
+		         //   $data_session = array(
+		         //     'pesan' => 'berhasil komfirmasi bahan diterima',
+		         //   );
+		         //   $this->session->set_userdata($data_session);
+		         // }
 
 
 		    }else{
@@ -1104,18 +1131,18 @@ class modul_produksi extends CI_Controller {
 		           $this->session->set_userdata($data_session);
 		          }
 
-		         $sql7 = "SELECT stok FROM bahan_olahan WHERE id='$id_bahan_olahan'";
-		         $cek_stok_bahan_olahan=$this->db->query($sql7)->row();
-		         $stok_bahan_olahan=$cek_stok_bahan_olahan->stok;
-		         $stok_akhir_bahan_olahan=(int)$stok_bahan_olahan-$jumlah_bahan_diterima;
-
-		         $sql6 = "UPDATE bahan_olahan SET stok = '$stok_akhir_bahan_olahan' WHERE id='$id_bahan_olahan'";
-		         if($this->db->query($sql6)){
-		           $data_session = array(
-		             'pesan' => 'berhasil komfirmasi bahan diterima',
-		           );
-		           $this->session->set_userdata($data_session);
-		         }
+		         // $sql7 = "SELECT stok FROM bahan_olahan WHERE id='$id_bahan_olahan'";
+		         // $cek_stok_bahan_olahan=$this->db->query($sql7)->row();
+		         // $stok_bahan_olahan=$cek_stok_bahan_olahan->stok;
+		         // $stok_akhir_bahan_olahan=(int)$stok_bahan_olahan-$jumlah_bahan_diterima;
+						 //
+		         // $sql6 = "UPDATE bahan_olahan SET stok = '$stok_akhir_bahan_olahan' WHERE id='$id_bahan_olahan'";
+		         // if($this->db->query($sql6)){
+		         //   $data_session = array(
+		         //     'pesan' => 'berhasil komfirmasi bahan diterima',
+		         //   );
+		         //   $this->session->set_userdata($data_session);
+		         // }
 
 		    }
 		  }
@@ -1163,20 +1190,32 @@ class modul_produksi extends CI_Controller {
 		}
 		function aksi_kembalikan_bahan_mentah(){
 		  $id_pengiriman = $this->input->post('id');
-		  $jumlah_dikembalikan = $this->input->post('jumlah_dikembalikan');
-
+		  $id_bahan_mentah = $this->input->post('id_bahan_mentah');
+			$jumlah_dikembalikan = $this->input->post('jumlah_dikembalikan');
 		  $jumlah_permintaan = $this->input->post('jumlah_permintaan');
 		  $jumlah_dikirim = $this->input->post('jumlah_dikirim');
 		  $id_permintaan = $this->input->post('id_permintaan');
 		  $batas_kembali=(int)$jumlah_dikirim-(int)$jumlah_permintaan;
 
-		  if((int)$batas_kembali==0){
+		  if((int)$batas_kembali<0){
 		    $data_session = array(
 		      'pesan' => 'jumlah dikembalikan melebihi',
 		    );
 
 		    $this->session->set_userdata($data_session);
 		  }else{
+				$sql2 = "SELECT stok FROM stok_bahan_mentah_produksi WHERE id_bahan_mentah='$id_bahan_mentah'";
+				$cek_stok=$this->db->query($sql2)->row();
+				$stok_akhir=(int)$cek_stok->stok-(int)$jumlah_dikembalikan;
+				$sql = "UPDATE stok_bahan_mentah_produksi SET stok = '$stok_akhir' WHERE id_bahan_mentah='$id_bahan_mentah'";
+				if($this->db->query($sql)){
+					$data_session = array(
+						'pesan' => 'berhasil komfirmasi bahan diterima',
+					);
+
+					$this->session->set_userdata($data_session);
+				}
+
 		    $sql = "UPDATE pengiriman_bahan_mentah SET jumlah_dikembalikan = '$jumlah_dikembalikan' WHERE id='$id_pengiriman'";
 		    if($this->db->query($sql)){
 		      $data_session = array(
@@ -1186,6 +1225,19 @@ class modul_produksi extends CI_Controller {
 		      $this->session->set_userdata($data_session);
 		      echo 1;
 		    }
+
+				$sql7 = "SELECT stok FROM bahan_mentah WHERE id='$id_bahan_mentah'";
+				$cek_stok_bahan_mentah=$this->db->query($sql7)->row();
+				$stok_bahan_mentah=$cek_stok_bahan_mentah->stok;
+				$stok_akhir_bahan_mentah=(int)$stok_bahan_mentah+$jumlah_dikembalikan;
+
+				$sql6 = "UPDATE bahan_mentah SET stok = '$stok_akhir_bahan_mentah' WHERE id='$id_bahan_mentah'";
+				if($this->db->query($sql6)){
+				  $data_session = array(
+				 	 'pesan' => 'berhasil komfirmasi bahan diterima',
+				  );
+				  $this->session->set_userdata($data_session);
+				}
 		  }
 		  redirect('modul_produksi/lihat_bahan_mentah/?id_permintaan='.$id_permintaan);
 		}
@@ -1239,18 +1291,18 @@ class modul_produksi extends CI_Controller {
 							 $this->session->set_userdata($data_session);
 						 }
 
-						 $sql7 = "SELECT stok FROM bahan_mentah WHERE id='$id_bahan_mentah'";
-						 $cek_stok_bahan_mentah=$this->db->query($sql7)->row();
-						 $stok_bahan_mentah=$cek_stok_bahan_mentah->stok;
-						 $stok_akhir_bahan_mentah=(int)$stok_bahan_mentah-$jumlah_bahan_diterima;
-
-						 $sql6 = "UPDATE bahan_mentah SET stok = '$stok_akhir_bahan_mentah' WHERE id='$id_bahan_mentah'";
-						 if($this->db->query($sql6)){
-							 $data_session = array(
-								 'pesan' => 'berhasil komfirmasi bahan diterima',
-							 );
-							 $this->session->set_userdata($data_session);
-						 }
+						 // $sql7 = "SELECT stok FROM bahan_mentah WHERE id='$id_bahan_mentah'";
+						 // $cek_stok_bahan_mentah=$this->db->query($sql7)->row();
+						 // $stok_bahan_mentah=$cek_stok_bahan_mentah->stok;
+						 // $stok_akhir_bahan_mentah=(int)$stok_bahan_mentah-$jumlah_bahan_diterima;
+						 //
+						 // $sql6 = "UPDATE bahan_mentah SET stok = '$stok_akhir_bahan_mentah' WHERE id='$id_bahan_mentah'";
+						 // if($this->db->query($sql6)){
+							//  $data_session = array(
+							// 	 'pesan' => 'berhasil komfirmasi bahan diterima',
+							//  );
+							//  $this->session->set_userdata($data_session);
+						 // }
 
 
 				}else{
@@ -1275,18 +1327,18 @@ class modul_produksi extends CI_Controller {
  							 $this->session->set_userdata($data_session);
  						  }
 
-						 $sql7 = "SELECT stok FROM bahan_mentah WHERE id='$id_bahan_mentah'";
- 						 $cek_stok_bahan_mentah=$this->db->query($sql7)->row();
- 						 $stok_bahan_mentah=$cek_stok_bahan_mentah->stok;
- 						 $stok_akhir_bahan_mentah=(int)$stok_bahan_mentah-$jumlah_bahan_diterima;
-
- 						 $sql6 = "UPDATE bahan_mentah SET stok = '$stok_akhir_bahan_mentah' WHERE id='$id_bahan_mentah'";
- 						 if($this->db->query($sql6)){
- 							 $data_session = array(
- 								 'pesan' => 'berhasil komfirmasi bahan diterima',
- 							 );
- 							 $this->session->set_userdata($data_session);
- 						 }
+						 // $sql7 = "SELECT stok FROM bahan_mentah WHERE id='$id_bahan_mentah'";
+ 						 // $cek_stok_bahan_mentah=$this->db->query($sql7)->row();
+ 						 // $stok_bahan_mentah=$cek_stok_bahan_mentah->stok;
+ 						 // $stok_akhir_bahan_mentah=(int)$stok_bahan_mentah-$jumlah_bahan_diterima;
+						 //
+ 						 // $sql6 = "UPDATE bahan_mentah SET stok = '$stok_akhir_bahan_mentah' WHERE id='$id_bahan_mentah'";
+ 						 // if($this->db->query($sql6)){
+ 							//  $data_session = array(
+ 							// 	 'pesan' => 'berhasil komfirmasi bahan diterima',
+ 							//  );
+ 							//  $this->session->set_userdata($data_session);
+ 						 // }
 
 			  }
 			}
