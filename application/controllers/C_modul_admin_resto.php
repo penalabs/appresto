@@ -877,4 +877,26 @@ class C_modul_admin_resto extends CI_Controller
 			$this->m_modul_admin_resto->input_data($data,'pendapatan_kas_masuk');
 			redirect('C_modul_admin_resto/indexcarisetor');
 	}
+
+	// di gunakan untuk update status diterima di tbl permintaan bahan olahan
+	public function ubah_status_diterima_bahan_olahan(){
+		$this->session->set_userdata($data_session);
+		$id_permintaan= $this->input->get('id_permintaan');
+
+		$query_update = "UPDATE permintaan_bahan_olahan set status='diterima' where id='$id_permintaan'";
+		$this->db->query($query_update);
+
+		redirect('C_modul_admin_resto/permintaan_bahan_mentah');
+	}
+
+	// di gunakan untuk update status diterima di tbl permintaan bahan mentah
+	public function ubah_status_diterima_bahan_mentah(){
+		$this->session->set_userdata($data_session);
+		$id_permintaan= $this->input->get('id_permintaan');
+
+		$query_update = "UPDATE permintaan_bahan_mentah set status='diterima' where id='$id_permintaan'";
+		$this->db->query($query_update);
+
+		redirect('C_modul_admin_resto/permintaan_bahan_mentah');
+	}
 }

@@ -1347,4 +1347,26 @@ class modul_produksi extends CI_Controller {
 
 		  redirect('modul_produksi/lihat_bahan_mentah/?id_permintaan='.$id_permintaan);
 		}
+
+		// di gunakan untuk update status diterima di tbl permintaan bahan olahan
+	public function ubah_status_diterima_bahan_olahan(){
+		$this->session->set_userdata($data_session);
+		$id_permintaan= $this->input->get('id_permintaan');
+
+		$query_update = "UPDATE permintaan_bahan_olahan set status='diterima' where id='$id_permintaan'";
+		$this->db->query($query_update);
+
+		redirect('modul_produksi/permintaan_bahan_mentah');
+	}
+
+	// di gunakan untuk update status diterima di tbl permintaan bahan mentah
+	public function ubah_status_diterima_bahan_mentah(){
+		$this->session->set_userdata($data_session);
+		$id_permintaan= $this->input->get('id_permintaan');
+
+		$query_update = "UPDATE permintaan_bahan_mentah set status='diterima' where id='$id_permintaan'";
+		$this->db->query($query_update);
+
+		redirect('modul_produksi/permintaan_bahan_mentah');
+	}
 }
