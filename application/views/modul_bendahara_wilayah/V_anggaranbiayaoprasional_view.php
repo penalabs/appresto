@@ -32,25 +32,14 @@
 
      <section class="content">
   <div class="row">
-    <div class="col-md-6 col-sm-6 col-xs-12">
+    <div class="col-md-12">
               <div class="info-box">
                 <span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
 
                 <div class="info-box-content">
                   <span class="info-box-text">Informasi Saldo Kanwil</span>
-                  <?php
-                  $id_kanwil=$this->session->userdata('id_kanwil');
-                  $sql = "SELECT sum(saldo) as saldo FROM kas_kanwil WHERE id_kanwil='$id_kanwil'";
-              		$data_saldo=$this->db->query($sql)->row();
-                  $saldo=$data_saldo->saldo;
-
-                  $sql2 = "SELECT sum(nominal_kas_keluar) as kas_keluar FROM pemberian_kaskeluar WHERE status='diterima'";
-                  $data_kas_keluar=$this->db->query($sql2)->row();
-                  $kas_keluar=$data_kas_keluar->kas_keluar;
-
-                  $saldo_akhir=(int)$saldo-(int)$kas_keluar;
-                   ?>
-                  <span class="info-box-number"><h1>Rp. <?php echo $saldo_akhir;?></h1></span>
+                  
+                  <span class="info-box-number"><h1>Rp. Masih Belum Bisa</h1></span>
                 </div>
                 <!-- /.info-box-content -->
               </div>
