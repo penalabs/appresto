@@ -355,6 +355,21 @@ class modul_bendahara_wilayah extends CI_Controller {
 			'status'	=> 'pemberian'
 		);
 		$this->m_modul_bendahara_wilayah->update_data($where, $datainput, 'pemberian_kaskeluar');
+
+		//sementara
+		$sql = "SELECT SUM(nominal_kas_keluar) AS jumlah FROM pemberian_kaskeluar WHERE id_pengeluaran='11'";
+        $data_saldo=$this->db->query($sql)->row();
+        $nominal=$data_saldo->jumlah;
+		$datainputdetail = array(
+			'id_ref_kas'	=> $id,
+			'jenis_kas'	=> 'kas induk',
+			'tipe_kas'	=> 'keluar',
+			'nominal'	=> $nominal,
+			'tipe_user'	=> 'Pemberian Kas'
+		);
+		$this->m_modul_bendahara_wilayah->input_data($datainputdetail, 'detail_kas');
+		//==========
+
 		redirect('modul_bendahara_wilayah/anggaranbiayaoprasional_view');
 	}
 

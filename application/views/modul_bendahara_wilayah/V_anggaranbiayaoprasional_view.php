@@ -38,8 +38,19 @@
 
                 <div class="info-box-content">
                   <span class="info-box-text">Informasi Saldo Kanwil</span>
-                  
-                  <span class="info-box-number"><h1>Rp. Masih Belum Bisa</h1></span>
+                  <?php
+                  $id_kanwil=$this->session->userdata('id_kanwil');
+                  $sql = "SELECT SUM(nominal) AS kas_masuk FROM detail_kas WHERE jenis_kas='kas induk' AND tipe_kas='masuk' AND tipe_user!='investasi owner'";
+              		$data_saldo=$this->db->query($sql)->row();
+                  $saldo=$data_saldo->kas_masuk;
+
+                  $sql2 = "SELECT SUM(nominal) AS kas_keluar FROM detail_kas WHERE jenis_kas='kas induk' AND tipe_kas='keluar' AND tipe_user!='Mutasi Ke Cabang'";
+                  $data_kas_keluar=$this->db->query($sql2)->row();
+                  $kas_keluar=$data_kas_keluar->kas_keluar;
+
+                  $saldo_akhir=(int)$saldo-(int)$kas_keluar;
+                   ?>
+                  <span class="info-box-number"><h1>Rp. <?php echo $saldo_akhir;?></h1></span>
                 </div>
                 <!-- /.info-box-content -->
               </div>
