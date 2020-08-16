@@ -140,9 +140,7 @@ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,30
       </div><!-- /.container-fluid -->
     </section>
 
-		<section class="content-wrapper">
-			<div class="wrapper">
-				<div class="row">
+		<section class="wrapper">
 					<?php
 					$id_kategori = $_GET['idkategorimenu2'];
 					$querykategori = "SELECT * FROM tbl_kategori_menu WHERE parent_id = '$id_kategori'";
@@ -155,8 +153,6 @@ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,30
 						</a>
 
 					<?php }?>
-				</div>
-			</div>
 		</section>
 		<!-- /.control-sidebar -->
 <!-- Add the sidebar's background. This div must be placed

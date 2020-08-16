@@ -202,7 +202,6 @@ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,30
 			</section>
 
 			<section class="content">
-				<div class="container-fluid">
 					<form method="post" action="prosestambahmenu.php">
 						<ul>
 							<?php
@@ -216,9 +215,8 @@ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,30
 								</li>
 							<?php }?>
 						</ul>
-						 <button type="submit" name="submit" class="btn btn-primary">Tambah</button>
+						 <button style="width: 100%;" type="submit" name="submit" class="btn btn-primary">Tambah di Kerenjang</button>
 					</form>
-				</div>
 			</section>
 			<!-- /.control-sidebar -->
 <!-- Add the sidebar's background. This div must be placed
