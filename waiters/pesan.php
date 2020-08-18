@@ -218,9 +218,7 @@ if(empty($_SESSION['user'])){
                     </tr>
                   <?php } ?>
                   <tr>
-                    <td><span class="fa fa-plus-circle"></span></td>
-                    <td><a data-toggle="modal" data-target="#modal-default1">Tambah Paket</a></td>
-                    <td></td>
+                    <td colspan="3"><a href="kategori_paket_sub1.php"><button type="button" style="width: 100%;"><span class="fa fa-plus-circle"></span> Tambah Paket</button></a></td>
                   </tr>
                 </table>
               </div>

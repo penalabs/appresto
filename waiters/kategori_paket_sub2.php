@@ -45,67 +45,6 @@ if(empty($_SESSION['user'])){
 <!-- Google Font -->
 <link rel="stylesheet"
 href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-<style type="text/css">
-	input[type="checkbox"][id^="cb"] {
-		display: none;
-	}
-
-	label {
-		border: 1px solid #000000;
-		padding: 10px;
-		display: block;
-		position: relative;
-		margin: 10px;
-		cursor: pointer;
-		-webkit-touch-callout: none;
-		-webkit-user-select: none;
-		-khtml-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
-		user-select: none;
-	}
-
-	label::before {
-		background-color: white;
-		color: white;
-		content: " ";
-		display: block;
-		border-radius: 50%;
-		border: 1px solid yellow;
-		position: absolute;
-		top: -5px;
-		left: -5px;
-		width: 25px;
-		height: 25px;
-		text-align: center;
-		line-height: 28px;
-		transition-duration: 0.4s;
-		transform: scale(0);
-	}
-
-	label img {
-		height: 100px;
-		width: 100px;
-		transition-duration: 0.2s;
-		transform-origin: 50% 50%;
-	}
-
-	:checked+label {
-		border-color: #ddd;
-	}
-
-	:checked+label::before {
-		content: "✓";
-		background-color: black;
-		transform: scale(1);
-	}
-
-	:checked+label img {
-		transform: scale(0.9);
-		box-shadow: 0 0 6px #333;
-		z-index: -1;
-	}
-</style>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -177,60 +116,45 @@ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,30
 			</section>
 			<!-- /.sidebar -->
 		</aside>
-		<!-- Content Wrapper. Contains page content -->
-		<div class="content-wrapper">
-			<!-- Content Header (Page header) -->
-			<section class="content-header">
-				<div class="container-fluid">
-					<div class="row mb-2">
-						<?php
-						$id_kategori = $_GET['idkategorimenu3'];
-						$querysub ="SELECT nama FROM tbl_kategori_menu WHERE id_kategori='$id_kategori'";
-						$hasilsub = mysqli_query($koneksi,$querysub);
-						$datasub=mysqli_fetch_array($hasilsub);
-						$nama = $datasub['nama'];
-						?>
-						<div class="col-sm-6">
-							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a href="kategori_menu_sub1.php">Menu</a></li>
-								<li class="breadcrumb-item"><a href="kategori_menu_sub1.php"><?php echo $_SESSION['id_sub2'] ?></a></li>
-								<li class="breadcrumb-item active"><?php echo $nama; ?></li>
-							</ol>
-						</div>
-					</div>
-				</div><!-- /.container-fluid -->
-			</section>
+		 <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+        <?php
+        	$id_kategori = $_GET['idkategorimenu2'];
+	        $querysub ="SELECT nama FROM tbl_kategori_paket WHERE id_kategori='$id_kategori'";
+			$hasilsub = mysqli_query($koneksi,$querysub);
+			$datasub=mysqli_fetch_array($hasilsub);
+			$nama = $datasub['nama'];
+			$_SESSION['id_sub2'] = $nama;
+		?>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="kategori_menu_sub1.php">Menu</a></li>
+              <li class="breadcrumb-item active"><?php echo $nama; ?></li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
 
-			<section class="">
-			<div class="">
-				<div class="row">
-					<!--/.col (left) -->
-					<!-- right column -->
-					<div class="col-md-12">
-						<!-- /.box -->
-						<!-- general form elements disabled -->
-						<div class="box box-warning">
-					<form method="post" action="prosestambahmenu.php">
-						<ul>
-							<?php
-							$id_kategori = $_GET['idkategorimenu3'];
-							$querymenu = "SELECT * FROM menu WHERE id_kategori = $id_kategori && status = 'tersedia'";
-							$hasilmenu = mysqli_query($koneksi,$querymenu);
-							$no = 1;
-							while($datamenu=mysqli_fetch_array($hasilmenu)){?>
-								<li style="list-style-type: none;"><input type="checkbox" id="cb<?php echo $no; ?>" name="menu[]" value="<?php echo $datamenu['id']; ?>"/>
-									<label for="cb<?php echo $no++; ?>"><img src="../uploads/<?php echo $datamenu['foto']; ?>" /><?php echo $datamenu['menu']; ?></label>
-								</li>
-							<?php }?>
-						</ul>
-						 <button style="width: 100%;" type="submit" name="submit" class="btn btn-primary">Tambah di Kerenjang</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-			</section>
-			<!-- /.control-sidebar -->
+		<section class="wrapper">
+					<?php
+					$id_kategori = $_GET['idkategorimenu2'];
+					$querykategori = "SELECT * FROM tbl_kategori_paket WHERE parent_id = '$id_kategori'";
+					$hasilkategori = mysqli_query($koneksi,$querykategori);
+					while($datakategori=mysqli_fetch_array($hasilkategori)){?>
+						<a href="kategori_paket_sub3.php?idkategorimenu3=<?php echo $datakategori['id_kategori'];?>">
+							<div class="btn btn-default btn-block" style="width: 100%; padding: 10px; border: 1px solid grey;">
+								<?php echo $datakategori['nama']; ?>
+							</div>
+						</a>
+
+					<?php }?>
+		</section>
+		<!-- /.control-sidebar -->
 <!-- Add the sidebar's background. This div must be placed
 	immediately after the control sidebar -->
 	<div class="control-sidebar-bg"></div>

@@ -185,15 +185,15 @@ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,30
 					<div class="row mb-2">
 						<?php
 						$id_kategori = $_GET['idkategorimenu3'];
-						$querysub ="SELECT nama FROM tbl_kategori_menu WHERE id_kategori='$id_kategori'";
+						$querysub ="SELECT nama FROM tbl_kategori_paket WHERE id_kategori='$id_kategori'";
 						$hasilsub = mysqli_query($koneksi,$querysub);
 						$datasub=mysqli_fetch_array($hasilsub);
 						$nama = $datasub['nama'];
 						?>
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a href="kategori_menu_sub1.php">Menu</a></li>
-								<li class="breadcrumb-item"><a href="kategori_menu_sub1.php"><?php echo $_SESSION['id_sub2'] ?></a></li>
+								<li class="breadcrumb-item"><a href="kategori_paket_sub1.php">Menu</a></li>
+								<li class="breadcrumb-item"><a href="kategori_paket_sub1.php"><?php echo $_SESSION['id_sub2'] ?></a></li>
 								<li class="breadcrumb-item active"><?php echo $nama; ?></li>
 							</ol>
 						</div>
@@ -210,16 +210,16 @@ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,30
 						<!-- /.box -->
 						<!-- general form elements disabled -->
 						<div class="box box-warning">
-					<form method="post" action="prosestambahmenu.php">
+					<form method="post" action="prosestambahpaket.php">
 						<ul>
 							<?php
 							$id_kategori = $_GET['idkategorimenu3'];
-							$querymenu = "SELECT * FROM menu WHERE id_kategori = $id_kategori && status = 'tersedia'";
+							$querymenu = "SELECT * FROM paket WHERE id_kategori = $id_kategori && status = 'tersedia'";
 							$hasilmenu = mysqli_query($koneksi,$querymenu);
 							$no = 1;
 							while($datamenu=mysqli_fetch_array($hasilmenu)){?>
-								<li style="list-style-type: none;"><input type="checkbox" id="cb<?php echo $no; ?>" name="menu[]" value="<?php echo $datamenu['id']; ?>"/>
-									<label for="cb<?php echo $no++; ?>"><img src="../uploads/<?php echo $datamenu['foto']; ?>" /><?php echo $datamenu['menu']; ?></label>
+								<li style="list-style-type: none;"><input type="checkbox" id="cb<?php echo $no; ?>" name="paket[]" value="<?php echo $datamenu['id']; ?>"/>
+									<label for="cb<?php echo $no++; ?>"><img src="../uploads/<?php echo $datamenu['foto']; ?>" /><?php echo $datamenu['nama_paket']; ?></label>
 								</li>
 							<?php }?>
 						</ul>
