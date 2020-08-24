@@ -1,8 +1,8 @@
 /*
-SQLyog Ultimate v10.42 
-MySQL - 5.5.5-10.4.11-MariaDB : Database - db_siresto
+SQLyog Enterprise v12.5.1 (64 bit)
+MySQL - 10.4.13-MariaDB : Database - db_siresto
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -31,7 +31,9 @@ CREATE TABLE `bahan_jadi` (
 
 /*Data for the table `bahan_jadi` */
 
-insert  into `bahan_jadi`(`id`,`nama_masakan`,`jumlah`,`porsi`,`status`) values (1,'Sambal Tomat',8,'mangkuk sambel 2MIli','off'),(3,'Ayam Geprek',1,'satu porsi','on');
+insert  into `bahan_jadi`(`id`,`nama_masakan`,`jumlah`,`porsi`,`status`) values 
+(1,'Sambal Tomat',8,'mangkuk sambel 2MIli','off'),
+(3,'Ayam Geprek',1,'satu porsi','on');
 
 /*Table structure for table `bahan_mentah` */
 
@@ -50,7 +52,10 @@ CREATE TABLE `bahan_mentah` (
 
 /*Data for the table `bahan_mentah` */
 
-insert  into `bahan_mentah`(`id`,`id_resto`,`id_logistik`,`nama_bahan`,`satuan_besar`,`stok`,`status`) values (1,'1',34,'ayam kampung','ekor',21,1),(2,'1',34,'tomat','kg',8,1),(3,'1',34,'tepung','kg',6,0);
+insert  into `bahan_mentah`(`id`,`id_resto`,`id_logistik`,`nama_bahan`,`satuan_besar`,`stok`,`status`) values 
+(1,'1',34,'ayam kampung','ekor',21,1),
+(2,'1',34,'tomat','kg',8,1),
+(3,'1',34,'tepung','kg',6,0);
 
 /*Table structure for table `bahan_mentah_masakan` */
 
@@ -66,7 +71,9 @@ CREATE TABLE `bahan_mentah_masakan` (
 
 /*Data for the table `bahan_mentah_masakan` */
 
-insert  into `bahan_mentah_masakan`(`id`,`id_produksi_masakan`,`id_bahan_mentah`,`jumlah`) values (1,1,1,1),(2,2,3,1);
+insert  into `bahan_mentah_masakan`(`id`,`id_produksi_masakan`,`id_bahan_mentah`,`jumlah`) values 
+(1,1,1,1),
+(2,2,3,1);
 
 /*Table structure for table `bahan_olahan` */
 
@@ -84,7 +91,9 @@ CREATE TABLE `bahan_olahan` (
 
 /*Data for the table `bahan_olahan` */
 
-insert  into `bahan_olahan`(`id`,`id_logistik`,`nama_bahan`,`satuan_kecil`,`stok`,`status`) values (1,34,'ayam kampung paha','buah',3,1),(3,34,'ayam kampung dada','buah',0,1);
+insert  into `bahan_olahan`(`id`,`id_logistik`,`nama_bahan`,`satuan_kecil`,`stok`,`status`) values 
+(1,34,'ayam kampung paha','buah',11,1),
+(3,34,'ayam kampung dada','buah',2,1);
 
 /*Table structure for table `bahan_olahan_masakan` */
 
@@ -100,7 +109,9 @@ CREATE TABLE `bahan_olahan_masakan` (
 
 /*Data for the table `bahan_olahan_masakan` */
 
-insert  into `bahan_olahan_masakan`(`id`,`id_produksi_masakan`,`id_bahan_olahan`,`jumlah`) values (4,2,1,1),(5,1,1,1);
+insert  into `bahan_olahan_masakan`(`id`,`id_produksi_masakan`,`id_bahan_olahan`,`jumlah`) values 
+(4,2,1,1),
+(5,1,1,1);
 
 /*Table structure for table `biaya_lain` */
 
@@ -116,7 +127,9 @@ CREATE TABLE `biaya_lain` (
 
 /*Data for the table `biaya_lain` */
 
-insert  into `biaya_lain`(`id`,`id_resto`,`nama_biaya_lain`,`jumlah`) values (1,1,'brosur',10000),(2,1,'zakat',11000);
+insert  into `biaya_lain`(`id`,`id_resto`,`nama_biaya_lain`,`jumlah`) values 
+(1,1,'brosur',10000),
+(2,1,'zakat',11000);
 
 /*Table structure for table `daftar_masakan` */
 
@@ -133,7 +146,9 @@ CREATE TABLE `daftar_masakan` (
 
 /*Data for the table `daftar_masakan` */
 
-insert  into `daftar_masakan`(`id`,`id_bahan_oalahan`,`id_menu`,`jenis`,`jumlah`) values (6,1,1,'3',1),(7,2,1,'1',1);
+insert  into `daftar_masakan`(`id`,`id_bahan_oalahan`,`id_menu`,`jenis`,`jumlah`) values 
+(6,1,1,'3',1),
+(7,2,1,'1',1);
 
 /*Table structure for table `detail_kas` */
 
@@ -155,7 +170,122 @@ CREATE TABLE `detail_kas` (
 
 /*Data for the table `detail_kas` */
 
-insert  into `detail_kas`(`id_kas`,`id_ref_kas`,`jenis_kas`,`tipe_kas`,`tanggal`,`id_superadmin`,`id_user`,`id_resto`,`nominal`,`tipe_user`) values (6,1,'kas induk','Masuk',NULL,1,32,1,10000000,NULL),(7,1,'kas cabang','Masuk',NULL,1,32,1,2000000,NULL),(8,1,'kas operasional','Masuk',NULL,1,32,1,1000000,NULL),(9,2,'kas induk','Keluar',NULL,1,32,1,2000000,NULL),(10,2,'kas cabang','Keluar',NULL,1,32,1,1000000,NULL),(15,15,'kas induk','Keluar',NULL,1,NULL,NULL,NULL,NULL),(16,16,'kas induk','Keluar',NULL,1,34,NULL,120000,'Pemberlian Alat'),(17,17,'kas induk','Keluar','2020-04-03',1,34,NULL,30000,'Pembelian Alat'),(18,8,'kas induk','Keluar','2020-04-03',1,34,NULL,1000000,'Pembelian Bahan Mentah'),(19,10,'kas induk','Masuk','0000-00-00',1,32,NULL,0,'Investasi Owner'),(20,11,'kas induk','Masuk','2020-04-03',1,32,NULL,10000,'Investasi Owner'),(21,9,'kas induk','Keluar','2020-04-03',1,22,4,900000,'Gaji Karyawan'),(24,18,'kas induk','Masuk','2020-04-03',1,32,4,50000,'Pengembalian dari Cabang'),(26,20,'kas induk','Keluar','0000-00-00',1,32,4,0,'Mutasi Ke Cabang'),(27,21,'kas induk','Keluar','2020-04-03',1,32,4,1000000,'Mutasi Ke Cabang'),(28,35,'kas cabang','Masuk','2020-04-03',1,22,NULL,500000,'Setor dari Cabang'),(29,22,'kas induk','Keluar','2020-04-03',1,32,4,50000,'Mutasi Ke Cabang'),(30,22,'kas induk','Masuk','2020-04-03',1,32,4,50000,'Mutasi Dari Induk'),(35,25,'kas induk','Keluar','2020-04-03',1,32,4,50000,'Mutasi Ke Cabang'),(36,25,'kas cabang','Masuk','2020-04-03',1,32,4,50000,'Mutasi Dari Induk'),(37,36,'kas induk','Masuk','2020-04-03',1,22,NULL,100000,'Setoran dari Cabang'),(38,36,'kas cabang','Keluar','2020-04-03',1,22,NULL,100000,'Setoran ke Induk'),(39,6,'kas cabang','Keluar','2020-04-03',1,4,1,500000,'Mutasi Ke Operasional'),(40,6,'kas operasional','Masuk','2020-04-03',1,4,1,500000,'Mutasi Dari Cabang'),(41,8,'kas cabang','Keluar','0000-00-00',1,7,NULL,0,'Operasional Kanwil'),(42,9,'kas cabang','Keluar','2020-04-03',1,7,NULL,100000,'Operasional Kanwil'),(43,35,'kas cabang','Masuk','2020-04-03',1,25,NULL,100000,'Setoran dari Kasir'),(44,36,'kas cabang','Masuk','2020-04-03',1,22,NULL,147000,'Setoran dari Kasir'),(45,26,'kas induk','Keluar','0000-00-00',1,32,0,1000000,'Mutasi Ke Cabang'),(46,26,'kas cabang','Masuk','0000-00-00',1,32,0,1000000,'Mutasi Dari Induk'),(47,10,'kas cabang','Keluar','0000-00-00',1,0,NULL,5000000,'Operasional Kanwil'),(48,12,'kas induk','Masuk','2020-04-01',1,32,NULL,9000000,'Investasi Owner'),(49,10,'kas induk','Keluar','2020-04-03',1,22,4,900000,'Gaji Karyawan'),(50,13,'kas induk','Masuk','2020-04-01',1,32,NULL,1000000,'Investasi Owner'),(51,14,'kas induk','Masuk','2020-04-01',1,32,NULL,100000,'Investasi Owner'),(52,15,'kas induk','Masuk','2020-04-08',1,32,NULL,100000000,'Investasi Owner'),(53,16,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(54,17,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(55,18,'kas induk','Masuk','0000-00-00',1,32,NULL,123,'Investasi Owner'),(56,19,'kas induk','Masuk','2020-04-09',1,32,NULL,12,'Investasi Owner'),(57,20,'kas induk','Masuk','2020-04-09',1,32,NULL,10000000,'Investasi Owner'),(58,21,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(59,22,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(60,23,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(61,24,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(62,25,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(63,26,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(64,27,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(65,28,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(66,29,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(67,30,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(68,31,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(69,32,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(70,33,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(71,34,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(72,35,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(73,36,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(74,37,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(75,38,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(76,39,'kas induk','Masuk','2020-04-09',1,32,NULL,123,'Investasi Owner'),(77,40,'kas induk','Masuk','2020-04-09',1,32,NULL,50000,'Investasi Owner'),(78,41,'kas induk','Masuk','2020-04-09',1,32,NULL,100000000,'Investasi Owner'),(79,42,'kas induk','Masuk','2020-04-09',1,32,NULL,12312,'Investasi Owner'),(80,43,'kas induk','Masuk','2020-04-09',1,32,NULL,12312,'Investasi Owner'),(81,44,'kas induk','Masuk','2020-04-09',1,32,NULL,10000,'Investasi Owner'),(82,45,'kas induk','Masuk','2020-04-09',1,32,NULL,10000,'Investasi Owner'),(83,46,'kas induk','Masuk','2020-04-09',1,32,NULL,10000,'Investasi Owner'),(84,47,'kas induk','Masuk','2020-04-09',1,32,NULL,10000,'Investasi Owner'),(85,48,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(86,49,'kas induk','Masuk','2020-04-09',1,32,NULL,10,'Investasi Owner'),(87,50,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(88,51,'kas induk','Masuk','2020-04-09',1,32,NULL,12,'Investasi Owner'),(89,52,'kas induk','Masuk','2020-04-09',1,32,NULL,12,'Investasi Owner'),(90,53,'kas induk','Masuk','2020-04-09',1,32,NULL,12,'Investasi Owner'),(91,54,'kas induk','Masuk','2020-04-09',1,32,NULL,12,'Investasi Owner'),(92,55,'kas induk','Masuk','2020-04-09',1,32,NULL,12,'Investasi Owner'),(93,56,'kas induk','Masuk','2020-04-09',1,32,NULL,12,'Investasi Owner'),(94,57,'kas induk','Masuk','2020-04-09',1,32,NULL,12,'Investasi Owner'),(95,58,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(96,59,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(97,60,'kas induk','Masuk','2020-04-09',1,32,NULL,1,'Investasi Owner'),(98,61,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(99,62,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(100,63,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(101,64,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),(102,27,'kas induk','Keluar','2020-04-11',1,32,17,0,'Mutasi Ke Cabang'),(103,27,'kas cabang','Masuk','2020-04-11',1,32,17,0,'Mutasi Dari Induk'),(104,28,'kas induk','Keluar','2020-04-11',1,32,17,100000,'Mutasi Ke Cabang'),(105,28,'kas cabang','Masuk','2020-04-11',1,32,17,100000,'Mutasi Dari Induk'),(106,29,'kas induk','Keluar','2020-04-11',1,32,17,3000,'Mutasi Ke Cabang'),(107,29,'kas cabang','Masuk','2020-04-11',1,32,17,3000,'Mutasi Dari Induk'),(108,30,'kas induk','Keluar','2020-04-11',1,32,17,10000,'Mutasi Ke Cabang'),(109,30,'kas cabang','Masuk','2020-04-11',1,32,17,10000,'Mutasi Dari Induk'),(110,31,'kas induk','Keluar','2020-04-11',1,32,17,100000000,'Mutasi Ke Cabang'),(111,31,'kas cabang','Masuk','2020-04-11',1,32,17,100000000,'Mutasi Dari Induk'),(112,32,'kas induk','Keluar','2020-04-11',1,32,17,10000000,'Mutasi Ke Cabang'),(113,32,'kas cabang','Masuk','2020-04-11',1,32,17,10000000,'Mutasi Dari Induk'),(114,33,'kas induk','Keluar','2020-04-11',1,32,17,15000000,'Mutasi Ke Cabang'),(115,33,'kas cabang','Masuk','2020-04-11',1,32,17,15000000,'Mutasi Dari Induk'),(116,34,'kas induk','Keluar','2020-04-11',1,32,17,10000000,'Mutasi Ke Cabang'),(117,34,'kas cabang','Masuk','2020-04-11',1,32,17,10000000,'Mutasi Dari Induk'),(118,35,'kas induk','Keluar','2020-04-11',1,32,17,15000000,'Mutasi Ke Cabang'),(119,35,'kas cabang','Masuk','2020-04-11',1,32,17,15000000,'Mutasi Dari Induk'),(120,36,'kas induk','Keluar','2020-04-11',1,32,17,50000000,'Mutasi Ke Cabang'),(121,36,'kas cabang','Masuk','2020-04-11',1,32,17,50000000,'Mutasi Dari Induk'),(122,37,'kas induk','Keluar','2020-04-12',1,32,17,1000000,'Mutasi Ke Cabang'),(123,37,'kas cabang','Masuk','2020-04-12',1,32,17,1000000,'Mutasi Dari Induk'),(124,65,'kas induk','Masuk','2020-04-12',1,32,NULL,400000000,'Investasi Owner'),(125,66,'kas induk','Masuk','2020-04-12',1,32,NULL,20000000,'Investasi Owner'),(126,67,'kas induk','Masuk','2020-04-12',1,32,NULL,180000000,'Investasi Owner'),(127,38,'kas induk','Keluar','2020-04-12',1,32,17,30000000,'Mutasi Ke Cabang'),(128,38,'kas cabang','Masuk','2020-04-12',1,32,17,30000000,'Mutasi Dari Induk'),(129,68,'kas induk','Masuk','2020-04-12',1,32,NULL,1000,'Investasi Owner'),(131,1,'kas induk','Masuk','2020-04-12',NULL,32,NULL,17987000,'Sisa Investasi Buka Resto'),(132,9,'kas induk','Keluar','2020-07-27',1,34,NULL,1000,'Pembelian Bahan Mentah');
+insert  into `detail_kas`(`id_kas`,`id_ref_kas`,`jenis_kas`,`tipe_kas`,`tanggal`,`id_superadmin`,`id_user`,`id_resto`,`nominal`,`tipe_user`) values 
+(6,1,'kas induk','Masuk',NULL,1,32,1,10000000,NULL),
+(7,1,'kas cabang','Masuk',NULL,1,32,1,2000000,NULL),
+(8,1,'kas operasional','Masuk',NULL,1,32,1,1000000,NULL),
+(9,2,'kas induk','Keluar',NULL,1,32,1,2000000,NULL),
+(10,2,'kas cabang','Keluar',NULL,1,32,1,1000000,NULL),
+(15,15,'kas induk','Keluar',NULL,1,NULL,NULL,NULL,NULL),
+(16,16,'kas induk','Keluar',NULL,1,34,NULL,120000,'Pemberlian Alat'),
+(17,17,'kas induk','Keluar','2020-04-03',1,34,NULL,30000,'Pembelian Alat'),
+(18,8,'kas induk','Keluar','2020-04-03',1,34,NULL,1000000,'Pembelian Bahan Mentah'),
+(19,10,'kas induk','Masuk','0000-00-00',1,32,NULL,0,'Investasi Owner'),
+(20,11,'kas induk','Masuk','2020-04-03',1,32,NULL,10000,'Investasi Owner'),
+(21,9,'kas induk','Keluar','2020-04-03',1,22,4,900000,'Gaji Karyawan'),
+(24,18,'kas induk','Masuk','2020-04-03',1,32,4,50000,'Pengembalian dari Cabang'),
+(26,20,'kas induk','Keluar','0000-00-00',1,32,4,0,'Mutasi Ke Cabang'),
+(27,21,'kas induk','Keluar','2020-04-03',1,32,4,1000000,'Mutasi Ke Cabang'),
+(28,35,'kas cabang','Masuk','2020-04-03',1,22,NULL,500000,'Setor dari Cabang'),
+(29,22,'kas induk','Keluar','2020-04-03',1,32,4,50000,'Mutasi Ke Cabang'),
+(30,22,'kas induk','Masuk','2020-04-03',1,32,4,50000,'Mutasi Dari Induk'),
+(35,25,'kas induk','Keluar','2020-04-03',1,32,4,50000,'Mutasi Ke Cabang'),
+(36,25,'kas cabang','Masuk','2020-04-03',1,32,4,50000,'Mutasi Dari Induk'),
+(37,36,'kas induk','Masuk','2020-04-03',1,22,NULL,100000,'Setoran dari Cabang'),
+(38,36,'kas cabang','Keluar','2020-04-03',1,22,NULL,100000,'Setoran ke Induk'),
+(39,6,'kas cabang','Keluar','2020-04-03',1,4,1,500000,'Mutasi Ke Operasional'),
+(40,6,'kas operasional','Masuk','2020-04-03',1,4,1,500000,'Mutasi Dari Cabang'),
+(41,8,'kas cabang','Keluar','0000-00-00',1,7,NULL,0,'Operasional Kanwil'),
+(42,9,'kas cabang','Keluar','2020-04-03',1,7,NULL,100000,'Operasional Kanwil'),
+(43,35,'kas cabang','Masuk','2020-04-03',1,25,NULL,100000,'Setoran dari Kasir'),
+(44,36,'kas cabang','Masuk','2020-04-03',1,22,NULL,147000,'Setoran dari Kasir'),
+(45,26,'kas induk','Keluar','0000-00-00',1,32,0,1000000,'Mutasi Ke Cabang'),
+(46,26,'kas cabang','Masuk','0000-00-00',1,32,0,1000000,'Mutasi Dari Induk'),
+(47,10,'kas cabang','Keluar','0000-00-00',1,0,NULL,5000000,'Operasional Kanwil'),
+(48,12,'kas induk','Masuk','2020-04-01',1,32,NULL,9000000,'Investasi Owner'),
+(49,10,'kas induk','Keluar','2020-04-03',1,22,4,900000,'Gaji Karyawan'),
+(50,13,'kas induk','Masuk','2020-04-01',1,32,NULL,1000000,'Investasi Owner'),
+(51,14,'kas induk','Masuk','2020-04-01',1,32,NULL,100000,'Investasi Owner'),
+(52,15,'kas induk','Masuk','2020-04-08',1,32,NULL,100000000,'Investasi Owner'),
+(53,16,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(54,17,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(55,18,'kas induk','Masuk','0000-00-00',1,32,NULL,123,'Investasi Owner'),
+(56,19,'kas induk','Masuk','2020-04-09',1,32,NULL,12,'Investasi Owner'),
+(57,20,'kas induk','Masuk','2020-04-09',1,32,NULL,10000000,'Investasi Owner'),
+(58,21,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(59,22,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(60,23,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(61,24,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(62,25,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(63,26,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(64,27,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(65,28,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(66,29,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(67,30,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(68,31,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(69,32,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(70,33,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(71,34,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(72,35,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(73,36,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(74,37,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(75,38,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(76,39,'kas induk','Masuk','2020-04-09',1,32,NULL,123,'Investasi Owner'),
+(77,40,'kas induk','Masuk','2020-04-09',1,32,NULL,50000,'Investasi Owner'),
+(78,41,'kas induk','Masuk','2020-04-09',1,32,NULL,100000000,'Investasi Owner'),
+(79,42,'kas induk','Masuk','2020-04-09',1,32,NULL,12312,'Investasi Owner'),
+(80,43,'kas induk','Masuk','2020-04-09',1,32,NULL,12312,'Investasi Owner'),
+(81,44,'kas induk','Masuk','2020-04-09',1,32,NULL,10000,'Investasi Owner'),
+(82,45,'kas induk','Masuk','2020-04-09',1,32,NULL,10000,'Investasi Owner'),
+(83,46,'kas induk','Masuk','2020-04-09',1,32,NULL,10000,'Investasi Owner'),
+(84,47,'kas induk','Masuk','2020-04-09',1,32,NULL,10000,'Investasi Owner'),
+(85,48,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(86,49,'kas induk','Masuk','2020-04-09',1,32,NULL,10,'Investasi Owner'),
+(87,50,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(88,51,'kas induk','Masuk','2020-04-09',1,32,NULL,12,'Investasi Owner'),
+(89,52,'kas induk','Masuk','2020-04-09',1,32,NULL,12,'Investasi Owner'),
+(90,53,'kas induk','Masuk','2020-04-09',1,32,NULL,12,'Investasi Owner'),
+(91,54,'kas induk','Masuk','2020-04-09',1,32,NULL,12,'Investasi Owner'),
+(92,55,'kas induk','Masuk','2020-04-09',1,32,NULL,12,'Investasi Owner'),
+(93,56,'kas induk','Masuk','2020-04-09',1,32,NULL,12,'Investasi Owner'),
+(94,57,'kas induk','Masuk','2020-04-09',1,32,NULL,12,'Investasi Owner'),
+(95,58,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(96,59,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(97,60,'kas induk','Masuk','2020-04-09',1,32,NULL,1,'Investasi Owner'),
+(98,61,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(99,62,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(100,63,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(101,64,'kas induk','Masuk','2020-04-09',1,32,NULL,50000000,'Investasi Owner'),
+(102,27,'kas induk','Keluar','2020-04-11',1,32,17,0,'Mutasi Ke Cabang'),
+(103,27,'kas cabang','Masuk','2020-04-11',1,32,17,0,'Mutasi Dari Induk'),
+(104,28,'kas induk','Keluar','2020-04-11',1,32,17,100000,'Mutasi Ke Cabang'),
+(105,28,'kas cabang','Masuk','2020-04-11',1,32,17,100000,'Mutasi Dari Induk'),
+(106,29,'kas induk','Keluar','2020-04-11',1,32,17,3000,'Mutasi Ke Cabang'),
+(107,29,'kas cabang','Masuk','2020-04-11',1,32,17,3000,'Mutasi Dari Induk'),
+(108,30,'kas induk','Keluar','2020-04-11',1,32,17,10000,'Mutasi Ke Cabang'),
+(109,30,'kas cabang','Masuk','2020-04-11',1,32,17,10000,'Mutasi Dari Induk'),
+(110,31,'kas induk','Keluar','2020-04-11',1,32,17,100000000,'Mutasi Ke Cabang'),
+(111,31,'kas cabang','Masuk','2020-04-11',1,32,17,100000000,'Mutasi Dari Induk'),
+(112,32,'kas induk','Keluar','2020-04-11',1,32,17,10000000,'Mutasi Ke Cabang'),
+(113,32,'kas cabang','Masuk','2020-04-11',1,32,17,10000000,'Mutasi Dari Induk'),
+(114,33,'kas induk','Keluar','2020-04-11',1,32,17,15000000,'Mutasi Ke Cabang'),
+(115,33,'kas cabang','Masuk','2020-04-11',1,32,17,15000000,'Mutasi Dari Induk'),
+(116,34,'kas induk','Keluar','2020-04-11',1,32,17,10000000,'Mutasi Ke Cabang'),
+(117,34,'kas cabang','Masuk','2020-04-11',1,32,17,10000000,'Mutasi Dari Induk'),
+(118,35,'kas induk','Keluar','2020-04-11',1,32,17,15000000,'Mutasi Ke Cabang'),
+(119,35,'kas cabang','Masuk','2020-04-11',1,32,17,15000000,'Mutasi Dari Induk'),
+(120,36,'kas induk','Keluar','2020-04-11',1,32,17,50000000,'Mutasi Ke Cabang'),
+(121,36,'kas cabang','Masuk','2020-04-11',1,32,17,50000000,'Mutasi Dari Induk'),
+(122,37,'kas induk','Keluar','2020-04-12',1,32,17,1000000,'Mutasi Ke Cabang'),
+(123,37,'kas cabang','Masuk','2020-04-12',1,32,17,1000000,'Mutasi Dari Induk'),
+(124,65,'kas induk','Masuk','2020-04-12',1,32,NULL,400000000,'Investasi Owner'),
+(125,66,'kas induk','Masuk','2020-04-12',1,32,NULL,20000000,'Investasi Owner'),
+(126,67,'kas induk','Masuk','2020-04-12',1,32,NULL,180000000,'Investasi Owner'),
+(127,38,'kas induk','Keluar','2020-04-12',1,32,17,30000000,'Mutasi Ke Cabang'),
+(128,38,'kas cabang','Masuk','2020-04-12',1,32,17,30000000,'Mutasi Dari Induk'),
+(129,68,'kas induk','Masuk','2020-04-12',1,32,NULL,1000,'Investasi Owner'),
+(131,1,'kas induk','Masuk','2020-04-12',NULL,32,NULL,17987000,'Sisa Investasi Buka Resto'),
+(132,9,'kas induk','Keluar','2020-07-27',1,34,NULL,1000,'Pembelian Bahan Mentah');
 
 /*Table structure for table `detail_paket` */
 
@@ -173,7 +303,8 @@ CREATE TABLE `detail_paket` (
 
 /*Data for the table `detail_paket` */
 
-insert  into `detail_paket`(`id`,`id_paket`,`id_menu`,`jumlah`,`total_harga`,`diskon`) values (11,4,1,1,'10000','');
+insert  into `detail_paket`(`id`,`id_paket`,`id_menu`,`jumlah`,`total_harga`,`diskon`) values 
+(11,4,1,1,'10000','');
 
 /*Table structure for table `detail_pembelian_alat` */
 
@@ -190,7 +321,16 @@ CREATE TABLE `detail_pembelian_alat` (
 
 /*Data for the table `detail_pembelian_alat` */
 
-insert  into `detail_pembelian_alat`(`id`,`id_transaksi`,`id_alat`,`jumlah`,`harga_beli`) values (12,'1','1','1','8000'),(13,'6','1','7','7000'),(14,'7','1','1','9000'),(15,'7','1','30','5000'),(16,'7','1','10','5000'),(17,'1','1','5','2500'),(18,'1','1','5','2500'),(19,'1','1','5','2500'),(21,'1','1','10','9000'),(22,'11','1','100','12000');
+insert  into `detail_pembelian_alat`(`id`,`id_transaksi`,`id_alat`,`jumlah`,`harga_beli`) values 
+(12,'1','1','1','8000'),
+(13,'6','1','7','7000'),
+(14,'7','1','1','9000'),
+(15,'7','1','30','5000'),
+(16,'7','1','10','5000'),
+(17,'1','1','5','2500'),
+(18,'1','1','5','2500'),
+(19,'1','1','5','2500'),
+(21,'1','1','10','9000');
 
 /*Table structure for table `detail_pembelian_bahan_mentah` */
 
@@ -207,7 +347,15 @@ CREATE TABLE `detail_pembelian_bahan_mentah` (
 
 /*Data for the table `detail_pembelian_bahan_mentah` */
 
-insert  into `detail_pembelian_bahan_mentah`(`id`,`id_transaksi`,`id_bahan_mentah`,`jumlah`,`harga_beli`) values (2,'1','1','2','5000'),(3,'1','2','1','5000'),(4,'1','3','2','3000'),(5,'1','3','2','3000'),(6,'1','1','1','5000'),(7,'1','2','5','5000'),(8,'2','1','1','6000'),(9,'9','1','1','1000');
+insert  into `detail_pembelian_bahan_mentah`(`id`,`id_transaksi`,`id_bahan_mentah`,`jumlah`,`harga_beli`) values 
+(2,'1','1','2','5000'),
+(3,'1','2','1','5000'),
+(4,'1','3','2','3000'),
+(5,'1','3','2','3000'),
+(6,'1','1','1','5000'),
+(7,'1','2','5','5000'),
+(8,'2','1','1','6000'),
+(9,'9','1','1','1000');
 
 /*Table structure for table `detil_bahan_mentah` */
 
@@ -223,7 +371,10 @@ CREATE TABLE `detil_bahan_mentah` (
 
 /*Data for the table `detil_bahan_mentah` */
 
-insert  into `detil_bahan_mentah`(`id`,`id_bahan_mentah`,`satuan_kecil`,`stok`) values (1,1,'paha',2),(2,2,'biji',50),(3,1,'dada',2);
+insert  into `detil_bahan_mentah`(`id`,`id_bahan_mentah`,`satuan_kecil`,`stok`) values 
+(1,1,'paha',2),
+(2,2,'biji',50),
+(3,1,'dada',2);
 
 /*Table structure for table `gaji` */
 
@@ -242,7 +393,12 @@ CREATE TABLE `gaji` (
 
 /*Data for the table `gaji` */
 
-insert  into `gaji`(`id`,`id_resto`,`id_user_resto`,`tanggal_awal`,`tanggal_akhir`,`jenis_gaji`,`nominal_gaji`) values (5,4,23,'2020-01-01','2020-01-31','bulanan',2008000),(6,4,20,'2020-03-01','2020-03-31','bulanan',900000),(7,7,24,'2020-03-01','2020-03-31','bulanan',1000000),(9,4,22,'2020-04-03','2020-04-30','bulanan',900000),(10,4,22,'2020-04-03','2020-04-03','bulanan',900000);
+insert  into `gaji`(`id`,`id_resto`,`id_user_resto`,`tanggal_awal`,`tanggal_akhir`,`jenis_gaji`,`nominal_gaji`) values 
+(5,4,23,'2020-01-01','2020-01-31','bulanan',2008000),
+(6,4,20,'2020-03-01','2020-03-31','bulanan',900000),
+(7,7,24,'2020-03-01','2020-03-31','bulanan',1000000),
+(9,4,22,'2020-04-03','2020-04-30','bulanan',900000),
+(10,4,22,'2020-04-03','2020-04-03','bulanan',900000);
 
 /*Table structure for table `gaji_kanwil` */
 
@@ -257,7 +413,12 @@ CREATE TABLE `gaji_kanwil` (
 
 /*Data for the table `gaji_kanwil` */
 
-insert  into `gaji_kanwil`(`id_gaji_kanwil`,`id_user_kanwil`,`nominal_gaji`) values (1,1,3000000),(2,2,3000000),(3,3,3000000),(4,17,3000000),(5,18,3000000);
+insert  into `gaji_kanwil`(`id_gaji_kanwil`,`id_user_kanwil`,`nominal_gaji`) values 
+(1,1,3000000),
+(2,2,3000000),
+(3,3,3000000),
+(4,17,3000000),
+(5,18,3000000);
 
 /*Table structure for table `insentif` */
 
@@ -289,7 +450,15 @@ CREATE TABLE `intensif_waiters` (
 
 /*Data for the table `intensif_waiters` */
 
-insert  into `intensif_waiters`(`id`,`id_user_resto`,`tanggal`,`jumlah_bonus`) values (30,'23','2020-01-30 21:35:00','1000'),(31,'23','2020-01-30 21:35:25','1000'),(32,'23','2020-01-30 21:49:42','1000'),(33,'23','2020-02-01 22:53:18','1000'),(34,'23','2020-02-01 22:53:42','1000'),(35,'23','2020-07-26 21:34:47','1000'),(36,'23','2020-08-18 19:30:38','1000'),(37,'23','2020-08-18 19:31:38','1000');
+insert  into `intensif_waiters`(`id`,`id_user_resto`,`tanggal`,`jumlah_bonus`) values 
+(30,'23','2020-01-30 21:35:00','1000'),
+(31,'23','2020-01-30 21:35:25','1000'),
+(32,'23','2020-01-30 21:49:42','1000'),
+(33,'23','2020-02-01 22:53:18','1000'),
+(34,'23','2020-02-01 22:53:42','1000'),
+(35,'23','2020-07-26 21:34:47','1000'),
+(36,'23','2020-08-18 19:30:38','1000'),
+(37,'23','2020-08-18 19:31:38','1000');
 
 /*Table structure for table `investasi_buka_resto` */
 
@@ -313,7 +482,12 @@ CREATE TABLE `investasi_buka_resto` (
 
 /*Data for the table `investasi_buka_resto` */
 
-insert  into `investasi_buka_resto`(`id`,`id_resto`,`id_bendahara`,`id_kanwil`,`id_owner`,`nama_resto`,`alamat`,`perkiraan_dana`,`tanggal_setujui`,`tanggal_pengerjaan`,`status`,`keterangan`) values (1,17,32,7,NULL,'Buka Resto Baru','Malang',250000000,'2020-04-09','2020-04-09','selesai',''),(5,21,32,7,NULL,'Buka Resto Baru','Tuban',300000000,'2020-04-09',NULL,'menunggu investor',NULL),(7,22,32,7,NULL,'Resto 1 Kanwil 7','Bayuwangi',500000000,'2020-04-12','2020-04-12','pengerjaan',NULL),(8,NULL,32,7,NULL,'Resto 2 Kanwil 7','Sidoarjo',500000000,NULL,NULL,'permintaan',NULL),(9,NULL,32,7,NULL,'Resto 3 Kanwil 7','Madiun',500000000,NULL,NULL,'permintaan',NULL);
+insert  into `investasi_buka_resto`(`id`,`id_resto`,`id_bendahara`,`id_kanwil`,`id_owner`,`nama_resto`,`alamat`,`perkiraan_dana`,`tanggal_setujui`,`tanggal_pengerjaan`,`status`,`keterangan`) values 
+(1,17,32,7,NULL,'Buka Resto Baru','Malang',250000000,'2020-04-09','2020-04-09','selesai',''),
+(5,21,32,7,NULL,'Buka Resto Baru','Tuban',300000000,'2020-04-09',NULL,'menunggu investor',NULL),
+(7,22,32,7,NULL,'Resto 1 Kanwil 7','Bayuwangi',500000000,'2020-04-12','2020-04-12','pengerjaan',NULL),
+(8,NULL,32,7,NULL,'Resto 2 Kanwil 7','Sidoarjo',500000000,NULL,NULL,'permintaan',NULL),
+(9,NULL,32,7,NULL,'Resto 3 Kanwil 7','Madiun',500000000,NULL,NULL,'permintaan',NULL);
 
 /*Table structure for table `investasi_cabang` */
 
@@ -334,7 +508,31 @@ CREATE TABLE `investasi_cabang` (
 
 /*Data for the table `investasi_cabang` */
 
-insert  into `investasi_cabang`(`id`,`id_resto`,`id_user_bendahara`,`nama_investasi`,`tanggal_mulai`,`tanggal_selesai`,`jumlah_pengeluaran`,`persen_penyusutan`,`status`) values (4,1,2,'Dekorasi','2019-10-01','2019-10-31',20000,10,'disetujui'),(5,1,2,'Renovasi','2019-10-01','2019-10-30',5000,20,'invest dikembalikan'),(6,1,2,'Pembelian p','2019-10-01','2019-10-30',500000,20,'invest dikembalikan'),(7,1,2,'Pengecetan','2019-10-01','2019-10-30',80000,20,'permintaan'),(8,1,2,'pembelian alat','2019-10-01','2019-10-30',700000,10,'permintaan'),(9,4,2,'sewa ruko','2020-01-14','2025-01-14',200000000,10,'disetujui'),(10,4,2,'renovasi','2020-02-01','2020-05-01',50000000,10,'permintaan'),(12,4,32,'Dekorasi','0000-00-00','0000-00-00',500000,10,'disetujui'),(15,4,32,'Renovasi Taman','0000-00-00','0000-00-00',1000000,1,'permintaan'),(18,4,32,'Dekorasi','2020-04-03','2020-04-03',50000,1,'invest dikembalikan'),(20,4,32,'Op','2020-04-03','2020-04-03',1000000,1,'permintaan'),(21,4,32,'qp','2020-04-03','2020-04-03',1000000,1,'permintaan'),(25,4,32,'qw','2020-04-03','2020-04-03',50000,1,'permintaan'),(26,17,32,'Renovasi Taman','0000-00-00','0000-00-00',1000000,1,'permintaan'),(29,17,32,'Perizinan','2020-04-11','2020-04-11',3000,NULL,'permintaan'),(30,17,32,'bahan','2020-04-11','2020-04-11',10000,NULL,'permintaan'),(31,17,32,'sewa tempat','2020-04-11','2020-04-11',100000000,NULL,'permintaan'),(32,17,32,'gaji pekerja','2020-04-11','2020-04-11',10000000,NULL,'permintaan'),(33,17,32,'dekorasi taman','2020-04-11','2020-04-11',15000000,NULL,'permintaan'),(34,17,32,'publikasi','2020-04-11','2020-10-12',10000000,NULL,'permintaan'),(35,17,32,'biaya rekrutmen','2020-04-11','2020-04-11',15000000,NULL,'permintaan'),(36,17,32,'bahan','2020-04-11','2020-04-11',50000000,NULL,'permintaan'),(37,17,32,'Langganan Internet','2020-04-12','2020-10-12',1000000,NULL,'permintaan'),(38,17,32,'Sewa','2020-04-12','2020-04-15',30000000,NULL,'permintaan');
+insert  into `investasi_cabang`(`id`,`id_resto`,`id_user_bendahara`,`nama_investasi`,`tanggal_mulai`,`tanggal_selesai`,`jumlah_pengeluaran`,`persen_penyusutan`,`status`) values 
+(4,1,2,'Dekorasi','2019-10-01','2019-10-31',20000,10,'disetujui'),
+(5,1,2,'Renovasi','2019-10-01','2019-10-30',5000,20,'invest dikembalikan'),
+(6,1,2,'Pembelian p','2019-10-01','2019-10-30',500000,20,'invest dikembalikan'),
+(7,1,2,'Pengecetan','2019-10-01','2019-10-30',80000,20,'permintaan'),
+(8,1,2,'pembelian alat','2019-10-01','2019-10-30',700000,10,'permintaan'),
+(9,4,2,'sewa ruko','2020-01-14','2025-01-14',200000000,10,'disetujui'),
+(10,4,2,'renovasi','2020-02-01','2020-05-01',50000000,10,'permintaan'),
+(12,4,32,'Dekorasi','0000-00-00','0000-00-00',500000,10,'disetujui'),
+(15,4,32,'Renovasi Taman','0000-00-00','0000-00-00',1000000,1,'permintaan'),
+(18,4,32,'Dekorasi','2020-04-03','2020-04-03',50000,1,'invest dikembalikan'),
+(20,4,32,'Op','2020-04-03','2020-04-03',1000000,1,'permintaan'),
+(21,4,32,'qp','2020-04-03','2020-04-03',1000000,1,'permintaan'),
+(25,4,32,'qw','2020-04-03','2020-04-03',50000,1,'permintaan'),
+(26,17,32,'Renovasi Taman','0000-00-00','0000-00-00',1000000,1,'permintaan'),
+(29,17,32,'Perizinan','2020-04-11','2020-04-11',3000,NULL,'permintaan'),
+(30,17,32,'bahan','2020-04-11','2020-04-11',10000,NULL,'permintaan'),
+(31,17,32,'sewa tempat','2020-04-11','2020-04-11',100000000,NULL,'permintaan'),
+(32,17,32,'gaji pekerja','2020-04-11','2020-04-11',10000000,NULL,'permintaan'),
+(33,17,32,'dekorasi taman','2020-04-11','2020-04-11',15000000,NULL,'permintaan'),
+(34,17,32,'publikasi','2020-04-11','2020-10-12',10000000,NULL,'permintaan'),
+(35,17,32,'biaya rekrutmen','2020-04-11','2020-04-11',15000000,NULL,'permintaan'),
+(36,17,32,'bahan','2020-04-11','2020-04-11',50000000,NULL,'permintaan'),
+(37,17,32,'Langganan Internet','2020-04-12','2020-10-12',1000000,NULL,'permintaan'),
+(38,17,32,'Sewa','2020-04-12','2020-04-15',30000000,NULL,'permintaan');
 
 /*Table structure for table `investasi_kanwil` */
 
@@ -355,7 +553,12 @@ CREATE TABLE `investasi_kanwil` (
 
 /*Data for the table `investasi_kanwil` */
 
-insert  into `investasi_kanwil`(`id`,`id_super_admin`,`id_kanwil`,`id_investasi_owner`,`tanggal`,`nominal_investasi`,`penyusutan`,`nominal_saldo`,`status`) values (1,1,1,1,'2019-11-01',3000000,20,1000,'permintaan'),(3,1,1,1,'2019-10-01',9000,90,0,'diterima'),(4,1,7,0,'2020-03-24',1000000,12,0,'permintaan'),(5,1,7,0,'2020-03-27',10000000,5,0,'permintaan'),(6,1,7,0,'2020-04-01',10000000,5,0,'permintaan');
+insert  into `investasi_kanwil`(`id`,`id_super_admin`,`id_kanwil`,`id_investasi_owner`,`tanggal`,`nominal_investasi`,`penyusutan`,`nominal_saldo`,`status`) values 
+(1,1,1,1,'2019-11-01',3000000,20,1000,'permintaan'),
+(3,1,1,1,'2019-10-01',9000,90,0,'diterima'),
+(4,1,7,0,'2020-03-24',1000000,12,0,'permintaan'),
+(5,1,7,0,'2020-03-27',10000000,5,0,'permintaan'),
+(6,1,7,0,'2020-04-01',10000000,5,0,'permintaan');
 
 /*Table structure for table `investasi_owner` */
 
@@ -377,7 +580,28 @@ CREATE TABLE `investasi_owner` (
 
 /*Data for the table `investasi_owner` */
 
-insert  into `investasi_owner`(`id`,`id_super_admin`,`id_owner`,`id_bendahara`,`id_ref_resto`,`tanggal`,`jumlah_investasi`,`jangka_waktu`,`persentase_omset`,`keterangan`) values (1,1,2,2,NULL,'2019-11-30',90000,'2 bulan',20,NULL),(2,1,2,2,NULL,'2019-11-30',9000,'3 bulan',20,NULL),(6,1,1,32,NULL,'2020-03-08',10000000,'12 bulan',1,NULL),(7,1,1,32,NULL,'2020-03-25',10000000,'24 bulan',1,NULL),(8,1,1,32,NULL,'2020-03-27',20000000,'48 bulan',1,NULL),(9,1,1,32,NULL,'2020-04-01',10000000,'12 bulan',1,NULL),(10,1,1,32,NULL,'2020-04-03',1000000,'12 bulan',1,NULL),(11,1,1,32,NULL,'2020-04-03',10000,'6 bulan',1,NULL),(12,1,1,32,NULL,'2020-04-01',9000000,'12 bulan',1,NULL),(13,1,1,32,NULL,'2020-04-01',1000000,'12 bulan',1,NULL),(14,1,1,32,NULL,'2020-04-01',100000,'12 bulan',1,NULL),(15,1,1,32,17,'2020-04-08',100000000,'60 bulan',1,'Modal Awal'),(16,1,1,32,17,'2020-04-09',50000000,'60 bulan',1,'Modal Awal'),(17,1,2,32,17,'2020-04-09',50000000,'60 bulan',1,'Modal Awal'),(18,1,3,32,5,'0000-00-00',123,'123',123,'Modal Tambahan'),(20,1,3,32,4,'2020-04-09',10000000,'24',1,'Modal Tambahan'),(64,1,3,32,17,'2020-04-09',50000000,'24',1,'Modal Awal'),(65,1,3,32,22,'2020-04-12',400000000,'60 bulan',5,'Modal Awal'),(66,1,2,32,22,'2020-04-12',20000000,'60',5,'Modal Awal'),(67,1,2,32,22,'2020-04-12',180000000,'60',5,'Modal Awal'),(68,1,2,32,22,'2020-04-12',1000,'60',5,NULL);
+insert  into `investasi_owner`(`id`,`id_super_admin`,`id_owner`,`id_bendahara`,`id_ref_resto`,`tanggal`,`jumlah_investasi`,`jangka_waktu`,`persentase_omset`,`keterangan`) values 
+(1,1,2,2,NULL,'2019-11-30',90000,'2 bulan',20,NULL),
+(2,1,2,2,NULL,'2019-11-30',9000,'3 bulan',20,NULL),
+(6,1,1,32,NULL,'2020-03-08',10000000,'12 bulan',1,NULL),
+(7,1,1,32,NULL,'2020-03-25',10000000,'24 bulan',1,NULL),
+(8,1,1,32,NULL,'2020-03-27',20000000,'48 bulan',1,NULL),
+(9,1,1,32,NULL,'2020-04-01',10000000,'12 bulan',1,NULL),
+(10,1,1,32,NULL,'2020-04-03',1000000,'12 bulan',1,NULL),
+(11,1,1,32,NULL,'2020-04-03',10000,'6 bulan',1,NULL),
+(12,1,1,32,NULL,'2020-04-01',9000000,'12 bulan',1,NULL),
+(13,1,1,32,NULL,'2020-04-01',1000000,'12 bulan',1,NULL),
+(14,1,1,32,NULL,'2020-04-01',100000,'12 bulan',1,NULL),
+(15,1,1,32,17,'2020-04-08',100000000,'60 bulan',1,'Modal Awal'),
+(16,1,1,32,17,'2020-04-09',50000000,'60 bulan',1,'Modal Awal'),
+(17,1,2,32,17,'2020-04-09',50000000,'60 bulan',1,'Modal Awal'),
+(18,1,3,32,5,'0000-00-00',123,'123',123,'Modal Tambahan'),
+(20,1,3,32,4,'2020-04-09',10000000,'24',1,'Modal Tambahan'),
+(64,1,3,32,17,'2020-04-09',50000000,'24',1,'Modal Awal'),
+(65,1,3,32,22,'2020-04-12',400000000,'60 bulan',5,'Modal Awal'),
+(66,1,2,32,22,'2020-04-12',20000000,'60',5,'Modal Awal'),
+(67,1,2,32,22,'2020-04-12',180000000,'60',5,'Modal Awal'),
+(68,1,2,32,22,'2020-04-12',1000,'60',5,NULL);
 
 /*Table structure for table `jenis_masakan` */
 
@@ -391,7 +615,10 @@ CREATE TABLE `jenis_masakan` (
 
 /*Data for the table `jenis_masakan` */
 
-insert  into `jenis_masakan`(`id`,`jenis`) values (1,'makanan'),(2,'minuman'),(3,'pelegkap');
+insert  into `jenis_masakan`(`id`,`jenis`) values 
+(1,'makanan'),
+(2,'minuman'),
+(3,'pelegkap');
 
 /*Table structure for table `kanwil` */
 
@@ -406,7 +633,10 @@ CREATE TABLE `kanwil` (
 
 /*Data for the table `kanwil` */
 
-insert  into `kanwil`(`id_kanwil`,`alamat_kantor`,`telp`) values (7,'Jawa Timur','085735144495'),(8,'Jawa Barat','085735144879'),(9,'Jawa Tengah','085735148165');
+insert  into `kanwil`(`id_kanwil`,`alamat_kantor`,`telp`) values 
+(7,'Jawa Timur','085735144495'),
+(8,'Jawa Barat','085735144879'),
+(9,'Jawa Tengah','085735148165');
 
 /*Table structure for table `kas_owner` */
 
@@ -424,7 +654,11 @@ CREATE TABLE `kas_owner` (
 
 /*Data for the table `kas_owner` */
 
-insert  into `kas_owner`(`id`,`id_kas_saldo`,`id_owner`,`tgl`,`nominal`,`jenis`) values (1,'1',1,'2020-03-11','100000','pengeluaran'),(2,'1',2,'2020-03-11','50000','pemasukan'),(3,'1',1,'2020-03-11','50000','pemasukan'),(4,'1',1,'2020-03-11','50000','pemasukan');
+insert  into `kas_owner`(`id`,`id_kas_saldo`,`id_owner`,`tgl`,`nominal`,`jenis`) values 
+(1,'1',1,'2020-03-11','100000','pengeluaran'),
+(2,'1',2,'2020-03-11','50000','pemasukan'),
+(3,'1',1,'2020-03-11','50000','pemasukan'),
+(4,'1',1,'2020-03-11','50000','pemasukan');
 
 /*Table structure for table `kas_saldo` */
 
@@ -440,7 +674,10 @@ CREATE TABLE `kas_saldo` (
 
 /*Data for the table `kas_saldo` */
 
-insert  into `kas_saldo`(`id_saldo`,`id_bendahara`,`id_admin_resto`,`jenis_saldo`,`last_balance`) values ('1','32','','KAS INDUK','50000'),('2','','19','KAS BESAR CABANG','50000'),('3','','19','KAS OPERASIONAL','50000');
+insert  into `kas_saldo`(`id_saldo`,`id_bendahara`,`id_admin_resto`,`jenis_saldo`,`last_balance`) values 
+('1','32','','KAS INDUK','50000'),
+('2','','19','KAS BESAR CABANG','50000'),
+('3','','19','KAS OPERASIONAL','50000');
 
 /*Table structure for table `log_aktivitas` */
 
@@ -460,7 +697,10 @@ CREATE TABLE `log_aktivitas` (
 
 /*Data for the table `log_aktivitas` */
 
-insert  into `log_aktivitas`(`id_log`,`id_kanwil`,`id_resto`,`id_user_resto`,`tgl_mulai`,`tgl_akhir`,`status`,`keterangan`) values (1,1,1,1,'2020-01-01','2020-01-31','Cuti','Cuti Kerja selama 1 Bulan'),(2,2,2,8,'2020-01-31','2020-01-31','Lembur','Lembur karena Shit tidak masuk'),(5,2,2,8,'2020-02-02','2020-02-19','Cuti','semangat');
+insert  into `log_aktivitas`(`id_log`,`id_kanwil`,`id_resto`,`id_user_resto`,`tgl_mulai`,`tgl_akhir`,`status`,`keterangan`) values 
+(1,1,1,1,'2020-01-01','2020-01-31','Cuti','Cuti Kerja selama 1 Bulan'),
+(2,2,2,8,'2020-01-31','2020-01-31','Lembur','Lembur karena Shit tidak masuk'),
+(5,2,2,8,'2020-02-02','2020-02-19','Cuti','semangat');
 
 /*Table structure for table `logistik` */
 
@@ -490,7 +730,14 @@ CREATE TABLE `meja` (
 
 /*Data for the table `meja` */
 
-insert  into `meja`(`id`,`panel`,`nomor`) values (1,1,1),(2,1,2),(3,2,3),(4,2,4),(5,3,5),(6,3,6),(7,4,7);
+insert  into `meja`(`id`,`panel`,`nomor`) values 
+(1,1,1),
+(2,1,2),
+(3,2,3),
+(4,2,4),
+(5,3,5),
+(6,3,6),
+(7,4,7);
 
 /*Table structure for table `menu` */
 
@@ -513,7 +760,18 @@ CREATE TABLE `menu` (
 
 /*Data for the table `menu` */
 
-insert  into `menu`(`id`,`id_resto`,`id_kategori`,`menu`,`foto`,`harga`,`status`,`stok`,`mode`) values (1,1,5,'Ayam Geprek','default.jpg',10000,'tersedia',-8,'insert'),(2,1,11,'Jamur Kripsi','default.jpg',10000,'tersedia',2,'insert'),(3,1,9,'Es Teh Anget','default.jpg',10000,'tersedia',11,'insert'),(4,1,10,'Kopi Susu','kopihitam.jpg',3000,'habis',6,'insert'),(5,1,5,'Nasi Goreng','default.jpg',3000,'tersedia',8,'insert'),(6,1,4,'Tahu Kripsi','default.jpg',6000,'tersedia',2,'insert'),(7,1,9,'teh pucuk','default.jpg',3000,'tersedia',3,'insert'),(8,1,5,'Nasi Kuning','default.jpg',50000,'habis',0,'insert'),(9,1,7,'Mie Instan','default.jpg',25000,'tersedia',1,'insert'),(10,1,7,'Mie Sedap','default.jpg',25000,'tersedia',1,'insert'),(11,1,7,'Mie Setan','default.jpg',25000,'tersedia',5,'draft');
+insert  into `menu`(`id`,`id_resto`,`id_kategori`,`menu`,`foto`,`harga`,`status`,`stok`,`mode`) values 
+(1,1,5,'Ayam Geprek','default.jpg',10000,'tersedia',-8,'insert'),
+(2,1,11,'Jamur Kripsi','default.jpg',10000,'tersedia',2,'insert'),
+(3,1,9,'Es Teh Anget','default.jpg',10000,'tersedia',11,'insert'),
+(4,1,10,'Kopi Susu','kopihitam.jpg',3000,'habis',6,'insert'),
+(5,1,5,'Nasi Goreng','default.jpg',3000,'tersedia',8,'insert'),
+(6,1,4,'Tahu Kripsi','default.jpg',6000,'tersedia',2,'insert'),
+(7,1,9,'teh pucuk','default.jpg',3000,'tersedia',3,'insert'),
+(8,1,5,'Nasi Kuning','default.jpg',50000,'habis',0,'insert'),
+(9,1,7,'Mie Instan','default.jpg',25000,'tersedia',1,'insert'),
+(10,1,7,'Mie Sedap','default.jpg',25000,'tersedia',1,'insert'),
+(11,1,7,'Mie Setan','default.jpg',25000,'tersedia',5,'draft');
 
 /*Table structure for table `omset_investasi_owner` */
 
@@ -530,7 +788,11 @@ CREATE TABLE `omset_investasi_owner` (
 
 /*Data for the table `omset_investasi_owner` */
 
-insert  into `omset_investasi_owner`(`id`,`id_investasi_owner`,`id_super_admin`,`tanggal`,`penyusutan_invest`) values (1,1,1,'2019-10-30',200000),(2,1,1,'2019-10-31',200000),(3,1,1,'2019-11-01',200000),(9,1,0,'2019-12-01',20000);
+insert  into `omset_investasi_owner`(`id`,`id_investasi_owner`,`id_super_admin`,`tanggal`,`penyusutan_invest`) values 
+(1,1,1,'2019-10-30',200000),
+(2,1,1,'2019-10-31',200000),
+(3,1,1,'2019-11-01',200000),
+(9,1,0,'2019-12-01',20000);
 
 /*Table structure for table `operasional` */
 
@@ -544,7 +806,12 @@ CREATE TABLE `operasional` (
 
 /*Data for the table `operasional` */
 
-insert  into `operasional`(`id`,`nama_pengeluaran`) values (1,'listrik'),(2,'internet'),(3,'komunikasi'),(4,'promosi'),(5,'transportas');
+insert  into `operasional`(`id`,`nama_pengeluaran`) values 
+(1,'listrik'),
+(2,'internet'),
+(3,'komunikasi'),
+(4,'promosi'),
+(5,'transportas');
 
 /*Table structure for table `owner` */
 
@@ -567,7 +834,10 @@ CREATE TABLE `owner` (
 
 /*Data for the table `owner` */
 
-insert  into `owner`(`id`,`id_super_admin`,`nama`,`user`,`pass`,`alamat`,`telp`,`email`,`saldo_rek`,`create_at`,`update_at`) values (1,1,'fauzin','fauzin','fauzin','sambirejo','1234567','fauzin@gmail.com','200000','2019-05-08 00:37:00','2019-05-08 00:37:00'),(2,1,'dedy ardiansyah 1','sd','as','asadas','94586845','dfs@gmail.com','100000','2019-12-09 14:04:05','2019-12-09 14:04:05'),(3,1,'owner c','cc','cc','mojoroto','085288886666','1@gmail.com','100000000','2019-12-29 23:05:54','2019-12-29 23:05:54');
+insert  into `owner`(`id`,`id_super_admin`,`nama`,`user`,`pass`,`alamat`,`telp`,`email`,`saldo_rek`,`create_at`,`update_at`) values 
+(1,1,'fauzin','fauzin','fauzin','sambirejo','1234567','fauzin@gmail.com','200000','2019-05-08 00:37:00','2019-05-08 00:37:00'),
+(2,1,'dedy ardiansyah 1','sd','as','asadas','94586845','dfs@gmail.com','100000','2019-12-09 14:04:05','2019-12-09 14:04:05'),
+(3,1,'owner c','cc','cc','mojoroto','085288886666','1@gmail.com','100000000','2019-12-29 23:05:54','2019-12-29 23:05:54');
 
 /*Table structure for table `paket` */
 
@@ -590,7 +860,10 @@ CREATE TABLE `paket` (
 
 /*Data for the table `paket` */
 
-insert  into `paket`(`id`,`id_resto`,`id_kategori`,`nama_paket`,`jumlah`,`status`,`foto`,`harga`,`mode`) values (1,1,9,'Paket Bom',8,'tersedia','default.jpg','8000','insert'),(2,1,8,'Paket Granat',7,'tersedia','default.jpg','20000','insert'),(3,1,7,'Paket asoy',5,'habis','nasibebek.jpg','30000','insert');
+insert  into `paket`(`id`,`id_resto`,`id_kategori`,`nama_paket`,`jumlah`,`status`,`foto`,`harga`,`mode`) values 
+(1,1,9,'Paket Bom',8,'tersedia','default.jpg','8000','insert'),
+(2,1,8,'Paket Granat',7,'tersedia','default.jpg','20000','insert'),
+(3,1,7,'Paket asoy',5,'habis','nasibebek.jpg','30000','insert');
 
 /*Table structure for table `pembayaran` */
 
@@ -608,7 +881,14 @@ CREATE TABLE `pembayaran` (
 
 /*Data for the table `pembayaran` */
 
-insert  into `pembayaran`(`id`,`id_user_kasir`,`id_pemesanan`,`nominal`,`status`,`tanggal`) values (34,23,2,15000,'lunas','2020-03-08 21:35:25'),(35,23,1,25000,'lunas','2020-03-08 15:42:30'),(36,23,3,20000,'lunas','2020-03-08 17:09:06'),(38,23,4,25000,'lunas','2020-03-06 20:42:38'),(39,22,5,15000,'lunas','2020-02-01 16:55:53'),(40,23,7,100000,'lunas','2020-07-26 21:34:47'),(41,23,8,50000,'lunas','2020-08-18 19:31:38');
+insert  into `pembayaran`(`id`,`id_user_kasir`,`id_pemesanan`,`nominal`,`status`,`tanggal`) values 
+(34,23,2,15000,'lunas','2020-03-08 21:35:25'),
+(35,23,1,25000,'lunas','2020-03-08 15:42:30'),
+(36,23,3,20000,'lunas','2020-03-08 17:09:06'),
+(38,23,4,25000,'lunas','2020-03-06 20:42:38'),
+(39,22,5,15000,'lunas','2020-02-01 16:55:53'),
+(40,23,7,100000,'lunas','2020-07-26 21:34:47'),
+(41,23,8,50000,'lunas','2020-08-18 19:31:38');
 
 /*Table structure for table `pembelian_alat` */
 
@@ -629,7 +909,9 @@ CREATE TABLE `pembelian_alat` (
 
 /*Data for the table `pembelian_alat` */
 
-insert  into `pembelian_alat`(`id`,`id_logistik`,`no_transaksi`,`nama_supplier`,`tanggal`,`total_harga_beli`,`dibayar`,`status`,`catatan`) values (9,34,'1','','2020-07-16',5000,5000,'selesai','lunas'),(10,34,'10','PT. sejahtera farma','2020-07-16',10000,10000,'selesai','lunas');
+insert  into `pembelian_alat`(`id`,`id_logistik`,`no_transaksi`,`nama_supplier`,`tanggal`,`total_harga_beli`,`dibayar`,`status`,`catatan`) values 
+(9,34,'1','','2020-07-16',5000,5000,'selesai','lunas'),
+(10,34,'10','PT. sejahtera farma','2020-07-16',10000,10000,'selesai','lunas');
 
 /*Table structure for table `pembelian_bahan_mentah` */
 
@@ -650,7 +932,13 @@ CREATE TABLE `pembelian_bahan_mentah` (
 
 /*Data for the table `pembelian_bahan_mentah` */
 
-insert  into `pembelian_bahan_mentah`(`id`,`id_logistik`,`no_transaksi`,`nama_supplier`,`tanggal`,`total_harga_beli`,`dibayar`,`status`,`catatan`) values (4,3,1,'fauzin','2019-10-16','57000','57000','selesai','ok'),(5,34,1,'man',NULL,'100000','100000','selesai','ok'),(6,35,1,'ruu',NULL,'1000000','1000000','selesai',NULL),(7,34,2,'man',NULL,'1000000','1000000','selesai',NULL),(8,34,2,'lur','2020-04-03','1000000','1000000','selesai',NULL),(9,34,9,'cepung','2020-07-27','1000','','selesai',';lunas');
+insert  into `pembelian_bahan_mentah`(`id`,`id_logistik`,`no_transaksi`,`nama_supplier`,`tanggal`,`total_harga_beli`,`dibayar`,`status`,`catatan`) values 
+(4,3,1,'fauzin','2019-10-16','57000','57000','selesai','ok'),
+(5,34,1,'man',NULL,'100000','100000','selesai','ok'),
+(6,35,1,'ruu',NULL,'1000000','1000000','selesai',NULL),
+(7,34,2,'man',NULL,'1000000','1000000','selesai',NULL),
+(8,34,2,'lur','2020-04-03','1000000','1000000','selesai',NULL),
+(9,34,9,'cepung','2020-07-27','1000','','selesai',';lunas');
 
 /*Table structure for table `pemberian_kaskeluar` */
 
@@ -668,7 +956,14 @@ CREATE TABLE `pemberian_kaskeluar` (
 
 /*Data for the table `pemberian_kaskeluar` */
 
-insert  into `pemberian_kaskeluar`(`id_pengeluaran`,`id_bendahara`,`id_resto`,`tanggal`,`nominal_kas_keluar`,`status`) values (1,2,1,'2019-06-26',400000,'pemberian'),(6,2,1,'2019-10-19',60000,'pemberian'),(7,2,1,'2019-10-20',60000,'pemberian'),(8,2,3,'2020-01-14',3000000,'pengajuan'),(9,32,4,'2020-03-31',1000000,'pengajuan'),(10,32,4,'2020-04-03',100000,'pengajuan'),(11,32,4,'2020-04-03',1000000,'pemberian');
+insert  into `pemberian_kaskeluar`(`id_pengeluaran`,`id_bendahara`,`id_resto`,`tanggal`,`nominal_kas_keluar`,`status`) values 
+(1,2,1,'2019-06-26',400000,'pemberian'),
+(6,2,1,'2019-10-19',60000,'pemberian'),
+(7,2,1,'2019-10-20',60000,'pemberian'),
+(8,2,3,'2020-01-14',3000000,'pengajuan'),
+(9,32,4,'2020-03-31',1000000,'pengajuan'),
+(10,32,4,'2020-04-03',100000,'pengajuan'),
+(11,32,4,'2020-04-03',1000000,'pemberian');
 
 /*Table structure for table `pemesanan` */
 
@@ -688,7 +983,15 @@ CREATE TABLE `pemesanan` (
 
 /*Data for the table `pemesanan` */
 
-insert  into `pemesanan`(`id`,`nama_pemesan`,`no_meja`,`keterangantambahan`,`tanggal`,`total_harga`,`id_user_resto`,`status`) values (1,'coba1',1,'','2020-01-30 21:35:00',24000,23,'lunas'),(2,'coba2',2,'','2020-01-30 21:35:25',13000,23,'lunas'),(3,'coba3',3,'ini pembayaran dilakukan di kasir','2020-02-02 21:49:42',16000,23,'lunas'),(4,'coba4',4,'','2020-02-01 21:58:05',13000,23,'lunas'),(5,'coba5',5,'','2020-02-01 22:53:18',13000,23,'siapsaji_lunas'),(6,'coba5',1,'','2020-02-01 22:53:42',0,23,'produksi_lunas'),(7,'selasa',2,'coba','2020-08-18 19:30:38',90000,23,'produksi'),(8,'selasa satu',2,'coba1','2020-08-18 19:31:38',48000,23,'lunas');
+insert  into `pemesanan`(`id`,`nama_pemesan`,`no_meja`,`keterangantambahan`,`tanggal`,`total_harga`,`id_user_resto`,`status`) values 
+(1,'coba1',1,'','2020-01-30 21:35:00',24000,23,'lunas'),
+(2,'coba2',2,'','2020-01-30 21:35:25',13000,23,'lunas'),
+(3,'coba3',3,'ini pembayaran dilakukan di kasir','2020-02-02 21:49:42',16000,23,'lunas'),
+(4,'coba4',4,'','2020-02-01 21:58:05',13000,23,'lunas'),
+(5,'coba5',5,'','2020-02-01 22:53:18',13000,23,'siapsaji_lunas'),
+(6,'coba5',1,'','2020-02-01 22:53:42',0,23,'produksi_lunas'),
+(7,'selasa',2,'coba','2020-08-18 19:30:38',90000,23,'produksi'),
+(8,'selasa satu',2,'coba1','2020-08-18 19:31:38',48000,23,'lunas');
 
 /*Table structure for table `pemesanan_menu` */
 
@@ -706,7 +1009,10 @@ CREATE TABLE `pemesanan_menu` (
 
 /*Data for the table `pemesanan_menu` */
 
-insert  into `pemesanan_menu`(`id`,`id_pemesanan`,`id_menu`,`jumlah_pesan`,`subharga`,`status`) values (70,7,9,1,25000,''),(71,7,10,1,25000,''),(72,8,1,4,40000,'');
+insert  into `pemesanan_menu`(`id`,`id_pemesanan`,`id_menu`,`jumlah_pesan`,`subharga`,`status`) values 
+(70,7,9,1,25000,''),
+(71,7,10,1,25000,''),
+(72,8,1,4,40000,'');
 
 /*Table structure for table `pemesanan_paket` */
 
@@ -724,7 +1030,10 @@ CREATE TABLE `pemesanan_paket` (
 
 /*Data for the table `pemesanan_paket` */
 
-insert  into `pemesanan_paket`(`id`,`id_pemesanan`,`id_paket`,`jumlah_pesan`,`subharga`,`status`) values (35,1,1,1,8000,'diambil'),(38,7,2,2,40000,''),(39,8,1,1,8000,'');
+insert  into `pemesanan_paket`(`id`,`id_pemesanan`,`id_paket`,`jumlah_pesan`,`subharga`,`status`) values 
+(35,1,1,1,8000,'diambil'),
+(38,7,2,2,40000,''),
+(39,8,1,1,8000,'');
 
 /*Table structure for table `pendapatan_kas_masuk` */
 
@@ -744,7 +1053,10 @@ CREATE TABLE `pendapatan_kas_masuk` (
 
 /*Data for the table `pendapatan_kas_masuk` */
 
-insert  into `pendapatan_kas_masuk`(`id`,`id_user_bendahara`,`id_user_kasir`,`id_pendapatankasmasuk_dari_kasir`,`jumlah_setoran`,`tanggal`,`tanggal_awal`,`tanggal_akhir`) values (34,32,22,11,'200000','2020-04-03 02:53:06','2020-04-03 02:53:09','2020-04-03 02:53:11'),(35,32,22,12,'500000','2020-04-03 02:57:02','2020-04-03 02:57:05','2020-04-03 02:57:08'),(36,32,22,13,'100000','2020-04-03 03:08:07','2020-04-03 03:08:09','2020-04-03 03:08:11');
+insert  into `pendapatan_kas_masuk`(`id`,`id_user_bendahara`,`id_user_kasir`,`id_pendapatankasmasuk_dari_kasir`,`jumlah_setoran`,`tanggal`,`tanggal_awal`,`tanggal_akhir`) values 
+(34,32,22,11,'200000','2020-04-03 02:53:06','2020-04-03 02:53:09','2020-04-03 02:53:11'),
+(35,32,22,12,'500000','2020-04-03 02:57:02','2020-04-03 02:57:05','2020-04-03 02:57:08'),
+(36,32,22,13,'100000','2020-04-03 03:08:07','2020-04-03 03:08:09','2020-04-03 03:08:11');
 
 /*Table structure for table `pendapatan_kas_masuk_dari_kasir` */
 
@@ -762,7 +1074,10 @@ CREATE TABLE `pendapatan_kas_masuk_dari_kasir` (
 
 /*Data for the table `pendapatan_kas_masuk_dari_kasir` */
 
-insert  into `pendapatan_kas_masuk_dari_kasir`(`id`,`id_user_kasir`,`id_resto`,`id_adminresto`,`jumlah_setoran`,`tanggal`) values (34,22,4,19,'53000','2020-03-08 22:53:26'),(35,25,4,19,'100000','2020-04-03 04:03:45'),(36,22,4,19,'147000','2020-04-03 04:04:48');
+insert  into `pendapatan_kas_masuk_dari_kasir`(`id`,`id_user_kasir`,`id_resto`,`id_adminresto`,`jumlah_setoran`,`tanggal`) values 
+(34,22,4,19,'53000','2020-03-08 22:53:26'),
+(35,25,4,19,'100000','2020-04-03 04:03:45'),
+(36,22,4,19,'147000','2020-04-03 04:04:48');
 
 /*Table structure for table `pengeluaran_cabang` */
 
@@ -782,7 +1097,8 @@ CREATE TABLE `pengeluaran_cabang` (
 
 /*Data for the table `pengeluaran_cabang` */
 
-insert  into `pengeluaran_cabang`(`id_pengeluaran_cabang`,`id_resto`,`id_investasi_cabang`,`id_alat`,`jumlah`,`masa_pemanfatan`,`nominal`,`nominal_penyusutan`) values (1,1,1,1,'2','2 bulan','10000',2000);
+insert  into `pengeluaran_cabang`(`id_pengeluaran_cabang`,`id_resto`,`id_investasi_cabang`,`id_alat`,`jumlah`,`masa_pemanfatan`,`nominal`,`nominal_penyusutan`) values 
+(1,1,1,1,'2','2 bulan','10000',2000);
 
 /*Table structure for table `pengeluaran_cabang_operasional` */
 
@@ -802,7 +1118,12 @@ CREATE TABLE `pengeluaran_cabang_operasional` (
 
 /*Data for the table `pengeluaran_cabang_operasional` */
 
-insert  into `pengeluaran_cabang_operasional`(`id`,`id_admin_resto`,`id_resto`,`id_kanwil`,`tanggal`,`id_operasional`,`masa_sewa`,`nominal`) values (1,4,1,1,'2019-10-02',1,'1 bulan','5000'),(2,4,1,1,'2019-10-03',1,'2 bulan','90'),(3,4,1,1,'2019-10-19',0,'2 hari','10000'),(5,1,1,1,'2019-12-29',2,'1 bulan','70000'),(6,4,1,7,'2020-04-03',3,'1 bulan','500000');
+insert  into `pengeluaran_cabang_operasional`(`id`,`id_admin_resto`,`id_resto`,`id_kanwil`,`tanggal`,`id_operasional`,`masa_sewa`,`nominal`) values 
+(1,4,1,1,'2019-10-02',1,'1 bulan','5000'),
+(2,4,1,1,'2019-10-03',1,'2 bulan','90'),
+(3,4,1,1,'2019-10-19',0,'2 hari','10000'),
+(5,1,1,1,'2019-12-29',2,'1 bulan','70000'),
+(6,4,1,7,'2020-04-03',3,'1 bulan','500000');
 
 /*Table structure for table `pengeluaran_kanwil` */
 
@@ -818,7 +1139,8 @@ CREATE TABLE `pengeluaran_kanwil` (
 
 /*Data for the table `pengeluaran_kanwil` */
 
-insert  into `pengeluaran_kanwil`(`id`,`id_kanwil`,`id_operasional`,`nominal`) values (1,1,1,'5000');
+insert  into `pengeluaran_kanwil`(`id`,`id_kanwil`,`id_operasional`,`nominal`) values 
+(1,1,1,'5000');
 
 /*Table structure for table `pengeluaran_kanwil_operasional` */
 
@@ -836,7 +1158,16 @@ CREATE TABLE `pengeluaran_kanwil_operasional` (
 
 /*Data for the table `pengeluaran_kanwil_operasional` */
 
-insert  into `pengeluaran_kanwil_operasional`(`id`,`id_kanwil`,`id_operasional`,`tanggal`,`masa_sewa`,`nominal`) values (1,1,1,'2019-10-02','1 bulan','5000'),(3,1,1,'2019-10-03','1 bulan','100'),(4,1,1,'2019-10-04','1 bulan','2000'),(5,1,4,'0000-00-00',NULL,'2000000'),(6,7,2,'0000-00-00',NULL,'5000000'),(7,7,1,'0000-00-00',NULL,'5000000'),(8,7,2,'2020-04-03','2 bulan','1000000'),(9,7,3,'2020-04-03','1 bulan','100000'),(10,0,1,'0000-00-00',NULL,'5000000');
+insert  into `pengeluaran_kanwil_operasional`(`id`,`id_kanwil`,`id_operasional`,`tanggal`,`masa_sewa`,`nominal`) values 
+(1,1,1,'2019-10-02','1 bulan','5000'),
+(3,1,1,'2019-10-03','1 bulan','100'),
+(4,1,1,'2019-10-04','1 bulan','2000'),
+(5,1,4,'0000-00-00',NULL,'2000000'),
+(6,7,2,'0000-00-00',NULL,'5000000'),
+(7,7,1,'0000-00-00',NULL,'5000000'),
+(8,7,2,'2020-04-03','2 bulan','1000000'),
+(9,7,3,'2020-04-03','1 bulan','100000'),
+(10,0,1,'0000-00-00',NULL,'5000000');
 
 /*Table structure for table `pengiriman_bahan_mentah` */
 
@@ -857,7 +1188,13 @@ CREATE TABLE `pengiriman_bahan_mentah` (
 
 /*Data for the table `pengiriman_bahan_mentah` */
 
-insert  into `pengiriman_bahan_mentah`(`id`,`id_permintaan`,`id_bahan_mentah`,`tanggal_pengiriman`,`jumlah_permintaan`,`jumlah_dikirim`,`jumlah_dikembalikan`,`status`,`status_bahan`) values (1,3,1,'2019-10-22',2,4,2,'tidak',NULL),(2,4,1,'2020-07-09',1,1,0,'sesuai','diterima'),(3,5,2,'2020-07-08',1,1,0,'sesuai','belum diterima'),(4,6,2,'2020-07-27',1,1,0,'sesuai','belum diterima'),(5,7,1,'2020-07-27',1,1,0,'sesuai','diterima'),(6,6,1,'2020-07-27',1,1,0,'sesuai','belum diterima');
+insert  into `pengiriman_bahan_mentah`(`id`,`id_permintaan`,`id_bahan_mentah`,`tanggal_pengiriman`,`jumlah_permintaan`,`jumlah_dikirim`,`jumlah_dikembalikan`,`status`,`status_bahan`) values 
+(1,3,1,'2019-10-22',2,4,2,'tidak',NULL),
+(2,4,1,'2020-07-09',1,1,0,'sesuai','diterima'),
+(3,5,2,'2020-07-08',1,1,0,'sesuai','belum diterima'),
+(4,6,2,'2020-07-27',1,1,0,'sesuai','belum diterima'),
+(5,7,1,'2020-07-27',1,1,0,'sesuai','diterima'),
+(6,6,1,'2020-07-27',1,1,0,'sesuai','belum diterima');
 
 /*Table structure for table `pengiriman_bahan_olahan` */
 
@@ -878,7 +1215,11 @@ CREATE TABLE `pengiriman_bahan_olahan` (
 
 /*Data for the table `pengiriman_bahan_olahan` */
 
-insert  into `pengiriman_bahan_olahan`(`id`,`id_permintaan`,`id_bahan_olahan`,`tanggal_pengiriman`,`jumlah_permintaan`,`jumlah_dikirim`,`jumlah_dikembalikan`,`status`,`status_bahan`) values (2,2,3,'2019-10-22',4,4,0,'diterima',NULL),(4,1,3,'2019-10-25',1,1,0,'sesuai',NULL),(5,3,1,'2020-06-14',1,1,1,'sesuai','diterima'),(6,3,3,'2020-07-27',1,1,0,'sesuai','diterima');
+insert  into `pengiriman_bahan_olahan`(`id`,`id_permintaan`,`id_bahan_olahan`,`tanggal_pengiriman`,`jumlah_permintaan`,`jumlah_dikirim`,`jumlah_dikembalikan`,`status`,`status_bahan`) values 
+(2,2,3,'2019-10-22',4,4,0,'diterima',NULL),
+(4,1,3,'2019-10-25',1,1,0,'sesuai',NULL),
+(5,3,1,'2020-06-14',1,1,1,'sesuai','diterima'),
+(6,3,3,'2020-07-27',1,1,0,'sesuai','diterima');
 
 /*Table structure for table `penyusutan_investasi_cabang` */
 
@@ -894,7 +1235,22 @@ CREATE TABLE `penyusutan_investasi_cabang` (
 
 /*Data for the table `penyusutan_investasi_cabang` */
 
-insert  into `penyusutan_investasi_cabang`(`id_penyusutan`,`id_investasi_cabang`,`tanggal`,`nominal_penyusutan`) values (4,6,'2019-10-20','100000'),(5,6,'2019-10-20','100000'),(6,6,'2019-10-20','100000'),(7,6,'2019-10-20','100000'),(8,6,'2019-10-20','100000'),(9,4,'2019-10-20','2000'),(10,4,'2019-10-20','2000'),(11,4,'2019-10-20','2000'),(12,4,'2019-10-20','2000'),(13,4,'2019-10-20','2000'),(14,4,'2019-10-20','2000'),(15,4,'2019-10-20','2000'),(16,4,'2019-10-20','2000'),(17,4,'2019-10-20','2000'),(18,4,'2019-10-20','2000');
+insert  into `penyusutan_investasi_cabang`(`id_penyusutan`,`id_investasi_cabang`,`tanggal`,`nominal_penyusutan`) values 
+(4,6,'2019-10-20','100000'),
+(5,6,'2019-10-20','100000'),
+(6,6,'2019-10-20','100000'),
+(7,6,'2019-10-20','100000'),
+(8,6,'2019-10-20','100000'),
+(9,4,'2019-10-20','2000'),
+(10,4,'2019-10-20','2000'),
+(11,4,'2019-10-20','2000'),
+(12,4,'2019-10-20','2000'),
+(13,4,'2019-10-20','2000'),
+(14,4,'2019-10-20','2000'),
+(15,4,'2019-10-20','2000'),
+(16,4,'2019-10-20','2000'),
+(17,4,'2019-10-20','2000'),
+(18,4,'2019-10-20','2000');
 
 /*Table structure for table `peralatan` */
 
@@ -913,7 +1269,8 @@ CREATE TABLE `peralatan` (
 
 /*Data for the table `peralatan` */
 
-insert  into `peralatan`(`id`,`id_logistik`,`id_resto`,`nama_peralatan`,`satuan_besar`,`jumlah_stok`,`status`) values (1,3,1,'sendok','pcs',242,1);
+insert  into `peralatan`(`id`,`id_logistik`,`id_resto`,`nama_peralatan`,`satuan_besar`,`jumlah_stok`,`status`) values 
+(1,34,1,'sendok','pcs',242,1);
 
 /*Table structure for table `permintaan_alat` */
 
@@ -933,7 +1290,9 @@ CREATE TABLE `permintaan_alat` (
 
 /*Data for the table `permintaan_alat` */
 
-insert  into `permintaan_alat`(`id_permintaan_alat`,`id_resto`,`id_kanwil`,`id_alat`,`tanggal`,`jumlah`,`masa_pemanfatan`,`status_permintaan`) values (20,4,7,1,'2020-07-17','2','3 bulan','permintaan'),(21,5,7,1,'2020-07-17','1','3 bulan','dikembalikan');
+insert  into `permintaan_alat`(`id_permintaan_alat`,`id_resto`,`id_kanwil`,`id_alat`,`tanggal`,`jumlah`,`masa_pemanfatan`,`status_permintaan`) values 
+(20,4,7,1,'2020-07-17','2','3 bulan','permintaan'),
+(21,5,7,1,'2020-07-17','1','3 bulan','dikembalikan');
 
 /*Table structure for table `permintaan_bahan_mentah` */
 
@@ -951,7 +1310,12 @@ CREATE TABLE `permintaan_bahan_mentah` (
 
 /*Data for the table `permintaan_bahan_mentah` */
 
-insert  into `permintaan_bahan_mentah`(`id`,`id_resto`,`id_user_produksi`,`nama_permintaan`,`tanggal`,`status`) values (3,1,3,'permintaan 3','2019-11-04','pengiriman'),(4,4,19,'uzin','2020-07-19','permintaan'),(5,4,20,'aku','2020-07-20','permintaan'),(6,4,20,'permintaan 3','2020-07-31','permintaan'),(7,4,20,'permintaan 4','2020-07-31','permintaan');
+insert  into `permintaan_bahan_mentah`(`id`,`id_resto`,`id_user_produksi`,`nama_permintaan`,`tanggal`,`status`) values 
+(3,1,3,'permintaan 3','2019-11-04','pengiriman'),
+(4,4,19,'uzin','2020-07-19','permintaan'),
+(5,4,20,'aku','2020-07-20','permintaan'),
+(6,4,20,'permintaan 3','2020-07-31','permintaan'),
+(7,4,20,'permintaan 4','2020-07-31','permintaan');
 
 /*Table structure for table `permintaan_bahan_olahan` */
 
@@ -969,7 +1333,10 @@ CREATE TABLE `permintaan_bahan_olahan` (
 
 /*Data for the table `permintaan_bahan_olahan` */
 
-insert  into `permintaan_bahan_olahan`(`id`,`id_resto`,`id_user_produksi`,`nama_permintaan`,`tanggal`,`status`) values (1,1,3,'Permintaan bahan olahan 1','2019-10-22','diterima'),(2,1,3,'permintaan 2','2019-10-24','diterima'),(3,4,20,'permintaan 1','2020-07-17','permintaan');
+insert  into `permintaan_bahan_olahan`(`id`,`id_resto`,`id_user_produksi`,`nama_permintaan`,`tanggal`,`status`) values 
+(1,1,3,'Permintaan bahan olahan 1','2019-10-22','diterima'),
+(2,1,3,'permintaan 2','2019-10-24','diterima'),
+(3,4,20,'permintaan 1','2020-07-17','permintaan');
 
 /*Table structure for table `produksi` */
 
@@ -998,11 +1365,16 @@ CREATE TABLE `produksi_bahan_olahan` (
   `tanggal` date DEFAULT NULL,
   `status` enum('produksi','selesai produksi') DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 /*Data for the table `produksi_bahan_olahan` */
 
-insert  into `produksi_bahan_olahan`(`id`,`id_logistik`,`id_bahan_mentah`,`jumlah_bahan_mentah`,`tanggal`,`status`) values (2,34,1,1,'2019-10-09','selesai produksi'),(8,34,3,1,'2020-07-09','selesai produksi'),(10,34,1,1,'2020-07-14','selesai produksi'),(11,34,1,1,'2020-07-27','produksi'),(12,34,3,1,'2020-07-27','produksi');
+insert  into `produksi_bahan_olahan`(`id`,`id_logistik`,`id_bahan_mentah`,`jumlah_bahan_mentah`,`tanggal`,`status`) values 
+(2,34,1,1,'2019-10-09','selesai produksi'),
+(8,34,3,1,'2020-07-09','selesai produksi'),
+(10,34,1,1,'2020-07-14','selesai produksi'),
+(12,34,3,1,'2020-07-27','produksi'),
+(15,34,1,1,'2020-08-22','produksi');
 
 /*Table structure for table `produksi_bahan_olahan_detail` */
 
@@ -1016,11 +1388,19 @@ CREATE TABLE `produksi_bahan_olahan_detail` (
   `jumlah_bahan_olahan` int(255) DEFAULT NULL,
   `tanggal` date DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 /*Data for the table `produksi_bahan_olahan_detail` */
 
-insert  into `produksi_bahan_olahan_detail`(`id`,`id_logistik`,`id_produksi_bahan_olahan`,`id_bahan_olahan`,`jumlah_bahan_olahan`,`tanggal`) values (12,34,2,1,1,'2020-07-09'),(13,34,8,1,1,'2020-07-14'),(20,34,10,1,1,'2020-07-14'),(21,34,10,3,1,'2020-07-14');
+insert  into `produksi_bahan_olahan_detail`(`id`,`id_logistik`,`id_produksi_bahan_olahan`,`id_bahan_olahan`,`jumlah_bahan_olahan`,`tanggal`) values 
+(12,34,2,1,1,'2020-07-09'),
+(13,34,8,1,1,'2020-07-14'),
+(20,34,10,1,1,'2020-07-14'),
+(21,34,10,3,1,'2020-07-14'),
+(22,34,2,1,2,'2020-08-22'),
+(27,34,10,1,4,'2020-08-22'),
+(29,34,15,1,2,'2020-08-22'),
+(30,34,15,3,2,'2020-08-22');
 
 /*Table structure for table `produksi_masakan` */
 
@@ -1037,7 +1417,13 @@ CREATE TABLE `produksi_masakan` (
 
 /*Data for the table `produksi_masakan` */
 
-insert  into `produksi_masakan`(`id`,`id_resto`,`id_menu`,`tanggal`,`jumlah_masakan`) values (1,4,1,'2019-10-10',10),(2,4,2,'2019-10-14',1),(3,4,2,'2020-01-03',1),(4,4,4,'2020-01-03',1),(5,4,6,'2020-01-03',1),(6,4,8,'2020-07-08',5);
+insert  into `produksi_masakan`(`id`,`id_resto`,`id_menu`,`tanggal`,`jumlah_masakan`) values 
+(1,4,1,'2019-10-10',10),
+(2,4,2,'2019-10-14',1),
+(3,4,2,'2020-01-03',1),
+(4,4,4,'2020-01-03',1),
+(5,4,6,'2020-01-03',1),
+(6,4,8,'2020-07-08',5);
 
 /*Table structure for table `resto` */
 
@@ -1055,7 +1441,15 @@ CREATE TABLE `resto` (
 
 /*Data for the table `resto` */
 
-insert  into `resto`(`id`,`id_kanwil`,`nama_resto`,`alamat`,`no_telp`,`pajak`) values (4,7,'Kediri','Jl. Veteran','08573514449',10),(5,7,'Nganjuk','Jl. Candire','08573514487',5),(6,8,'Jakarta','Jl. Jakarta','08573514816',30),(7,9,'Kraton Agun','jogja','08573514449',10),(8,9,'Sunda Empir','Bandung','08573514487',10),(17,7,'Buka Resto Baru','Malang','13',13),(21,7,'Buka Resto Baru','Tuban','08223453114',15),(22,7,'Resto 1 Kanwil 7','Bayuwangi','08223453112',15);
+insert  into `resto`(`id`,`id_kanwil`,`nama_resto`,`alamat`,`no_telp`,`pajak`) values 
+(4,7,'Kediri','Jl. Veteran','08573514449',10),
+(5,7,'Nganjuk','Jl. Candire','08573514487',5),
+(6,8,'Jakarta','Jl. Jakarta','08573514816',30),
+(7,9,'Kraton Agun','jogja','08573514449',10),
+(8,9,'Sunda Empir','Bandung','08573514487',10),
+(17,7,'Buka Resto Baru','Malang','13',13),
+(21,7,'Buka Resto Baru','Tuban','08223453114',15),
+(22,7,'Resto 1 Kanwil 7','Bayuwangi','08223453112',15);
 
 /*Table structure for table `stok_bahan_mentah_produksi` */
 
@@ -1065,12 +1459,18 @@ CREATE TABLE `stok_bahan_mentah_produksi` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_bahan_mentah` int(11) NOT NULL,
   `stok` int(11) NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+  `id_resto` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `fr_idResto` (`id_resto`),
+  CONSTRAINT `fr_idResto` FOREIGN KEY (`id_resto`) REFERENCES `resto` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 /*Data for the table `stok_bahan_mentah_produksi` */
 
-insert  into `stok_bahan_mentah_produksi`(`id`,`id_bahan_mentah`,`stok`) values (1,1,22),(2,2,51),(3,3,9);
+insert  into `stok_bahan_mentah_produksi`(`id`,`id_bahan_mentah`,`stok`,`id_resto`) values 
+(1,1,22,4),
+(2,2,51,4),
+(3,3,9,4);
 
 /*Table structure for table `stok_bahan_olahan_produksi` */
 
@@ -1080,12 +1480,17 @@ CREATE TABLE `stok_bahan_olahan_produksi` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_bahan_olahan` int(11) NOT NULL,
   `stok` int(11) NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+  `id_resto` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `fk_idResto` (`id_resto`),
+  CONSTRAINT `fk_idResto` FOREIGN KEY (`id_resto`) REFERENCES `resto` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 /*Data for the table `stok_bahan_olahan_produksi` */
 
-insert  into `stok_bahan_olahan_produksi`(`id`,`id_bahan_olahan`,`stok`) values (1,1,1),(2,3,6);
+insert  into `stok_bahan_olahan_produksi`(`id`,`id_bahan_olahan`,`stok`,`id_resto`) values 
+(1,1,1,4),
+(2,3,6,4);
 
 /*Table structure for table `superadmin` */
 
@@ -1106,7 +1511,8 @@ CREATE TABLE `superadmin` (
 
 /*Data for the table `superadmin` */
 
-insert  into `superadmin`(`id`,`nama`,`user`,`pass`,`alamat`,`telp`,`email`,`create_at`,`update_at`) values (1,'dedy ardiansyah','dedi','dedi','blitar','08546464664','dedi@gmail.com','0000-00-00 00:00:00','0000-00-00 00:00:00');
+insert  into `superadmin`(`id`,`nama`,`user`,`pass`,`alamat`,`telp`,`email`,`create_at`,`update_at`) values 
+(1,'dedy ardiansyah','dedi','dedi','blitar','08546464664','dedi@gmail.com','0000-00-00 00:00:00','0000-00-00 00:00:00');
 
 /*Table structure for table `tbl_kategori_menu` */
 
@@ -1121,7 +1527,17 @@ CREATE TABLE `tbl_kategori_menu` (
 
 /*Data for the table `tbl_kategori_menu` */
 
-insert  into `tbl_kategori_menu`(`id_kategori`,`nama`,`parent_id`) values (1,'Makanan',0),(2,'Minuman',0),(4,'Snack',0),(5,'Nasi',1),(7,'Mie',1),(8,'Rujak',1),(9,'Panas',2),(10,'Dingin',2),(11,'Kering',4),(12,'Basah',4);
+insert  into `tbl_kategori_menu`(`id_kategori`,`nama`,`parent_id`) values 
+(1,'Makanan',0),
+(2,'Minuman',0),
+(4,'Snack',0),
+(5,'Nasi',1),
+(7,'Mie',1),
+(8,'Rujak',1),
+(9,'Panas',2),
+(10,'Dingin',2),
+(11,'Kering',4),
+(12,'Basah',4);
 
 /*Table structure for table `tbl_kategori_paket` */
 
@@ -1136,7 +1552,15 @@ CREATE TABLE `tbl_kategori_paket` (
 
 /*Data for the table `tbl_kategori_paket` */
 
-insert  into `tbl_kategori_paket`(`id_kategori`,`nama`,`parent_id`) values (1,'Sultan',0),(2,'Mahal',0),(4,'Murah',0),(5,'Gratis',0),(7,'Paket Kucing',4),(8,'Paket Singa',2),(9,'Paket Gajah',1),(10,'Paket Cacing',5);
+insert  into `tbl_kategori_paket`(`id_kategori`,`nama`,`parent_id`) values 
+(1,'Sultan',0),
+(2,'Mahal',0),
+(4,'Murah',0),
+(5,'Gratis',0),
+(7,'Paket Kucing',4),
+(8,'Paket Singa',2),
+(9,'Paket Gajah',1),
+(10,'Paket Cacing',5);
 
 /*Table structure for table `tbl_kinerja_karyawan` */
 
@@ -1152,7 +1576,12 @@ CREATE TABLE `tbl_kinerja_karyawan` (
 
 /*Data for the table `tbl_kinerja_karyawan` */
 
-insert  into `tbl_kinerja_karyawan`(`id`,`id_user_resto`,`pemesanan`,`point`) values (16,23,2,1),(17,23,1,1),(18,23,3,1),(19,23,5,1),(20,23,8,1);
+insert  into `tbl_kinerja_karyawan`(`id`,`id_user_resto`,`pemesanan`,`point`) values 
+(16,23,2,1),
+(17,23,1,1),
+(18,23,3,1),
+(19,23,5,1),
+(20,23,8,1);
 
 /*Table structure for table `user_kanwil` */
 
@@ -1176,7 +1605,13 @@ CREATE TABLE `user_kanwil` (
 
 /*Data for the table `user_kanwil` */
 
-insert  into `user_kanwil`(`id`,`id_super_admin`,`id_kanwil`,`nama`,`user`,`pass`,`alamat`,`telp`,`email`,`create_at`,`update_at`,`tipe`) values (30,1,7,'irhassatu','irhassatu','irhassatu','sambirejo','085735144495','irhaskarumaf@gmail.com','2020-01-30 19:17:40','2020-01-30 19:17:40','general manajer'),(31,1,9,'indahdua','indahdua','indahdua','jogjakarta','085735144879','indah@gmail.com','2020-01-30 19:18:18','2020-01-30 19:18:18','general manajer'),(32,1,7,'fadilasatu','fadilasatu','fadilasatu','papar','085735144495','fadila@gmail.com','2020-01-30 19:49:51','2020-01-30 19:49:51','bendahara'),(33,1,9,'wiwindua','wiwindua','wiwindua','jogjakarta','085735144879','wiwin@gmial.com','2020-01-30 19:50:29','2020-01-30 19:50:29','bendahara'),(34,1,7,'risasatu','risasatu','risasatu','sambirejo','085735144495','risa@gmail.com','2020-01-30 19:51:55','2020-01-30 19:51:55','logistik'),(35,1,9,'triadua','triadua','triadua','jogjakarta','085735144879','tria@gmail.com','2020-01-30 19:52:18','2020-01-30 19:52:18','logistik');
+insert  into `user_kanwil`(`id`,`id_super_admin`,`id_kanwil`,`nama`,`user`,`pass`,`alamat`,`telp`,`email`,`create_at`,`update_at`,`tipe`) values 
+(30,1,7,'irhassatu','irhassatu','irhassatu','sambirejo','085735144495','irhaskarumaf@gmail.com','2020-01-30 19:17:40','2020-01-30 19:17:40','general manajer'),
+(31,1,9,'indahdua','indahdua','indahdua','jogjakarta','085735144879','indah@gmail.com','2020-01-30 19:18:18','2020-01-30 19:18:18','general manajer'),
+(32,1,7,'fadilasatu','fadilasatu','fadilasatu','papar','085735144495','fadila@gmail.com','2020-01-30 19:49:51','2020-01-30 19:49:51','bendahara'),
+(33,1,9,'wiwindua','wiwindua','wiwindua','jogjakarta','085735144879','wiwin@gmial.com','2020-01-30 19:50:29','2020-01-30 19:50:29','bendahara'),
+(34,1,7,'risasatu','risasatu','risasatu','sambirejo','085735144495','risa@gmail.com','2020-01-30 19:51:55','2020-01-30 19:51:55','logistik'),
+(35,1,9,'triadua','triadua','triadua','jogjakarta','085735144879','tria@gmail.com','2020-01-30 19:52:18','2020-01-30 19:52:18','logistik');
 
 /*Table structure for table `user_resto` */
 
@@ -1199,7 +1634,15 @@ CREATE TABLE `user_resto` (
 
 /*Data for the table `user_resto` */
 
-insert  into `user_resto`(`id`,`id_kanwil`,`id_resto`,`nama`,`user`,`pass`,`alamat`,`telp`,`create_at`,`update_at`,`jenis`) values (19,7,4,'adminrestosatu','adminrestosatu','adminrestosatu','kediri','085735144495','2020-01-30 19:54:38','2020-01-30 19:54:38','admin resto'),(20,7,4,'produksisatu','produksisatu','produksisatu','kediri','085735144495','2020-01-30 20:00:21','2020-01-30 20:00:21','produksi'),(22,7,4,'kasirsatu','kasirsatu','kasirsatu','kediri','085735144495','2020-01-30 20:01:29','2020-01-30 20:01:29','kasir'),(23,7,4,'waiterssatu','waiterssatu','waiterssatu','kediri','085735144495','2020-01-30 20:02:01','2020-01-30 20:02:01','waiters'),(24,9,7,'adminrestodua','adminrestodua','adminrestodua','jogjakarta','085735144879','2020-01-30 20:07:05','2020-01-30 20:07:05','admin resto'),(25,9,7,'produksidua','produksidua','produksidua','jogjakarta','085735144879','2020-01-30 20:07:54','2020-01-30 20:07:54','produksi'),(26,9,7,'kasirdua','kasirdua','kasirdua','jogjakarta','085735144879','2020-01-30 20:08:25','2020-01-30 20:08:25','kasir'),(27,9,7,'waitersdua','waitersdua','waitersdua','jogjakarta','085735144879','2020-01-30 20:08:47','2020-01-30 20:08:47','waiters');
+insert  into `user_resto`(`id`,`id_kanwil`,`id_resto`,`nama`,`user`,`pass`,`alamat`,`telp`,`create_at`,`update_at`,`jenis`) values 
+(19,7,4,'adminrestosatu','adminrestosatu','adminrestosatu','kediri','085735144495','2020-01-30 19:54:38','2020-01-30 19:54:38','admin resto'),
+(20,7,4,'produksisatu','produksisatu','produksisatu','kediri','085735144495','2020-01-30 20:00:21','2020-01-30 20:00:21','produksi'),
+(22,7,4,'kasirsatu','kasirsatu','kasirsatu','kediri','085735144495','2020-01-30 20:01:29','2020-01-30 20:01:29','kasir'),
+(23,7,4,'waiterssatu','waiterssatu','waiterssatu','kediri','085735144495','2020-01-30 20:02:01','2020-01-30 20:02:01','waiters'),
+(24,9,7,'adminrestodua','adminrestodua','adminrestodua','jogjakarta','085735144879','2020-01-30 20:07:05','2020-01-30 20:07:05','admin resto'),
+(25,9,7,'produksidua','produksidua','produksidua','jogjakarta','085735144879','2020-01-30 20:07:54','2020-01-30 20:07:54','produksi'),
+(26,9,7,'kasirdua','kasirdua','kasirdua','jogjakarta','085735144879','2020-01-30 20:08:25','2020-01-30 20:08:25','kasir'),
+(27,9,7,'waitersdua','waitersdua','waitersdua','jogjakarta','085735144879','2020-01-30 20:08:47','2020-01-30 20:08:47','waiters');
 
 /* Trigger structure for table `detail_pembelian_alat` */
 

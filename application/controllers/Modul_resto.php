@@ -918,7 +918,7 @@ class Modul_resto extends CI_Controller {
 		redirect('modul_resto/data_permintaan_bahan_detail/'.$id_permintaan);
 	}
 
-
+	
 	//---------------------------
 	//--------------------------------------
 

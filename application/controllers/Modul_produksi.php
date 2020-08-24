@@ -1369,4 +1369,13 @@ class modul_produksi extends CI_Controller {
 
 		redirect('modul_produksi/permintaan_bahan_mentah');
 	}
+
+	public function stok()
+	{
+		$id_resto=$this->session->userdata('id_resto');
+	 	$data['bahanMentah']=$this->m_modul_produksi->tampilDataBahan($id_resto)->result();
+	 	$data['bahanOlahan']=$this->m_modul_produksi->tampilDataOlahan($id_resto)->result();
+	 	$data['Peralatan']=$this->m_modul_produksi->tampilDataPeralatan($id_resto)->result();
+		$this->load->view('modul_produksi/stokBahan',$data);
+	}
 }

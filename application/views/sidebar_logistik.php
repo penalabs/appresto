@@ -39,6 +39,7 @@
 			<li><a href="<?php echo base_url('/modul_logistik/laporan_permintaan_barang');?>"><i class="fa fa-circle-o"></i> Laporan Permintaan barang</a></li>
 			<li><a href="<?php echo base_url('/modul_logistik/permintaan_bahan_mentah');?>"><i class="fa fa-circle-o"></i> Pengiriman barang</a></li>
 			<li><a href="<?php echo base_url('/modul_logistik/laporan_penerimaan_barang');?>"><i class="fa fa-circle-o"></i> Laporan penerimaan barang</a></li>
+      <li><a href="<?php echo base_url('/modul_logistik/stokBahan');?>"><i class="fa fa-circle-o"></i> Stok Bahan</a></li>
           </ul>
         </li>
 

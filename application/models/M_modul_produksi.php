@@ -212,5 +212,26 @@ class M_modul_produksi extends CI_Model{
 		$this->db->where($where);
 		$this->db->delete($table);
 	}
+	function tampilDataBahan($id_resto){
+	$query=$this->db->query("SELECT * FROM stok_bahan_mentah_produksi
+	JOIN `bahan_mentah` ON bahan_mentah.id=stok_bahan_mentah_produksi.id_bahan_mentah
+	WHERE stok_bahan_mentah_produksi.id_resto='$id_resto'
+	GROUP BY id_bahan_mentah ORDER BY id_bahan_mentah ASC");
+	return $query;
+	}
+
+	function tampilDataPeralatan($id_resto){
+
+	$query=$this->db->query("SELECT * FROM stok_bahan_mentah_produksi
+	JOIN `bahan_mentah` ON bahan_mentah.id=stok_bahan_mentah_produksi.id_bahan_mentah
+	WHERE stok_bahan_mentah_produksi.id_resto='$id_resto'
+	GROUP BY id_bahan_mentah ORDER BY id_bahan_mentah ASC");
+	return $query;
+	}
+
+	function tampilDataOlahan($id_resto){
+	$query=$this->db->query("SELECT * FROM stok_bahan_olahan_produksi WHERE id_resto='$id_resto'");
+	return $query;
+	}
 
 }
