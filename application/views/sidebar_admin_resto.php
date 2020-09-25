@@ -72,6 +72,7 @@
               </ul>
         </li>
     		<li><a href="<?php echo base_url('modul_resto/meja');?>"><i class="fa fa-circle-o"></i> Meja</a></li>
+        <li><a href="<?php echo base_url('C_modul_admin_resto/sub_kategori');?>"><i class="fa fa-circle-o"></i> Sub Kategori</a></li>
       </ul>
     </section>
     <!-- /.sidebar -->

@@ -899,4 +899,118 @@ class C_modul_admin_resto extends CI_Controller
 
 		redirect('C_modul_admin_resto/permintaan_bahan_mentah');
 	}
+
+	public function sub_kategori()
+	{
+		$sql1 = "SELECT * FROM tbl_kategori_menu WHERE parent_id = '0'";
+		$data['data1']=$this->db->query($sql1)->result();
+
+		$sql2 = "SELECT * FROM tbl_kategori_paket WHERE parent_id = '0'";
+		$data['data2']=$this->db->query($sql2)->result();
+
+		$this->load->view('modul_admin_resto/V_sub_kategori',$data);
+	}
+
+	public function aksi_tambah_menu()
+	{
+		$nama =$this->input->post('nama');
+
+		$data = array(
+			'nama' => $nama,
+			'parent_id' => "0",
+		);
+		$this->m_modul_admin_resto->input_data($data,'tbl_kategori_menu');
+		redirect('C_modul_admin_resto/sub_kategori');
+	}
+
+	public function aksi_tambah_paket()
+	{
+		$nama =$this->input->post('nama');
+
+		$data = array(
+			'nama' => $nama,
+			'parent_id' => "0",
+		);
+		$this->m_modul_admin_resto->input_data($data,'tbl_kategori_paket');
+		redirect('C_modul_admin_resto/sub_kategori');
+	}
+
+	//menu
+
+	public function delete_kategori($id_kategori)
+	{
+		$sql = "DELETE FROM tbl_kategori_menu where id_kategori='$id_kategori'";
+		if($this->db->query($sql)){
+			$data_session = array(
+				'pesan' => 'berhasil hapus data',
+			);
+
+			$this->session->set_userdata($data_session);
+		}
+		redirect('C_modul_admin_resto/sub_kategori');
+	}
+
+	public function lihat_sub_kategori($id_kategori)
+	{
+		$sql1 = "SELECT * FROM tbl_kategori_menu WHERE parent_id='$id_kategori'";
+		$data['data1']=$this->db->query($sql1)->result();
+
+		$sql2 = "SELECT * FROM tbl_kategori_menu WHERE id_kategori='$id_kategori' LIMIT 1";
+		$data['data2']=$this->db->query($sql2)->result();
+
+		$this->load->view('modul_admin_resto/V_lihat_sub_kategori_menu',$data);
+	}
+
+	public function aksi_tambah_sub_kategori_menu()
+	{
+
+		$parent =$this->input->post('id_parent_sub');
+		$nama =$this->input->post('nama');
+
+		$data = array(
+			'nama' => $nama,
+			'parent_id' => $parent,
+		);
+		$this->m_modul_admin_resto->input_data($data,'tbl_kategori_menu');
+		redirect('C_modul_admin_resto/lihat_sub_kategori/'.$parent);
+	}
+
+	//Paket
+	public function delete_kategori_paket($id_kategori)
+	{
+		$sql = "DELETE FROM tbl_kategori_paket where id_kategori='$id_kategori'";
+		if($this->db->query($sql)){
+			$data_session = array(
+				'pesan' => 'berhasil hapus data',
+			);
+
+			$this->session->set_userdata($data_session);
+		}
+		redirect('C_modul_admin_resto/sub_kategori');
+	}
+
+	public function lihat_sub_kategori_paket($id_kategori)
+	{
+		$sql1 = "SELECT * FROM tbl_kategori_paket WHERE parent_id='$id_kategori'";
+		$data['data1']=$this->db->query($sql1)->result();
+
+		$sql2 = "SELECT * FROM tbl_kategori_paket WHERE id_kategori='$id_kategori' LIMIT 1";
+		$data['data2']=$this->db->query($sql2)->result();
+
+		$this->load->view('modul_admin_resto/V_lihat_sub_kategori_paket',$data);
+	}
+
+	public function aksi_tambah_sub_kategori_paket()
+	{
+
+		$parent =$this->input->post('id_parent_sub');
+		$nama =$this->input->post('nama');
+
+		$data = array(
+			'nama' => $nama,
+			'parent_id' => $parent,
+		);
+		$this->m_modul_admin_resto->input_data($data,'tbl_kategori_paket');
+		redirect('C_modul_admin_resto/lihat_sub_kategori_paket/'.$parent);
+	}
 }
