@@ -76,6 +76,19 @@ if(empty($_SESSION['user'])){
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </a>
+        <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- Messages: style can be found in dropdown.less-->
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="keranjang.php" class="dropdown-toggle" >
+              <img src="cart.png" class="user-image pull-right" alt="User Image">
+              <span class="hidden-xs">adminrestosatu</span>
+            </a>
+          </li>
+
+        </ul>
+      </div>
       </nav>
     </header>
     <!-- Left side column. contains the logo and sidebar -->
@@ -89,9 +102,9 @@ if(empty($_SESSION['user'])){
           </div>
           <div class="pull-left info">
             <p>
-              <?php 
+              <?php
 //menampilkan nama waiters
-              $kalimat = $_SESSION['user']; 
+              $kalimat = $_SESSION['user'];
               $kalimat_new = ucfirst($kalimat);
               echo $kalimat_new;
               $waiters = $_SESSION['id'];
@@ -128,264 +141,48 @@ if(empty($_SESSION['user'])){
       </section>
       <!-- /.sidebar -->
     </aside>
-    <form method="post" action="prosestambahpemesanan.php">
-      <div class="wrapper">
+
+      <div class="content-wrapper">
+
+      <section class="content">
         <div class="row">
           <!--/.col (left) -->
           <!-- right column -->
           <div class="col-md-12">
             <!-- /.box -->
             <!-- general form elements disabled -->
-            <div class="box box-warning">
+            <div class="box box-default">
               <!-- /.box-header -->
-              <!-- /.box-header -->
-              <?php
-              $query_trx = "SELECT MAX(id) AS id_trx FROM pemesanan";
-              $hasil_trx = mysqli_query($koneksi,$query_trx);
-              $data=mysqli_fetch_array($hasil_trx);
-              $id_trx = $data['id_trx'];
-              $id_pemesanan = $id_trx+1;
-              ?>
-              <div class="box-body table-responsive no-padding">
-                <table class="table table-hover">
-                  <tr style="background: #99ffff;">
-                    <th style="width: 5px;">No</th>
-                    <th style="width: 65px;">Menu</th>
-                    <th style="width: 30px;">Qty</th>
-                  </tr>
-                  <?php
-                  $querytampildata = mysqli_query ($koneksi, "
-                    SELECT pemesanan_menu.*,menu.*, pemesanan_menu.id AS idpemesananmenu
-                    FROM pemesanan_menu
-                    JOIN menu ON menu.id = pemesanan_menu.id_menu 
-                    WHERE pemesanan_menu.id_pemesanan='$id_pemesanan' ORDER BY pemesanan_menu.id  DESC ");
-                  $no = 1;
-                  while ($datatampilpesanan = mysqli_fetch_array($querytampildata)){
-                    ?>
-                    <tr>
-                      <td><?php echo $no++; ?></td>
-                      <td><?php echo $datatampilpesanan['menu'] ?></td>
-                      <td>
-                        <div class="row">
-                          <div style="width: 20px; display: inline-block; padding: 0px 0px;" class="col-md-4">
-                            <a href="updateqtymenukurang.php?idpemesananmenu=<?php echo $datatampilpesanan['idpemesananmenu']; ?>" class="btn btn-block btn-primary btn-xs">-</a>
-                          </div>
-                          <div style="display: inline-block; padding: 0px 0px;" class="col-md-4">
-                            <input style="width: 30px; text-align: center;" type="text" readonly="" name="qty" value="<?php echo $datatampilpesanan['jumlah_pesan']; ?>">
-                          </div>
-                          <div style="width: 20px; display: inline-block; padding: 0px 0px; margin-right: 5px;" class="col-md-4">
-                            <a href="updateqtymenutambah.php?idpemesananmenu=<?php echo $datatampilpesanan['idpemesananmenu']; ?>" class="btn btn-block btn-success btn-xs">+</a>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  <?php } ?>
-                  <tr>
-                    <td colspan="3"><a href="kategori_menu_sub1.php"><button type="button" style="width: 100%;"><span class="fa fa-plus-circle"></span> Tambah Menu</button></a></td>
-                  </tr>
-                  <!-- pembatas pesanan paket -->
-                  <tr style="background: #99ffff;">
-                    <th style="width: 5px;">No</th>
-                    <th style="width: 65px;">Paket</th>
-                    <th style="width: 30px;">Qty</th>
-                  </tr>
-                  <?php
-                  $querytampildata = mysqli_query ($koneksi, "
-                    SELECT pemesanan_paket.*,paket.*,pemesanan_paket.id AS idpemesananpaket
-                    FROM pemesanan_paket
-                    JOIN paket ON paket.id = pemesanan_paket.id_paket 
-                    WHERE pemesanan_paket.id_pemesanan='$id_pemesanan'
-                    ORDER BY pemesanan_paket.id DESC");
-                  $no = 1;
-                  while ($datatampilpesanan = mysqli_fetch_array($querytampildata)){
-                    ?>
-                    <tr>
-                      <td><?php echo $no++; ?></td>
-                      <td><?php echo $datatampilpesanan['nama_paket'] ?></td>
-                      <td>
-                        <div class="row">
-                          <div style="width: 20px; display: inline-block; padding: 0px 0px;" class="col-md-4">
-                            <a href="updateqtypaketkurang.php?idpemesananpaket=<?php echo $datatampilpesanan['idpemesananpaket']; ?>" class="btn btn-block btn-primary btn-xs">-</a>
-                          </div>
-                          <div style="display: inline-block; padding: 0px 0px;" class="col-md-4">
-                            <input style="width: 30px; text-align: center;" type="text" readonly="" name="qty" value="<?php echo $datatampilpesanan['jumlah_pesan']; ?>">
-                          </div>
-                          <div style="width: 20px; display: inline-block; padding: 0px 0px; margin-right: 5px;" class="col-md-4">
-                            <a href="updateqtypakettambah.php?idpemesananpaket=<?php echo $datatampilpesanan['idpemesananpaket']; ?>" class="btn btn-block btn-success btn-xs">+</a>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  <?php } ?>
-                  <tr>
-                    <td colspan="3"><a href="kategori_paket_sub1.php"><button type="button" style="width: 100%;"><span class="fa fa-plus-circle"></span> Tambah Paket</button></a></td>
-                  </tr>
-                </table>
-              </div>
 
-              <!-- /.box-body -->
-              <div class="box-body">
-                <!-- text input -->
-                <div class="form-group">
-                  <label>Nama</label>
-                  <input type="text" name="konsumen" class="form-control" placeholder="Nama Konsumen" required="">
-                </div>
-                <div class="form-group">
-                  <label>No. Meja</label>
-                  <select name="meja" class="form-control">
-                    <?php
-                    $querymeja = "SELECT * FROM meja";
-                    $hasilmeja = mysqli_query($koneksi,$querymeja);
-                    while($data=mysqli_fetch_array($hasilmeja)){
-                      echo "<option value=$data[nomor]>Meja $data[nomor]</option>";
-                    }
-                    ?>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>Keterangan Tambahan</label>
-                  <textarea name="keterangantambahan" class="form-control" placeholder="Isikan jika ingi menambah permintaan lain!"></textarea>
-                </div>
-              </div>
+                <table class="table table-hover">
+                  <tr>
+                    <td colspan="3"><a href="kategori_menu_sub1.php"><button type="button" class="btn btn-block btn-success btn-lg" style="width: 100%;text-align:left; padding-left:6px"><span class="fa fa-arrow-right"></span> Tambah Menu</button></a></td>
+                  </tr>
+                  <tr>
+                    <td colspan="3"><a href="kategori_paket_sub1.php"><button type="button" class="btn btn-block btn-success btn-lg" style="width: 100%;text-align:left; padding-left:6px"><span class="fa fa-arrow-right"></span> Tambah Paket</button></a></td>
+                  </tr>
+
+                </table>
+
+
+
             </div>
             <!-- /.box -->
           </div>
           <!--/.col (right) -->
         </div>
+      </section>
 
-        <div class="row">
-          <div class="col-xs-12">
-            <div class="box">
-              <!-- /.box-header -->
-              <?php
-//menu
-              $querysubtotalmenu = "SELECT SUM(subharga) AS jummenu FROM pemesanan_menu WHERE id_pemesanan='$id_pemesanan'";
-              $hasilsubtotalmenu = mysqli_query($koneksi,$querysubtotalmenu);
-              $datasubhargamenu=mysqli_fetch_array($hasilsubtotalmenu);
-              $subhargamenu = $datasubhargamenu['jummenu'];
-//paket
-              $querysubtotalpaket = "SELECT SUM(subharga) AS jumpaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'";
-              $hasilsubtotalpaket = mysqli_query($koneksi,$querysubtotalpaket);
-              $datasubhargapaket=mysqli_fetch_array($hasilsubtotalpaket);
-              $subhargapaket = $datasubhargapaket['jumpaket'];
-
-//menu + paket
-              $subtotal = $subhargamenu + $subhargapaket;
-              ?>
-              <div class="box-body table-responsive no-padding">
-                <table class="table table-hover">
-                  <tr>
-                    <th style="width: 20%;">Subtotal Menu</th>
-                    <th style="width: 2%;"> : </th>
-                    <td style="width: 75%;"><?php echo "Rp. ".number_format($subhargamenu).",-"; ?></td>
-                  </tr>
-                  <tr>
-                    <th style="width: 20%;">Subtotal Paket</th>
-                    <th style="width: 2%;"> : </th>
-                    <td style="width: 75%;"><?php echo "Rp. ".number_format($subhargapaket).",-"; ?></td>
-                  </tr>
-                  <tr>
-                    <th style="width: 20%;">Total Menu + Paket</th>
-                    <th style="width: 2%;"> : </th>
-                    <td style="width: 75%;"><?php echo "Rp. ".number_format($subtotal).",-"; ?></td>
-                  </tr>
-                </table>
-              </div>
-              <div style="float: left; width: 50%;">
-                <button style="width: 100%;" type="submit" name="submit" class="btn btn-primary">Pesan Dulu</button>  
-              </div>
-              <div style="float: right; width: 50%;">
-                <a style="width: 100%;" data-toggle="modal" data-target="#modal-default2" class="btn btn-success">Bayar Awal</a>  
-              </div>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
       </div>
-    </div>
-    <div class="modal fade" id="modal-default2">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div style="background-color: #db1d36;" class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span></button>
-              <h4 style="color: white;" class="modal-title">Pembayaran</h4>
-            </div>
-            <div class="modal-body">
-              <!-- checkbox -->
-              <input type="hidden" id="txt1" onkeyup="sum();" value="<?php echo $subtotal; ?>" class="form-control">
-              <div class="box-body table-responsive no-padding">
-                <table class="table table-hover">
-                  <tr>
-                    <th style="width: 20%;">Subtotal Menu</th>
-                    <th style="width: 2%;"> : </th>
-                    <td style="width: 75%;"><?php echo "Rp. ".number_format($subhargamenu).",-"; ?></td>
-                  </tr>
-                  <tr>
-                    <th style="width: 20%;">Subtotal Paket</th>
-                    <th style="width: 2%;"> : </th>
-                    <td style="width: 75%;"><?php echo "Rp. ".number_format($subhargapaket).",-"; ?></td>
-                  </tr>
-                  <tr>
-                    <th style="width: 20%;">Total Menu + Paket</th>
-                    <th style="width: 2%;"> : </th>
-                    <td style="width: 75%;"><?php echo "Rp. ".number_format($subtotal).",-"; ?></td>
-                  </tr>
-                </table>
-              </div>
 
-              <div class="input-group input-group-md">
-                <!-- <input type="hidden" name="idpemesanan" value="<?php echo $id; ?>" class="form-control"> -->
-                <input type="text" id="txt2" onkeyup="sum();" name="nominal_bayar" placeholder="Uang Bayar" class="form-control">
-                <span class="input-group-btn">
-                  <button type="submit" name="submitbayar" class="btn btn-info btn-flat">Bayar</button>
-                </span>
-              </div>
-              <br>
-              <div class="form-group">
-                <input type="text" id="txt3" class="form-control" placeholder="Uang Kembalian" disabled>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
-    </form>
+
     <!-- /.control-sidebar -->
 <!-- Add the sidebar's background. This div must be placed
   immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
 
-        <script>
-          var bayar = document.getElementById('txt2').value;
-          function numberWithCommas(bayar) {
-            return bayar.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-          }
 
-          function sum() {
-            var txtFirstNumberValue = document.getElementById('txt1').value;
-            var txtSecondNumberValue = document.getElementById('txt2').value;
-            var result = parseInt(txtSecondNumberValue) - parseInt(txtFirstNumberValue);
-            if (!isNaN(result)) {
-              var number_string = result.toString(),
-              sisa  = number_string.length % 3,
-              rupiah  = number_string.substr(0, sisa),
-              ribuan  = number_string.substr(sisa).match(/\d{3}/g);
-              if (ribuan) {
-                separator = sisa ? '.' : '';
-                rupiah += separator + ribuan.join('.');
-              }
-              document.getElementById('txt3').value = "Rp. "+rupiah+",-";
-            }
-          }
-        </script>
         <script src="../plugins/jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap 3.3.7 -->
         <script src="../plugins/bootstrap/dist/js/bootstrap.min.js"></script>
