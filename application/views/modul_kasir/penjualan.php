@@ -9,834 +9,472 @@
   <?php include(APPPATH.'views/css.php');?>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-  <!-- <div class="flash-data" data-flashdata="<?php echo $this->session->flashdata('flash'); ?>"></div> -->
   <!-- Site wrapper -->
-  <div class="wrapper">
+<div class="wrapper">
 
 
-   <?php include(APPPATH.'views/header.php');?>
-   <?php include(APPPATH.'views/menu.php');?>
+  <?php include(APPPATH.'views/header.php');?>
+  <?php include(APPPATH.'views/menu.php');?>
    <!-- Content Wrapper. Contains page content -->
-   <div class="content-wrapper">
+  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Kasir
+      <section class="content-header">
+        <h1>Kasir</h1>
+      </section>
 
-      </h1>
+      <!-- Main content -->
+      <section class="content">
+       <div class="row">
+         <div class="col-xs-3">
+           <div class="box box-solid">
+             <!-- /.box-header -->
+             <div class="box-body">
+               <div class="form-group">
+                  <label>Pilih meja</label>
+                  <select id="no_meja" class="form-control" onchange="clearDatapemesanan();loadDatamenu(this);loadDatapaket(this);loadDatapemesan(this);">
+                    <?php
+                      $data=$this->db->query("SELECT * FROM meja")->result();
+                      foreach ($data as $meja) {
+                     ?>
+                        <option value="<?= $meja->nomor;?>"><?= $meja->nomor;?></option>
+                    <?php
+                      }
+                     ?>
+                  </select>
+                </div>
+             </div>
+           </div>
+         </div>
+         <div class="col-xs-3">
+           <div class="box box-solid">
+             <!-- /.box-header -->
+             <div class="box-body">
+               <div class="form-group">
+                  <h4>Nama Pemesan : <input type="text" value="" class="form-control" id="nama_pemesan" readonly></h4>
+                </div>
+             </div>
+           </div>
+         </div>
+         <div class="col-xs-3">
+           <div class="box box-solid">
+             <!-- /.box-header -->
+             <div class="box-body">
+               <div class="form-group">
+                  <h4>No Pemesanan : <input type="text" value="" class="form-control" id="id_pemesanan" readonly></h4>
+                </div>
+             </div>
+           </div>
+         </div>
+         <div class="col-xs-3">
+           <div class="box box-solid">
+             <!-- /.box-header -->
+             <div class="box-body">
+               <div class="form-group">
+                  <h4>Tanggal jam : <input type="text" value="<?= date('Y-m-d H:i:s'); ?>" class="form-control" id="tanggaljam" readonly></h4>
+                </div>
+             </div>
+           </div>
+         </div>
 
-    </section>
+         <div class="col-xs-12">
+           <div class="box box-solid">
+             <div class="box-header with-border">
+               <h3 class="box-title">Detail Pemesanan</h3>
+             </div>
+             <!-- /.box-header -->
+             <div class="box-body">
+               <table id="tabel_detail_pesan" class="table table-bordered table-hover">
+                 <thead>
+                 <tr>
+                   <th>#</th>
+                   <th>Nama Menu / Paket</th>
+                   <th>Qty</th>
+                   <th>Harga</th>
+                   <th>Sub Harga</th>
+                   <th>Aksi</th>
+                 </tr>
+                 </thead>
+                 <tbody>
 
-    <!-- Main content -->
-    <section class="content">
-     <div class="row">
+                 </tbody>
+               </table>
+             </div>
+             <!-- /.box-body -->
+           </div>
+           <!-- /.box -->
+        </div>
+        <div class="col-xs-4">
+          <div class="box box-solid">
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">Diskon</label>
 
-
-
-      <div class="col-sm-12">
-        <div class="box">
-          <div class="box-header">
-            <h3 class="box-title">Pembayaran</h3>
+                <div class="col-sm-6">
+                  <input type="text" value="0" name="diskon_rupiah" class="form-control" placeholder="Diskon Rp.">
+                </div>
+                <div class="col-sm-4">
+                  <input type="text" value="0" name="diskon_persen" class="form-control" placeholder="Diskon %">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">Pajak</label>
+                <div class="col-sm-6">
+                  <input type="text" value="0" name="pajak_rupiah" class="form-control" placeholder="Pajak Rp.">
+                </div>
+                <div class="col-sm-4">
+                  <input type="text" value="0" name="pajak_persen" class="form-control" placeholder="Pajak %">
+                </div>
+              </div>
+            </div>
           </div>
-          <!-- /.box-header -->
-          <form role="form" action="#" method="post" class="form-horizontal">
+        </div>
+        <div class="col-xs-4">
+          <div class="box box-solid">
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">Bayar</label>
+
+                <div class="col-sm-10">
+                  <input type="text" name="bayar" value="0" class="form-control" placeholder="Bayar">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail3" value="0" class="col-sm-2 control-label">Kembali</label>
+
+                <div class="col-sm-10">
+                  <input type="text" name="kembali" class="form-control" placeholder="Kembali" readonly>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box box-solid">
+            <!-- /.box-header -->
             <div class="box-body">
 
-
               <div class="form-group">
-                <label for="gross_amount" class="col-sm-12 control-label ">Tanggal: <div class="tanggal">0000-00-00 00:00:00</div></label>
+                  <button type="button" onclick="aksi_pembayaran()" class="btn btn-block btn-success btn-lg">BAYAR</button>
               </div>
 
-              <div class="col-md-4 col-xs-12 pull pull-left">
-
-                <div class="form-group">
-                  <label for="gross_amount" class="col-sm-5 control-label" style="text-align:left;">Meja</label>
-                  <div class="col-sm-7">
-                    <select class="form-control meja" id="meja" name="meja">
-                     <option value="">--pilih--</option>
-                     <?php
-                     $daftar_meja = $this->m_modul_kasir->tampil_data('meja')->result();
-                     foreach($daftar_meja as $u){
-                      ?>
-                      <option value="<?= $u->id?>"><?= $u->nomor?></option>
-                      <?php
-                    }
-                    ?>
-                  </select>
-                  *(Reload dahulu ketika ingin memilih meja lain!).
-                </div>
-              </div>
-
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <div class="box box-solid">
+            <!-- /.box-header -->
+            <div class="box-body">
               <div class="form-group">
-                <label for="gross_amount" class="col-sm-5 control-label" style="text-align:left;">Atas Nama</label>
-                <div class="col-sm-7">
-                  <input type="text" class="form-control" id="atasnama" name="atasnama" disabled>
-                </div>
-              </div>
-
-            </div>
-
-
-            <br /> <br/>
-            <table class="table table-bordered" id="product_info_table">
-              <thead>
-                <tr>
-                  <th style="width:45%">Menu / Paket</th>
-                  <th style="width:10%">Qty</th>
-                  <th style="width:10%">Harga</th>
-                  <th style="width:15%">Sub Total</th>
-                  <th style="width:20%">
-            <!--
-            <button type="button" id="add_row_paket" class="btn btn-default"><i class="fa fa-plus"></i> Paket</button>
-            <button type="button" id="add_row_menu" class="btn btn-default"><i class="fa fa-plus"></i> Menu</button>
-          -->
-          Aksi
-        </th>
-
-      </tr>
-    </thead>
-
-    <tbody id="tb_item">
-
-
-    </tbody>
-  </table>
-<!--  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalmenu">Tambah Menu</button>
- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalpaket">Tambah Paket</button> -->
-
- <!-- Modal MENU-->
- <div class="modal fade" id="exampleModalmenu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-body">
-
-        <form method="post" action="#">
-          <div style="background-color: #2de34c;" class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">Menu</h4>
-            </div>
-            <div class="modal-body">
-             <!-- checkbox -->
-             <div class="col-md-6">
-              <h4><b>Tersedia</h4>
-               <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                   <?php foreach ($tampil_menu_tersedia as $menu_sedia) {
-                    if ($menu_sedia->foto == "") {
-                      $foto = "";
-                      ?>
-                      <img src="<?php echo base_url('../../gambar/default.jpg')?>" width='60px' height='50px' />
-                      <input type='checkbox' name='get_value' class='get_value' value='<?php echo $menu_sedia->id;?>'><?php echo $menu_sedia->menu; ?><br>
-                      <?php
-                    }else{
-                      ?>
-                      <img src='<?php echo base_url('../../gambar/default.jpg') ?>' width='60px' height='50px' />
-                      <input type='checkbox' name='get_value' class='get_value' value='<?php echo $menu_sedia->id;?>'><?php echo $menu_sedia->menu; ?><br>
-                      <?php
-                    }
-                  }
-                  ?>
-                </label>
-              </div>
+                 <h2 id="total_harga">Total Item Rp. 0</h2>
+                 <input type="hidden" value="0" class="form-control" id="total_harga_value" readonly>
+                 <h4 id="diskon">Diskon Rp. 0</h4>
+                 <input type="hidden" value="0" class="form-control" id="total_diskon_value" readonly>
+                 <h4 id="pajak">Pajak Rp. 0</h4>
+                 <input type="hidden" value="0" class="form-control" id="total_pajak_value" readonly>
+                 <h4 id="total_pembayaran">Total Bayar Rp. 0</h4>
+                 <input type="hidden" value="0" class="form-control" id="total_pembayaran_value" readonly>
+               </div>
             </div>
           </div>
-          <?php
-          $querymenuhabis = "SELECT * FROM menu WHERE STATUS = 'habis'";
-          $datamenuhabis=$this->db->query($querymenuhabis)->row();
-          $datastatus = $datamenuhabis->status;
+        </div>
 
-          if ($datastatus == 'habis') { ?>
-            <div class="col-md-6">
-             <h4><b>Tidak Tersedia</h4>
-               <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                   <?php foreach ($tampil_menu_habis as $menu_habis) {
-                    if ($menu_sedia->foto == "") {
-                      echo " <img src='../../gambar/default.jpg' width='60px' height='50px' /> <input disabled type='checkbox'> $menu_sedia->menu<br>";
-                    }else{
-                      echo " <img src='' width='60px' height='50px' /> <input disabled type='checkbox' value='$menu_sedia->id'> $menu_sedia->menu<br>";
-                    }
-                  }
-                  ?>
-                </label>
-              </div>
-            </div>
-          </div>
-        <?php }?>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-        <button type="button" onclick="add_pesan_menu()" class="btn btn-primary">List</button>
-      </div>
-    </form>
 
+       </div>
+     </section>
+     <!-- /.content -->
   </div>
-</div>
-</div>
-</div>
+  <!-- /.content-wrapper -->
 
-<!-- Modal  PAKET-->
-<div class="modal fade" id="exampleModalpaket" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-body">
-
-        <form method="post" action="">
-          <div style="background-color: #2de34c;" class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">Paket</h4>
-            </div>
-            <div class="modal-body">
-             <!-- checkbox -->
-             <div class="col-md-6">
-              <h4><b>Tersedia</h4>
-               <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                   <?php foreach ($tampil_paket_tersedia as $paket_sedia) {
-                    if ($paket_sedia->foto == "") {
-                      $foto = "";
-                      ?>
-                      <img src='../gambar/default.jpg' width='60px' height='50px' />
-                      <input type='checkbox' name='get_value_paket' class='get_value_paket' value='<?php echo $paket_sedia->id;?>'> <?php echo $paket_sedia->nama_paket; ?><br>
-                      <?php
-                    }else{
-                      echo " <img src='' width='60px' height='50px' />
-                      <input type='checkbox' name='get_value_paket' class='get_value_paket' value='$paket_sedia->id'> ".$paket_sedia->nama_paket."<br>";
-                    }
-                  }
-                  ?>
-                </label>
-              </div>
-            </div>
-          </div>
-          <?php
-          $querymenuhabis = "SELECT * FROM paket WHERE STATUS = 'habis'";
-          $datamenuhabis=$this->db->query($querymenuhabis)->row();
-          $datastatus = $datamenuhabis->status;
-
-          if ($datastatus == 'habis') { ?>
-            <div class="col-md-6">
-             <h4><b>Tidak Tersedia</h4>
-               <div class="form-group">
-                <div class="checkbox">
-                  <label>
-                   <?php foreach ($tampil_paket_habis as $paket_habis) {
-                    if ($menu_sedia->foto == "") {
-                      echo " <img src='../gambar/default.jpg' width='60px' height='50px' /> <input disabled type='checkbox' value='$paket_habis->id'> $paket_habis->nama_paket<br>";
-                    }else{
-                      echo " <img src='' width='60px' height='50px' /> <input disabled type='checkbox' value='$paket_habis->id'> $paket_habis->nama_paket<br>";
-                    }
-                  }
-                  ?>
-                </label>
-              </div>
-            </div>
-          </div>
-        <?php }?>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-        <button type="button" onclick="add_pesan_paket()" class="btn btn-primary">List</button>
-      </div>
-    </form>
-
-  </div>
-</div>
-</div>
-</div>
-
-<br /> <br/>
-
-<div class="col-md-6 col-xs-12">
-
-  <div class="form-group">
-    <label for="bayar" class="col-sm-5 control-label">BAYAR</label>
-    <div class="col-sm-7">
-      <input type="number" class="form-control" id="bayar" name="bayar"  autocomplete="off">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="vat_charge" class="col-sm-5 control-label">KEMBALI</label>
-    <div class="col-sm-7">
-      <input type="text" class="form-control" id="kembali" name="kembali" disabled autocomplete="off">
-      <input type="hidden" class="form-control" id="kembali_value" name="kembali_value" autocomplete="off">
-    </div>
-  </div>
-
-</div>
-
-
-<div class="col-md-6 col-xs-12 pull pull-right">
-
-  <div class="form-group">
-    <label for="gross_amount" class="col-sm-5 control-label">Amount</label>
-    <div class="col-sm-7">
-      <input type="text" class="form-control" id="total" name="total" disabled autocomplete="off">
-      <input type="hidden" class="form-control" id="total_value" name="total_value" autocomplete="off">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="vat_charge" class="col-sm-5 control-label">Pajak 10 %</label>
-    <div class="col-sm-7">
-      <input type="text" class="form-control" id="pajak" name="pajak" disabled autocomplete="off">
-      <input type="hidden" class="form-control" id="pajak_value" name="pajak_value" autocomplete="off">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="discount" class="col-sm-5 control-label">Diskon %</label>
-    <div class="col-sm-7">
-      <input type="text" class="form-control" id="diskon" name="diskon" placeholder="Diskon"  autocomplete="off">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="discount" class="col-sm-5 control-label">Diskon Rp</label>
-    <div class="col-sm-7">
-      <input type="text" class="form-control" id="diskonrp" name="diskonrp" placeholder="Diskon Rupiah"  autocomplete="off" disabled>
-      <input type="hidden" class="form-control" id="diskonrp_value" name="diskonrp_value" autocomplete="off">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="net_amount" class="col-sm-5 control-label">Total Harga</label>
-    <div class="col-sm-7">
-      <input type="text" class="form-control" id="total_harga" name="total_harga" disabled autocomplete="off">
-      <input type="hidden" class="form-control" id="total_harga_value" name="total_harga_value" autocomplete="off">
-    </div>
-  </div>
-
-</div>
-</div>
-<!-- /.box-body -->
-
-<div class="box-footer">
-  <input type="hidden" name="service_charge_rate" value="" autocomplete="off">
-  <input type="hidden" name="vat_charge_rate" value="13" autocomplete="off">
-  <button type="button" class="btn btn-primary" onclick="save()">Create / Simpan</button>
-
-  <a id="cetak" href="" target="_blank" class="btn btn-warning" >CETAK STRUK</a>
-  <a href="<?php echo base_url('kasir/penjualan/');?>" class="btn btn-success">RELOAD</a>
-
-</div>
-</form>
-<!-- /.box-body -->
-</div>
-<!-- /.box -->
-</div>
-
-</div>
-
-
-
-
-
-
-
-</section>
-<!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
-
-<?php include(APPPATH.'views/footer.php');?>
+  <?php include(APPPATH.'views/footer.php');?>
 <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
 <?php include(APPPATH.'views/js.php');?>
+
 <script>
-  var total;
-  var pajak;
-  var diskon;
-  var bayar;
-  var kembali;
-  var no_meja;
-  var idd_pesan;
-  var id_user_resto;
-  function diskonku(diskon,hargaAwal,p){
+  // $(function () {
+  //   $('#tabel_detail_pesan').DataTable({
+  //     'paging'      : true,
+  //     'lengthChange': false,
+  //     'searching'   : true,
+  //     'ordering'    : true,
+  //     'info'        : true,
+  //     'autoWidth'   : true
+  //   })
+  // })
+  $(document).ready(function(){
 
-    diskon = diskon/100*hargaAwal;
-    hargaDiskon = diskon;
-    return hargaDiskon;
-  }
-  function pajak(pajak,hargaAwal){
+    $('input[name=bayar]').keyup(function() {
+        var total_harga_value=$("#total_harga_value").val();
+        var bayar=$(this).val();
+        var diskon_rupiah=$('#total_diskon_value').val();
+        var pajak_rupiah=$('#total_pajak_value').val();
+        // alert(diskon_rupiah);
+        // alert(pajak_rupiah);
+        var kembali=parseInt(bayar)-(parseInt(total_harga_value)-parseInt(diskon_rupiah)+parseInt(pajak_rupiah));
+        // alert(kembali);
+        $('input[name=kembali]').val(kembali);
 
-    pajak = pajak/100*hargaAwal;
-    hargaPajak = pajak;
-    return hargaPajak;
-  }
 
-  var tot_harga_tmp;
-  var idd_pesan;
-
-  function save(){
-   bayar=$('#bayar').val();
-   diskon=$('#diskonrp_value').val();
-   kembali=$('#kembali_value').val();
-   var id_user_kasir=<?php echo $this->session->userdata('id'); ?>;
-   no_meja=$('#meja').val();
-    //alert(idd_pesan);
-    $.ajax({
-      type  : 'POST',
-      url   : '<?php echo base_url(). 'kasir/action_pembayaran'; ?>',
-      data: {id_pesan:idd_pesan,nominal:bayar,id_user_kasir:id_user_kasir,kembali:kembali,diskon:diskon},
-      async : false,
-      dataType : 'json',
-      success : function(data){
-
-        if(data.pesan=="gagal"){
-          alert("gagal");
-        }else{
-          alert("Pembayaran Berhasil");
-          location.reload();
-        }
-      }
+        var total_pajak_value=$('#total_pajak_value').val();
+        var total_diskon_value=$('#total_diskon_value').val();
+        var total_pembayaran=parseInt(total_harga_value)+parseInt(total_pajak_value)-parseInt(total_diskon_value);
+        $('#total_pembayaran_value').val(total_pembayaran);
+        $("#total_pembayaran").html('Total Bayar Rp. '+total_pembayaran);
     });
+
+     $('input[name=diskon_persen]').keyup(function() {
+         var total_harga_value=$("#total_harga_value").val();
+         var diskon_persen=$(this).val();
+         var diskon_rupiah=total_harga_value*diskon_persen/100;
+         // alert(kembali);
+         $('#total_diskon_value').val(diskon_rupiah);
+         $("#diskon").html('Diskon Rp. '+diskon_rupiah);
+         $('input[name=diskon_rupiah]').val(diskon_rupiah);
+
+         var total_pajak_value=$('#total_pajak_value').val();
+         var total_diskon_value=$('#total_diskon_value').val();
+         var total_pembayaran=parseInt(total_harga_value)+parseInt(total_pajak_value)-parseInt(total_diskon_value);
+         $('#total_pembayaran_value').val(total_pembayaran);
+         $("#total_pembayaran").html('Total Bayar Rp. '+total_pembayaran);
+     });
+
+     $('input[name=pajak_persen]').keyup(function() {
+         var total_harga_value=$("#total_harga_value").val();
+         var pajak_persen=$(this).val();
+         var pajak_rupiah=total_harga_value*pajak_persen/100;
+         // alert(kembali);
+         $('#total_pajak_value').val(pajak_rupiah);
+         $("#pajak").html('Pajak Rp. '+pajak_rupiah);
+         $('input[name=pajak_rupiah]').val(pajak_rupiah);
+
+         var total_pajak_value=$('#total_pajak_value').val();
+         var total_diskon_value=$('#total_diskon_value').val();
+         var total_pembayaran=parseInt(total_harga_value)+parseInt(total_pajak_value)-parseInt(total_diskon_value);
+         $('#total_pembayaran_value').val(total_pembayaran);
+         $("#total_pembayaran").html('Total Bayar Rp. '+total_pembayaran);
+     });
+
+     $('input[name=diskon_rupiah]').keyup(function() {
+         var total_harga_value=$("#total_harga_value").val();
+         var diskon_rupiah=$(this).val();
+         var diskon_persen=diskon_rupiah/total_harga_value*100;
+         // alert(kembali);
+         $('#total_diskon_value').val(diskon_rupiah);
+         $("#diskon").html('Diskon Rp. '+diskon_rupiah);
+         $('input[name=diskon_persen]').val(diskon_persen);
+
+         var total_pajak_value=$('#total_pajak_value').val();
+         var total_diskon_value=$('#total_diskon_value').val();
+         var total_pembayaran=parseInt(total_harga_value)+parseInt(total_pajak_value)-parseInt(total_diskon_value);
+         $('#total_pembayaran_value').val(total_pembayaran);
+         $("#total_pembayaran").html('Total Bayar Rp. '+total_pembayaran);
+     });
+
+     $('input[name=pajak_rupiah]').keyup(function() {
+         var total_harga_value=$("#total_harga_value").val();
+         var pajak_rupiah=$(this).val();
+         var pajak_persen=pajak_rupiah/total_harga_value*100;
+         // alert(kembali);
+         $('#total_pajak_value').val(pajak_rupiah);
+         $("#pajak").html('pajak Rp. '+pajak_rupiah);
+         $('input[name=pajak_persen]').val(pajak_persen);
+
+         var total_pajak_value=$('#total_pajak_value').val();
+         var total_diskon_value=$('#total_diskon_value').val();
+         var total_pembayaran=parseInt(total_harga_value)+parseInt(total_pajak_value)-parseInt(total_diskon_value);
+         $('#total_pembayaran_value').val(total_pembayaran);
+         $("#total_pembayaran").html('Total Bayar Rp. '+total_pembayaran);
+     });
+
+
+
+  });
+
+  function total_pembayaran(){
+    var total_harga_value=$("#total_harga_value").val();
+    var diskon_rupiah=$('#total_diskon_value').val();
+    var pajak_rupiah=$('#total_pajak_value').val();
+  }
+  function clearDatapemesanan(){
+    $('#tabel_detail_pesan > tbody').html('');
+  }
+  function loadDatamenu(no_meja) {
+      // var no_meja=$("#no_meja").val();
+      var subharga=0;
+      alert(no_meja.value);
+      var value_no_meja=no_meja.value;
+      $.ajax({
+          url: '<?php echo base_url();?>/kasir/tampil_pesanan_menu',
+          type: 'get',
+          data: { no_meja: value_no_meja} ,
+          dataType: 'json',
+          success: function(data) {
+            var  no=1;
+            if(data.length == 0) {
+                alert('empty');
+                // total_semua();
+                return;
+            }else{
+                $.each( data, function( key, value ) {
+                  alert(value.id_menu);
+                    $('#tabel_detail_pesan > tbody').append('<tr>'+
+                        '<td>'+no+'</td>'+
+                        '<td>'+value.menu+'</td>'+
+                        '<td>'+
+                          '<button type="button" onclick="minusmenu('+value.id_menu+');" style="float:left;" class="btn mb-1 btn-success btn-xs">-</button>'+
+                          '<input type="text" id="jumlah" style="width:40px;height:40px;float:left;" class="form-control input-default" value="'+value.jumlah_pesan+'">'+
+                          '<button type="button" onclick="plusmenu('+value.id_menu+');" style="float:left;" class="btn mb-1 btn-success btn-xs">+</button>'+
+                        '</td>'+
+                        '<td>'+
+                          value.harga+
+                        '</td>'+
+                        '<td>'+
+                          value.subharga+
+                        '</td>'+
+                        '<td>'+
+                          '<button type="button" onclick="removemenu('+value.id_menu+');" class="btn mb-1 btn-danger btn-xs"><i class="fa fa-close"></i></span>'+
+                          '</button>'+
+                        '</td>'+
+                    '</tr>');
+
+
+                    no++;
+                    subharga+=value.harga*value.jumlah;
+
+                });
+
+
+            }
+
+
+          }
+      });
+
+
   }
 
-  function cetak(no_meja){
-    total=$('#total_value').val();
-    pajak=$('#pajak_value').val();
-    diskon=$('#diskonrp_value').val();
-    bayar=$('#bayar').val();
-    kembali=$('#kembali_value').val();
 
-    $('#cetak').attr('href', '<?php echo base_url('report/pdf/?no_meja=');?>'+no_meja+'&&total='+total+'&&kembali='+kembali);
+  function loadDatapaket(no_meja) {
+      // var no_meja=$("#no_meja").val();
+      var subharga=0;
+      alert(no_meja.value);
+      var value_no_meja=no_meja.value;
+      $.ajax({
+          url: '<?php echo base_url();?>/kasir/tampil_pesanan_paket',
+          type: 'get',
+          data: { no_meja: value_no_meja} ,
+          dataType: 'json',
+          success: function(data) {
+            var  no=1;
+            if(data.length == 0) {
+                alert('empty');
+                // total_semua();
+                return;
+            }else{
+                $.each( data, function( key, value ) {
+                  alert(value.id_paket);
+                    $('#tabel_detail_pesan > tbody').append('<tr>'+
+                        '<td>'+no+'</td>'+
+                        '<td>'+value.nama_paket+'</td>'+
+                        '<td>'+
+                          '<button type="button" onclick="minusmenu('+value.id_paket+');" style="float:left;" class="btn mb-1 btn-success btn-xs">-</button>'+
+                          '<input type="text" id="jumlah" style="width:40px;height:40px;float:left;" class="form-control input-default" value="'+value.jumlah_pesan+'">'+
+                          '<button type="button" onclick="plusmenu('+value.id_paket+');" style="float:left;" class="btn mb-1 btn-success btn-xs">+</button>'+
+                        '</td>'+
+                        '<td>'+
+                          value.harga+
+                        '</td>'+
+                        '<td>'+
+                          value.subharga+
+                        '</td>'+
+                        '<td>'+
+                          '<button type="button" onclick="removemenu('+value.id_paket+');" class="btn mb-1 btn-danger btn-xs"><i class="fa fa-close"></i></span>'+
+                          '</button>'+
+                        '</td>'+
+                    '</tr>');
+
+
+                    no++;
+                    subharga+=value.harga*value.jumlah;
+
+                });
+
+
+            }
+
+
+          }
+      });
+
 
   }
-  //fungsi tampil barang
 
-  function tampil_data_pemesan(meja){
-    no_meja=meja;
-    $('tbody').html("");
-    $.ajax({
-      type  : 'GET',
-      url   : '<?php echo base_url(). 'kasir/get_pemesan'; ?>',
-      data: { meja: meja} ,
-      async : false,
-      dataType : 'json',
-      success : function(data){
-        var html = '';
-        var i;
-        for(i=0; i<data.length; i++){
-          $('#atasnama').val(data[i].nama_pemesan);
-          $('.tanggal').html(data[i].tanggal);
+  function loadDatapemesan(no_meja) {
+      // var no_meja=$("#no_meja").val();
+      alert(no_meja.value);
+      var value_no_meja=no_meja.value;
+      $.ajax({
+          url: '<?php echo base_url();?>/kasir/tampil_pemesan',
+          type: 'get',
+          data: { no_meja: value_no_meja} ,
+          dataType: 'json',
+          success: function(data) {
+            if(data.length == 0) {
+                alert('empty');
+                // total_semua();
+                return;
+            }else{
+                $.each( data, function( key, value ) {
+                    alert(value.nama_pemesan);
+                    $("#nama_pemesan").val(value.nama_pemesan);
+                    $("#id_pemesanan").val(value.id);
+                    $("#total_harga_value").val(value.total_harga);
+                    $("#total_harga").html('Total item Rp. '+value.total_harga);
+                });
 
-          $('#total').val(data[i].total_harga);
-          $('#total_value').val(data[i].total_harga);
 
-          $('#pajak').val(pajak(10,data[i].total_harga));
-          $('#pajak_value').val(pajak(10,data[i].total_harga));
-          tot_harga_tmp=pajak(10,data[i].total_harga);
+            }
 
 
-          html += '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalmenu">Tambah Menu</button>'+
-          '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalpaket">Tambah Paket</button>';
-          $('tbody').append(html);
+          }
+      });
 
-          tampil_pesan_menu(data[i].id);
-          tampil_pesan_paket(data[i].id);
 
-          idd_pesan=data[i].id;
-          id_user_resto=data[i].id_user_resto;
-        }
-
-      }
-
-    });
   }
 
+  function aksi_pembayaran() {
+      var id_pemesanan=$("#id_pemesanan").val();
+      var total_pembayaran_value=$('#total_pembayaran_value').val();
+      var total_pajak_value=$('#total_pajak_value').val();
+      var total_diskon_value=$('#total_diskon_value').val();
 
-  function tampil_pesan_menu(id_pesan){
- //alert(id_pesan)
- $.ajax({
-  type  : 'GET',
-  url   : '<?php echo base_url(). 'kasir/get_menu'; ?>',
-  data: {id_pesan:id_pesan} ,
-  async : false,
-  dataType : 'json',
-  success : function(data){
-    var html = '';
+      var cek_value_bayar=$("input[name=bayar]").val();
 
-    var i;
-    for(i=0; i<data.length; i++){
-                //alert(data[i].id);
-                html += '<tr id="data">'+
-                '<td>'+data[i].menu+'</td>'+
-                '<td><input type="text" name="qty_'+data[i].id+'" id="qty_'+data[i].id+'" class="form-control" value="'+data[i].jumlah_pesan+'"  disabled></td>'+
-                '<td id="harga_'+data[i].id+'">'+data[i].harga+'</td>'+
-                '<td class="value_sub_harga_td" id="sub_harga_'+data[i].id+'">'+data[i].harga*data[i].jumlah_pesan+'</td>'+
-                '<td style="text-align:right;">'+
-                '<a id="btn_edit_'+data[i].id+'" href="javascript:;" class="btn btn-info btn-xs item_edit" data="'+data[i].id+'" onclick="edit_menu('+id_pesan+','+data[i].id+')">Edit</a>'+' '+
-                              //'<a href="javascript:;" class="btn btn-danger btn-xs item_hapus" data="'+data[i].id+'">Hapus</a>'+
-                              '</td>'+
-                              '</tr>';
-                            }
-                            $('tbody').append(html);
-                          }
-
-                        });
-}
-
-function tampil_pesan_paket(id_pesan){
-  $.ajax({
-    type  : 'GET',
-    url   : '<?php echo base_url(). 'kasir/get_paket'; ?>',
-    data: {id_pesan:id_pesan} ,
-    async : false,
-    dataType : 'json',
-    success : function(data){
-      var html = '';
-      var i;
-
-      for(i=0; i<data.length; i++){
-        html += '<tr id="data">'+
-        '<td>'+data[i].nama_paket+'</td>'+
-        '<td><input type="text" name="qty_paket_'+data[i].id+'" id="qty_paket_'+data[i].id+'" class="form-control" value="'+data[i].jumlah_pesan+'"  disabled></td>'+
-        '<td id="harga_paket_'+data[i].id+'">'+data[i].harga+'</td>'+
-        '<td class="value_sub_harga_td" id="sub_harga_paket_'+data[i].id+'">'+data[i].harga*data[i].jumlah_pesan+'</td>'+
-        '<td style="text-align:right;">'+
-        '<a id="btn_edit_paket_'+data[i].id+'" href="javascript:;" class="btn btn-info btn-xs item_edit" data="'+data[i].id+'" onclick="edit_paket('+id_pesan+','+data[i].id+')">Edit</a>'+' '+
-                            //'<a href="javascript:;" class="btn btn-danger btn-xs item_hapus" data="'+data[i].id+'">Hapus</a>'+
-                            '</td>'+
-                            '</tr>';
-                          }
-                          $('tbody').append(html);
-                        }
-
-                      });
-}
-function edit_menu(id_pesan,id){
-          // $("input[name='qty[]']").each(function(index) {
-          //   $(this).removeAttr("disabled").eq(0);
-          // });
-          //alert(id);
-          var identifikasi="";
-          identifikasi=$("#btn_edit_"+id).text();
-          //alert(id);
-          //alert(identifikasi);
-          var jum;
-          var qty=$("#qty_"+id).val();
-          //alert(qty);
-          if(identifikasi=="Edit"){
-            var harga;
-            $("#qty_"+id).removeAttr("disabled");
-            $("#qty_"+id).keyup(function(){
-              jum=$(this).val();
-                //alert(jum);
-                //$("#qty_"+id);
-                harga=$("#harga_"+id).text();
-                //alert(harga);
-                var sub_harga=jum*harga;
-                //alert(sub_harga);
-                $("#sub_harga_"+id).text(sub_harga);
-
-                $("#btn_edit_"+id).text("save");
-
-                var tot_sub_harga=0;
-                var subhargaku=0;
-                $('tr#data').each(function() {
-
-                  subhargaku = $(this).find(".value_sub_harga_td").html();
-                    //alert(subhargaku)
-                    tot_sub_harga+=parseInt(subhargaku);
-                  });
-                //alert(tot_sub_harga);
-                $("#total").val(tot_sub_harga);
-                //alert(tot_sub_harga);
-                var total_harga_value=$("#total_value").val(tot_sub_harga);
-                //alert(pajak(10,tot_sub_harga));
-                $('#pajak').val(pajak(10,tot_sub_harga));
-                $('#pajak_value').val(pajak(10,tot_sub_harga));
-              });
-
-          }else{
-          //alert('aksi save')
-          var tot_sub_harga=0;
-          var sub_harga;
-          sub_harga=$("#sub_harga_"+id).text();
-          //alert(nilai)
+      if(parseInt(cek_value_bayar)!=0){
           $.ajax({
-            type  : 'POST',
-            url   : '<?php echo base_url(). 'kasir/update_pesanan_menu'; ?>',
-            data: {id_pesan_menu:id,jumlah_pesan:qty,sub_harga:sub_harga} ,
-            async : false,
-            dataType : 'html',
-            success : function(data){
-              alert(data);
-                      update_pemesanan(id_pesan);
-                      tampil_pesan_menu(id_pesan);
-                      tampil_pesan_paket(id_pesan);
-
-                    }
-
-                  });
-        }
-      }
-
-      function edit_paket(id_pesan,id){
-          // $("input[name='qty[]']").each(function(index) {
-          //   $(this).removeAttr("disabled").eq(0);
-          // });
-          //alert(id);
-          var identifikasi=$("#btn_edit_paket_"+id).text();
-          var jum;
-          var qty=$("#qty_paket_"+id).val();
-          //alert(identifikasi);
-          //alert(id);
-
-
-
-          if(identifikasi=="Edit"){
-            var harga;
-            $("#qty_paket_"+id).removeAttr("disabled");
-            $("#qty_paket_"+id).keyup(function(){
-              jum=$(this).val();
-                //alert(jum);
-                //$("#qty_"+id);
-                harga=$("#harga_paket_"+id).text();
-                //alert(harga);
-                var sub_harga=jum*harga;
-                //alert(sub_harga);
-                $("#sub_harga_paket_"+id).text(sub_harga);
-
-                $("#btn_edit_paket_"+id).text("save");
-
-                var tot_sub_harga=0;
-                var subhargaku=0;
-                $('tr#data').each(function() {
-
-                  subhargaku = $(this).find(".value_sub_harga_td").html();
-              //alert(subhargaku)
-              tot_sub_harga+=parseInt(subhargaku);
-            });
-          //alert(tot_sub_harga);
-          $("#total").val(tot_sub_harga);
-         //alert(tot_sub_harga);
-         var total_harga_value=$("#total_value").val(tot_sub_harga);
-          //alert(pajak(10,tot_sub_harga));
-          $('#pajak').val(pajak(10,tot_sub_harga));
-          $('#pajak_value').val(pajak(10,tot_sub_harga));
-
-
-        });
-
-          }else{
-          //alert('aksi save')
-          var tot_sub_harga=0;
-          var sub_harga;
-          sub_harga=$("#sub_harga_"+id).text();
-          //alert(nilai)
-          $.ajax({
-            type  : 'POST',
-            url   : '<?php echo base_url(). 'kasir/update_pesanan_paket'; ?>',
-            data: {id_pesan_paket:id,jumlah_pesan:qty,sub_harga:sub_harga} ,
-            async : false,
-            dataType : 'json',
-            success : function(data){
-                      update_pemesanan(id_pesan);
-                      tampil_pesan_menu(id_pesan);
-                      tampil_pesan_paket(id_pesan);
-
-                    }
-
-                  });
-        }
-      }
-
-
-      function update_pemesanan(id_pesan){
-        var tot_sub_harga=0;
-        var subhargaku=0;
-        $('tr#data').each(function() {
-
-          subhargaku = $(this).find(".value_sub_harga_td").html();
-            //alert(subhargaku)
-            tot_sub_harga+=parseInt(subhargaku);
-          });
-        //alert(tot_sub_harga);
-        $.ajax({
-          type  : 'POST',
-          url   : '<?php echo base_url(). 'kasir/update_pemesanan'; ?>',
-          data  : {id_pesan:id_pesan,tot_sub_harga:tot_sub_harga} ,
-          async : false,
-          dataType : 'json',
-          success : function(data){
-            if(data.pesan=="gagal"){
-                  //alert(data.pesan);
-
+              url: '<?php echo base_url();?>/kasir/aksi_pembayaran',
+              type: 'post',
+              data: { id_pemesanan:id_pemesanan, total_pembayaran:total_pembayaran_value, total_pajak:total_pajak_value, total_diskon:total_diskon_value} ,
+              dataType: 'json',
+              success: function(data) {
+                if(data.length == 0) {
+                    alert('empty');
+                    // total_semua();
+                    return;
                 }else{
-                  //alert(data.pesan);
-                  $('tbody').html('');
-                  tampil_data_pemesan(no_meja);
+                    $.each( data, function( key, value ) {
+                        alert(value.pesan);
+                    });
                 }
               }
-
-            });
-      }
-      $(document).ready(function () {
-        $('.sidebar-menu').tree();
-        $("select.meja").change(function(){
-         var selected = $(this).children("option:selected").val();
-     //alert(selected);
-     tampil_data_pemesan(selected);   //pemanggilan fungsi tampil barang.
-
-     cetak(selected);
-     return false;
-   });
-        $("#diskon").keyup(function(){
-         var dk=$('#diskon').val();
-         var hargaAwal=$('#total_value').val();
-         var p=$('#pajak_value').val();
-         var dc=diskonku(dk,hargaAwal);
-         $('#diskonrp').val(dc);
-         $('#diskonrp_value').val(dc);
-
-
-         var h=parseInt(hargaAwal)+parseInt(p)-parseInt(dc);
-
-         $('#total_harga').val(h);
-         $('#total_harga_value').val(h);
-       });
-        $("#bayar").keyup(function(){
-         var tot_harga=$('#total_harga_value').val();
-
-         if(tot_harga==""){
-       //alert("Total harga belum terisi");
-     }else{
-      var bayar=$('#bayar').val();
-      var kembali=parseInt(bayar)-parseInt(tot_harga);
-      $('#kembali_value').val(kembali);
-      $('#kembali').val(kembali);
-    }
-  });
-  // $("#add_row_paket").click(function(){
-  //
-  //    var html='';
-  //    html +='<tr id="row_1">'+
-  //                      '<td >'+
-  //                       '<select class="form-control option_add"  id="option_add" name="option_add[]" style="width:100%;" onChange="hi(this.value)"  required>'+
-  //                           '<option value=""></option>'+
-  //            '<option value="1">1</option>'+
-  //                       '</select>'+
-  //                       '</td>'+
-  //                       '<td><input type="text" name="qty[]" id="qty_1" class="form-control" required onkeyup="getTotal(1)"></td>'+
-  //                       '<td>'+
-  //                         '<input type="text" name="harga[]" id="harga_1" class="form-control" disabled autocomplete="off">'+
-  //                         '<input type="hidden" name="harga_value[]" id="harga_value_1" class="form-control" autocomplete="off">'+
-  //                       '</td>'+
-  //                       '<td>'+
-  //                         '<input type="text" name="subharga[]" id="subharga_1" class="form-control" disabled autocomplete="off">'+
-  //                         '<input type="hidden" name="subharga_value[]" id="subharga_value_1" class="form-control" autocomplete="off">'+
-  //                       '</td>'+
-  //                       '<td><button type="button" class="btn btn-default" ><i class="fa fa-close"></i></button></td>'+
-  //                    '</tr>';
-  //    var cekpemesan=$( ".meja option:selected" ).val();
-  //
-  //    if(cekpemesan!=""){
-  //    $('#tb_item').append(html);
-  //    }
-  //  });
-
-  function hapus_item(id,jenis){
-   $('tbody').html("");
-   tampil_pesan_menu(data[i].id);
-   tampil_pesan_paket(data[i].id);
- }
- function update_qty(id,jenis,qty){
-   $('tbody').html("");
-   tampil_pesan_menu(data[i].id);
-   tampil_pesan_paket(data[i].id);
- }
-
-
-
-})
-
-      function add_pesan_menu(){
-
-        no_meja=$('#meja').val();
-        atasnama=$('#atasnama').val();
-        totalharga_awal=$('#total').val();
-        var id_pemesanan = idd_pesan;
-        var id_resto = id_user_resto;
-
-        //console.log("ID"+testval);
-        // console.log("No Meja : "+no_meja);
-        // console.log("Nama Pemesan : "+atasnama);
-        // console.log("ID Pesanan : "+id_pemesanan);
-        // console.log("ID User Resto : "+id_user_resto);
-        // console.log("Total Awal : "+totalharga_awal);
-
-        var languages = [];  
-        $('.get_value').each(function(){  
-          if($(this).is(":checked"))  
-          {  
-           languages.push($(this).val());  
-         }  
-       });  
-
-        $.ajax({
-          type  : 'POST',
-          url   : '<?php echo base_url(). 'kasir/tambah_menu_pesan'; ?>',
-          data: {id_pesan:id_pemesanan,no_meja:no_meja,nama_pemesan:atasnama,total_harga:totalharga_awal,id_user_resto:id_resto,'languages[]':languages},
-          async : false,
-          dataType : 'html',
-          success : function(data){
-            //alert(data);
-            if(data.pesan=="gagal"){
-              alert("Gagal tambah menu broo!!");
-            }else{
-              alert("Berhasil tambah menu!");
-              location.reload();
-              //tampil_pesan_menu(id_pemesanan);
-            }
-          }
-        });
+          });
+      }else{
+        alert("input pembayarn")
       }
 
-      function add_pesan_paket(){
 
-        no_meja=$('#meja').val();
-        atasnama=$('#atasnama').val();
-        totalharga_awal=$('#total').val();
-        var id_pemesanan = idd_pesan;
-        var id_resto = id_user_resto;
-
-        //console.log("ID"+testval);
-        // console.log("No Meja : "+no_meja);
-        // console.log("Nama Pemesan : "+atasnama);
-        // console.log("ID Pesanan : "+id_pemesanan);
-        // console.log("ID User Resto : "+id_user_resto);
-        // console.log("Total Awal : "+totalharga_awal);
-
-        var languages = [];  
-        $('.get_value_paket').each(function(){  
-          if($(this).is(":checked"))  
-          {  
-           languages.push($(this).val());  
-         }  
-       });  
-
-        $.ajax({
-          type  : 'POST',
-          url   : '<?php echo base_url(). 'kasir/tambah_paket_pesan'; ?>',
-          data: {id_pesan:id_pemesanan,no_meja:no_meja,nama_pemesan:atasnama,total_harga:totalharga_awal,id_user_resto:id_resto,'languages[]':languages},
-          async : false,
-          dataType : 'html',
-          success : function(data){
-            //alert(data);
-            if(data.pesan=="gagal"){
-              alert("Gagal tambah paket broo!!");
-            }else{
-              alert("Berhasil tambah paket!");
-              location.reload();
-              //tampil_pesan_paket(id_pemesanan);
-            }
-          }
-        });
-      }
-    </script>
-  </body>
-  </html>
+  }
+</script>
+</body>
+</html>

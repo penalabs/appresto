@@ -518,7 +518,7 @@ class Kasir extends CI_Controller {
 		$this->m_modul_kasir->update_data($where,$data,'pemesanan');
 
 		$pesan=array();
-		
+
 		if($this->db->trans_status() === FALSE){
 			$pesan=array('pesan'=>'gagal');
 		}else{
@@ -572,7 +572,7 @@ class Kasir extends CI_Controller {
 		$this->m_modul_kasir->update_data($where,$data,'pemesanan');
 
 		$pesan=array();
-		
+
 		if($this->db->trans_status() === FALSE){
 			$pesan=array('pesan'=>'gagal');
 		}else{
@@ -581,5 +581,110 @@ class Kasir extends CI_Controller {
 
 		echo json_encode($pesan);
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//modul kasir pembayaran
+	function tampil_pesanan_menu(){
+		$no_meja=$this->input->get('no_meja');
+		// $where = array(
+		// 	'no_meja' => $no_meja,
+		// );
+		$data=$this->db->query("select pemesanan_menu.*,menu.harga,menu.menu from pemesanan_menu join pemesanan on pemesanan.id=pemesanan_menu.id_pemesanan join menu on menu.id=pemesanan_menu.id_menu where pemesanan.no_meja='$no_meja' and pemesanan.status IN ('belum', 'produksi', 'customer memesan')")->result();
+		echo json_encode($data);
+	}
+
+	function tampil_pesanan_paket(){
+		$no_meja=$this->input->get('no_meja');
+		// $where = array(
+		// 	'no_meja' => $no_meja,
+		// );
+		$data=$this->db->query("select pemesanan_paket.*,paket.harga,paket.nama_paket from pemesanan_paket join pemesanan on pemesanan.id=pemesanan_paket.id_pemesanan join paket on paket.id=pemesanan_paket.id_paket where pemesanan.no_meja='$no_meja' and pemesanan.status IN ('belum', 'produksi', 'customer memesan')")->result();
+		echo json_encode($data);
+	}
+
+	function tampil_pemesan(){
+		$no_meja=$this->input->get('no_meja');
+		// $where = array(
+		// 	'no_meja' => $no_meja,
+		// );
+		$data=$this->db->query("select pemesanan.* from pemesanan where pemesanan.no_meja='$no_meja' and pemesanan.status IN ('belum', 'produksi', 'customer memesan')")->result();
+		echo json_encode($data);
+	}
+
+	public function aksi_pembayaran(){
+		$id_pemesanan = $this->input->post('id_pemesanan');
+		$nominal = $this->input->post('total_pembayaran');
+		$diskon = $this->input->post('total_diskon');
+		$pajak = $this->input->post('total_pajak');
+		$kembali = $this->input->post('kembali');
+		$id_user_kasir=$this->session->userdata('id');
+
+		$date = date('Y-m-d H:i:s');
+
+		$status="";
+		if($kembali<0){
+			$status="kredit";
+		}else{
+			$status="lunas";
+		}
+
+		$data_pembayaran = array(
+			'id_user_kasir' => $id_user_kasir,
+			'id_pemesanan' => $id_pemesanan,
+			'nominal' => $nominal,
+			'diskon' => $diskon,
+			'pajak' => $pajak,
+			'status' => $status,
+			'tanggal' => $date
+		);
+
+		$result_array=array();
+		$data1=$this->db->query("INSERT INTO pembayaran VALUES('','$id_user_kasir','$id_pemesanan','$nominal','$diskon','$pajak','$status','$date')");
+		if(!$data1){
+			$pesan['pesan']='gagal proses memasukan data pembayaran';
+			array_push($result_array, $pesan);
+			echo json_encode($data);
+		}else{
+			$data2=$this->db->query("UPDATE pemesanan SET status='lunas' WHERE id='$id_pemesanan'");
+			if(!$data2){
+				$pesan['pesan']='gagal mengkonfirmasi pembayaran pemesanan';
+				array_push($result_array, $pesan);
+				echo json_encode($data);
+			}else{
+				$pesan['pesan']='berhasil melakukan pembayaran';
+				array_push($result_array, $pesan);
+				echo json_encode($result_array);
+			}
+		}
+
+
+
+
+	}
+
+
+
 
 }

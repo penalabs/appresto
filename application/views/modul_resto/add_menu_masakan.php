@@ -42,6 +42,30 @@
             <form class="form-horizontal" action="<?php echo base_url(). 'modul_resto/action_add_menu'; ?>" method="post" role="form" enctype="multipart/form-data">
                <input type="hidden" value="<?php echo $id_last_menu->id+1;?>" name="id_last_menu" class="form-control" id="inputEmail3" >
               <div class="box-body">
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">Kategori</label>
+                  <div class="col-sm-10">
+
+                    <select name="id_kategori" class="form-control">
+                        <?php
+                          $parent_kategori = $this->db->query("SELECT max(parent_id) as parent_max FROM tbl_kategori_menu ")->row();
+                        // foreach ($parent_kategori as $parent) {
+                          $id_p=$parent_kategori->parent_max;
+                          $kategori = $this->db->query("SELECT * FROM tbl_kategori_menu where id_kategori>'$id_p'")->result();
+                          foreach ($kategori as $k) {
+
+                            // if($parent->id_kategori>$k->id_kategori){
+                        ?>
+                            <option value="<?php echo $k->id_kategori; ?>"><?php echo $k->nama; ?></option>
+                        <?php
+                            // }
+                          }
+                        // }
+                        ?>
+                    </select>
+
+                  </div>
+                </div>
 				        <div class="form-group">
                   <label for="inputEmail3" class="col-sm-2 control-label">Nama Menu</label>
                   <div class="col-sm-10">

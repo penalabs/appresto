@@ -61,10 +61,25 @@ class Modul_resto extends CI_Controller {
 		$data['jenis_masakan'] = $this->m_modul_resto->tampil_data('jenis_masakan')->result();
 
 
-		$where2 = array(
-			'id' => $id_last_menu->id+1
-		);
-		$data['daftar_menu_masakan'] = $this->m_modul_resto->tampil_data_daftar_menu_masakan($where2)->result();
+	
+
+		// $sql = "SELECT * FROM menu WHERE mode='draft'";
+		// $cek_draft=$this->db->query($sql)->num_rows();
+		//
+		//
+		// if($cek_draft>0){
+		// 	$data_id_draft=$this->db->query($sql)->row();
+		// 	$id_draft=$data_id_draft->id;
+		// 	$where2 = array(
+		// 		'id' => $id_last_menu->id+1
+		// 	);
+		// 	$data['daftar_menu_masakan'] = $this->m_modul_resto->tampil_data_daftar_menu_masakan($where2)->result();
+		// }else{
+		// 	$where2 = array(
+		// 		'id' => $id_last_menu->id+1
+		// 	);
+		// 	$data['daftar_menu_masakan'] = $this->m_modul_resto->tampil_data_daftar_menu_masakan($where2)->result();
+		// }
 
 
 		$this->load->view('modul_resto/add_menu_masakan',$data);
@@ -172,6 +187,7 @@ class Modul_resto extends CI_Controller {
 	public function action_add_menu(){
 		$id_resto=$this->session->userdata('id_resto');
 		$id_last_menu = $this->input->post('id_last_menu');
+		$id_kategori = $this->input->post('id_kategori');
 		$nama_menu = $this->input->post('nama_menu');
 		$status = $this->input->post('status');
 		$harga_jual = $this->input->post('harga_jual');
@@ -190,9 +206,11 @@ class Modul_resto extends CI_Controller {
 			$data = array(
 					'id' => $id_last_menu,
 					'id_resto' => $id_resto,
+					'id_kategori' => $id_kategori,
 					'menu' => $nama_menu,
-					'status' => $status,
 					'harga' => $harga_jual,
+					'status' => $status,
+					'mode' => 'insert',
 					);
 			$this->m_modul_resto->input_data($data,'menu');
 			$this->session->set_flashdata('pesan', 'data menu disimpan');
@@ -205,10 +223,12 @@ class Modul_resto extends CI_Controller {
 			$data = array(
 					'id' => $id_last_menu,
 					'id_resto' => $id_resto,
+					'id_kategori' => $id_kategori,
 					'menu' => $nama_menu,
-					'status' => $status,
-					'harga' => $harga_jual,
 					'foto' => $foto,
+					'harga' => $harga_jual,
+					'status' => $status,
+					'mode' => 'insert',
 					);
 			$this->m_modul_resto->input_data($data,'menu');
 			$this->session->set_flashdata('pesan', 'data menu disimpan');
@@ -918,7 +938,7 @@ class Modul_resto extends CI_Controller {
 		redirect('modul_resto/data_permintaan_bahan_detail/'.$id_permintaan);
 	}
 
-	
+
 	//---------------------------
 	//--------------------------------------
 
