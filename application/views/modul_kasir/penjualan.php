@@ -31,7 +31,7 @@
              <div class="box-body">
                <div class="form-group">
                   <label>Pilih meja</label>
-                  <select id="no_meja" class="form-control" onchange="clearDatapemesanan();loadDatamenu(this);loadDatapaket(this);loadDatapemesan(this);">
+                  <select id="no_meja" class="form-control" >
                     <?php
                       $data=$this->db->query("SELECT * FROM meja")->result();
                       foreach ($data as $meja) {
@@ -97,6 +97,9 @@
                  <tbody>
 
                  </tbody>
+                 <!-- load pertama -->
+                 <input type="hidden" value="0" id="sub_harga_menu" name="sub_harga_menu" class="form-control" >
+                 <input type="hidden" value="0" id="sub_harga_paket" name="sub_harga_paket" class="form-control" >
                </table>
              </div>
              <!-- /.box-body -->
@@ -288,6 +291,14 @@
      });
 
 
+     $('#no_meja').change(function(){
+               var no_meja=$(this).val();
+               clearDatapemesanan();
+               loadDatamenu(no_meja);
+               loadDatapaket(no_meja);
+               loadDatapemesan(no_meja);
+
+      });
 
   });
 
@@ -300,10 +311,8 @@
     $('#tabel_detail_pesan > tbody').html('');
   }
   function loadDatamenu(no_meja) {
-      // var no_meja=$("#no_meja").val();
       var subharga=0;
-      alert(no_meja.value);
-      var value_no_meja=no_meja.value;
+      var value_no_meja=no_meja;
       $.ajax({
           url: '<?php echo base_url();?>/kasir/tampil_pesanan_menu',
           type: 'get',
@@ -322,28 +331,30 @@
                         '<td>'+no+'</td>'+
                         '<td>'+value.menu+'</td>'+
                         '<td>'+
-                          '<button type="button" onclick="minusmenu('+value.id_menu+');" style="float:left;" class="btn mb-1 btn-success btn-xs">-</button>'+
-                          '<input type="text" id="jumlah" style="width:40px;height:40px;float:left;" class="form-control input-default" value="'+value.jumlah_pesan+'">'+
-                          '<button type="button" onclick="plusmenu('+value.id_menu+');" style="float:left;" class="btn mb-1 btn-success btn-xs">+</button>'+
+                          '<button type="button" onclick="minusmenu('+value.id+',\''+value.jumlah_pesan+'\',\''+value.harga+'\');" style="float:left;" class="btn mb-1 btn-success btn-xs">-</button>'+
+                          '<input type="text" id="jumlah-'+value.id+'" style="width:40px;height:40px;float:left;" class="form-control input-default" value="'+value.jumlah_pesan+'">'+
+                          '<button type="button" onclick="plusmenu('+value.id+',\''+value.jumlah_pesan+'\',\''+value.harga+'\');" style="float:left;" class="btn mb-1 btn-success btn-xs">+</button>'+
                         '</td>'+
                         '<td>'+
                           value.harga+
                         '</td>'+
-                        '<td>'+
+                        '<td id="sub_harga-'+value.id+'">'+
                           value.subharga+
                         '</td>'+
                         '<td>'+
-                          '<button type="button" onclick="removemenu('+value.id_menu+');" class="btn mb-1 btn-danger btn-xs"><i class="fa fa-close"></i></span>'+
+                          '<button type="button" onclick="removemenu('+value.id+');" class="btn mb-1 btn-danger btn-xs"><i class="fa fa-close"></i></span>'+
                           '</button>'+
                         '</td>'+
                     '</tr>');
 
 
                     no++;
-                    subharga+=value.harga*value.jumlah;
+                    subharga+=parseInt(value.harga)*parseInt(value.jumlah_pesan);
 
                 });
 
+              // $("#sub_harga_menu").val(subharga);
+              total_seluruh_harga();
 
             }
 
@@ -353,13 +364,105 @@
 
 
   }
+  function plusmenu(id_pemesanan_menu,jumlah_pesan,harga) {
+      var jumlah_pesan=$("#jumlah-"+id_pemesanan_menu).val();
+      var jumlah_pesan_baru=parseInt(jumlah_pesan)+1;
+      var sub_harga_baru=parseInt(jumlah_pesan_baru)*parseInt(harga);
+      var id_pemesanan=$("#id_pemesanan").val();
+      $.ajax({
+          url: '<?php echo base_url();?>/kasir/menu_plus/',
+          type: 'get',
+          data: { id_pemesanan_menu: id_pemesanan_menu, jumlah_pesan:jumlah_pesan, harga:harga, id_pemesanan:id_pemesanan},
+          dataType: 'json',
+          success: function(data) {
+            if(data.length == 0) {
+                alert('empty');
+                return;
+            }else{
+                $.each( data, function( key, value ) {
 
+                    if(value.pesan=1){
+                      // alert("berhasil tambah jumlah menu");
+                      $("#jumlah-"+id_pemesanan_menu).val(jumlah_pesan_baru);
+                      alert(sub_harga_baru);
+                      $('#sub_harga-'+id_pemesanan_menu).html(sub_harga_baru);
+
+
+                      total_seluruh_harga();
+                    }
+
+                });
+            }
+          }
+      });
+  }
+
+  function minusmenu(id_pemesanan_menu,jumlah_pesan,harga) {
+      var jumlah_pesan=$("#jumlah-"+id_pemesanan_menu).val();
+      var jumlah_pesan_baru=parseInt(jumlah_pesan)-1;
+      var sub_harga_baru=parseInt(jumlah_pesan_baru)*parseInt(harga);
+      var id_pemesanan=$("#id_pemesanan").val();
+      $.ajax({
+          url: '<?php echo base_url();?>/kasir/menu_minus/',
+          type: 'get',
+          data: { id_pemesanan_menu: id_pemesanan_menu, jumlah_pesan:jumlah_pesan, harga:harga, id_pemesanan:id_pemesanan},
+          dataType: 'json',
+          success: function(data) {
+            if(data.length == 0) {
+                alert('empty');
+                return;
+            }else{
+                $.each( data, function( key, value ) {
+
+                    if(value.pesan=1){
+                      // alert("berhasil tambah jumlah menu");
+                      $("#jumlah-"+id_pemesanan_menu).val(jumlah_pesan_baru);
+                      alert(sub_harga_baru);
+                      $('#sub_harga-'+id_pemesanan_menu).html(sub_harga_baru);
+
+                      total_seluruh_harga();
+                    }
+
+                });
+            }
+          }
+      });
+  }
+
+  function removemenu(id_pemesanan_menu) {
+      var no_meja=$( "#no_meja option:selected" ).val();
+      var id_pemesanan=$("#id_pemesanan").val();
+      $.ajax({
+          url: '<?php echo base_url();?>/kasir/remove_menu/',
+          type: 'get',
+          data: { id_pemesanan_menu: id_pemesanan_menu, id_pemesanan:id_pemesanan},
+          dataType: 'json',
+          success: function(data) {
+            if(data.length == 0) {
+                alert('empty');
+                return;
+            }else{
+                $.each( data, function( key, value ) {
+
+                    if(value.pesan=1){
+
+                      clearDatapemesanan();
+                      loadDatamenu(no_meja);
+                      loadDatapaket(no_meja);
+                      loadDatapemesan(no_meja);
+                      total_seluruh_harga();
+                    }
+
+                });
+            }
+          }
+      });
+  }
 
   function loadDatapaket(no_meja) {
       // var no_meja=$("#no_meja").val();
       var subharga=0;
-      alert(no_meja.value);
-      var value_no_meja=no_meja.value;
+      var value_no_meja=no_meja;
       $.ajax({
           url: '<?php echo base_url();?>/kasir/tampil_pesanan_paket',
           type: 'get',
@@ -378,42 +481,134 @@
                         '<td>'+no+'</td>'+
                         '<td>'+value.nama_paket+'</td>'+
                         '<td>'+
-                          '<button type="button" onclick="minusmenu('+value.id_paket+');" style="float:left;" class="btn mb-1 btn-success btn-xs">-</button>'+
-                          '<input type="text" id="jumlah" style="width:40px;height:40px;float:left;" class="form-control input-default" value="'+value.jumlah_pesan+'">'+
-                          '<button type="button" onclick="plusmenu('+value.id_paket+');" style="float:left;" class="btn mb-1 btn-success btn-xs">+</button>'+
+                          '<button type="button" onclick="minuspaket('+value.id+',\''+value.jumlah_pesan+'\',\''+value.harga+'\');" style="float:left;" class="btn mb-1 btn-success btn-xs">-</button>'+
+                          '<input type="text" id="jumlah-'+value.id+'" style="width:40px;height:40px;float:left;" class="form-control input-default" value="'+value.jumlah_pesan+'">'+
+                          '<button type="button" onclick="pluspaket('+value.id+',\''+value.jumlah_pesan+'\',\''+value.harga+'\');" style="float:left;" class="btn mb-1 btn-success btn-xs">+</button>'+
                         '</td>'+
                         '<td>'+
                           value.harga+
                         '</td>'+
-                        '<td>'+
+                        '<td id="sub_harga-'+value.id+'">'+
                           value.subharga+
                         '</td>'+
                         '<td>'+
-                          '<button type="button" onclick="removemenu('+value.id_paket+');" class="btn mb-1 btn-danger btn-xs"><i class="fa fa-close"></i></span>'+
+                          '<button type="button" onclick="removepaket('+value.id+');" class="btn mb-1 btn-danger btn-xs"><i class="fa fa-close"></i></span>'+
                           '</button>'+
                         '</td>'+
                     '</tr>');
 
 
                     no++;
-                    subharga+=value.harga*value.jumlah;
+                    subharga+=parseInt(value.harga)*parseInt(value.jumlah_pesan);
 
                 });
-
+                // $("#sub_harga_paket").val(subharga);
+                total_seluruh_harga();
 
             }
 
 
           }
       });
+  }
+
+  function pluspaket(id_pemesanan_paket,jumlah_pesan,harga) {
+      var jumlah_pesan=$("#jumlah-"+id_pemesanan_paket).val();
+      var jumlah_pesan_baru=parseInt(jumlah_pesan)+1;
+      var sub_harga_baru=parseInt(jumlah_pesan_baru)*parseInt(harga);
+      var id_pemesanan=$("#id_pemesanan").val();
+      $.ajax({
+          url: '<?php echo base_url();?>/kasir/paket_plus/',
+          type: 'get',
+          data: { id_pemesanan_paket: id_pemesanan_paket, jumlah_pesan:jumlah_pesan, harga:harga, id_pemesanan:id_pemesanan},
+          dataType: 'json',
+          success: function(data) {
+            if(data.length == 0) {
+                alert('empty');
+                return;
+            }else{
+                $.each( data, function( key, value ) {
+
+                    if(value.pesan=1){
+                      // alert("berhasil tambah jumlah paket");
+                      $("#jumlah-"+id_pemesanan_paket).val(jumlah_pesan_baru);
+                      alert(sub_harga_baru);
+                      $('#sub_harga-'+id_pemesanan_paket).html(sub_harga_baru);
 
 
+                      total_seluruh_harga();
+                    }
+
+                });
+            }
+          }
+      });
+  }
+
+  function minuspaket(id_pemesanan_paket,jumlah_pesan,harga) {
+      var jumlah_pesan=$("#jumlah-"+id_pemesanan_paket).val();
+      var jumlah_pesan_baru=parseInt(jumlah_pesan)-1;
+      var sub_harga_baru=parseInt(jumlah_pesan_baru)*parseInt(harga);
+      var id_pemesanan=$("#id_pemesanan").val();
+      $.ajax({
+          url: '<?php echo base_url();?>/kasir/paket_minus/',
+          type: 'get',
+          data: { id_pemesanan_paket: id_pemesanan_paket, jumlah_pesan:jumlah_pesan, harga:harga, id_pemesanan:id_pemesanan},
+          dataType: 'json',
+          success: function(data) {
+            if(data.length == 0) {
+                alert('empty');
+                return;
+            }else{
+                $.each( data, function( key, value ) {
+
+                    if(value.pesan=1){
+                      // alert("berhasil tambah jumlah paket");
+                      $("#jumlah-"+id_pemesanan_paket).val(jumlah_pesan_baru);
+                      alert(sub_harga_baru);
+                      $('#sub_harga-'+id_pemesanan_paket).html(sub_harga_baru);
+
+                      total_seluruh_harga();
+                    }
+
+                });
+            }
+          }
+      });
+  }
+
+  function removepaket(id_pemesanan_paket) {
+      var no_meja=$( "#no_meja option:selected" ).val();
+      var id_pemesanan=$("#id_pemesanan").val();
+      $.ajax({
+          url: '<?php echo base_url();?>/kasir/remove_paket/',
+          type: 'get',
+          data: { id_pemesanan_paket: id_pemesanan_paket, id_pemesanan:id_pemesanan},
+          dataType: 'json',
+          success: function(data) {
+            if(data.length == 0) {
+                alert('empty');
+                return;
+            }else{
+                $.each( data, function( key, value ) {
+
+                    if(value.pesan=1){
+
+                      clearDatapemesanan();
+                      loadDatapaket(no_meja);
+                      loadDatapaket(no_meja);
+                      loadDatapemesan(no_meja);
+                      total_seluruh_harga();
+                    }
+
+                });
+            }
+          }
+      });
   }
 
   function loadDatapemesan(no_meja) {
-      // var no_meja=$("#no_meja").val();
-      alert(no_meja.value);
-      var value_no_meja=no_meja.value;
+      var value_no_meja=no_meja;
       $.ajax({
           url: '<?php echo base_url();?>/kasir/tampil_pemesan',
           type: 'get',
@@ -472,9 +667,23 @@
       }else{
         alert("input pembayarn")
       }
-
-
   }
+
+  function total_seluruh_harga(){
+    var total_harga_item=0;
+    $('#tabel_detail_pesan > tbody tr').each(function() {
+      var subharga = this.cells[4].innerHTML;
+        total_harga_item+=parseInt(subharga);
+    });
+
+    $("#total_harga_value").val(total_harga_item);
+    $("#total_harga").html('Total item Rp. '+total_harga_item);
+
+    var total_pembayaran=total_harga_item;
+    $('#total_pembayaran_value').val(total_pembayaran);
+    $("#total_pembayaran").html('Total Bayar Rp. '+total_pembayaran);
+  }
+
 </script>
 </body>
 </html>

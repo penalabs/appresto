@@ -678,13 +678,195 @@ class Kasir extends CI_Controller {
 				echo json_encode($result_array);
 			}
 		}
+	}
 
+	function menu_plus(){
+		$id_pemesanan=$this->input->get('id_pemesanan');
+		$id_pemesanan_menu=$this->input->get('id_pemesanan_menu');
+		$jumlah_pesan=$this->input->get('jumlah_pesan');
+		$harga=$this->input->get('harga');
+		$jumlah_pesan_baru=$jumlah_pesan+1;
+		$subharga_baru=$harga*$jumlah_pesan_baru;
 
+		$result_array=array();
+		$data=$this->db->query("UPDATE pemesanan_menu SET jumlah_pesan='$jumlah_pesan_baru', subharga='$subharga_baru' WHERE id='$id_pemesanan_menu'");
+		if(!$data){
+				$pesan['pesan']=0;
+				array_push($result_array, $pesan);
+				echo json_encode($data);
+		}else{
+				$data2=$this->db->query("SELECT SUM(subharga) as subhargamenu FROM pemesanan_menu WHERE id_pemesanan='$id_pemesanan'")->row();
+				$subhargamenu=$data2->subhargamenu;
 
+				$data3=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
+				$subhargapaket=$data3->subhargapaket;
+
+				$total_harga=$subhargamenu+$subhargapaket;
+				$data4=$this->db->query("UPDATE pemesanan SET total_harga='$total_harga' WHERE id='$id_pemesanan'");
+
+				$pesan['pesan']=1;
+				array_push($result_array, $pesan);
+				echo json_encode($result_array);
+		}
+
+	}
+
+	function menu_minus(){
+		$id_pemesanan=$this->input->get('id_pemesanan');
+		$id_pemesanan_menu=$this->input->get('id_pemesanan_menu');
+		$jumlah_pesan=$this->input->get('jumlah_pesan');
+		$harga=$this->input->get('harga');
+		$jumlah_pesan_baru=$jumlah_pesan-1;
+		$subharga_baru=$harga*$jumlah_pesan_baru;
+
+		$result_array=array();
+		$data=$this->db->query("UPDATE pemesanan_menu SET jumlah_pesan='$jumlah_pesan_baru', subharga='$subharga_baru' WHERE id='$id_pemesanan_menu'");
+		if(!$data){
+
+				$pesan['pesan']=0;
+				array_push($result_array, $pesan);
+				echo json_encode($data);
+		}else{
+
+				$data2=$this->db->query("SELECT SUM(subharga) as subhargamenu FROM pemesanan_menu WHERE id_pemesanan='$id_pemesanan'")->row();
+				$subhargamenu=$data2->subhargamenu;
+
+				$data3=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
+				$subhargapaket=$data3->subhargapaket;
+
+				$total_harga=$subhargamenu+$subhargapaket;
+				$data4=$this->db->query("UPDATE pemesanan SET total_harga='$total_harga' WHERE id='$id_pemesanan'");
+
+				$pesan['pesan']=1;
+				array_push($result_array, $pesan);
+				echo json_encode($result_array);
+		}
+
+	}
+
+	function remove_menu(){
+		$id_pemesanan=$this->input->get('id_pemesanan');
+		$id_pemesanan_menu=$this->input->get('id_pemesanan_menu');
+
+		$result_array=array();
+		$data=$this->db->query("DELETE FROM pemesanan_menu WHERE id='$id_pemesanan_menu'");
+		if(!$data){
+
+				$pesan['pesan']=0;
+				array_push($result_array, $pesan);
+				echo json_encode($data);
+		}else{
+
+				$data2=$this->db->query("SELECT SUM(subharga) as subhargamenu FROM pemesanan_menu WHERE id_pemesanan='$id_pemesanan'")->row();
+				$subhargamenu=$data2->subhargamenu;
+
+				$data3=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
+				$subhargapaket=$data3->subhargapaket;
+
+				$total_harga=$subhargamenu+$subhargapaket;
+				$data4=$this->db->query("UPDATE pemesanan SET total_harga='$total_harga' WHERE id='$id_pemesanan'");
+
+				$pesan['pesan']=1;
+				array_push($result_array, $pesan);
+				echo json_encode($result_array);
+		}
 
 	}
 
 
+
+	function paket_plus(){
+	  $id_pemesanan=$this->input->get('id_pemesanan');
+	  $id_pemesanan_paket=$this->input->get('id_pemesanan_paket');
+	  $jumlah_pesan=$this->input->get('jumlah_pesan');
+	  $harga=$this->input->get('harga');
+	  $jumlah_pesan_baru=$jumlah_pesan+1;
+	  $subharga_baru=$harga*$jumlah_pesan_baru;
+
+	  $result_array=array();
+	  $data=$this->db->query("UPDATE pemesanan_paket SET jumlah_pesan='$jumlah_pesan_baru', subharga='$subharga_baru' WHERE id='$id_pemesanan_paket'");
+	  if(!$data){
+	      $pesan['pesan']=0;
+	      array_push($result_array, $pesan);
+	      echo json_encode($data);
+	  }else{
+	      $data2=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
+	      $subhargapaket=$data2->subhargapaket;
+
+	      $data3=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
+	      $subhargapaket=$data3->subhargapaket;
+
+	      $total_harga=$subhargapaket+$subhargapaket;
+	      $data4=$this->db->query("UPDATE pemesanan SET total_harga='$total_harga' WHERE id='$id_pemesanan'");
+
+	      $pesan['pesan']=1;
+	      array_push($result_array, $pesan);
+	      echo json_encode($result_array);
+	  }
+
+	}
+
+	function paket_minus(){
+	  $id_pemesanan=$this->input->get('id_pemesanan');
+	  $id_pemesanan_paket=$this->input->get('id_pemesanan_paket');
+	  $jumlah_pesan=$this->input->get('jumlah_pesan');
+	  $harga=$this->input->get('harga');
+	  $jumlah_pesan_baru=$jumlah_pesan-1;
+	  $subharga_baru=$harga*$jumlah_pesan_baru;
+
+	  $result_array=array();
+	  $data=$this->db->query("UPDATE pemesanan_paket SET jumlah_pesan='$jumlah_pesan_baru', subharga='$subharga_baru' WHERE id='$id_pemesanan_paket'");
+	  if(!$data){
+
+	      $pesan['pesan']=0;
+	      array_push($result_array, $pesan);
+	      echo json_encode($data);
+	  }else{
+
+	      $data2=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
+	      $subhargapaket=$data2->subhargapaket;
+
+	      $data3=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
+	      $subhargapaket=$data3->subhargapaket;
+
+	      $total_harga=$subhargapaket+$subhargapaket;
+	      $data4=$this->db->query("UPDATE pemesanan SET total_harga='$total_harga' WHERE id='$id_pemesanan'");
+
+	      $pesan['pesan']=1;
+	      array_push($result_array, $pesan);
+	      echo json_encode($result_array);
+	  }
+
+	}
+
+	function remove_paket(){
+	  $id_pemesanan=$this->input->get('id_pemesanan');
+	  $id_pemesanan_paket=$this->input->get('id_pemesanan_paket');
+
+	  $result_array=array();
+	  $data=$this->db->query("DELETE FROM pemesanan_paket WHERE id='$id_pemesanan_paket'");
+	  if(!$data){
+
+	      $pesan['pesan']=0;
+	      array_push($result_array, $pesan);
+	      echo json_encode($data);
+	  }else{
+
+	      $data2=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
+	      $subhargapaket=$data2->subhargapaket;
+
+	      $data3=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
+	      $subhargapaket=$data3->subhargapaket;
+
+	      $total_harga=$subhargapaket+$subhargapaket;
+	      $data4=$this->db->query("UPDATE pemesanan SET total_harga='$total_harga' WHERE id='$id_pemesanan'");
+
+	      $pesan['pesan']=1;
+	      array_push($result_array, $pesan);
+	      echo json_encode($result_array);
+	  }
+
+	}
 
 
 }
