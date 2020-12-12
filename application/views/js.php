@@ -11,7 +11,8 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url('dist/js/demo.js');?>"></script>
 <script src="<?php echo base_url('plugins/datatables.net/js/jquery.dataTables.min.js');?>"></script>
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/ui-lightness/jquery-ui.css" />
+<script src="<?php echo base_url('plugins/datatables.net-bs/js/dataTables.bootstrap.min.js');?>"></script>
+
 <script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 
 <script src="<?php echo base_url('plugins/input-mask/jquery.inputmask.js');?>"></script>
@@ -24,3 +25,4 @@
 <script src="<?php echo base_url('dist/js/sweetalert2.all.min.js');?>"></script>
 <script src="<?php echo base_url('dist/js/mysweetalert.js');?>"></script>
 
+<script src="<?php echo base_url('plugins/dataTables.responsive.js');?>"></script>

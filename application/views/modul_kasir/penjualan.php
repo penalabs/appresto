@@ -50,7 +50,18 @@
              <!-- /.box-header -->
              <div class="box-body">
                <div class="form-group">
-                  <h4>Nama Pemesan : <input type="text" value="" class="form-control" id="nama_pemesan" readonly></h4>
+                  <!-- <h4>Nama Pemesan : <input type="text" value="" class="form-control" id="nama_pemesan" readonly></h4> -->
+                  <label>Pilih nama pemesan</label>
+                  <select id="nama_pemesan" class="form-control" >
+                    <?php
+                      $data=$this->db->query("SELECT * FROM pemesanan group by nama_pemesan")->result();
+                      foreach ($data as $d) {
+                     ?>
+                        <option value="<?= $d->nama_pemesan;?>"><?= $d->nama_pemesan;?></option>
+                    <?php
+                      }
+                     ?>
+                  </select>
                 </div>
              </div>
            </div>
@@ -293,40 +304,80 @@
 
      $('#no_meja').change(function(){
                var no_meja=$(this).val();
-               clearDatapemesanan();
-               loadDatamenu(no_meja);
-               loadDatapaket(no_meja);
-               loadDatapemesan(no_meja);
+               $.ajax({
+                   url: '<?php echo base_url();?>/kasir/get_id_pemesan2/',
+                   type: 'get',
+                   data: { no_meja: no_meja},
+                   dataType: 'json',
+                   success: function(data) {
+                     if(data.length == 0) {
+                         alert('empty');
+                         return;
+                     }else{
+                         $.each( data, function( key, value ) {
+                           alert(value.id);
+                           clearDatapemesanan();
+                           loadDatamenu(value.id);
+                           loadDatapaket(value.id);
+                           loadDatapemesan(value.id);
+
+                         });
+                     }
+                   }
+               });
 
       });
 
+      $('#nama_pemesan').change(function(){
+                var nama_pemesan=$(this).val();
+                $.ajax({
+                    url: '<?php echo base_url();?>/kasir/get_id_pemesan1/',
+                    type: 'get',
+                    data: { nama_pemesan: nama_pemesan},
+                    dataType: 'json',
+                    success: function(data) {
+                      if(data.length == 0) {
+                          alert('empty');
+                          return;
+                      }else{
+                          $.each( data, function( key, value ) {
+                            alert(value.id);
+                            clearDatapemesanan();
+                            loadDatamenu(value.id);
+                            loadDatapaket(value.id);
+                            loadDatapemesan(value.id);
+
+                          });
+                      }
+                    }
+                });
+       });
+
+
+
   });
 
-  function total_pembayaran(){
-    var total_harga_value=$("#total_harga_value").val();
-    var diskon_rupiah=$('#total_diskon_value').val();
-    var pajak_rupiah=$('#total_pajak_value').val();
-  }
+
   function clearDatapemesanan(){
     $('#tabel_detail_pesan > tbody').html('');
   }
-  function loadDatamenu(no_meja) {
+  function loadDatamenu(id_pemesanan) {
       var subharga=0;
-      var value_no_meja=no_meja;
+      var value_id_pemesanan=id_pemesanan;
       $.ajax({
           url: '<?php echo base_url();?>/kasir/tampil_pesanan_menu',
           type: 'get',
-          data: { no_meja: value_no_meja} ,
+          data: { id_pemesanan: value_id_pemesanan} ,
           dataType: 'json',
           success: function(data) {
             var  no=1;
             if(data.length == 0) {
-                alert('empty');
+                // alert('empty');
                 // total_semua();
                 return;
             }else{
                 $.each( data, function( key, value ) {
-                  alert(value.id_menu);
+                  // alert(value.id_menu);
                     $('#tabel_detail_pesan > tbody').append('<tr>'+
                         '<td>'+no+'</td>'+
                         '<td>'+value.menu+'</td>'+
@@ -384,7 +435,7 @@
                     if(value.pesan=1){
                       // alert("berhasil tambah jumlah menu");
                       $("#jumlah-"+id_pemesanan_menu).val(jumlah_pesan_baru);
-                      alert(sub_harga_baru);
+                      // alert(sub_harga_baru);
                       $('#sub_harga-'+id_pemesanan_menu).html(sub_harga_baru);
 
 
@@ -409,7 +460,7 @@
           dataType: 'json',
           success: function(data) {
             if(data.length == 0) {
-                alert('empty');
+                // alert('empty');
                 return;
             }else{
                 $.each( data, function( key, value ) {
@@ -417,7 +468,7 @@
                     if(value.pesan=1){
                       // alert("berhasil tambah jumlah menu");
                       $("#jumlah-"+id_pemesanan_menu).val(jumlah_pesan_baru);
-                      alert(sub_harga_baru);
+                      // alert(sub_harga_baru);
                       $('#sub_harga-'+id_pemesanan_menu).html(sub_harga_baru);
 
                       total_seluruh_harga();
@@ -430,7 +481,7 @@
   }
 
   function removemenu(id_pemesanan_menu) {
-      var no_meja=$( "#no_meja option:selected" ).val();
+      // var no_meja=$( "#no_meja option:selected" ).val();
       var id_pemesanan=$("#id_pemesanan").val();
       $.ajax({
           url: '<?php echo base_url();?>/kasir/remove_menu/',
@@ -439,7 +490,7 @@
           dataType: 'json',
           success: function(data) {
             if(data.length == 0) {
-                alert('empty');
+                // alert('empty');
                 return;
             }else{
                 $.each( data, function( key, value ) {
@@ -447,9 +498,9 @@
                     if(value.pesan=1){
 
                       clearDatapemesanan();
-                      loadDatamenu(no_meja);
-                      loadDatapaket(no_meja);
-                      loadDatapemesan(no_meja);
+                      loadDatamenu(id_pemesanan);
+                      loadDatapaket(id_pemesanan);
+                      loadDatapemesan(id_pemesanan);
                       total_seluruh_harga();
                     }
 
@@ -459,24 +510,24 @@
       });
   }
 
-  function loadDatapaket(no_meja) {
+  function loadDatapaket(id_pemesanan) {
       // var no_meja=$("#no_meja").val();
       var subharga=0;
-      var value_no_meja=no_meja;
+      var value_id_pemesanan=id_pemesanan;
       $.ajax({
           url: '<?php echo base_url();?>/kasir/tampil_pesanan_paket',
           type: 'get',
-          data: { no_meja: value_no_meja} ,
+          data: { id_pemesanan: value_id_pemesanan} ,
           dataType: 'json',
           success: function(data) {
             var  no=1;
             if(data.length == 0) {
-                alert('empty');
+                // alert('empty');
                 // total_semua();
                 return;
             }else{
                 $.each( data, function( key, value ) {
-                  alert(value.id_paket);
+                  // alert(value.id_paket);
                     $('#tabel_detail_pesan > tbody').append('<tr>'+
                         '<td>'+no+'</td>'+
                         '<td>'+value.nama_paket+'</td>'+
@@ -524,7 +575,7 @@
           dataType: 'json',
           success: function(data) {
             if(data.length == 0) {
-                alert('empty');
+                // alert('empty');
                 return;
             }else{
                 $.each( data, function( key, value ) {
@@ -532,7 +583,7 @@
                     if(value.pesan=1){
                       // alert("berhasil tambah jumlah paket");
                       $("#jumlah-"+id_pemesanan_paket).val(jumlah_pesan_baru);
-                      alert(sub_harga_baru);
+                      // alert(sub_harga_baru);
                       $('#sub_harga-'+id_pemesanan_paket).html(sub_harga_baru);
 
 
@@ -557,7 +608,7 @@
           dataType: 'json',
           success: function(data) {
             if(data.length == 0) {
-                alert('empty');
+                // alert('empty');
                 return;
             }else{
                 $.each( data, function( key, value ) {
@@ -565,7 +616,7 @@
                     if(value.pesan=1){
                       // alert("berhasil tambah jumlah paket");
                       $("#jumlah-"+id_pemesanan_paket).val(jumlah_pesan_baru);
-                      alert(sub_harga_baru);
+                      // alert(sub_harga_baru);
                       $('#sub_harga-'+id_pemesanan_paket).html(sub_harga_baru);
 
                       total_seluruh_harga();
@@ -578,7 +629,7 @@
   }
 
   function removepaket(id_pemesanan_paket) {
-      var no_meja=$( "#no_meja option:selected" ).val();
+      // var no_meja=$( "#no_meja option:selected" ).val();
       var id_pemesanan=$("#id_pemesanan").val();
       $.ajax({
           url: '<?php echo base_url();?>/kasir/remove_paket/',
@@ -587,7 +638,7 @@
           dataType: 'json',
           success: function(data) {
             if(data.length == 0) {
-                alert('empty');
+                // alert('empty');
                 return;
             }else{
                 $.each( data, function( key, value ) {
@@ -595,9 +646,9 @@
                     if(value.pesan=1){
 
                       clearDatapemesanan();
-                      loadDatapaket(no_meja);
-                      loadDatapaket(no_meja);
-                      loadDatapemesan(no_meja);
+                      loadDatamenu(id_pemesanan);
+                      loadDatapaket(id_pemesanan);
+                      loadDatapemesan(id_pemesanan);
                       total_seluruh_harga();
                     }
 
@@ -607,25 +658,24 @@
       });
   }
 
-  function loadDatapemesan(no_meja) {
-      var value_no_meja=no_meja;
+  function loadDatapemesan(id_pemesanan) {
+      var value_id_pemesanan=id_pemesanan;
       $.ajax({
           url: '<?php echo base_url();?>/kasir/tampil_pemesan',
           type: 'get',
-          data: { no_meja: value_no_meja} ,
+          data: { id_pemesanan: value_id_pemesanan} ,
           dataType: 'json',
           success: function(data) {
             if(data.length == 0) {
-                alert('empty');
+                // alert('empty');
                 // total_semua();
                 return;
             }else{
                 $.each( data, function( key, value ) {
-                    alert(value.nama_pemesan);
+                    // alert(value.nama_pemesan);
                     $("#nama_pemesan").val(value.nama_pemesan);
                     $("#id_pemesanan").val(value.id);
-                    $("#total_harga_value").val(value.total_harga);
-                    $("#total_harga").html('Total item Rp. '+value.total_harga);
+
                 });
 
 
@@ -654,7 +704,7 @@
               dataType: 'json',
               success: function(data) {
                 if(data.length == 0) {
-                    alert('empty');
+                    // alert('empty');
                     // total_semua();
                     return;
                 }else{
@@ -669,12 +719,22 @@
       }
   }
 
+
+
+   function total_pembayaran(){
+     var total_harga_value=$("#total_harga_value").val();
+     var diskon_rupiah=$('#total_diskon_value').val();
+     var pajak_rupiah=$('#total_pajak_value').val();
+   }
+
   function total_seluruh_harga(){
     var total_harga_item=0;
     $('#tabel_detail_pesan > tbody tr').each(function() {
       var subharga = this.cells[4].innerHTML;
         total_harga_item+=parseInt(subharga);
+
     });
+    alert(total_harga_item);
 
     $("#total_harga_value").val(total_harga_item);
     $("#total_harga").html('Total item Rp. '+total_harga_item);

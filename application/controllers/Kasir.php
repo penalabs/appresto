@@ -607,29 +607,29 @@ class Kasir extends CI_Controller {
 
 	//modul kasir pembayaran
 	function tampil_pesanan_menu(){
-		$no_meja=$this->input->get('no_meja');
+		$id_pemesanan=$this->input->get('id_pemesanan');
 		// $where = array(
 		// 	'no_meja' => $no_meja,
 		// );
-		$data=$this->db->query("select pemesanan_menu.*,menu.harga,menu.menu from pemesanan_menu join pemesanan on pemesanan.id=pemesanan_menu.id_pemesanan join menu on menu.id=pemesanan_menu.id_menu where pemesanan.no_meja='$no_meja' and pemesanan.status IN ('belum', 'produksi', 'customer memesan')")->result();
+		$data=$this->db->query("select pemesanan_menu.*,menu.harga,menu.menu from pemesanan_menu join pemesanan on pemesanan.id=pemesanan_menu.id_pemesanan join menu on menu.id=pemesanan_menu.id_menu where pemesanan.id='$id_pemesanan'")->result();
 		echo json_encode($data);
 	}
 
 	function tampil_pesanan_paket(){
-		$no_meja=$this->input->get('no_meja');
+		$id_pemesanan=$this->input->get('id_pemesanan');
 		// $where = array(
 		// 	'no_meja' => $no_meja,
 		// );
-		$data=$this->db->query("select pemesanan_paket.*,paket.harga,paket.nama_paket from pemesanan_paket join pemesanan on pemesanan.id=pemesanan_paket.id_pemesanan join paket on paket.id=pemesanan_paket.id_paket where pemesanan.no_meja='$no_meja' and pemesanan.status IN ('belum', 'produksi', 'customer memesan')")->result();
+		$data=$this->db->query("select pemesanan_paket.*,paket.harga,paket.nama_paket from pemesanan_paket join pemesanan on pemesanan.id=pemesanan_paket.id_pemesanan join paket on paket.id=pemesanan_paket.id_paket where pemesanan.id='$id_pemesanan'")->result();
 		echo json_encode($data);
 	}
 
 	function tampil_pemesan(){
-		$no_meja=$this->input->get('no_meja');
+		$id_pemesanan=$this->input->get('id_pemesanan');
 		// $where = array(
 		// 	'no_meja' => $no_meja,
 		// );
-		$data=$this->db->query("select pemesanan.* from pemesanan where pemesanan.no_meja='$no_meja' and pemesanan.status IN ('belum', 'produksi', 'customer memesan')")->result();
+		$data=$this->db->query("select pemesanan.* from pemesanan where pemesanan.id='$id_pemesanan'")->result();
 		echo json_encode($data);
 	}
 
@@ -689,25 +689,29 @@ class Kasir extends CI_Controller {
 		$subharga_baru=$harga*$jumlah_pesan_baru;
 
 		$result_array=array();
-		$data=$this->db->query("UPDATE pemesanan_menu SET jumlah_pesan='$jumlah_pesan_baru', subharga='$subharga_baru' WHERE id='$id_pemesanan_menu'");
-		if(!$data){
-				$pesan['pesan']=0;
-				array_push($result_array, $pesan);
-				echo json_encode($data);
-		}else{
-				$data2=$this->db->query("SELECT SUM(subharga) as subhargamenu FROM pemesanan_menu WHERE id_pemesanan='$id_pemesanan'")->row();
-				$subhargamenu=$data2->subhargamenu;
+				$data=$this->db->query("UPDATE pemesanan_menu SET jumlah_pesan='$jumlah_pesan_baru', subharga='$subharga_baru' WHERE id='$id_pemesanan_menu'");
 
-				$data3=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
-				$subhargapaket=$data3->subhargapaket;
+				$data1=$this->db->query("SELECT id_menu FROM pemesanan_menu WHERE id='$id_pemesanan_menu'")->row();
+				$id_menu=$data1->id_menu;
+
+
+				$data2=$this->db->query("SELECT stok FROM menu WHERE id='$id_menu'")->row();
+				$stok_baru=$data2->stok-1;
+				$data3=$this->db->query("UPDATE menu SET stok='$stok_baru' WHERE id='$id_menu'");
+
+
+				$data4=$this->db->query("SELECT SUM(subharga) as subhargamenu FROM pemesanan_menu WHERE id_pemesanan='$id_pemesanan'")->row();
+				$subhargamenu=$data4->subhargamenu;
+
+				$data5=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
+				$subhargapaket=$data5->subhargapaket;
 
 				$total_harga=$subhargamenu+$subhargapaket;
-				$data4=$this->db->query("UPDATE pemesanan SET total_harga='$total_harga' WHERE id='$id_pemesanan'");
+				$data6=$this->db->query("UPDATE pemesanan SET total_harga='$total_harga' WHERE id='$id_pemesanan'");
 
-				$pesan['pesan']=1;
-				array_push($result_array, $pesan);
-				echo json_encode($result_array);
-		}
+		$pesan['pesan']=1;
+		array_push($result_array, $pesan);
+		echo json_encode($result_array);
 
 	}
 
@@ -720,27 +724,30 @@ class Kasir extends CI_Controller {
 		$subharga_baru=$harga*$jumlah_pesan_baru;
 
 		$result_array=array();
-		$data=$this->db->query("UPDATE pemesanan_menu SET jumlah_pesan='$jumlah_pesan_baru', subharga='$subharga_baru' WHERE id='$id_pemesanan_menu'");
-		if(!$data){
+				$data=$this->db->query("UPDATE pemesanan_menu SET jumlah_pesan='$jumlah_pesan_baru', subharga='$subharga_baru' WHERE id='$id_pemesanan_menu'");
 
-				$pesan['pesan']=0;
-				array_push($result_array, $pesan);
-				echo json_encode($data);
-		}else{
+				$data1=$this->db->query("SELECT id_menu FROM pemesanan_menu WHERE id='$id_pemesanan_menu'")->row();
+				$id_menu=$data1->id_menu;
 
-				$data2=$this->db->query("SELECT SUM(subharga) as subhargamenu FROM pemesanan_menu WHERE id_pemesanan='$id_pemesanan'")->row();
-				$subhargamenu=$data2->subhargamenu;
 
-				$data3=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
-				$subhargapaket=$data3->subhargapaket;
+				$data2=$this->db->query("SELECT stok FROM menu WHERE id='$id_menu'")->row();
+				$stok_baru=$data2->stok+1;
+				$data3=$this->db->query("UPDATE menu SET stok='$stok_baru' WHERE id='$id_menu'");
+
+
+				$data4=$this->db->query("SELECT SUM(subharga) as subhargamenu FROM pemesanan_menu WHERE id_pemesanan='$id_pemesanan'")->row();
+				$subhargamenu=$data4->subhargamenu;
+
+				$data5=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
+				$subhargapaket=$data5->subhargapaket;
 
 				$total_harga=$subhargamenu+$subhargapaket;
-				$data4=$this->db->query("UPDATE pemesanan SET total_harga='$total_harga' WHERE id='$id_pemesanan'");
+				$data6=$this->db->query("UPDATE pemesanan SET total_harga='$total_harga' WHERE id='$id_pemesanan'");
 
-				$pesan['pesan']=1;
-				array_push($result_array, $pesan);
-				echo json_encode($result_array);
-		}
+		$pesan['pesan']=1;
+		array_push($result_array, $pesan);
+		echo json_encode($result_array);
+
 
 	}
 
@@ -749,27 +756,30 @@ class Kasir extends CI_Controller {
 		$id_pemesanan_menu=$this->input->get('id_pemesanan_menu');
 
 		$result_array=array();
-		$data=$this->db->query("DELETE FROM pemesanan_menu WHERE id='$id_pemesanan_menu'");
-		if(!$data){
 
-				$pesan['pesan']=0;
-				array_push($result_array, $pesan);
-				echo json_encode($data);
-		}else{
+				$data1=$this->db->query("SELECT id_menu,jumlah_pesan FROM pemesanan_menu WHERE id='$id_pemesanan_menu'")->row();
+				$id_menu=$data1->id_menu;
+				$jumlah_pesan=$data1->jumlah_pesan;
+				$data2=$this->db->query("SELECT stok FROM menu WHERE id='$id_menu'")->row();
+				$stok_baru=$data2->stok+$jumlah_pesan;
+				$data3=$this->db->query("UPDATE menu SET stok='$stok_baru' WHERE id='$id_menu'");
 
-				$data2=$this->db->query("SELECT SUM(subharga) as subhargamenu FROM pemesanan_menu WHERE id_pemesanan='$id_pemesanan'")->row();
-				$subhargamenu=$data2->subhargamenu;
 
-				$data3=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
-				$subhargapaket=$data3->subhargapaket;
+				$data4=$this->db->query("DELETE FROM pemesanan_menu WHERE id='$id_pemesanan_menu'");
+
+				$data5=$this->db->query("SELECT SUM(subharga) as subhargamenu FROM pemesanan_menu WHERE id_pemesanan='$id_pemesanan'")->row();
+				$subhargamenu=$data5->subhargamenu;
+
+				$data6=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
+				$subhargapaket=$data6->subhargapaket;
 
 				$total_harga=$subhargamenu+$subhargapaket;
-				$data4=$this->db->query("UPDATE pemesanan SET total_harga='$total_harga' WHERE id='$id_pemesanan'");
+				$data7=$this->db->query("UPDATE pemesanan SET total_harga='$total_harga' WHERE id='$id_pemesanan'");
 
-				$pesan['pesan']=1;
-				array_push($result_array, $pesan);
-				echo json_encode($result_array);
-		}
+		$pesan['pesan']=1;
+		array_push($result_array, $pesan);
+		echo json_encode($result_array);
+
 
 	}
 
@@ -784,25 +794,31 @@ class Kasir extends CI_Controller {
 	  $subharga_baru=$harga*$jumlah_pesan_baru;
 
 	  $result_array=array();
-	  $data=$this->db->query("UPDATE pemesanan_paket SET jumlah_pesan='$jumlah_pesan_baru', subharga='$subharga_baru' WHERE id='$id_pemesanan_paket'");
-	  if(!$data){
-	      $pesan['pesan']=0;
-	      array_push($result_array, $pesan);
-	      echo json_encode($data);
-	  }else{
-	      $data2=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
-	      $subhargapaket=$data2->subhargapaket;
 
-	      $data3=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
-	      $subhargapaket=$data3->subhargapaket;
+	  		$data=$this->db->query("UPDATE pemesanan_paket SET jumlah_pesan='$jumlah_pesan_baru', subharga='$subharga_baru' WHERE id='$id_pemesanan_paket'");
+
+				$data1=$this->db->query("SELECT id_paket FROM pemesanan_paket WHERE id='$id_pemesanan_paket'")->row();
+				$id_paket=$data1->id_paket;
+
+
+				$data2=$this->db->query("SELECT jumlah FROM paket WHERE id='$id_paket'")->row();
+				$stok_baru=$data2->jumlah-1;
+				$data3=$this->db->query("UPDATE paket SET jumlah='$stok_baru' WHERE id='$id_paket'");
+
+
+	      $data4=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
+	      $subhargapaket=$data4->subhargapaket;
+
+	      $data5=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
+	      $subhargapaket=$data5->subhargapaket;
 
 	      $total_harga=$subhargapaket+$subhargapaket;
-	      $data4=$this->db->query("UPDATE pemesanan SET total_harga='$total_harga' WHERE id='$id_pemesanan'");
+	      $data6=$this->db->query("UPDATE pemesanan SET total_harga='$total_harga' WHERE id='$id_pemesanan'");
 
 	      $pesan['pesan']=1;
 	      array_push($result_array, $pesan);
 	      echo json_encode($result_array);
-	  }
+
 
 	}
 
@@ -815,27 +831,28 @@ class Kasir extends CI_Controller {
 	  $subharga_baru=$harga*$jumlah_pesan_baru;
 
 	  $result_array=array();
-	  $data=$this->db->query("UPDATE pemesanan_paket SET jumlah_pesan='$jumlah_pesan_baru', subharga='$subharga_baru' WHERE id='$id_pemesanan_paket'");
-	  if(!$data){
+	  		$data=$this->db->query("UPDATE pemesanan_paket SET jumlah_pesan='$jumlah_pesan_baru', subharga='$subharga_baru' WHERE id='$id_pemesanan_paket'");
 
-	      $pesan['pesan']=0;
-	      array_push($result_array, $pesan);
-	      echo json_encode($data);
-	  }else{
+				$data1=$this->db->query("SELECT id_paket FROM pemesanan_paket WHERE id='$id_pemesanan_paket'")->row();
+				$id_paket=$data1->id_paket;
 
-	      $data2=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
-	      $subhargapaket=$data2->subhargapaket;
+				$data2=$this->db->query("SELECT jumlah FROM paket WHERE id='$id_paket'")->row();
+				$stok_baru=$data2->jumlah+1;
+				$data3=$this->db->query("UPDATE paket SET jumlah='$stok_baru' WHERE id='$id_paket'");
 
-	      $data3=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
-	      $subhargapaket=$data3->subhargapaket;
+	      $data4=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
+	      $subhargapaket=$data4->subhargapaket;
+
+	      $data5=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
+	      $subhargapaket=$data5->subhargapaket;
 
 	      $total_harga=$subhargapaket+$subhargapaket;
-	      $data4=$this->db->query("UPDATE pemesanan SET total_harga='$total_harga' WHERE id='$id_pemesanan'");
+	      $data6=$this->db->query("UPDATE pemesanan SET total_harga='$total_harga' WHERE id='$id_pemesanan'");
 
 	      $pesan['pesan']=1;
 	      array_push($result_array, $pesan);
 	      echo json_encode($result_array);
-	  }
+
 
 	}
 
@@ -844,28 +861,42 @@ class Kasir extends CI_Controller {
 	  $id_pemesanan_paket=$this->input->get('id_pemesanan_paket');
 
 	  $result_array=array();
-	  $data=$this->db->query("DELETE FROM pemesanan_paket WHERE id='$id_pemesanan_paket'");
-	  if(!$data){
 
-	      $pesan['pesan']=0;
-	      array_push($result_array, $pesan);
-	      echo json_encode($data);
-	  }else{
+				$data1=$this->db->query("SELECT id_paket,jumlah_pesan FROM pemesanan_paket WHERE id='$id_pemesanan_paket'")->row();
+				$id_paket=$data1->id_paket;
+				$jumlah_pesan=$data1->jumlah_pesan;
+				$data2=$this->db->query("SELECT jumlah FROM paket WHERE id='$id_paket'")->row();
+				$stok_baru=$data2->jumlah+$jumlah_pesan;
+				$data3=$this->db->query("UPDATE paket SET jumlah='$stok_baru' WHERE id='$id_paket'");
 
-	      $data2=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
-	      $subhargapaket=$data2->subhargapaket;
+			  $data4=$this->db->query("DELETE FROM pemesanan_paket WHERE id='$id_pemesanan_paket'");
 
-	      $data3=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
-	      $subhargapaket=$data3->subhargapaket;
+
+	      $data5=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
+	      $subhargapaket=$data5->subhargapaket;
+
+	      $data6=$this->db->query("SELECT SUM(subharga) as subhargapaket FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->row();
+	      $subhargapaket=$data6->subhargapaket;
 
 	      $total_harga=$subhargapaket+$subhargapaket;
-	      $data4=$this->db->query("UPDATE pemesanan SET total_harga='$total_harga' WHERE id='$id_pemesanan'");
+	      $data7=$this->db->query("UPDATE pemesanan SET total_harga='$total_harga' WHERE id='$id_pemesanan'");
 
 	      $pesan['pesan']=1;
 	      array_push($result_array, $pesan);
 	      echo json_encode($result_array);
-	  }
 
+	}
+
+	public function get_id_pemesan1(){
+		$nama_pemesan=$this->input->get('nama_pemesan');
+		$data=$this->db->query("SELECT id from pemesanan WHERE nama_pemesan='$nama_pemesan' AND status='customer memesan'")->result();
+		echo json_encode($data);
+	}
+
+	public function get_id_pemesan2(){
+		$no_meja=$this->input->get('no_meja');
+		$data=$this->db->query("SELECT id from pemesanan WHERE no_meja='$no_meja' AND status='customer memesan'")->result();
+		echo json_encode($data);
 	}
 
 

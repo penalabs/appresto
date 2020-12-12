@@ -52,7 +52,7 @@
         }elseif ($tipe == true) {
           echo "<h2>Dashboard ".$tipe."</h2>";
         }
-       ?> 
+       ?>
       </h1>
 
     </section>

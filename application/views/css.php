@@ -20,5 +20,7 @@
 	<link rel="stylesheet" href="<?php echo base_url('plugins/Ionicons/css/ionicons.min.css');?>">
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  
+
   <link rel="stylesheet" href="<?php echo base_url('plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css');?>">
+
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/ui-lightness/jquery-ui.css" />
