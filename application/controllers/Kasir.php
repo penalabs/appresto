@@ -888,16 +888,95 @@ class Kasir extends CI_Controller {
 	}
 
 	public function get_id_pemesan1(){
+		$result_array=array();
 		$nama_pemesan=$this->input->get('nama_pemesan');
-		$data=$this->db->query("SELECT id from pemesanan WHERE nama_pemesan='$nama_pemesan' AND status='customer memesan'")->result();
-		echo json_encode($data);
+
+		$data1=$this->db->query("SELECT id from pemesanan WHERE nama_pemesan='$nama_pemesan' AND status IN ('customer memesan','belum membayar') group by nama_pemesan order by nama_pemesan ASC limit 1")->row();
+		$id_pemesanan=$data1->id;
+		$result1=$this->db->query("SELECT * FROM pemesanan_menu WHERE id_pemesanan='$id_pemesanan'")->result();
+		$result2=$this->db->query("SELECT * FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->result();
+		if (count($result1) > 0 && count($result2) > 0) {
+				$data=$this->db->query("SELECT id,no_meja from pemesanan WHERE nama_pemesan='$nama_pemesan' AND status IN ('customer memesan','belum membayar') group by nama_pemesan order by nama_pemesan ASC limit 1")->row();
+				$pesan['pesan']=1;
+				$pesan['id']=$data->id;
+				$pesan['no_meja']=$data->no_meja;
+				array_push($result_array, $pesan);
+		}else if(count($result1) > 0){
+				$data=$this->db->query("SELECT id,no_meja from pemesanan WHERE nama_pemesan='$nama_pemesan' AND status IN ('customer memesan','belum membayar') group by nama_pemesan order by nama_pemesan ASC limit 1")->row();
+				$pesan['pesan']=1;
+				$pesan['id']=$data->id;
+				$pesan['no_meja']=$data->no_meja;
+				array_push($result_array, $pesan);
+		}else if(count($result2) > 0){
+				$data=$this->db->query("SELECT id,no_meja from pemesanan WHERE nama_pemesan='$nama_pemesan' AND status IN ('customer memesan','belum membayar') group by nama_pemesan order by nama_pemesan ASC limit 1")->row();
+				$pesan['pesan']=1;
+				$pesan['id']=$data->id;
+				$pesan['no_meja']=$data->no_meja;
+				array_push($result_array, $pesan);
+		}else{
+				$pesan['pesan']=0;
+				$pesan['id']=$id_pemesanan;
+				$pesan['no_meja']=0;
+				array_push($result_array, $pesan);
+		}
+		echo json_encode($result_array);
 	}
 
 	public function get_id_pemesan2(){
 		$no_meja=$this->input->get('no_meja');
-		$data=$this->db->query("SELECT id from pemesanan WHERE no_meja='$no_meja' AND status='customer memesan'")->result();
+		$data=$this->db->query("SELECT id,no_meja from pemesanan WHERE no_meja='$no_meja' AND status IN ('customer memesan','belum membayar') limit 1")->result();
 		echo json_encode($data);
 	}
 
+	function set_no_meja(){
+		$no_meja_baru=$this->input->get('no_meja_baru');
+		$id_pemesanan=$this->input->get('id_pemesanan');
+		$result_array=array();
+		$data=$this->db->query("UPDATE pemesanan SET no_meja='$no_meja_baru' WHERE id='$id_pemesanan'");
+		$pesan['pesan']=1;
+		array_push($result_array, $pesan);
+		echo json_encode($result_array);
+	}
+
+	function nama_pemesan(){
+		$search = $this->input->get('query');
+		$result=$this->db->query("SELECT nama_pemesan FROM pemesanan WHERE nama_pemesan like '%".$search."%' group by nama_pemesan ORDER BY id ASC")->result();
+		if (count($result) > 0) {
+                foreach ($result as $row)
+                    $arr_result[] = $row->nama_pemesan;
+                    echo json_encode($arr_result);
+                }
+	}
+
+	function hapus_transaksi(){
+		$id_pemesanan = $this->input->get('id_pemesanan');
+		$result_array=array();
+		$result1=$this->db->query("SELECT * FROM pemesanan_menu WHERE id_pemesanan='$id_pemesanan'")->result();
+		$result2=$this->db->query("SELECT * FROM pemesanan_paket WHERE id_pemesanan='$id_pemesanan'")->result();
+		if (count($result1) > 0 && count($result2) > 0) {
+				$pesan['pesan']="Masih ada item pada transaksi tidak bisa dihapus";
+				array_push($result_array, $pesan);
+		}else if(count($result1) > 0){
+				$pesan['pesan']="Masih ada item menu pada transaksi tidak bisa dihapus";
+				array_push($result_array, $pesan);
+		}else if(count($result2) > 0){
+				$pesan['pesan']="Masih ada item paket pada transaksi tidak bisa dihapus";
+				array_push($result_array, $pesan);
+		}else{
+				$result3=$this->db->query("DELETE FROM pemesanan WHERE id='$id_pemesanan'");
+				$pesan['pesan']="berhasil menghapus transaksi";
+				array_push($result_array, $pesan);
+		}
+		echo json_encode($result_array);
+	}
+
+	function add_menu(){
+		$id_pemesanan = $this->input->get('id_pemesanan');
+		$result_array=array();
+		$result1=$this->db->query("SELECT * FROM pemesanan_menu WHERE id_pemesanan='$id_pemesanan'")->result();
+		$pesan['pesan']="berhasil menghapus transaksi";
+		array_push($result_array, $pesan);
+		echo json_encode($result_array);
+	}
 
 }

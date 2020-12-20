@@ -23,4 +23,9 @@
 
   <link rel="stylesheet" href="<?php echo base_url('plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css');?>">
 
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/ui-lightness/jquery-ui.css" />
+  <!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/ui-lightness/jquery-ui.css" /> -->
+
+  <link rel="stylesheet" href="<?php echo base_url('plugins/jquery-ui.css');?>">
+  <script src="<?php echo base_url('plugins/jquery-1.12.1.js');?>"></script>
+  <script src="<?php echo base_url('plugins/jquery-ui.js');?>"></script>
+  <script src="<?php echo base_url('plugins/bootstrap3-typeahead.min.js');?>"></script>
